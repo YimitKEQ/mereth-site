@@ -3,6 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   /*
+   * This project has its own git repository nested inside the mod repo, so
+   * Turbopack walks up, finds the parent's lockfile, and warns that it is
+   * ignoring it. Pinning the root here stops the guess.
+   */
+  turbopack: { root: import.meta.dirname },
+  /*
    * Off while the route set is still being built out.
    *
    * The nav and footer already link to /shop, /support, /donate and the legal

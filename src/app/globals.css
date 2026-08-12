@@ -251,7 +251,10 @@ body {
   position: absolute;
   top: 26px;
   left: 160px;
-  right: 320px;
+  /* The language selector that used to sit outside the pill is gone, so the
+     pill now runs to the page margin and the row has room for five items plus
+     search without tightening. */
+  right: 40px;
   height: 90px;
   border: 3px solid #9fb8c47a;
   border-radius: 24px;
@@ -284,23 +287,22 @@ body {
   flex-shrink: 0;
 }
 
-.navbar-language-selector {
-  position: absolute;
-  top: 40px;
-  right: 84px;
-  display: flex;
-  align-items: center;
-}
-
-/* Anchored under the trigger, lifted off the page by a drop shadow. */
+/* Anchored under the trigger, lifted off the page by a drop shadow.
+   Left-aligned rather than centred, because a menu whose items carry a hint
+   line is wide enough that centring pushes the last one off the pill. */
 .navbar-dropdown {
   position: absolute;
-  top: calc(100% + 24px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 270px;
+  top: calc(100% + 26px);
+  left: -20px;
+  width: 286px;
   z-index: var(--z-dropdown);
-  filter: drop-shadow(0 0 6px #0006);
+  filter: drop-shadow(0 0 10px #0009);
+}
+
+/* The last dropdown in the row would otherwise open past the right edge. */
+.navbar-links > div:last-child .navbar-dropdown {
+  left: auto;
+  right: -20px;
 }
 
 .navbar-hamburger {
@@ -359,13 +361,12 @@ body {
   height: auto;
 }
 
-/* Between these widths the link row plus both buttons no longer fit inside the
-   pill, and because the pill is overflow:visible the overflow lands on top of
-   the language selector instead of clipping. Tighten rather than let it spill. */
+/* Between these widths the row no longer fits at its full gap, so it tightens
+   rather than spilling out of the pill (which is overflow:visible by design,
+   so a spill lands on the page instead of clipping). */
 @media (max-width: 1720px) {
-  .navbar-pill { right: 300px; }
   .navbar-pill-content { padding: 0 20px 0 180px; gap: 16px; }
-  .navbar-links { gap: 16px; }
+  .navbar-links { gap: 18px; }
 }
 
 @media (max-width: 1500px) {
@@ -374,19 +375,19 @@ body {
   .navbar-pill {
     top: 22px;
     left: 182px;
-    right: 288px;
+    right: 32px;
     height: 80px;
     border-width: 2.667px;
     border-radius: 20px;
     box-shadow: 0 0 4px 0.3px #0009;
   }
-  .navbar-pill-content { padding: 0 20px 0 176px; }
-  .navbar-links { gap: 20px; }
+  .navbar-pill-content { padding: 0 16px 0 176px; gap: 12px; }
+  .navbar-links { gap: 14px; }
   .navbar-mobile-drawer { top: 106px; }
 }
 
 /* Below this the links no longer fit at any tightening, so the pill collapses. */
-@media (max-width: 1499px) {
+@media (max-width: 1279px) {
   .navbar-wrapper { height: 92px; }
   .navbar-pill {
     top: 18px;
@@ -394,10 +395,7 @@ body {
     right: 12px;
     height: 64px;
   }
-  .navbar-pill-content,
-  .navbar-language-selector {
-    display: none;
-  }
+  .navbar-pill-content { display: none; }
   .navbar-hamburger { display: flex; }
   .navbar-logo-link { left: 12px; }
   .navbar-mobile-drawer { top: 92px; }
@@ -417,17 +415,8 @@ body {
 /* The hero art runs up behind the sticky navbar, so it pulls back by the
    wrapper's height at each step rather than by a single guessed offset. */
 .hero-bleed { margin-top: -116px; }
-/* Between these widths the link row plus both buttons no longer fit inside the
-   pill, and because the pill is overflow:visible the overflow lands on top of
-   the language selector instead of clipping. Tighten rather than let it spill. */
-@media (max-width: 1720px) {
-  .navbar-pill { right: 300px; }
-  .navbar-pill-content { padding: 0 20px 0 180px; gap: 16px; }
-  .navbar-links { gap: 16px; }
-}
-
 @media (max-width: 1500px) { .hero-bleed { margin-top: -106px; } }
-@media (max-width: 1199px) { .hero-bleed { margin-top: -92px; } }
+@media (max-width: 1279px) { .hero-bleed { margin-top: -92px; } }
 
 /* ---------------------------------------------------------------------------
    Background stage
@@ -478,4 +467,24 @@ body {
     radial-gradient(120% 62% at 50% 0%, #9fb8c41f 0%, transparent 58%),
     radial-gradient(100% 60% at 50% 100%, #070b0ee6 0%, transparent 72%),
     linear-gradient(180deg, #0d1318b3 0%, #0d131866 34%, #0b1013d9 100%);
+}
+
+/* ---------------------------------------------------------------------------
+   Reading scrim
+   ---------------------------------------------------------------------------
+   The plate is right behind a hero and wrong behind six thousand words. A page
+   that is meant to be read gets a near-solid ground instead, with just enough
+   of the plate left at the crown for the header to still sit on something.
+
+   Painted at the same layer as the background stage and later in the DOM, so
+   it covers the plate while page content (z-index auto) still sits above both.
+   --------------------------------------------------------------------------- */
+
+.reading-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #0b1013cc 0%, #0b1013f2 22%, #0b1013 46%, #0b1013 100%);
 }

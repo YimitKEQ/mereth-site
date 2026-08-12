@@ -1,65 +1,146 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { PageHeading } from "@/components/layout/PageHeading";
-import { OrnateBox } from "@/components/ornament/OrnateBox";
-import { TicketForm } from "@/components/support/TicketForm";
+import { ReadingScrim } from "@/components/layout/ReadingScrim";
+import { OrnateDivider } from "@/components/ornament/Divider";
+import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { ButtonLink } from "@/components/ui/Button";
+import { mereth } from "@/lib/mereth";
 
-export const metadata: Metadata = { title: "Support" };
+export const metadata: Metadata = {
+  title: "Getting help",
+  description:
+    "Where to take a problem with Mereth, which failures you can fix yourself, and what the client's own error messages mean.",
+};
 
-const ROUTES = [
-  { problem: "Cannot log in", where: "Ticket", eta: "Under 12 hours" },
-  { problem: "Stuck character or lost item", where: "Ticket", eta: "Under 24 hours" },
-  { problem: "Bug report", where: "Discord", eta: "Triaged daily" },
-  { problem: "General question", where: "Discord", eta: "Usually minutes" },
+/**
+ * Routing, not a form.
+ *
+ * This site has no ticket system and cannot get anybody unstuck, so a contact
+ * form here would be theatre. What it can do is answer the question fastest for
+ * the failures that are self-inflicted, and send everything else to the one
+ * place that can actually help, which is a Discord ticket.
+ */
+const routes = [
+  {
+    problem: "It will not connect",
+    answer:
+      "Almost always your mod list, and the client says which of four causes it is. Read the exact wording before changing anything, then reinstall through the launcher.",
+    href: "/faq#connect",
+    label: "The six connection failures",
+  },
+  {
+    problem: "My lockpick does nothing",
+    answer:
+      "The skill is not locked into your plan. Lockpicking and pickpocketing refuse outright until assigned, which reads exactly like a bug and is not one.",
+    href: "/faq#skills",
+    label: "How memory points work",
+  },
+  {
+    problem: "My weapon does no damage",
+    answer:
+      "No points in that weapon skill means no damage at all with it. Deliberate, so that civilians stay civilian and specialists feel like specialists.",
+    href: "/faq#combat",
+    label: "Why that is a rule",
+  },
+  {
+    problem: "My chest emptied itself",
+    answer:
+      "Ordinary containers regenerate their contents. Only a container bound to a parcel through the holdstone keeps what you put in it.",
+    href: "/world#holds",
+    label: "Parcels and property",
+  },
+  {
+    problem: "A rule question, or a dispute with another player",
+    answer:
+      "Staff, through a Discord ticket. Mereth adjudicates conduct and consequences by hand, and nothing in the game records an accusation for you.",
+    href: "/discord",
+    label: "Open a ticket",
+  },
+  {
+    problem: "A bug, or something genuinely broken",
+    answer:
+      "Discord. They ship near-daily and triage quickly, and a report with your exact error text is worth ten without it.",
+    href: "/discord",
+    label: "Report it",
+  },
 ];
 
 export default function SupportPage() {
+  const troubles = mereth.messages.troubles
+    .filter((message) => /Disconnect|mod list|plugin|SKSE|load order|slot/i.test(message))
+    .slice(0, 10);
+
   return (
-    <div className="mx-auto max-w-site px-6 pt-12 pb-8 md:px-8 md:pt-16">
-      <PageHeading
-        title="Support"
-        subtitle="Tell us what happened and we will get to it. Check the wiki first if it is a question rather than a fault."
-      />
+    <div className="mx-auto max-w-[70rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
+      <ReadingScrim />
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <TicketForm />
+      <header className="max-w-3xl">
+        <p className="font-display text-[11px] tracking-[3px] text-brand-accent/70 uppercase">
+          Help
+        </p>
+        <h1 className="font-display mt-3 text-3xl tracking-title text-text-primary text-shadow-page-heading md:text-[var(--text-page-title)]">
+          Getting help
+        </h1>
+        <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
+          This site is a player-built handbook. It has no ticket system and cannot get anybody
+          unstuck, so the useful thing it can do is answer the questions that are self-inflicted and
+          send everything else to the people who can actually help.
+        </p>
+      </header>
 
-        <aside className="flex flex-col gap-6 lg:sticky lg:top-[132px] lg:self-start">
-          <OrnateBox size="sm" contentClassName="p-6">
-            <h2 className="font-display text-xs tracking-heading text-brand-accent">
-              Where to go
+      <OrnateDivider className="my-12" />
+
+      <div className="grid max-w-4xl gap-4 md:grid-cols-2">
+        {routes.map((route) => (
+          <article
+            key={route.problem}
+            className="relative flex flex-col border border-brand-accent/30 bg-black/30 p-6"
+          >
+            <FrameCorners weight="thin" size={16} />
+            <h2 className="font-display relative text-[1rem] tracking-heading text-brand-accent uppercase">
+              {route.problem}
             </h2>
-            <ul className="mt-4 flex flex-col gap-4">
-              {ROUTES.map((route) => (
-                <li key={route.problem}>
-                  <p className="text-sm text-text-primary">{route.problem}</p>
-                  <p className="mt-1 text-xs text-text-muted">
-                    {route.where} · {route.eta}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </OrnateBox>
-
-          <OrnateBox size="sm" contentClassName="p-6">
-            <h2 className="font-display text-xs tracking-heading text-brand-accent">
-              Before you write
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-text-muted">
-              Most login problems are the realmlist. The{" "}
-              <Link href="/wiki/first-hour" className="text-brand-accent underline-offset-4 hover:underline">
-                first hour guide
-              </Link>{" "}
-              covers it, and{" "}
-              <Link href="/wiki/getting-help" className="text-brand-accent underline-offset-4 hover:underline">
-                getting help
-              </Link>{" "}
-              lists what to include.
+            <p className="relative mt-3 flex-1 text-[0.9rem] leading-relaxed text-text-muted">
+              {route.answer}
             </p>
-          </OrnateBox>
-        </aside>
+            <Link
+              href={route.href}
+              className="relative mt-4 text-[0.85rem] text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
+            >
+              {route.label} <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </article>
+        ))}
       </div>
+
+      <section className="mt-16 max-w-3xl">
+        <h2 className="font-display text-xl tracking-heading text-brand-accent uppercase">
+          Read the error, not the forum
+        </h2>
+        <p className="mt-4 text-[0.98rem] leading-[1.85] text-text-light">
+          Mereth&apos;s client distinguishes an unusual number of separate failures, which means the
+          exact wording on your screen tells you what to do. These are its own messages, verbatim:
+        </p>
+        <ul className="mt-6 space-y-2">
+          {troubles.map((message) => (
+            <li
+              key={message}
+              className="border-l border-brand-accent/25 py-1 pl-4 font-mono text-[0.8rem] leading-relaxed text-text-light"
+            >
+              {message}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-9 flex flex-wrap gap-4">
+          <ButtonLink href="/faq#connect" variant="solid" size="md">
+            What each one means
+          </ButtonLink>
+          <ButtonLink href="/discord" size="md">
+            Open a ticket
+          </ButtonLink>
+        </div>
+      </section>
     </div>
   );
 }

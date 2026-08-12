@@ -3,6 +3,13 @@
  *
  * One map instead of a dozen near-identical route files. Each entry renders
  * through `SimplePage`, so adding a page is adding an entry.
+ *
+ * A standing rule for everything in this file: **this site does not speak for
+ * Mereth.** The first version of these pages was inherited from a template and
+ * invented plausible-sounding policy (rated play, a cosmetics shop, an appeals
+ * process), which on a Mereth-branded page reads as official and is worse than
+ * saying nothing. Every page here now either states something checkable or
+ * sends the reader to the people who can actually answer.
  */
 
 export interface SimpleSection {
@@ -20,219 +27,242 @@ export interface SimplePageContent {
 
 export const simplePages: Record<string, SimplePageContent> = {
   community: {
-    title: "Community",
+    title: "The Hall",
     subtitle: "Where the server actually lives between patches.",
     sections: [
       {
         paragraphs: [
-          "Most of what happens here happens between people: guilds forming, keys being run at two in the morning, arguments about class balance that occasionally turn into changelog entries.",
+          "Mereth runs on Discord as much as it runs on SkyMP. That is not a convenience: your Discord account is the login, so the server and the community are the same membership.",
         ],
       },
       {
-        heading: "Where to find everyone",
+        heading: "What happens there",
         bullets: [
-          "Discord is the main room. Development updates, patch discussion, and help.",
-          "Forums hold the longer-form things: guild recruitment, guides, and feedback threads.",
-          "In game, the realm-wide channel is unmoderated for chat but not for conduct.",
+          "Release notes, which land near-daily and are the closest thing to a changelog the server publishes.",
+          "Tickets, which is how every rule question, dispute and bug report reaches staff.",
+          "Applications for whitelisted roles, including the leadership positions inside holds.",
+          "The out-of-character conversation that most in-character plots are arranged in.",
+        ],
+      },
+      {
+        heading: "About this site",
+        paragraphs: [
+          "This is a player-built handbook, not an official Mereth surface. It is assembled from the client their launcher installs, their published manifest and their dated release notes, and it says on every claim which of those it came from. Where it disagrees with the team, the team is right.",
         ],
       },
     ],
-    cta: { label: "Join Discord", href: "/discord" },
+    cta: { label: "Join the Discord", href: "/discord" },
   },
+
   discord: {
     title: "Discord",
-    subtitle: "The fastest way to reach players and staff.",
+    subtitle: "The login, the front door, and the only support channel.",
     sections: [
       {
         paragraphs: [
-          "The invite is not live in this prototype. On the real site this page redirects straight to the server invite rather than rendering at all.",
+          "Mereth authenticates through Discord rather than a username and password. The client has separate failure messages for being outside their Discord and for never having logged in through it, so joining is not optional: it is the account system.",
         ],
       },
       {
-        heading: "What is in there",
+        heading: "Once you are in",
         bullets: [
-          "Development updates as they land, before they reach the news page.",
-          "Help channels with players who have answered the question before.",
-          "Bug reports, which are triaged daily.",
-          "Recruitment, for both guilds and staff.",
+          "Read the rules before applying. They are about conduct and consistency, and one of them forbids AI-written roleplay outright.",
+          "Open a ticket for anything that needs staff: rule questions, disputes, bugs, or being genuinely stuck.",
+          "Bring your exact error text if the game will not connect. The client distinguishes far more failures than most, and the wording tells you which one you have.",
         ],
       },
-    ],
-  },
-  forums: {
-    title: "Forums",
-    subtitle: "For the conversations too long for Discord.",
-    sections: [
       {
+        heading: "This page is not the invite",
         paragraphs: [
-          "Guides, guild recruitment, class feedback and patch retrospectives. Slower than Discord on purpose: things written here are meant to still be useful in six months.",
-        ],
-      },
-      {
-        heading: "Posting",
-        bullets: [
-          "Search before you post. Most first questions have an answer already.",
-          "One topic per thread. Threads that sprawl get split.",
-          "Feedback is welcome and blunt feedback is fine. Personal attacks are not.",
+          "The invite belongs to Mereth and changes at their discretion, so this handbook does not mirror it. Search for Mereth Roleplay, or follow the link from their own site.",
         ],
       },
     ],
+    cta: { label: "The connection errors, explained", href: "/faq#connect" },
   },
+
   staff: {
-    title: "Staff Team",
-    subtitle: "Who runs the server, and what each role can actually do.",
+    title: "Officers",
+    subtitle: "Who runs Mereth, and what this site can honestly tell you about them.",
     sections: [
       {
-        heading: "Roles",
-        bullets: [
-          "Administrators: infrastructure, the database, and final say on appeals.",
-          "Developers: scripting, core changes, and the patch notes.",
-          "Game Masters: tickets, stuck characters, and rule enforcement in game.",
-          "Moderators: Discord and forums only. No in-game powers.",
+        paragraphs: [
+          "Mereth is run by BStarRP, a roleplay community that came to Skyrim from FiveM and RedM. Development is effectively one person, shipping at a pace that shows in the release history: hundreds of releases since the server launched in July 2026.",
         ],
       },
       {
-        heading: "What staff will never do",
+        heading: "In-world authority is played, not administered",
         bullets: [
-          "Ask for your password. Not in a ticket, not in a DM, never.",
-          "Give items or gold outside a documented restoration.",
-          "Take an enforcement action without logging who took it and why.",
+          "Jarls and stewards hold real mechanical power through the holdstone: ranks, parcels and access.",
+          "Guard, Guard Captain and Commander are ranks inside a hold, held by players.",
+          "Leadership roles are whitelisted, which means an application rather than an election.",
+        ],
+      },
+      {
+        heading: "Out-of-character authority is a ticket",
+        paragraphs: [
+          "There is no bounty system and no automated enforcement. Accusations, sentences and appeals are adjudicated by staff reading Discord tickets, which is worth knowing before you build a character around consequences: nothing in the game records one for you.",
+        ],
+      },
+      {
+        heading: "Names",
+        paragraphs: [
+          "This handbook does not publish a staff roster. Roles change, and a stale list of real people on a site the team does not control is worth less than a link to the current one.",
         ],
       },
     ],
-    cta: { label: "Open a ticket", href: "/support" },
+    cta: { label: "Open a ticket", href: "/discord" },
   },
+
   rules: {
-    title: "Rules",
-    subtitle: "Short, enforced, and applied the same way to everyone.",
+    title: "Laws",
+    subtitle: "What this site can tell you, and where the authoritative version lives.",
     sections: [
       {
-        heading: "The rules",
-        bullets: [
-          "One account per person. Multiboxing is not permitted in rated play.",
-          "No third-party automation, including anything that plays for you while you are away.",
-          "Do not exploit a bug. Report it, and you will be credited in the patch notes.",
-          "Keep public channels usable. Harassment is an immediate removal.",
-          "Real-money trading of in-game goods is a permanent removal, both sides.",
+        paragraphs: [
+          "Mereth's rules are published and enforced by the team on Discord, and that copy is the only one that counts. What follows is context a new player usually wants before reading them, not a substitute.",
         ],
       },
       {
-        heading: "How enforcement works",
+        heading: "The one people trip over",
         paragraphs: [
-          "Escalation runs warning, mute, temporary suspension, permanent removal. Skipping a step requires a second staff member to agree, and every action is logged with who took it and why.",
-          "Appeals go through a ticket and are reviewed by someone other than the person who took the action.",
+          "AI-written roleplay is forbidden. The rule is explicit, and the applications for whitelisted leadership roles ask about it directly. Write your own character.",
+        ],
+      },
+      {
+        heading: "How consequence works here",
+        bullets: [
+          "In character, players can tackle, cuff and shackle each other, and cuffing produces a real incapacitated state.",
+          "Nothing persists after that. No bounty, no record, no debt that follows anyone.",
+          "So sentences are written ones. The published sanctions run as far as life imprisonment, banishment and execution, adjudicated by staff.",
+          "Which means a scene has the weight the people in it agree to give it, and the ticket afterwards is where it becomes real.",
+        ],
+      },
+      {
+        heading: "Also worth knowing before you play",
+        bullets: [
+          "Magic is legal by hold, not by province. Every hold sets its own law on casting, teaching and licences.",
+          "No characters from Elder Scrolls lore. Familiar clans, yes; copy-paste characters, no.",
+          "New players do not start with magic, without exception.",
         ],
       },
     ],
-    cta: { label: "Read the full conduct guide", href: "/wiki/rules-and-conduct" },
+    cta: { label: "Read the rules on Discord", href: "/discord" },
   },
+
   donate: {
-    title: "Donate",
-    subtitle: "What the money pays for, and what it will never buy.",
+    title: "Supporting Mereth",
+    subtitle: "Where support goes, and what this handbook does not take.",
     sections: [
       {
         paragraphs: [
-          "The server is free to play and will stay that way. Donations cover hosting, and when they exceed hosting they cover development time.",
+          "Mereth is free to play and funded by its own community through Patreon. Hosting a synchronised Skyrim province with a mod list this size is not cheap, and the money goes there.",
         ],
       },
       {
-        heading: "What it never buys",
-        bullets: [
-          "Gear, gold, levels, or any advantage in play.",
-          "Faster ticket handling.",
-          "Immunity from the rules.",
+        heading: "This site takes nothing",
+        paragraphs: [
+          "This handbook is player-built and unaffiliated. It has no shop, no accounts and no payments, and it will not collect money on Mereth's behalf. If you want to support the server, do it through the team's own channels so it reaches them directly.",
         ],
       },
       {
-        heading: "What it does buy",
-        bullets: [
-          "Cosmetics: mounts, pets, toys and tabards.",
-          "Convenience services: renames, transfers, faction changes.",
+        heading: "Worth saying plainly",
+        paragraphs: [
+          "Support is not a route to advantage. Skills are capped by memory points spent at character creation, magic requires a teacher and a book, and property is granted by a jarl. None of those has a price.",
         ],
       },
     ],
-    cta: { label: "Open the shop", href: "/shop" },
+    cta: { label: "Find the team on Discord", href: "/discord" },
   },
+
   privacy: {
-    title: "Privacy Policy",
-    subtitle: "What is collected, why, and how long it is kept.",
+    title: "Privacy",
+    subtitle: "What this site collects, which is very little.",
     sections: [
       {
-        heading: "What is collected",
+        paragraphs: [
+          "This is a static handbook. It has no accounts, no login, no comments and no forms, so there is nothing here to sign up for and nothing to hand over.",
+        ],
+      },
+      {
+        heading: "What the site stores",
         bullets: [
-          "Account data: username, email, and a hashed password.",
-          "Connection data: IP address and client version, used for security and multi-account detection.",
-          "Gameplay data: characters, progress and purchases.",
+          "Nothing in a database, because there is no database.",
+          "A skill plan lives entirely in the address bar, in the part after the #, which is never sent to any server. Sharing a plan means sharing that link and nothing else.",
+          "Standard web server request logs, which any host keeps.",
         ],
       },
       {
-        heading: "What is not",
-        paragraphs: [
-          "No advertising or analytics trackers, no data sold to anyone, and no reading of private in-game messages except where a ticket names them as evidence.",
+        heading: "What it loads",
+        bullets: [
+          "One self-hosted display typeface and one from Google Fonts.",
+          "Its own data files, served from the same site.",
+          "No analytics, no advertising, no third-party trackers, no cookies set by this site.",
         ],
       },
       {
-        heading: "Your rights",
+        heading: "Mereth itself is separate",
         paragraphs: [
-          "Ask for a copy of your data or its deletion through a ticket. Deletion removes the account and its characters, and is not reversible.",
-          "This is prototype copy, not legal advice, and needs a lawyer's eye before it goes anywhere real.",
+          "The game server authenticates through Discord and handles its own data. Nothing on this site is connected to your Mereth account, and this site could not read it if it tried.",
         ],
       },
     ],
   },
-  refunds: {
-    title: "Refund Policy",
-    subtitle: "When a purchase can be reversed, and when it cannot.",
-    sections: [
-      {
-        heading: "Refundable",
-        bullets: [
-          "Anything unclaimed, within 14 days of purchase.",
-          "Any purchase that failed to deliver, at any time.",
-          "Duplicate charges, always.",
-        ],
-      },
-      {
-        heading: "Not refundable",
-        bullets: [
-          "Services already applied, such as a completed rename or transfer.",
-          "Cosmetics already claimed onto a character.",
-          "Purchases on an account removed for breaking the rules.",
-        ],
-      },
-      {
-        heading: "How to ask",
-        paragraphs: [
-          "Open a ticket with the transaction reference. Refunds are processed to the original payment method and take a few working days to appear.",
-          "This is prototype copy, not legal advice.",
-        ],
-      },
-    ],
-    cta: { label: "Open a ticket", href: "/support" },
-  },
+
   terms: {
-    title: "Terms of Service",
-    subtitle: "The agreement between you and the server.",
+    title: "Terms",
+    subtitle: "What this site is, and what it is not.",
     sections: [
       {
-        heading: "Your account",
-        bullets: [
-          "You are responsible for what happens on it, including anyone you share it with.",
-          "Accounts are not property and cannot be sold or transferred.",
-          "Access can be withdrawn for breaking the rules.",
+        heading: "Not official",
+        paragraphs: [
+          "This is a player-built handbook for Mereth Roleplay. It is not run by, endorsed by, or affiliated with the Mereth team, BStarRP, Bethesda Softworks or ZeniMax. Where anything here disagrees with the team, the team is right and this site is wrong.",
         ],
       },
       {
-        heading: "Service",
+        heading: "Where the facts come from",
+        bullets: [
+          "The client Mereth's own launcher installs, quoted verbatim where it is quoted.",
+          "Their published release notes, cited by version and date.",
+          "The plugins in their published mod list, read as data.",
+          "The team's own posted answers, reorganised but never changed in substance.",
+        ],
+      },
+      {
+        heading: "Accuracy",
         paragraphs: [
-          "This is a volunteer-run service provided as-is. Downtime happens, and progress can in rare cases be lost to a rollback. Backups run regularly, but no guarantee is offered.",
-          "This is prototype copy, not legal advice, and needs review before it goes live anywhere.",
+          "The server ships almost daily, so anything here can go out of date between one visit and the next. Every page shows the date its data was indexed. Treat this as a good map, not as the territory, and check anything that matters against the team.",
+        ],
+      },
+      {
+        heading: "Content",
+        paragraphs: [
+          "The Elder Scrolls, Skyrim and their content are the property of Bethesda Softworks. Mereth's own text, quoted here as evidence, belongs to Mereth. The writing, code and design of this handbook are its author's.",
         ],
       },
     ],
+  },
+
+  refunds: {
+    title: "Refunds",
+    subtitle: "There is nothing here to buy.",
+    sections: [
+      {
+        paragraphs: [
+          "This handbook sells nothing, takes no payments and has no shop, so there is nothing to refund. The page exists because people look for it.",
+        ],
+      },
+      {
+        heading: "If you supported Mereth",
+        paragraphs: [
+          "Anything you have paid went to the Mereth team through their own channels, and only they can answer a question about it. Open a Discord ticket.",
+        ],
+      },
+    ],
+    cta: { label: "Open a ticket", href: "/discord" },
   },
 };
 
-export function simplePage(slug: string): SimplePageContent | undefined {
-  return simplePages[slug];
+export function simplePage(slug: string): SimplePageContent | null {
+  return simplePages[slug] ?? null;
 }

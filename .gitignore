@@ -28,3 +28,4 @@ src/fonts/
 
 # Their background plate is 24 MB of video. Local only, never in history.
 public/art/*.mp4
+.gstack/
