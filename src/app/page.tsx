@@ -149,7 +149,7 @@ export default function HomePage() {
 
         <p className="mt-8 text-center text-[0.9rem] text-text-muted">
           <Link
-            href="/news"
+            href="/changelog"
             className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
           >
             All {counts.releases} releases since launch

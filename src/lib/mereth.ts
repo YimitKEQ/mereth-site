@@ -132,7 +132,14 @@ export interface Mereth {
   messages: { rules: string[]; troubles: string[]; other: string[] };
   systems: System[];
   services: string[];
-  mods: { name: string; modId: number | null }[];
+  mods: {
+    name: string;
+    modId: number | null;
+    /** From the archive sweep. Null when a mod is newer than the last sweep. */
+    author: string | null;
+    version: string | null;
+    contributes: string | null;
+  }[];
   plugins: string[];
   releases: Release[];
   ingredients: Ingredient[];

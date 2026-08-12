@@ -111,7 +111,10 @@ export default function MagicPage() {
             hint: "Teacher, book, time",
             content: (
               <div className="grid gap-10 lg:grid-cols-[minmax(0,68ch)_minmax(0,1fr)] lg:gap-14">
-                <div>
+                {/* min-w-0: a grid item sizes to its widest unbreakable child by
+                    default, and one long spell name was pushing the whole page
+                    sideways on a phone. */}
+                <div className="min-w-0">
                   <Blocks blocks={pipeline} />
                 </div>
                 <div className="hidden gap-6 lg:sticky lg:top-[120px] lg:grid lg:self-start">

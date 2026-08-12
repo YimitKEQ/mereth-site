@@ -158,7 +158,12 @@ const tiers = ui.levels.map((level, i) => ({
 }));
 
 // --- Systems, from the changelog's own clustering ---------------------------
-const systems = (wiki.systems ?? [])
+//
+// Read from `wiki-changelog.json` rather than `wiki.json`. The changelog is
+// refreshed on its own in seconds (`npm run wiki:changelog`); the full sweep
+// takes minutes and rebuilds things this site no longer uses, so sourcing
+// anything release-shaped from it means the site goes stale between sweeps.
+const systems = (changelog?.topics ?? [])
   .map((s) => ({
     name: s.name,
     blurb: s.blurb ?? null,
@@ -179,24 +184,78 @@ const services = (client?.services ?? [])
   .sort((a, b) => a.localeCompare(b));
 
 // --- Modlist and load order --------------------------------------------------
+//
+// The launcher manifest carries a label and an id; the sweep of the archives
+// carries the author, the version and what the mod contributes. Joined on the
+// Nexus mod id, because a credits page that lists mods without naming who made
+// them is not a credits page.
+const modMeta = new Map((wiki.mods ?? []).map((m) => [m.modId, m]));
+
 const mods = (manifest?.modList ?? [])
-  .map((m) => ({ name: m.label ?? null, modId: m.modId ?? null }))
+  .map((m) => {
+    const meta = modMeta.get(m.modId);
+    const author = (meta?.author ?? "").trim();
+    return {
+      name: m.label ?? meta?.name ?? null,
+      modId: m.modId ?? null,
+      author: author === "" ? null : author,
+      version: meta?.version ?? null,
+      contributes: meta?.contributes ?? null,
+    };
+  })
   .filter((m) => m.name)
   .sort((a, b) => a.name.localeCompare(b.name));
+
 const plugins = (manifest?.loadOrder ?? []).slice();
 
 // --- Changelog, most recent first --------------------------------------------
+//
+// A fifth of the releases are internal `-dev` builds, and they mostly restate
+// the notes of the public patch that follows them. Listing both puts the same
+// sentence on the page twice under two version numbers, which reads like the
+// changelog is broken.
+//
+// So fold them: a `-dev` build merges into its public version and its notes are
+// deduplicated by text. Dropping them outright is not an option, because 104
+// notes only ever appeared on a dev build and never got restated.
+const publicVersion = (version) => version.replace(/-dev$/i, "");
+
 const notesFor = new Map();
+const seenText = new Map();
 for (const bullet of changelog?.bullets ?? []) {
   if (!bullet.version || !bullet.text) continue;
-  if (!notesFor.has(bullet.version)) notesFor.set(bullet.version, []);
-  const list = notesFor.get(bullet.version);
+  const version = publicVersion(bullet.version);
+  if (!notesFor.has(version)) {
+    notesFor.set(version, []);
+    seenText.set(version, new Set());
+  }
+  const key = bullet.text.trim().toLowerCase();
+  const seen = seenText.get(version);
+  if (seen.has(key)) continue;
+  seen.add(key);
+  const list = notesFor.get(version);
   if (list.length < 16) list.push({ kind: bullet.kind ?? null, text: bullet.text });
 }
-const releases = (changelog?.releases ?? [])
-  .slice(0, 40)
-  .map((r) => ({ version: r.version, date: r.date ?? null, notes: notesFor.get(r.version) ?? [] }))
-  .filter((r) => r.notes.length > 0);
+
+// Collapse the release list the same way, keeping the newest date in each pair.
+const releaseDates = new Map();
+const releaseOrder = [];
+for (const r of changelog?.releases ?? []) {
+  if (!r.version) continue;
+  const version = publicVersion(r.version);
+  if (!releaseDates.has(version)) releaseOrder.push(version);
+  const known = releaseDates.get(version) ?? null;
+  const date = r.date ?? null;
+  if (known === null || (date !== null && date > known)) releaseDates.set(version, date);
+}
+const releases = releaseOrder
+  .map((version) => ({
+    version,
+    date: releaseDates.get(version) ?? null,
+    notes: notesFor.get(version) ?? [],
+  }))
+  .filter((r) => r.notes.length > 0)
+  .slice(0, 80);
 
 // --- Alchemy -----------------------------------------------------------------
 const ingredients = (deep?.ingredients ?? [])
@@ -333,12 +392,14 @@ const gathering = {
 const handbook = {
   builtAt: new Date().toISOString(),
   server: {
-    version: wiki.server?.version ?? null,
-    releases: wiki.server?.releaseCount ?? 0,
-    firstRelease: wiki.server?.firstRelease ?? null,
-    lastRelease: wiki.server?.lastRelease ?? null,
+    version: changelog?.latest ?? wiki.server?.version ?? null,
+    // Public releases, not raw entries. The raw count includes internal `-dev`
+    // builds, which are folded above and must not be counted twice.
+    releases: releaseOrder.length,
+    firstRelease: changelog?.firstRelease ?? null,
+    lastRelease: changelog?.lastRelease ?? null,
     checkedFiles: wiki.server?.checkedFiles ?? 0,
-    loadOrderLength: wiki.server?.loadOrderLength ?? 0,
+    loadOrderLength: (manifest?.loadOrder ?? []).length,
     recordsLoaded: wiki.totals?.recordsLoaded ?? 0,
     named: wiki.totals?.named ?? 0,
   },

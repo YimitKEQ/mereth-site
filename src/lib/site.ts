@@ -66,13 +66,15 @@ export const realmMenu: readonly NavLink[] = [
   { label: "Factions", href: "/factions", hint: "What they are in 4E 185" },
   { label: "Rules", href: "/rules", hint: "The rulebook, with its codes" },
   { label: "Roadmap", href: "/roadmap", hint: "What is built and what is next" },
-  { label: "Chronicle", href: "/news", hint: "What shipped, and when" },
+  { label: "Changelog", href: "/changelog", hint: "Every patch note, searchable" },
+  { label: "Gallery", href: "/gallery", hint: "Screenshots from the province" },
 ];
 
 /** Behind the Community dropdown in the navbar. */
 export const communityMenu: readonly NavLink[] = [
   { label: "Discord", href: "/discord", hint: "Your login, and the front door" },
   { label: "The Hall", href: "/community", hint: "Where the server lives between patches" },
+  { label: "Credits", href: "/credits", hint: "The authors we install" },
   { label: "Getting help", href: "/support", hint: "Where to take a problem" },
   { label: "Supporting Mereth", href: "/donate", hint: "How the server is funded" },
 ];
@@ -114,7 +116,8 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "Factions", href: "/factions" },
       { label: "Rules", href: "/rules" },
       { label: "Roadmap", href: "/roadmap" },
-      { label: "Chronicle", href: "/news" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Gallery", href: "/gallery" },
     ],
   },
   {
@@ -123,6 +126,7 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "Getting help", href: "/support" },
       { label: "Discord", href: "/discord" },
       { label: "Supporting Mereth", href: "/donate" },
+      { label: "Credits", href: "/credits" },
     ],
   },
 ];
