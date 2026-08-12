@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Contents } from "@/components/handbook/Contents";
+import { Chapters } from "@/components/handbook/Chapters";
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
@@ -33,7 +33,20 @@ export default function FaqPage() {
     ),
   }));
 
-  const contents = sections.map((section) => ({ id: section.id, title: section.title }));
+  const chapters = sections.map((section) => ({
+    id: section.id,
+    title: section.title,
+    content: (
+      <>
+        {section.blurb === undefined ? null : (
+          <p className="mb-6 max-w-[68ch] text-[0.98rem] leading-[1.8] text-text-muted">
+            {section.blurb}
+          </p>
+        )}
+        <QaList items={section.items} />
+      </>
+    ),
+  }));
 
   return (
     <div className="mx-auto max-w-[70rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
@@ -64,25 +77,7 @@ export default function FaqPage() {
 
       <OrnateDivider className="my-12" />
 
-      <div className="grid gap-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
-        <Contents items={contents} />
-
-        <div className="min-w-0 max-w-3xl">
-          {sections.map((section) => (
-            <section key={section.id} id={section.id} className="mb-14 scroll-mt-[140px]">
-              <h2 className="font-display mb-3 text-xl tracking-heading text-brand-accent uppercase md:text-2xl">
-                {section.title}
-              </h2>
-              {section.blurb !== undefined ? (
-                <p className="mb-6 max-w-[68ch] text-[0.98rem] leading-[1.8] text-text-muted">
-                  {section.blurb}
-                </p>
-              ) : null}
-              <QaList items={section.items} />
-            </section>
-          ))}
-        </div>
-      </div>
+      <Chapters chapters={chapters} />
     </div>
   );
 }

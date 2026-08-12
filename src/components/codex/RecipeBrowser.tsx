@@ -13,9 +13,12 @@ import type { Bench } from "@/lib/mereth";
  * wrong bench is the actual failure mode: the recipe exists, you are just not
  * in front of the thing that makes it.
  */
+const PAGE = 60;
+
 export function RecipeBrowser({ benches }: { benches: Bench[] }) {
   const [bench, setBench] = useState(benches[0]?.name ?? "");
   const [query, setQuery] = useState("");
+  const [limit, setLimit] = useState(PAGE);
 
   const active = benches.find((b) => b.name === bench) ?? benches[0];
 
@@ -30,6 +33,13 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
     );
   }, [active, query]);
 
+  /* The workbench alone holds 1,567 recipes. Rendered whole it made the page
+     eight thousand pixels of rows nobody scrolled, so it opens on a readable
+     number and grows on request. Searching still looks at every recipe: the
+     cap is on what is drawn, never on what is matched. */
+  const shown = recipes.slice(0, limit);
+  const remaining = recipes.length - shown.length;
+
   return (
     <div className="grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
       <nav aria-label="Benches">
@@ -41,7 +51,7 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
             <li key={item.name}>
               <button
                 type="button"
-                onClick={() => setBench(item.name)}
+                onClick={() => { setBench(item.name); setLimit(PAGE); }}
                 className={`-ml-px flex w-full cursor-pointer items-center justify-between gap-3 border-l-2 py-1.5 pl-4 text-left text-[0.85rem] transition-colors ${
                   item.name === active?.name
                     ? "border-brand-accent text-brand-accent"
@@ -62,7 +72,7 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
           <Search className="relative shrink-0 text-brand-accent" />
           <input
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => { setQuery(event.target.value); setLimit(PAGE); }}
             placeholder={`Search the ${active?.name.toLowerCase() ?? "bench"}`}
             aria-label="Search recipes"
             className="relative w-full bg-transparent text-[0.95rem] text-text-primary outline-none placeholder:text-text-placeholder"
@@ -82,7 +92,7 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
           </p>
         ) : (
           <ul>
-            {recipes.map((recipe, index) => (
+            {shown.map((recipe, index) => (
               <li
                 key={`${recipe.result}:${index}`}
                 className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-b border-border-subtle py-2.5 last:border-0"
@@ -109,6 +119,21 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
             ))}
           </ul>
         )}
+
+        {remaining > 0 ? (
+          <div className="mt-8 flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setLimit((current) => current + PAGE * 3)}
+              className="ornate-glow cursor-pointer border border-brand-accent/50 bg-black/40 px-6 py-2.5 text-[0.82rem] tracking-[1.2px] text-brand-accent uppercase transition-colors hover:border-brand-accent hover:text-brand-glow"
+            >
+              Show {Math.min(remaining, PAGE * 3)} more
+            </button>
+            <span className="text-[0.8rem] tabular-nums text-text-muted">
+              {shown.length} of {recipes.length}
+            </span>
+          </div>
+        ) : null}
       </div>
     </div>
   );

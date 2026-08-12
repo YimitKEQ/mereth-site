@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Contents } from "@/components/handbook/Contents";
+import { Chapters } from "@/components/handbook/Chapters";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
@@ -66,48 +66,48 @@ export default function RulesPage() {
 
       <OrnateDivider className="my-12" />
 
-      <div className="grid gap-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
-        <Contents items={[...contents, { id: "jarl", title: "Becoming a Jarl" }]} />
-
-        <div className="min-w-0 max-w-3xl">
-          {ruleSections.map((section) => (
-            <section key={section.id} id={section.id} className="mb-14 scroll-mt-[140px]">
-              <h2 className="font-display mb-3 text-xl tracking-heading text-brand-accent uppercase md:text-2xl">
-                {section.title}
-              </h2>
-              {section.blurb !== undefined ? (
-                <p className="mb-6 text-[0.98rem] leading-[1.8] text-text-muted">{section.blurb}</p>
-              ) : null}
-
-              <ul className="space-y-3">
-                {section.rules.map((rule) => (
-                  <li
-                    key={rule.code}
-                    className={`grid grid-cols-[4.25rem_minmax(0,1fr)] gap-4 border-l-2 py-2 pl-4 ${
-                      rule.severe === true ? "border-[#a8503c]/70" : "border-brand-accent/25"
-                    }`}
-                  >
-                    <span
-                      className={`font-mono text-[0.78rem] ${
-                        rule.severe === true ? "text-[#d08a76]" : "text-brand-accent/80"
+      <Chapters
+        chapters={[
+          ...ruleSections.map((section) => ({
+            id: section.id,
+            title: section.title,
+            content: (
+              <>
+                {section.blurb === undefined ? null : (
+                  <p className="mb-6 text-[0.98rem] leading-[1.8] text-text-muted">
+                    {section.blurb}
+                  </p>
+                )}
+                <ul className="space-y-3">
+                  {section.rules.map((rule) => (
+                    <li
+                      key={rule.code}
+                      className={`grid grid-cols-[4.25rem_minmax(0,1fr)] gap-4 border-l-2 py-2 pl-4 ${
+                        rule.severe === true ? "border-[#a8503c]/70" : "border-brand-accent/25"
                       }`}
                     >
-                      {rule.code}
-                    </span>
-                    <span className="text-[0.95rem] leading-[1.75] text-text-light">
-                      {rule.text}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-
-          <section id="jarl" className="mb-14 scroll-mt-[140px]">
-            <h2 className="font-display mb-3 text-xl tracking-heading text-brand-accent uppercase md:text-2xl">
-              Becoming a Jarl
-            </h2>
-            <p className="mb-6 text-[0.98rem] leading-[1.8] text-text-muted">
+                      <span
+                        className={`font-mono text-[0.78rem] ${
+                          rule.severe === true ? "text-[#d08a76]" : "text-brand-accent/80"
+                        }`}
+                      >
+                        {rule.code}
+                      </span>
+                      <span className="text-[0.95rem] leading-[1.75] text-text-light">
+                        {rule.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ),
+          })),
+          {
+            id: "jarl",
+            title: "Becoming a Jarl",
+            content: (
+              <>
+                <p className="mb-6 text-[0.98rem] leading-[1.8] text-text-muted">
               The most demanding position on the server, and a whitelist rather than a rule. The
               application is posted in Discord.
             </p>
@@ -142,9 +142,11 @@ export default function RulesPage() {
                 </div>
               ))}
             </div>
-          </section>
-        </div>
-      </div>
+              </>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 
 import { Blocks } from "@/components/handbook/Blocks";
-import { Contents } from "@/components/handbook/Contents";
+import { Chapters } from "@/components/handbook/Chapters";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { inline } from "@/lib/markup";
 import type { HandbookPage } from "@/lib/handbook/blocks";
 
 /**
- * The shared long-form layout: a title, a lede, a sticky table of contents and
- * a single measured column of sections.
+ * The shared long-form layout: a title, a lede, a chapter rail and one chapter
+ * of measured column beside it.
  *
  * One column, roughly 68 characters wide. The chrome elsewhere on this site is
  * wide and symmetrical; a reading page is neither, and forcing prose into the
@@ -26,7 +26,17 @@ export function Reader({
   /** Rendered after the sections, inside the reading column. */
   children?: ReactNode;
 }) {
-  const contents = page.sections.map((section) => ({ id: section.id, title: section.title }));
+  /*
+   * Sections are rendered here, on the server, and handed to the client
+   * component as finished nodes. `cite` blocks carry a RegExp, which cannot
+   * cross the boundary, and the release notes behind them are matched once at
+   * build rather than in every reader's browser.
+   */
+  const chapters = page.sections.map((section) => ({
+    id: section.id,
+    title: section.title,
+    content: <Blocks blocks={section.blocks} />,
+  }));
 
   return (
     // Narrower than the site container on purpose. A reading page is a column
@@ -47,21 +57,11 @@ export function Reader({
 
       <OrnateDivider className="my-12" />
 
-      <div className="grid gap-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16">
-        <Contents items={contents} />
+      <Chapters chapters={chapters} />
 
-        <div className="min-w-0 max-w-[68ch]">
-          {page.sections.map((section) => (
-            <section key={section.id} className="mb-16 scroll-mt-[140px]" id={section.id}>
-              <h2 className="font-display mb-6 text-xl tracking-heading text-brand-accent uppercase md:text-2xl">
-                {section.title}
-              </h2>
-              <Blocks blocks={section.blocks} />
-            </section>
-          ))}
-          {children}
-        </div>
-      </div>
+      {children === undefined ? null : (
+        <div className="mt-16 lg:ml-[19rem] lg:max-w-[68ch]">{children}</div>
+      )}
     </div>
   );
 }

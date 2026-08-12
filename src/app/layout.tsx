@@ -9,7 +9,6 @@ import { site } from "@/lib/site";
 
 import "./globals.css";
 import { asset, SITE_ORIGIN } from "@/lib/asset";
-import { CALM_BOOT } from "@/lib/calm";
 
 /*
  * Back to the reference's pairing, because it is simply better here.
@@ -69,17 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${friz.variable} ${ui.variable}`}
-      /* The boot script stamps data-calm on this element before React
-         hydrates, so the server markup and the client tree differ here by
-         design. Without this, React reports it as a hydration mismatch. */
-      suppressHydrationWarning
     >
-      <head>
-        {/* Sets quiet mode before first paint. In React it would cost every
-            reader who wants it one frame of the decorated page, which is the
-            jolt the mode exists to prevent. */}
-        <script dangerouslySetInnerHTML={{ __html: CALM_BOOT }} />
-      </head>
       <body className="min-h-screen antialiased">
         {/* Mereth's own plate, moving. Falls back to a still frame when autoplay
             is refused or motion is not wanted. */}

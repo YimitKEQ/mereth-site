@@ -30,18 +30,35 @@ function Citations({ pattern, limit }: { pattern: RegExp; limit: number }) {
   const notes = citations(pattern, limit);
   if (notes.length === 0) return null;
 
+  /*
+   * Folded, because this is evidence rather than reading.
+   *
+   * Every claim on these pages is backed by the release note that made it true,
+   * and printing all of them inline tripled the length of a page while burying
+   * the sentence they were supporting. Somebody checking whether we are making
+   * things up can open one. Everybody else gets the paragraph.
+   *
+   * A <details> rather than state: it works before hydration, it is one element,
+   * and the browser's own find-in-page opens it.
+   */
   return (
-    <ul className="my-6 space-y-2.5 border-l border-brand-accent/20 pl-5">
-      {notes.map((note, i) => (
-        <li key={i} className="text-[0.84rem] leading-relaxed text-text-muted">
-          <span className="text-text-light">{note.text}</span>
-          <span className="mt-0.5 block font-mono text-[11px] text-brand-accent/70">
-            {note.version}
-            {note.date === null ? "" : ` · ${note.date}`}
-          </span>
-        </li>
-      ))}
-    </ul>
+    <details className="my-6 border-l border-brand-accent/20 pl-5">
+      <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.8rem] text-text-muted transition-colors hover:text-brand-accent">
+        <span className="text-brand-accent/70">&#9656;</span>
+        {notes.length === 1 ? "the release note behind this" : `the ${notes.length} release notes behind this`}
+      </summary>
+      <ul className="mt-3 space-y-2.5">
+        {notes.map((note, i) => (
+          <li key={i} className="text-[0.84rem] leading-relaxed text-text-muted">
+            <span className="text-text-light">{note.text}</span>
+            <span className="mt-0.5 block font-mono text-[11px] text-brand-accent/70">
+              {note.version}
+              {note.date === null ? "" : ` · ${note.date}`}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }
 
