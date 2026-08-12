@@ -73,6 +73,21 @@ export function PlateImage({
           borderColor: "color-mix(in srgb, var(--color-brand-accent) 62%, transparent)",
         }}
       >
+        {/* The placeholder sits behind the picture rather than on it. It is a
+            20px thumbnail, so at card size it is upscaled thirty times: without
+            a blur it reads as bands of colour, and the blur cannot go on the
+            <img> itself because it would then blur the loaded photograph. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 scale-105"
+          style={{
+            backgroundImage: `url(${image.blurDataURL})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(16px)",
+          }}
+        />
+
         {/* eslint-disable-next-line @next/next/no-img-element -- next/image
             drops srcSet under `unoptimized`, which is the whole point here. */}
         <img
@@ -86,11 +101,6 @@ export function PlateImage({
           fetchPriority={priority ? "high" : "auto"}
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
-          style={{
-            backgroundImage: `url(${image.blurDataURL})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
         />
         {/*
           A hairline of the page's own dark at the foot of every picture. The

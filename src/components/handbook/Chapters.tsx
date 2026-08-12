@@ -54,6 +54,11 @@ export function Chapters({ chapters }: { chapters: Chapter[] }) {
       const index = chapters.findIndex((chapter) => chapter.id === id);
       if (index >= 0) {
         setActive(index);
+        /* Arriving from the search palette swaps the chapter under a reader who
+           may be halfway down the previous one, which lands them past the end
+           of a shorter chapter looking at the footer. */
+        const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" });
         return;
       }
 

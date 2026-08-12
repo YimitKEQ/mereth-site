@@ -9,6 +9,7 @@ import { allNavLinks } from "@/lib/site";
 import { factions } from "@/lib/world/factions";
 import { holds } from "@/lib/world/holds";
 import { ruleSections } from "@/lib/world/rules";
+import { loreDocuments } from "@/lib/world/lore";
 
 /**
  * The index behind the command palette.
@@ -98,6 +99,21 @@ export function buildSearchIndex(): SearchEntry[] {
         sub: page.title,
       });
     }
+  }
+
+  /*
+   * The lore documents. Eleven pages of real writing that the palette could
+   * not find: searching "Skyforge" or "Vigilant" returned nothing, because the
+   * only lore entry was the index page itself.
+   */
+  for (const document of loreDocuments) {
+    entries.push({
+      label: document.title,
+      kind: "section",
+      href: `/lore/${document.slug}`,
+      sub: document.note,
+      terms: document.paragraphs.slice(0, 2).join(" ").slice(0, 400),
+    });
   }
 
   for (const spell of mereth.spells) {

@@ -17,9 +17,11 @@ export const metadata: Metadata = {
  * The nine holds.
  *
  * Four seats have no published jarl. They are shown as vacant rather than
- * hidden, because a player choosing where to belong wants to know which courts
- * exist and which are still open, and an invented jarl is the fastest way to
- * break somebody else's roleplay.
+ * Every seat is held. Five courts have no published name yet and say so, which
+ * is a different fact from a vacant throne and the more important one: a player
+ * choosing where to belong must not build a character around taking a seat that
+ * is already somebody else's. An invented jarl is the fastest way to break
+ * another player's roleplay, so names are only ever transcribed.
  */
 export default function HoldsPage() {
   const written = holds.filter((hold) => hold.jarl !== null);
@@ -124,6 +126,16 @@ export default function HoldsPage() {
                     {hold.pending}
                   </span>
                 )}
+                {/* A hold can be described even when its court is not. Winterhold
+                    is: its paragraph was written and was rendering nowhere. */}
+                {hold.holdStory.map((paragraph) => (
+                  <span
+                    key={paragraph.slice(0, 40)}
+                    className="mt-3 block text-[0.85rem] leading-relaxed text-text-light"
+                  >
+                    {paragraph}
+                  </span>
+                ))}
               </li>
             ))}
           </ul>

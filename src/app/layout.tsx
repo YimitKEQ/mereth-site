@@ -56,7 +56,13 @@ export const metadata: Metadata = {
   description: site.description,
   icons: { icon: asset("/brand/icon.png"), apple: asset("/brand/icon.png") },
   openGraph: {
-    title: `${site.name} Roleplay`,
+    /* Templated like `title` above, so a shared page previews as itself. A
+       fixed string here meant every lore document, the most link-shareable
+       pages on the site, pasted into Discord as just "Mereth Roleplay". */
+    title: {
+      default: `${site.name} Roleplay | ${site.tagline}`,
+      template: `%s | ${site.name} Roleplay`,
+    },
     description: site.description,
     type: "website",
     images: [{ url: asset("/brand/banner.png"), width: 2800, height: 722 }],

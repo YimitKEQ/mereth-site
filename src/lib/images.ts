@@ -87,7 +87,7 @@ export const plates: Record<string, Plate> = {
   },
   "longfire": {
     slug: "longfire",
-    title: "Around the longfire",
+    title: "Around the fire",
     caption: "Sat down, armed, and in no hurry. An ordinary evening.",
     src: asset("/img/longfire.webp"),
     widths: [640, 1024],
@@ -131,7 +131,7 @@ export const plates: Record<string, Plate> = {
   },
   "mammoths": {
     slug: "mammoths",
-    title: "The hunt",
+    title: "Giants on the road",
     caption: "Hunting, herbalism, mining, fishing. Eight gathering trades, each with its own nodes.",
     src: asset("/img/mammoths.webp"),
     widths: [640, 1024],
@@ -231,7 +231,7 @@ export const plates: Record<string, Plate> = {
   "under-arms": {
     slug: "under-arms",
     title: "Under arms",
-    caption: "There is no bounty meter. The guard who stops you and the jarl who sentences you are both people.",
+    caption: "An organisation caps at 25 members, and you may belong to one at a time. That is one per player, not one per character.",
     src: asset("/img/under-arms.webp"),
     widths: [640, 1024],
     width: 1800,
@@ -358,7 +358,7 @@ export const plates: Record<string, Plate> = {
     width: 900,
     height: 496,
     blurDataURL:
-      "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwAAV/26Xv6uNX0AAP7qAM5iXNL+SVtzjtQ4od3o/FJNO1L4w+N2uaBYgQAA",
+      "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAACwAwCdASoUAAsAPu1kqU2ppaOiMAgBMB2JZwAAXpNe8PqJd2MBAAD+0mysGXYa6RFe/rUrn0fn/mIUaGylmGAt0OOHKD80qMrn6Z1MfRdOOHLUx57YrrvV9CgAAA==",
   },
   "the-mammoth": {
     slug: "the-mammoth",

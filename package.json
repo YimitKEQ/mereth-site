@@ -6,7 +6,6 @@
     "dev": "next dev -H 0.0.0.0 -p 3100",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3100",
-    "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "export": "next build && node scripts/flatten-export.mjs",
     "deploy": "node scripts/deploy-pages.mjs"

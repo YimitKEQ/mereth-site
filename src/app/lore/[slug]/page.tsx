@@ -29,7 +29,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const document = loreDocuments.find((entry) => entry.slug === slug);
   if (document === undefined) return { title: "Lore" };
-  return { title: document.title, description: document.note };
+
+  /*
+   * `openGraph.title` is set explicitly rather than left to inherit. A page
+   * that sets only `title` does not populate the Open Graph title when the root
+   * layout already defines an `openGraph` block, so every one of these pasted
+   * into Discord previewed as plain "Mereth Roleplay". These are the most
+   * shareable pages on the site. The root's template adds the suffix, so this
+   * passes the bare title: adding one here produced it twice.
+   */
+  return {
+    title: document.title,
+    description: document.note,
+    openGraph: { title: document.title, description: document.note },
+  };
 }
 
 /** The shelf a document sits on, for the line above the title. */
@@ -37,15 +50,32 @@ function shelfOf(slug: string): string {
   return loreShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.title ?? "Lore";
 }
 
+/** The same shelf's anchor, so the back link returns to where the reader was. */
+function shelfIdOf(slug: string): string {
+  return loreShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.id ?? "";
+}
+
 export default async function LoreDocumentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const document = loreDocument(slug);
 
+  /*
+   * A signature is a run of short lines with no full stop, at the end of the
+   * document, and it is usually more than one: a name on one line and a title
+   * on the next. Lifting only the last line drew the rule through the middle of
+   * the sign-off and left "Lurius Floria" sitting in the body as if it were a
+   * sentence.
+   */
   const body = document.paragraphs;
-  const last = body[body.length - 1] ?? "";
-  /* A signature is short and has no full stop of its own. */
-  const signed = body.length > 2 && last.length < 90 && !last.endsWith(".");
-  const passages = signed ? body.slice(0, -1) : body;
+  const isSignatureLine = (text: string): boolean => text.length < 90 && !text.endsWith(".");
+
+  let signatureFrom = body.length;
+  while (signatureFrom > 1 && isSignatureLine(body[signatureFrom - 1] ?? "")) signatureFrom -= 1;
+
+  /* Only treat it as a signature if the document has real body left over. */
+  const signed = signatureFrom > 1 && signatureFrom < body.length;
+  const passages = signed ? body.slice(0, signatureFrom) : body;
+  const signature = signed ? body.slice(signatureFrom) : [];
 
   const order = loreDocuments.findIndex((entry) => entry.slug === slug);
   const next = loreDocuments[order + 1] ?? loreDocuments[0];
@@ -55,7 +85,7 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
       <ReadingScrim />
 
       <Link
-        href="/lore"
+        href={`/lore#${shelfIdOf(slug)}`}
         className="font-display text-[11px] tracking-[2.5px] text-brand-accent/70 uppercase transition-colors hover:text-brand-accent"
       >
         <span aria-hidden="true">&larr;</span> {shelfOf(slug)}
@@ -81,14 +111,41 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
           </p>
         ))}
 
-        {signed ? (
-          <p className="font-display border-t border-brand-accent/20 pt-6 text-[0.95rem] tracking-heading text-brand-accent">
-            {last}
-          </p>
-        ) : null}
+        {signature.length === 0 ? null : (
+          <div className="border-t border-brand-accent/20 pt-6">
+            {signature.map((line, index) => (
+              <p
+                key={index}
+                className={
+                  index === 0
+                    ? "font-display text-[0.95rem] tracking-heading text-brand-accent"
+                    : "font-display mt-1 text-[0.85rem] tracking-heading text-text-muted"
+                }
+              >
+                {line}
+              </p>
+            ))}
+          </div>
+        )}
       </article>
 
-      <nav className="mt-16 border-t border-brand-accent/20 pt-8">
+      <nav className="mt-16 grid gap-4 border-t border-brand-accent/20 pt-8 sm:grid-cols-2">
+        {/* Lore that leads nowhere is a dead end. Each document points at the
+            page where the thing it describes is a system you can use. */}
+        {document.related === undefined ? null : (
+          <Link
+            href={document.related.href}
+            className="group flex flex-col border border-brand-accent/25 px-6 py-5 transition-colors hover:border-brand-accent/60"
+          >
+            <span className="font-display text-[10px] tracking-[2px] text-text-muted uppercase">
+              In play
+            </span>
+            <span className="mt-1.5 text-[1rem] text-text-light transition-colors group-hover:text-brand-accent">
+              {document.related.label}
+            </span>
+          </Link>
+        )}
+
         <Link
           href={`/lore/${next?.slug ?? ""}`}
           className="group flex flex-col border border-brand-accent/25 px-6 py-5 transition-colors hover:border-brand-accent/60"

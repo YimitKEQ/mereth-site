@@ -122,6 +122,11 @@ export function SkillPlanner({ skills, categories, tiers }: Props) {
       justLoaded.current = false;
       return;
     }
+
+    /* Never clear a fragment the planner does not own. Switching tabs writes
+       `#planner`, and wiping that on mount threw away somebody else's state. */
+    if (plan.size === 0 && !window.location.hash.startsWith("#plan=")) return;
+
     const next = plan.size === 0 ? window.location.pathname : `#plan=${formatPlan(plan)}`;
     window.history.replaceState(null, "", next);
   }, [plan]);

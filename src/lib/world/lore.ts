@@ -15,6 +15,8 @@ export interface LoreDocument {
   title: string;
   /** One line on why a reader would open this one. */
   note: string;
+  /** Where a reader most likely wants to go after finishing it. */
+  related?: { href: string; label: string };
   paragraphs: string[];
 }
 
@@ -35,6 +37,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "companions",
         "title": "The Companions",
         "note": "The hall at Whiterun, and the mantle nobody has claimed for forty years.",
+        "related": {
+          "href": "/factions",
+          "label": "What the Companions are in play"
+        },
         "paragraphs": [
           "The fields of Whiterun, the heart of the Fatherland, have for millennia been home to the storied Hall of Jorrvaskr and the valiant Nord Companions. From the days of Ysgramor, the Companions have ever held the honor of all Nords and the growing realm of Skyrim in their words and deeds, unyielding in valor and strength; however, darkness has fallen upon the Meadhall of the Hoary King, and mirth rings out in the ancient ship's bones no more.",
           "Ere some 60 years, shield brother and shield sister took up arms against one another in vile disagreement over one question: Who shall uphold the honor of the Companions and take up the mantle of Harbinger? It was decided that to claim Jorrvaskr was to prove the honor of one's claim, and from the division between Jorm Orc-born and Lok Merkiller came the 20 years of infighting known now as the Blood-Score.",
@@ -45,6 +51,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "harbinger-reflections",
         "title": "The Harbinger’s Reflections on the Decline of the Guild",
         "note": "A Harbinger writing on how the Companions declined.",
+        "related": {
+          "href": "/factions",
+          "label": "What the Companions are in play"
+        },
         "paragraphs": [
           "To Jorm, trusted shield brother",
           "Brother, I see clearly the path we are walking. Many speak of strength as if it were an absolute virtue. Yet the history of the North is filled with peoples who were strong… and nonetheless vanished. The Snow Elves did not fall only beneath the axes of our ancestors. They fell because something within them broke long before their walls did. When a people lose their bond with what they hold sacred, a descent begins that no sword can halt. It is not always a divine punishment. Sometimes it is a slow fading, like snow beneath a sun that cannot be seen. I have studied the tales of their gods, of the temples that shone in the mountains, and of prayers said to be able to still the winter itself. If any of this is true, then their ruin was not merely material. It was spiritual. A gradual estrangement from their own origin. And here I find a warning for us. We do not need curses or dark magic to fall into oblivion. It is enough to forget why we fight. Enough to let glory replace meaning. Enough to stop listening to the silence between one battle and the next. The Snow Elves became unrecognizable not because they were transformed… but because they ceased to recognize themselves. This is the true fall. Not defeat. Not the loss of land. But the moment when memory can no longer sustain identity. If their gods abandoned them, perhaps it was not out of cruelty. Perhaps it happened because there was no one left able to hear them. We, who call ourselves Companions, must guard against this more than against any enemy. For walls can be rebuilt. Weapons reforged. Wounds healed. But when a people forget themselves, no smith can save them. And then the snow, which once held their songs, becomes only silence.",
@@ -55,17 +65,21 @@ export const loreShelves: LoreShelf[] = [
         "slug": "greymane-skyforge-letter",
         "title": "Letter from Yjorn Gray-Mane, Custodian of the Skyforge",
         "note": "The custodian of the Skyforge, on why his hammer is still.",
+        "related": {
+          "href": "/crafting",
+          "label": "Smithing, and what a bench can make"
+        },
         "paragraphs": [
           "To the Companions of Jorrvaskr, or whoever finds this letter",
           "I write these words in the shadow of silence, far from prying eyes and listening ears, for what I must say weighs upon my heart like an anvil upon the chest.",
-          "For centuries before me and before the fathers of our fathers, my lineage has stood as custodian of the Skyforge. The Gray-Manes have never been mere smiths: we have been guardians of knowledge as ancient as the stones of Whiterun itself. The secret of Skyforge steel is no simple craft, but a sacred inheritance, entrusted to our family so that it might serve a worthy cause , the glory and honor of the Companions.",
+          "For centuries before me and before the fathers of our fathers, my lineage has stood as custodian of the Skyforge. The Gray-Manes have never been mere smiths: we have been guardians of knowledge as ancient as the stones of Whiterun itself. The secret of Skyforge steel is no simple craft, but a sacred inheritance, entrusted to our family so that it might serve a worthy cause, the glory and honor of the Companions.",
           "Yet now I see division where once there was brotherhood. This internecine strife, born of pride and fed by suspicion, will bring neither strength nor honor, but only ruin. Your blades, once symbols of protection and valor, risk becoming instruments of discord and shame.",
           "I cannot, in good conscience, feed with my hammer a conflict that stains the name which once made enemies tremble and brought comfort to the innocent. Until the good name of the Companions of Jorrvaskr is restored, until unity once again becomes your banner, my family shall forge no more weapons for you.",
           "The craft of forging Skyforge steel shall remain guarded in silence, as it has been in the darkest of times. It shall not be passed on, nor shared, nor used to fuel this fratricidal folly.",
           "Remember who you are. Remember what you stand for. You are not merely warriors: you are brothers bound by honor, oath, and the memory of those who came before you.",
-          "When you become worthy of your name once more, when your brotherhood stands stronger than your divisions, then , and only then , shall the fires of the Skyforge sing for you again.",
+          "When you become worthy of your name once more, when your brotherhood stands stronger than your divisions, then, and only then, shall the fires of the Skyforge sing for you again.",
           "Until that day, my hammer shall remain still.",
-          ", Yjorn Gray-Mane",
+          "Yjorn Gray-Mane",
           "Custodian of the Skyforge"
         ]
       },
@@ -73,6 +87,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "shield-brother-letters",
         "title": "Letters of a Shield Brother in Times of Turmoil",
         "note": "Letters between shield brothers during the turmoil.",
+        "related": {
+          "href": "/factions",
+          "label": "The three orders, and their caps"
+        },
         "paragraphs": [
           "Brother, tonight I drank with the others in the long hall. The laughter was loud, the cups full, the stories greater than usual. And yet, beneath that noise, I felt the pulse of something older. Not the drum of war. Not the song of heroes. But the call of the hunt. Primal instincts passed down by our ancestors. When I look into the fire, I do not see a gift. I see a promise made too quickly.",
           "They teach us that to die with a sword in hand is glory. That the halls of heroes welcome the valiant. That the memory of a righteous life is stronger than death. But what welcomes one who has run as an animal? If my soul has learned to snarl more than to sing, where will it be taken when my heart stops? Among the ancestors… or among the shadows that hunt forever? They tell me it does not matter. That strength justifies the price. I am beginning to believe the price is the most important part.",
@@ -86,6 +104,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "college-winterhold",
         "title": "The College of Winterhold",
         "note": "The College, its semesters, and what it asks of applicants.",
+        "related": {
+          "href": "/magic",
+          "label": "How a spell is actually learned"
+        },
         "paragraphs": [
           "Skyrim is a land renowned for its frozen peaks and harsh storms, but one cannot truly appreciate what it means to be of this land until they have weathered the jagged shores battered by the Sea of Ghosts. Glaciers drift in the frozen fog as massive ice sheets pretend at being land - until they crack upon and plunge the unwary wanderer into a fathomless frozen sea. It is upon these shores that myth and memory are preserved, almost drawing out from the Ghosts what memories they retain of ancient Atmora, and are safeguarded at the College of Winterhold.",
           "The College traces its history to the Cleverfolk, the shamans and spellsingers of the ancient Nords, and the worship of the Nordic Owl Totem. Though now mistrusted by the denizens of Skyrim, a great many Nords still hone their Craft under the watchful gaze of Jhunal, and are more than willing to impart their history and knowledge upon the stranger and foreigner alike. Many former Mage's Guild neophytes have been drawn to Winterhold out of curiosity, as the philosophies of spellwork found within - the perception of magicka as a force of nature - are vastly different from the more manufactured and Aetheric teachings of Vanus Galerion.",
@@ -96,6 +118,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "thieves-guild",
         "title": "The Thieves' Guild",
         "note": "What the Guild is in Skyrim, told plainly.",
+        "related": {
+          "href": "/rules",
+          "label": "The rules on robbery and theft"
+        },
         "paragraphs": [
           "To outlanders, Skyrim is a land of harsh storms, enduring traditions, strong warriors, and honorable - if brutal - cultural inheritance. The Nords are equally hardy, sons and daughters of storm and sky, and none would imagine first among Nords the ways of stealth or subterfuge; regardless, where there is light, there must be shadow. Where there is law, there must be crime, and not all criminals of the land are brazen challengers and highwaymen. Like in all places across Tamriel, the quick-witted and sly meet with the unscrupulous and deft to create a mutually beneficial system of advantage - in short, a Thieves' Guild.",
           "In stark contrast to this grand Atmoran legacy, hidden in the shadows of betrayal and coin, the Thieves' Guild thrives buried under ice. Some say that the Guild exists solely as an interloper of Imperial culture, that true Sons and Daughters of Kyne would never engage in such dishonorable criminality, but others argue that this Guild shares only its name with the provincial counterparts: clans, both storied and new, trade alliances, services, agents, and gold, all sharing the same mask of the most notorious of collectives.",
@@ -113,12 +139,16 @@ export const loreShelves: LoreShelf[] = [
         "slug": "atmoran-clevercraft",
         "title": "Atmoran Clevercraft",
         "note": "Clevercraft, and what Shalidor left behind.",
+        "related": {
+          "href": "/magic",
+          "label": "Every spell, with its tier"
+        },
         "paragraphs": [
           "The Secrets of Shalidor’s Legacy",
           "By Laah’dan of Atmora",
           "Hark, Sons of Wind and Winter! Pay heed, Daughters of Root and River! Too long have the long-eared lies of the Fox’s foemen filled our minds with mire and muck! I arrive from ancient Atmora, hewn from the homeland by the hardy hands of our oldest faith-ways, to rebirth rites and rituals, sacred sorceries and the totemic truth!",
-          "If one thing should the brood of the Hawk and followers of the Owl unlearn, it is the angular magic of Mer. The elf turns its back upon the Maker, and to do so is to face the stars. To study starlore is to know gods, but where Man kneels, Mer grasp for power , do not learn this, children of Men! Aetherius is a realm of gods, which we as their children may wield, but know that the Earthbones are our true well of power. The Maker, that clever Fox, put in all matter the spark of Magicka, handcrafted for our hands to craft. It is He who sends us starlight to fuel fire, He who ensouled beasts to strengthen our swords, and yes, He who even imbued bone with a bulwark greater than the frailties and failings of flesh.",
-          "These are the hidden truths of Atmora, spake soul-to-soul from the hardening homeland. Mankind’s making ought observe the truth, clever craft unveiled. The Maker did not err in His worldcraft, thus all tools we find upon the Maker’s world are for Mankind to wield. The elf longs to escape the everwise emanation of our Maker, so he will curse the conjurer who calls upon those corpses whose children did not honor them , but I ask of you, if the wight is unwarded from wayward spellweave, then why should the sorcerer stay his spellcraft? The Maker sings all slain spirits into the sleeve of dreaming, but sinew has strength in it yet, and to scorn such skill is to rebuke the right of resource. A spriggan serves the forest in life, but her wood warps to the will of craftsmen in death.",
+          "If one thing should the brood of the Hawk and followers of the Owl unlearn, it is the angular magic of Mer. The elf turns its back upon the Maker, and to do so is to face the stars. To study starlore is to know gods, but where Man kneels, Mer grasp for power, do not learn this, children of Men! Aetherius is a realm of gods, which we as their children may wield, but know that the Earthbones are our true well of power. The Maker, that clever Fox, put in all matter the spark of Magicka, handcrafted for our hands to craft. It is He who sends us starlight to fuel fire, He who ensouled beasts to strengthen our swords, and yes, He who even imbued bone with a bulwark greater than the frailties and failings of flesh.",
+          "These are the hidden truths of Atmora, spake soul-to-soul from the hardening homeland. Mankind’s making ought observe the truth, clever craft unveiled. The Maker did not err in His worldcraft, thus all tools we find upon the Maker’s world are for Mankind to wield. The elf longs to escape the everwise emanation of our Maker, so he will curse the conjurer who calls upon those corpses whose children did not honor them, but I ask of you, if the wight is unwarded from wayward spellweave, then why should the sorcerer stay his spellcraft? The Maker sings all slain spirits into the sleeve of dreaming, but sinew has strength in it yet, and to scorn such skill is to rebuke the right of resource. A spriggan serves the forest in life, but her wood warps to the will of craftsmen in death.",
           "Heed not the hearsay of the Mage’s Guild! Made of the mold of Mer-like magic, all they hold dear, from their rituals to their robes, are bereft of the base acceptance that the Mundus and our Maker must imbue spellwork from the onset. You may ask yourself what recourse comes of these revelations, and I point to the studies and scholarship of Shalidor Spellbreaker, the true Archmagus of Mundus. A mage unmatched, an archon of Atmoran acuity, Spellbreaker was a concealed courier of clevercraft tradition, a Clever Man unlike any since. Many misunderstand his relation to the revenants of the draugr, thinking that Shalidor sought to nullify necromantic knowledge, but how can one maintain mastery over the labyrinths of ancient Atmoran burial barrows and not wield the weave of wightedness?",
           "A Man, son of Sky, so rooted in the realm of Shor, son of Shor, that he became known to all as Archmage unrivaled. In Bromjunaar, we uncover the truth."
         ]
@@ -127,6 +157,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "bron-laahdan-treatise",
         "title": "On The Learnings of Bron Laah’dan",
         "note": "A treatise dictated by a master, on the learnings of Bron Laah'dan.",
+        "related": {
+          "href": "/magic",
+          "label": "How a spell is actually learned"
+        },
         "paragraphs": [
           "A Scholarly Treatise",
           "Dictated by Master of Alteration Halgaar Frost-Fingers",
@@ -140,6 +174,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "vigilant-rule-4e35",
         "title": "The Vigilant Rule of 4E 35",
         "note": "The rule written for the newly founded Knights Vigilant.",
+        "related": {
+          "href": "/factions",
+          "label": "Organisations, and what they may hold"
+        },
         "paragraphs": [
           "Penned for the Newly Founded Knights Vigilant, or, The Vigilants of Stendarr, by First Keeper Maurice of Glenpoint",
           "It has been 30 years since we first took our vows; then, we were known as Crusaders, sworn guards of Stendarr’s temple. We knew then, as we say now with vigor, that our oaths would draw us out beyond the narrow scope of defending that holy building. We knew that Stendarr’s Mercy would not cease at the doors of a temple, but must be brought to a world beset by foul aberrations of Oblivion. Brothers and sisters, it is my sincerest hope that this codex serves our order well into its years, and that our Vigil will stand strong for many, many years to come.",
@@ -170,6 +208,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "imperial-legion-4e185",
         "title": "The Imperial Legion in Skyrim, 4E 185",
         "note": "An account of Imperial order and dominance, dated to the present year.",
+        "related": {
+          "href": "/holds",
+          "label": "The nine seats, and who sits them"
+        },
         "paragraphs": [
           "An Account of Order, Duty, and Dominion in a Divided Land",
           "In these years after the Great War, amidst the cold winds and brittle loyalties of Skyrim, the Imperial Legion stands as both shield and symbol of the Empire’s enduring authority. Our presence in the province today is not purely that of a military force, but as a stabilizing power striving to preserve unity in a land threatened by the Aldmeri Dominion and religious grievances.",
@@ -184,6 +226,10 @@ export const loreShelves: LoreShelf[] = [
         "slug": "penitus-skyrim-report",
         "title": "Criminal Underworld in Skyrim",
         "note": "A report on criminal enterprises, compiled for the Emperor.",
+        "related": {
+          "href": "/rules",
+          "label": "What the rules allow a criminal to do"
+        },
         "paragraphs": [
           "Report compiled for the Emperor",
           "Director Mattius Locundus, Headmaster of the Imperial Order of the Penitus Occulatus, Personal secretary to the Emperor",

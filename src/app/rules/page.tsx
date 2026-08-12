@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { inline } from "@/lib/markup";
 import { jarlPath, ruleSections } from "@/lib/world/rules";
 import { RULES_DOC_URL } from "@/lib/site";
+import { PlateFigure } from "@/components/ui/Plate";
 
 export const metadata: Metadata = {
   title: "Rules",
@@ -65,6 +66,12 @@ export default function RulesPage() {
       </div>
 
       <OrnateDivider className="my-12" />
+
+      <div className="mb-12 grid gap-5 md:grid-cols-3">
+        <PlateFigure slug="the-muster" />
+        <PlateFigure slug="the-patrol" />
+        <PlateFigure slug="the-legion" />
+      </div>
 
       <Chapters
         chapters={[

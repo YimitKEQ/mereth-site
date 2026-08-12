@@ -30,12 +30,12 @@ const SHELVES = [
     title: "The orders",
     blurb: "The three lore factions, in their own words and in the words of people who left them.",
     documents: [
-      { file: "companions.html", slug: "companions", note: "The hall at Whiterun, and the mantle nobody has claimed for forty years." },
-      { file: "harbinger-reflections.html", slug: "harbinger-reflections", note: "A Harbinger writing on how the Companions declined." },
-      { file: "greymane-skyforge-letter.html", slug: "greymane-skyforge-letter", note: "The custodian of the Skyforge, on why his hammer is still." },
-      { file: "shield-brother-letters.html", slug: "shield-brother-letters", note: "Letters between shield brothers during the turmoil." },
-      { file: "college-winterhold.html", slug: "college-winterhold", note: "The College, its semesters, and what it asks of applicants." },
-      { file: "thieves-guild.html", slug: "thieves-guild", note: "What the Guild is in Skyrim, told plainly." },
+      { file: "companions.html", slug: "companions", note: "The hall at Whiterun, and the mantle nobody has claimed for forty years.", related: { href: "/factions", label: "What the Companions are in play" } },
+      { file: "harbinger-reflections.html", slug: "harbinger-reflections", note: "A Harbinger writing on how the Companions declined.", related: { href: "/factions", label: "What the Companions are in play" } },
+      { file: "greymane-skyforge-letter.html", slug: "greymane-skyforge-letter", note: "The custodian of the Skyforge, on why his hammer is still.", related: { href: "/crafting", label: "Smithing, and what a bench can make" } },
+      { file: "shield-brother-letters.html", slug: "shield-brother-letters", note: "Letters between shield brothers during the turmoil.", related: { href: "/factions", label: "The three orders, and their caps" } },
+      { file: "college-winterhold.html", slug: "college-winterhold", note: "The College, its semesters, and what it asks of applicants.", related: { href: "/magic", label: "How a spell is actually learned" } },
+      { file: "thieves-guild.html", slug: "thieves-guild", note: "What the Guild is in Skyrim, told plainly.", related: { href: "/rules", label: "The rules on robbery and theft" } },
     ],
   },
   {
@@ -43,9 +43,9 @@ const SHELVES = [
     title: "Magic and faith",
     blurb: "Where the province's magic comes from, and who is permitted to teach it.",
     documents: [
-      { file: "atmoran-clevercraft.html", slug: "atmoran-clevercraft", note: "Clevercraft, and what Shalidor left behind." },
-      { file: "bron-laahdan-treatise.html", slug: "bron-laahdan-treatise", note: "A treatise dictated by a master, on the learnings of Bron Laah'dan." },
-      { file: "vigilant-rule-4e35.html", slug: "vigilant-rule-4e35", note: "The rule written for the newly founded Knights Vigilant." },
+      { file: "atmoran-clevercraft.html", slug: "atmoran-clevercraft", note: "Clevercraft, and what Shalidor left behind.", related: { href: "/magic", label: "Every spell, with its tier" } },
+      { file: "bron-laahdan-treatise.html", slug: "bron-laahdan-treatise", note: "A treatise dictated by a master, on the learnings of Bron Laah'dan.", related: { href: "/magic", label: "How a spell is actually learned" } },
+      { file: "vigilant-rule-4e35.html", slug: "vigilant-rule-4e35", note: "The rule written for the newly founded Knights Vigilant.", related: { href: "/factions", label: "Organisations, and what they may hold" } },
     ],
   },
   {
@@ -53,8 +53,8 @@ const SHELVES = [
     title: "Law and power",
     blurb: "Who holds the province, and who is working against them.",
     documents: [
-      { file: "imperial-legion-4e185.html", slug: "imperial-legion-4e185", note: "An account of Imperial order and dominance, dated to the present year." },
-      { file: "penitus-skyrim-report.html", slug: "penitus-skyrim-report", note: "A report on criminal enterprises, compiled for the Emperor." },
+      { file: "imperial-legion-4e185.html", slug: "imperial-legion-4e185", note: "An account of Imperial order and dominance, dated to the present year.", related: { href: "/holds", label: "The nine seats, and who sits them" } },
+      { file: "penitus-skyrim-report.html", slug: "penitus-skyrim-report", note: "A report on criminal enterprises, compiled for the Emperor.", related: { href: "/rules", label: "What the rules allow a criminal to do" } },
     ],
   },
 ];
@@ -88,6 +88,10 @@ const decode = (text) =>
     .replace(/&#x([0-9a-f]+);/gi, (_match, hex) => String.fromCodePoint(parseInt(hex, 16)))
     .replace(/[—–]/g, ", ")
     .replace(/\s+/g, " ")
+    /* A dash with spaces around it left "word , word", and a paragraph that
+       opened with one left a stray comma at the start of the line. */
+    .replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/^[,;:]\s*/, "")
     .trim();
 
 function read(file) {
@@ -113,7 +117,7 @@ const shelves = SHELVES.map((shelf) => ({
   ...shelf,
   documents: shelf.documents.map((entry) => {
     const { title, paragraphs } = read(entry.file);
-    return { slug: entry.slug, title, note: entry.note, paragraphs };
+    return { slug: entry.slug, title, note: entry.note, related: entry.related, paragraphs };
   }),
 }));
 
@@ -139,6 +143,8 @@ export interface LoreDocument {
   title: string;
   /** One line on why a reader would open this one. */
   note: string;
+  /** Where a reader most likely wants to go after finishing it. */
+  related?: { href: string; label: string };
   paragraphs: string[];
 }
 

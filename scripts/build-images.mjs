@@ -75,7 +75,7 @@ const PLATES = [
   {
     file: "489830_20260803131209_1.png",
     slug: "longfire",
-    title: "Around the longfire",
+    title: "Around the fire",
     caption: "Sat down, armed, and in no hurry. An ordinary evening.",
   },
   {
@@ -99,7 +99,7 @@ const PLATES = [
   {
     file: "Mammoth_2.jpg",
     slug: "mammoths",
-    title: "The hunt",
+    title: "Giants on the road",
     caption: "Hunting, herbalism, mining, fishing. Eight gathering trades, each with its own nodes.",
   },
   {
@@ -154,7 +154,7 @@ const PLATES = [
     file: "ScreenShot10.png",
     slug: "under-arms",
     title: "Under arms",
-    caption: "There is no bounty meter. The guard who stops you and the jarl who sentences you are both people.",
+    caption: "An organisation caps at 25 members, and you may belong to one at a time. That is one per player, not one per character.",
   },
   {
     file: "20260808181123_1.jpg",
@@ -222,6 +222,7 @@ const PLATES = [
     slug: "the-long-night",
     title: "The long night",
     caption: "World time is synced for everyone and runs on the Tamriel year, so night falls on the whole province at once.",
+    adjust: { brightness: 1.55, contrast: 1.15 },
   },
   {
     file: "489830_20260727160518_1.png",
