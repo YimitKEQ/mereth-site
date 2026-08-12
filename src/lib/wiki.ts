@@ -1,9 +1,9 @@
 /**
- * Wiki content.
+ * Written guides.
  *
  * Flat article list plus a category index, which is the shape a database or CMS
- * will hand back later, so the pages do not need rewriting when the source
- * changes. Search runs over `title`, `summary` and the body text.
+ * hands back, so the pages need no rewriting when the source changes. The large
+ * reference tables live in `reference.ts` and come from the devkit sweeps.
  */
 
 export interface WikiSection {
@@ -30,173 +30,171 @@ export interface WikiCategory {
 }
 
 export const wikiCategories: readonly WikiCategory[] = [
-  { id: "getting-started", label: "Getting Started", blurb: "Install, connect and make your first character." },
-  { id: "systems", label: "Server Systems", blurb: "What we changed and why it matters." },
-  { id: "progression", label: "Progression", blurb: "Levelling, gearing and the endgame path." },
-  { id: "community", label: "Community", blurb: "Rules, staff and how to get help." },
+  { id: "getting-started", label: "Arriving", blurb: "Application, install, and your first evening." },
+  { id: "systems", label: "Systems", blurb: "How the world works, and what we changed." },
+  { id: "living", label: "Living here", blurb: "Trades, contracts, magic and money." },
+  { id: "community", label: "Law and hall", blurb: "Rules, officers, and how to get help." },
 ];
 
 export const wikiArticles: readonly WikiArticle[] = [
   {
-    slug: "first-hour",
-    title: "Your First Hour",
+    slug: "your-first-evening",
+    title: "Your First Evening",
     category: "getting-started",
-    summary: "From download to standing in Pandaria, in order, with nothing assumed.",
-    updated: "12 August 2026",
+    summary: "From application to standing in a hold with somewhere to be.",
+    updated: "12 Last Seed, 4E 185",
     readMinutes: 4,
     sections: [
       {
         paragraphs: [
-          "This is the short version of everything a new player needs. If you follow it top to bottom you will be in the world in about fifteen minutes, most of which is the download.",
+          "Everything below assumes nothing. Follow it top to bottom and you will be in the world with a reason to talk to someone, which is the only part that actually matters.",
         ],
       },
       {
-        heading: "Before you start",
+        heading: "Before you apply",
         bullets: [
-          "An account, created on this site. Your username is what you log in with, not your email.",
-          "About 25 GB free. The client is the full game, not a patch.",
-          "A wired connection if you can. Not required, but instance bosses are unforgiving of packet loss.",
+          "Skyrim Special Edition on PC, legitimately owned. The launcher checks.",
+          "A character idea you can say in one sentence. Plain and understood beats ornate and borrowed.",
+          "About an hour. The modlist is large and the first install is the slow part.",
         ],
       },
       {
         heading: "The steps",
         bullets: [
-          "Create your account and confirm it.",
-          "Download the client from How to Play and unzip it somewhere you own, not Program Files.",
-          "Launch Wow-64.exe and log in with your username.",
-          "Pick a realm, create a character, and take the intro quest.",
+          "Apply on this site. A person reads it and answers within a few days.",
+          "Install the launcher and let it pull the modlist. Do not reorder anything by hand.",
+          "Make your character, and start in a hold rather than the wilderness.",
+          "Say something to the first person you meet. That is the whole game.",
         ],
       },
       {
-        heading: "If something goes wrong",
+        heading: "If it will not connect",
         paragraphs: [
-          "Nine times out of ten a failed login is the realmlist. Open realmlist.wtf in your WoW Data folder and check it matches the line on the How to Play page exactly, with no trailing spaces.",
-          "If the client opens and immediately closes, unzip it again somewhere else. Windows blocks execution from some folders and does it silently.",
+          "Almost every failure is a load order that drifted from the server's. The launcher owns that file, so let it repair rather than editing it by hand.",
+          "If it persists, open a petition with your account name and the launcher log. Never include your password, and no officer will ask for it.",
         ],
       },
     ],
   },
   {
-    slug: "mythic-plus",
-    title: "The Mythic+ System",
-    category: "systems",
-    summary: "How keys, affixes and scoring work here, and where we differ from retail.",
-    updated: "10 August 2026",
-    readMinutes: 6,
-    sections: [
-      {
-        paragraphs: [
-          "Mythic+ is a timed, scaling difficulty for five-player dungeons. Each completion rewards a key for another dungeon, one level higher if you beat the timer.",
-        ],
-      },
-      {
-        heading: "Key levels",
-        table: {
-          columns: ["Key level", "Health and damage", "Affixes"],
-          rows: [
-            ["+2 to +3", "+8% per level", "None"],
-            ["+4 to +6", "+8% per level", "One"],
-            ["+7 to +9", "+8% per level", "Two"],
-            ["+10 and above", "+10% per level", "Three"],
-          ],
-        },
-      },
-      {
-        heading: "Where we differ from retail",
-        bullets: [
-          "No seasonal affix. We found it flattened dungeon identity.",
-          "Death penalty is 10 seconds, not 5. Pulls should be decisions.",
-          "Keys do not deplete below +10, so a bad night does not undo a week.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "levelling-1-90",
-    title: "Levelling 1 to 90",
-    category: "progression",
-    summary: "Accelerated rates, the zones worth your time, and what to skip.",
-    updated: "8 August 2026",
+    slug: "the-setting",
+    title: "The Setting",
+    category: "getting-started",
+    summary: "4E 185, ten years after the Concordat. What is true, what is tense, what you can play.",
+    updated: "9 Last Seed, 4E 185",
     readMinutes: 5,
     sections: [
       {
         paragraphs: [
-          "Experience is accelerated so that reaching the endgame is a weekend rather than a month. The curve is deliberately uneven: fastest through the stretches everyone has done a dozen times, close to normal through Pandaria.",
+          "It is 4E 185. The White-Gold Concordat was signed ten years ago and Imperial law still runs in the holds. That is the whole of the good news.",
         ],
       },
       {
-        heading: "Rates by bracket",
-        table: {
-          columns: ["Levels", "Rate", "Why"],
-          rows: [
-            ["1 to 60", "5x", "Classic and Outland are well trodden."],
-            ["60 to 80", "4x", "Northrend holds up, but not at full length."],
-            ["80 to 85", "3x", "Cataclysm zones are short already."],
-            ["85 to 90", "1.5x", "Pandaria is the content. It is not skipped."],
-          ],
-        },
+        heading: "What the treaty cost",
+        paragraphs: [
+          "Talos worship is illegal. The Thalmor keep an office in the capital and their justiciars travel with letters that open any door. Most people comply, quietly, and resent it.",
+          "This is not a war server. There is no front line to queue for. The tension is administrative, which is slower and stranger: who holds a writ, whose contract is honoured, which jarl answers a letter.",
+        ],
       },
       {
-        heading: "Worth doing on the way",
+        heading: "What you can play",
         bullets: [
-          "Every Pandaria zone story. They feed directly into reputation you will want at 90.",
-          "Dungeon quests, which are tuned to be worth the detour here.",
-          "Your profession as you go. Catching up later is far slower than it looks.",
+          "Almost anyone ordinary. Farmers, smiths, guards, scribes and merchants are the backbone.",
+          "Nords, Imperials, Bretons and Redguards without explanation. Elves and beastfolk with one, because the setting has opinions about them.",
+          "Not a Dragonborn, not the last of an order. Play someone who wants something instead.",
         ],
       },
     ],
   },
   {
-    slug: "rules-and-conduct",
-    title: "Rules and Conduct",
-    category: "community",
-    summary: "The short list, what actually gets enforced, and how appeals work.",
-    updated: "11 August 2026",
-    readMinutes: 3,
+    slug: "how-magic-is-learned",
+    title: "How Magic Is Learned",
+    category: "systems",
+    summary: "A master and a spellbook, or nothing. Why the gate exists and how to pass it.",
+    updated: "11 Last Seed, 4E 185",
+    readMinutes: 5,
     sections: [
       {
-        heading: "The short list",
-        bullets: [
-          "One account per person. Multiboxing is not permitted in rated play.",
-          "No third-party automation of any kind.",
-          "Do not exploit a bug. Report it and you will be credited.",
-          "Keep public channels usable. Harassment is an immediate removal.",
+        paragraphs: [
+          "You cannot teach yourself a spell here. Someone who already knows it has to teach you, and they need the book to do it. That is the entire rule, and it is the most important design decision on the server.",
         ],
       },
       {
-        heading: "How enforcement works",
+        heading: "Why it works this way",
         paragraphs: [
-          "Every action is logged with the staff member who took it and the reason given. Escalation runs warning, mute, temporary suspension, permanent removal, and skipping a step requires a second staff member to agree.",
-          "Appeals go through a ticket, not Discord DMs. A different staff member reviews it than the one who took the action.",
+          "Without a gate, every third character arrives an archmage and magic stops meaning anything. With one, a spell is a favour someone did for you, and it comes with a relationship attached.",
+          "It also gives mages something to be. A teacher is a role, not a stat line.",
+        ],
+      },
+      {
+        heading: "Getting taught",
+        bullets: [
+          "Find someone who knows the school. The Archive lists every spell in the load order, so you can at least name what you want.",
+          "Bring the book, or the coin to buy one.",
+          "Expect to be asked why. A good answer in character is usually the price.",
+          "A master teaches faster. Being taught badly does not.",
         ],
       },
     ],
   },
   {
-    slug: "professions",
-    title: "Professions and the Economy",
-    category: "systems",
-    summary: "Gathering rates, crafting catch-up, and how the auction house is kept honest.",
-    updated: "9 August 2026",
+    slug: "trades-and-coin",
+    title: "Trades and Coin",
+    category: "living",
+    summary: "Professions, what they feed, and how a market survives contact with players.",
+    updated: "10 Last Seed, 4E 185",
+    readMinutes: 6,
+    sections: [
+      {
+        paragraphs: [
+          "Every profession has its own progression, and the economy is player-run rather than vendor-fed. Someone mined the ore in the sword you are holding.",
+        ],
+      },
+      {
+        heading: "How a trade runs",
+        bullets: [
+          "Gathering feeds crafting, and crafting feeds the market. Skipping a link means buying from someone who did not.",
+          "Durability and tempering mean gear wears out, so a smith has repeat custom rather than one sale.",
+          "Every bench, what it makes and what it takes, is listed in the Archive.",
+        ],
+      },
+      {
+        heading: "Contracts",
+        paragraphs: [
+          "A contract is signed, witnessed and held by the server. It survives both parties logging off, and it survives the argument about whether there was a contract.",
+          "That is the difference between a trade server and a screenshot of one.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "law-and-consequence",
+    title: "Law and Consequence",
+    category: "community",
+    summary: "What happens in character when you break a law, and out of character when you break a rule.",
+    updated: "11 Last Seed, 4E 185",
     readMinutes: 4,
     sections: [
       {
+        heading: "In character",
         paragraphs: [
-          "Professions matter here because gear from crafting is competitive at entry endgame rather than a footnote.",
+          "Holds keep their own law. A crime witnessed is a crime reported, and what follows is arrest, a hearing, and a sentence from whoever holds that authority in that hold.",
+          "Sentences run from fines through imprisonment to banishment, and in rare, agreed cases, execution. Nothing that permanent happens without both players agreeing beforehand.",
         ],
       },
       {
-        heading: "What is changed",
+        heading: "Out of character",
         bullets: [
-          "Gathering nodes respawn faster in Pandaria zones, tuned so a full circuit is never empty.",
-          "Skill-ups from grey recipes continue slightly longer, which removes the worst catch-up walls.",
-          "Daily cooldown crafts are account-wide, not per character.",
+          "One account per person.",
+          "No automation of any kind.",
+          "Do not exploit a bug. Report it and you will be credited.",
+          "Metagaming, powergaming and forcing outcomes on another character get a conversation first and an action second.",
         ],
       },
       {
-        heading: "Auction house integrity",
+        heading: "Appeals",
         paragraphs: [
-          "Gold sellers are removed on detection and their listings are rolled back. Trades are logged, so a bought-gold chain can be unwound without punishing the people at the end of it who did nothing wrong.",
+          "Every officer action is recorded with who took it and why. An appeal goes through a petition and is read by someone other than the officer who acted.",
         ],
       },
     ],
@@ -205,8 +203,8 @@ export const wikiArticles: readonly WikiArticle[] = [
     slug: "getting-help",
     title: "Getting Help",
     category: "community",
-    summary: "Which channel to use, what to include, and realistic response times.",
-    updated: "7 August 2026",
+    summary: "Which channel to use, what to include, and what to expect back.",
+    updated: "8 Last Seed, 4E 185",
     readMinutes: 2,
     sections: [
       {
@@ -214,20 +212,20 @@ export const wikiArticles: readonly WikiArticle[] = [
         table: {
           columns: ["Problem", "Where", "Typical response"],
           rows: [
-            ["Cannot log in", "Support ticket", "Under 12 hours"],
-            ["Stuck character or lost item", "Support ticket", "Under 24 hours"],
-            ["Bug report", "Discord bug channel", "Triaged daily"],
-            ["Rule breaking", "Support ticket, in private", "Under 24 hours"],
-            ["General question", "Discord help channel", "Usually minutes"],
+            ["Cannot connect", "Petition", "Under 12 hours"],
+            ["Lost item or stuck character", "Petition", "Under 24 hours"],
+            ["Another player's conduct", "Petition, in private", "Under 24 hours"],
+            ["Bug", "Discord", "Triaged daily"],
+            ["A question about the world", "Discord, or the Archive", "Usually minutes"],
           ],
         },
       },
       {
         heading: "What to include",
         bullets: [
-          "Your account username, never your password. Staff will not ask for it.",
-          "Character name and realm.",
-          "What you expected, what happened, and the time it happened.",
+          "Your account name. Never your password, and no officer will ask.",
+          "Your character's name and the hold you were in.",
+          "What you expected, what happened, and roughly when.",
           "A screenshot if there is anything to see.",
         ],
       },

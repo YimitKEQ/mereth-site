@@ -44,7 +44,7 @@
   /* Typefaces */
   --font-heading: var(--font-display), Georgia, serif;
   --font-body: var(--font-ui), system-ui, sans-serif;
-  --font-document: var(--font-serif), Georgia, serif;
+  --font-document: var(--font-ui), Georgia, serif;
 
   /* Type scale */
   --text-page-title: 2.75rem;
@@ -251,7 +251,7 @@ body {
   position: absolute;
   top: 26px;
   left: 160px;
-  right: 260px;
+  right: 320px;
   height: 90px;
   border: 3px solid #9fb8c47a;
   border-radius: 24px;

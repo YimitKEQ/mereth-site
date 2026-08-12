@@ -28,12 +28,12 @@ export function Hero() {
         }}
       >
         <Image
-          src="/art/hero-hold.png"
+          src="/art/mereth-banner.png"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_38%]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1013e6] via-[#0b101399] to-transparent" />
       </div>

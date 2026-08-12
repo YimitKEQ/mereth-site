@@ -6,35 +6,52 @@
  * either side of the text.
  */
 
-function FretKnot() {
+/**
+ * A short band of Elder Futhark, carved rather than written.
+ *
+ * Six staves centred between the rules. They are drawn as strokes on a common
+ * baseline so the band reads as one carved line, which is how runes appear on a
+ * standing stone: the stave is the vertical, the meaning is in the branches.
+ */
+function RuneBand() {
   return (
     <svg
-      width="56"
-      height="16"
-      viewBox="0 0 56 16"
+      width="132"
+      height="20"
+      viewBox="0 0 132 20"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="1.6"
       strokeLinecap="square"
       aria-hidden="true"
       focusable="false"
       className="text-brand-accent"
     >
-      {/* Stepped key motif, mirrored around the centre block */}
-      <path d="M0 8 H10 V3 H16 V13 H22 V8" />
-      <path d="M56 8 H46 V3 H40 V13 H34 V8" />
-      <rect x="24" y="4" width="8" height="8" />
+      {/* Fehu */}
+      <path d="M6 3 V17 M6 5 L12 8 M6 10 L12 13" />
+      {/* Raido */}
+      <path d="M26 3 V17 M26 3 L32 6 L26 9 M26 9 L32 17" />
+      {/* Thurisaz */}
+      <path d="M46 3 V17 M46 6 L51 9 L46 12" />
+      {/* Algiz, the centre stave, tallest */}
+      <path d="M66 1 V19 M66 7 L60 2 M66 7 L72 2" />
+      {/* Eihwaz */}
+      <path d="M86 3 V17 M86 3 L91 1 M86 17 L81 19" />
+      {/* Mannaz */}
+      <path d="M106 3 V17 M118 3 V17 M106 4 L118 12 M118 4 L106 12" />
+      {/* Ingwaz */}
+      <path d="M126 6 L130 10 L126 14 L122 10 Z" />
     </svg>
   );
 }
 
-/** Full-width rule with the knot centred. */
+/** Full-width rule with the rune band centred. */
 export function OrnateDivider({ className = "" }: { className?: string }) {
   return (
     <div className={`flex w-full items-center ${className}`} aria-hidden="true">
       <span className="h-px flex-1 bg-brand-accent/60" />
       <span className="px-2">
-        <FretKnot />
+        <RuneBand />
       </span>
       <span className="h-px flex-1 bg-brand-accent/60" />
     </div>

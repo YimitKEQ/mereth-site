@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Alegreya, Alegreya_Sans, Cinzel } from "next/font/google";
+import { Exo } from "next/font/google";
+import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -8,32 +9,33 @@ import { site } from "@/lib/site";
 import "./globals.css";
 
 /*
- * Three faces, each doing one job.
+ * Back to the reference's pairing, because it is simply better here.
  *
- * Cinzel is Trajan-derived carved Roman capitals, which is the Empire's own
- * lettering rather than a fantasy pastiche. Alegreya Sans is humanist and
- * slightly calligraphic, so UI reads as written rather than manufactured. Its
- * serif companion carries long-form document text on vellum.
+ * Friz Quadrata is a glyphic serif with flared, chiselled stems: it reads as
+ * carved rather than typeset, and it carries a fantasy register without tipping
+ * into costume. Cinzel was the safe substitute and safe was the problem, it
+ * reads as a wedding invitation next to this.
+ *
+ * Supplied locally and self-hosted through next/font/local. `src/fonts/` is
+ * gitignored, so the files never leave this machine.
  */
-const display = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const friz = localFont({
+  src: [
+    { path: "../fonts/FrizQuadrataStd-Medium.otf", weight: "500", style: "normal" },
+    { path: "../fonts/FrizQuadrataStd-Bold.otf", weight: "700", style: "normal" },
+    { path: "../fonts/FrizQuadrataStd-Italic.otf", weight: "500", style: "italic" },
+    { path: "../fonts/FrizQuadrataStd-BoldItalic.otf", weight: "700", style: "italic" },
+  ],
   variable: "--font-display",
   display: "swap",
 });
 
-const ui = Alegreya_Sans({
+/* Exo for UI: geometric, slightly condensed, and it stays legible at the small
+ * tracked sizes this design uses everywhere. */
+const ui = Exo({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-ui",
-  display: "swap",
-});
-
-const serif = Alegreya({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-serif",
   display: "swap",
 });
 
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${ui.variable} ${serif.variable}`}>
+    <html lang="en" className={`${friz.variable} ${ui.variable}`}>
       <body className="min-h-screen antialiased">
         {/*
           One fixed backdrop behind the whole document. The reference uses a

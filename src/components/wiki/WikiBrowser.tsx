@@ -7,6 +7,7 @@ import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { SearchField } from "@/components/ui/Controls";
 import { Book } from "@/components/ui/icons";
 import { articleText, wikiArticles, wikiCategories } from "@/lib/wiki";
+import { counts, referenceSets } from "@/lib/reference";
 
 const ALL = "all";
 
@@ -68,6 +69,55 @@ export function WikiBrowser() {
       </aside>
 
       <div>
+        {/* Reference tables first: they are what a player returns for, where the
+            written guides are what a new one reads once. */}
+        <section className="mb-10">
+          <h2 className="font-display text-sm tracking-heading text-brand-accent">
+            Reference
+          </h2>
+          <p className="mt-2 text-sm text-text-muted">
+            Parsed from the server&apos;s own manifest and plugins. {counts.spells} spells,{" "}
+            {counts.ingredients} ingredients, {counts.mods} mods, {counts.plugins} plugins.
+          </p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {referenceSets.map((set) => (
+              <li key={set.slug}>
+                <Link href={`/wiki/reference/${set.slug}`} className="group block h-full">
+                  <OrnateBox
+                    size="sm"
+                    className="h-full transition-[filter] duration-[var(--duration-fast)] group-hover:brightness-125"
+                    contentClassName="flex h-full items-baseline justify-between gap-3 p-4"
+                  >
+                    <span className="font-display text-sm tracking-heading text-brand-accent">
+                      {set.title}
+                    </span>
+                    <span className="shrink-0 text-xs text-text-muted tabular-nums">
+                      {set.rows.length.toLocaleString("en-GB")}
+                    </span>
+                  </OrnateBox>
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/wiki/patch-notes" className="group block h-full">
+                <OrnateBox
+                  size="sm"
+                  className="h-full transition-[filter] duration-[var(--duration-fast)] group-hover:brightness-125"
+                  contentClassName="flex h-full items-baseline justify-between gap-3 p-4"
+                >
+                  <span className="font-display text-sm tracking-heading text-brand-accent">
+                    Patch notes
+                  </span>
+                  <span className="shrink-0 text-xs text-text-muted tabular-nums">
+                    {counts.releases}
+                  </span>
+                </OrnateBox>
+              </Link>
+            </li>
+          </ul>
+        </section>
+
+        <h2 className="font-display mb-2 text-sm tracking-heading text-brand-accent">Guides</h2>
         <p className="mb-5 text-sm text-text-muted" aria-live="polite">
           {results.length} {results.length === 1 ? "article" : "articles"}
           {query.trim() ? ` matching “${query.trim()}”` : ""}
