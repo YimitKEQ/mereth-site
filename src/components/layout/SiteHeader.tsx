@@ -81,8 +81,9 @@ export function SiteHeader() {
       "text-[0.95rem] xl:text-[1.1rem]",
       "tracking-[0.96px] xl:tracking-nav",
       "transition-colors duration-[var(--duration-fast)]",
-      // Nav links lift to green on hover in the reference, not to the brand gold.
-      "hover:text-[#5cbf4a] hover:[text-shadow:0_0_6px_#5cbf4a4d]",
+      // Frost lifted, matching every other hover on the site. The reference
+      // lifted to green here, which was its brand and is not ours.
+      "hover:text-[var(--color-nav-hover)] hover:[text-shadow:0_0_8px_#cfe2ea40]",
       active ? "text-brand-accent" : "text-text-primary",
     ].join(" ");
 
@@ -147,13 +148,13 @@ export function SiteHeader() {
                             key={link.href}
                             href={link.href}
                             role="menuitem"
-                            className="block px-5 py-2.5 transition-colors duration-[var(--duration-fast)] hover:bg-[#dde46b14]"
+                            className="group/item block border-l-2 border-transparent px-5 py-2.5 transition-colors duration-[var(--duration-fast)] hover:border-brand-accent hover:bg-[var(--color-menu-hover)]"
                           >
-                            <span className="font-display block text-sm tracking-nav text-text-primary uppercase transition-colors group-hover:text-brand-accent">
+                            <span className="font-display block text-sm tracking-nav text-text-primary uppercase transition-colors group-hover/item:text-brand-glow">
                               {link.label}
                             </span>
                             {link.hint !== undefined ? (
-                              <span className="mt-0.5 block text-[11px] leading-snug text-text-muted">
+                              <span className="mt-0.5 block text-[11px] leading-snug text-text-muted transition-colors group-hover/item:text-text-light">
                                 {link.hint}
                               </span>
                             ) : null}

@@ -23,7 +23,6 @@
   --color-bg-page: #10161a;
   --color-bg-stone: #1b2429;
   --color-bg-card: #0b1013cc;
-  --color-bg-overlay-green: #1b2429cc;
   --color-vellum: #e3d9c2;         /* document surfaces */
   --color-vellum-ink: #2b2418;
 
@@ -39,7 +38,11 @@
 
   /* Lines and states */
   --color-border-subtle: #e8e4d914;
-  --color-nav-hover: #7fc99a;
+  /* Nav and menu hover. Frost lifted, the same value the buttons hover to,
+     so every interactive thing on the site agrees on what hover looks like. */
+  --color-nav-hover: #cfe2ea;
+  /* Fill behind a hovered menu row. Frost at 10%, not the reference's yellow. */
+  --color-menu-hover: #9fb8c41a;
 
   /* Typefaces */
   --font-heading: var(--font-display), Georgia, serif;
@@ -91,7 +94,7 @@
    * variables no utility references, and this one is only ever read through
    * var() in an inline style, so it was being tree-shaken away.
    */
-  --color-bg-overlay: #10160f;
+  --color-bg-overlay: #0d1418;
 
   /*
    * The named spacing scale, deliberately NOT in @theme.
@@ -168,7 +171,7 @@ body {
    */
   background-image:
     radial-gradient(90% 55% at 50% 100%, #05080ab3 0%, transparent 72%),
-    radial-gradient(120% 60% at 50% 0%, #7fc99a1f 0%, transparent 58%),
+    radial-gradient(120% 60% at 50% 0%, #9fb8c41f 0%, transparent 58%),
     radial-gradient(75% 45% at 12% 20%, #1b242980 0%, transparent 74%),
     radial-gradient(75% 45% at 88% 24%, #1b242980 0%, transparent 74%),
     repeating-linear-gradient(94deg, #0000000d 0 70px, #ffffff08 70px 148px),
