@@ -17,8 +17,10 @@ type Variant = "solid" | "outline";
 type Size = "sm" | "md" | "lg" | "nav";
 
 const SIZES: Record<Size, string> = {
-  // The navbar pair: fixed 178x48, stepping down with the pill at 1500px.
-  nav: "h-[44px] w-[162px] text-[1.146rem] tracking-[1.1px] xl:h-[48px] xl:w-[178px] xl:text-[var(--text-nav)] xl:tracking-nav",
+  /* Sized to the 64px pill: tall enough to read as a button, short enough that
+     the bar does not become a toolbar. Width is content-driven now, because a
+     fixed 178px was set for a two-button bar that no longer exists. */
+  nav: "h-[40px] px-5 text-[0.92rem] tracking-[1.4px]",
   sm: "h-9 px-4 text-xs tracking-widest",
   md: "h-12 px-6 text-sm tracking-widest",
   lg: [

@@ -42,10 +42,17 @@ const ui = Exo({
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} | ${site.tagline}`,
-    template: `%s | ${site.name}`,
+    default: `${site.name} Roleplay | ${site.tagline}`,
+    template: `%s | ${site.name} Roleplay`,
   },
   description: site.description,
+  icons: { icon: "/brand/icon.png", apple: "/brand/icon.png" },
+  openGraph: {
+    title: `${site.name} Roleplay`,
+    description: site.description,
+    type: "website",
+    images: [{ url: "/brand/banner.png", width: 2800, height: 722 }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -25,7 +25,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-site px-6 pt-[180px] pb-24 md:px-8 md:pt-[240px] md:pb-32">
+      <div className="relative mx-auto max-w-site px-6 pt-[128px] pb-20 md:px-8 md:pt-[172px] md:pb-24">
         <p className="font-display text-[11px] tracking-[4px] text-brand-accent/80 uppercase text-shadow-drop">
           Serious roleplay, 4E 185
         </p>
@@ -51,12 +51,12 @@ export function Hero() {
           </ButtonLink>
         </div>
 
-        <dl className="mt-16 flex flex-wrap gap-x-12 gap-y-6 md:mt-24">
+        <dl className="mt-14 flex flex-wrap gap-x-12 gap-y-6">
           {[
-            { label: "Skills documented", value: String(counts.skills) },
-            { label: "Spells indexed", value: counts.spells.toLocaleString("en-GB") },
-            { label: "Records read", value: counts.records.toLocaleString("en-GB") },
-            { label: "Releases tracked", value: String(counts.releases) },
+            { label: "Skills", value: String(counts.skills) },
+            { label: "Spells, tiered", value: counts.spells.toLocaleString("en-GB") },
+            { label: "Mods installed for you", value: String(counts.mods) },
+            { label: "Releases since launch", value: String(counts.releases) },
           ].map((stat) => (
             <div key={stat.label}>
               <dt className="font-display text-[10px] tracking-[2px] text-text-muted uppercase text-shadow-drop">

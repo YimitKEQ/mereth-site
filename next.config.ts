@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
    */
   turbopack: { root: import.meta.dirname },
   /*
+   * The little circled N in the corner. It is a development-only overlay and
+   * never ships in a production build, but it sits on top of the design while
+   * we are looking at the design, which is exactly the wrong time for it.
+   * Compile and runtime errors are still surfaced with this off.
+   */
+  devIndicators: false,
+  /*
    * Reviewing the site from another machine on the same network.
    *
    * Two things are needed and this is the second. `package.json` binds the

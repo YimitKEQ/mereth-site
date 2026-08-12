@@ -20,9 +20,10 @@ import type { HandbookPage } from "./blocks";
  */
 export const progression: HandbookPage = {
   title: "Progression",
-  lede: `What a tier is worth, how long a tier takes, and which questions have a published answer.
-    Some of this is written down to the ore and the bait. Some of it is deliberately not, and this
-    page says which is which rather than inventing a table.`,
+  lede: `What a tier is actually worth, how long one takes, and which questions we publish an answer
+    to. For gathering and crafting we list the exact materials each tier opens up. For weapons and
+    armour we do not, on purpose, and this page explains why rather than leaving you to wonder
+    whether the table is just missing.`,
 
   sections: [
     {
@@ -157,10 +158,11 @@ export const progression: HandbookPage = {
             `Every weapon specialisation has five tiers of text, and none of it is numbers. Swords
               at Adept reads "You parry more than luck allows". Maces at Expert reads "Few can stand
               a clean connection".`,
-            `That is not an oversight. **A swordsman's reputation is meant to be earned in front of
-              other people, not read off a page.** If you want to know whether someone is better
-              than you with a blade, the answer is a duel, a spar, or a witness. Find out in
-              character.`,
+            `That is deliberate. We could publish a damage table, and the moment we did every
+              player would know exactly how dangerous every other player is without ever having
+              met them. **The point of a reputation is that somebody had to watch you earn it.**
+              So if you want to know whether a person is better than you with a blade: spar them,
+              watch them fight, or ask somebody who has.`,
           ],
         },
         {

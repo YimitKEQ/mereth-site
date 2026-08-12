@@ -4,6 +4,8 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { SkillList } from "@/components/codex/SkillList";
 import { SkillPlanner } from "@/components/codex/SkillPlanner";
 import { Tabs } from "@/components/codex/Tabs";
+import { PlateImage } from "@/components/ui/Plate";
+import { plate } from "@/lib/images";
 import { buyableTiers, counts, mereth } from "@/lib/mereth";
 
 export const metadata: Metadata = {
@@ -28,6 +30,19 @@ export default function SkillsPage() {
           { label: "Master costs", value: "8" },
         ]}
       />
+
+      <figure className="mx-auto mb-12 max-w-4xl">
+        <PlateImage
+          slug="skill-menu"
+          scale="md"
+          priority
+          aspect="aspect-[1880/998]"
+          sizes="(max-width: 1024px) 100vw, 56rem"
+        />
+        <figcaption className="mt-3 text-center text-[0.82rem] text-text-muted">
+          {plate("skill-menu").caption}
+        </figcaption>
+      </figure>
 
       <Tabs
         tabs={[

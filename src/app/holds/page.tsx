@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { PlateImage } from "@/components/ui/Plate";
+import { plate } from "@/lib/images";
 import { inline } from "@/lib/markup";
 import { holds } from "@/lib/world/holds";
 
@@ -36,6 +38,23 @@ export default function HoldsPage() {
           { label: "Courts unannounced", value: String(open.length) },
         ]}
       />
+
+      {/* The map is a document, not a backdrop. Shown whole at its own 4:3 and
+          kept narrow: cropping a cartographer's map to a letterbox throws away
+          the hold borders, which are the only reason to look at it. */}
+      <figure className="mx-auto mb-14 max-w-2xl">
+        <PlateImage
+          slug="holds-map"
+          scale="md"
+          priority
+          aspect="aspect-[4/3]"
+          sizes="(max-width: 768px) 100vw, 42rem"
+          className="[&_img]:object-contain [&_img]:bg-[#0b1013]"
+        />
+        <figcaption className="mt-3 text-center text-[0.82rem] text-text-muted">
+          {plate("holds-map").caption}
+        </figcaption>
+      </figure>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {seated.map((hold) => (

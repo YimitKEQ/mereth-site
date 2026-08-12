@@ -8,12 +8,15 @@
 //
 // Two outputs, because they have different lifetimes:
 //
-//   src/data/mereth.json      the handbook. Imported by server components, so it
-//                             never reaches the browser except as the slice a
-//                             page actually renders.
-//   public/data/catalog.json  the searchable record catalogue. Too large to ship
-//                             with a page, so it is served as a static file and
-//                             fetched on the database route's first search.
+//   src/data/mereth.json  the handbook. Imported by server components, so it
+//                         never reaches the browser except as the slice a page
+//                         actually renders.
+//
+// It deliberately does NOT carry a searchable record catalogue or a list of
+// where unique gear stands. Both existed, both worked, and both were removed:
+// on a roleplay server, handing over what is in a barrow deletes the reason to
+// go to the barrow. Publish what helps a player decide, never what removes the
+// reason to look.
 //
 // Everything here is derived from Mereth's own published manifest, their client
 // bundle and the plugins their launcher installs. Nothing is invented.
@@ -326,17 +329,6 @@ const gathering = {
     .map((r) => ({ where: r.where, total: r.total, nodes: (r.nodes ?? []).slice(0, 4) })),
 };
 
-// --- One of a kind gear ------------------------------------------------------
-//
-// An item standing in exactly one named interior is findable by going there.
-// An empty result is never proof of "unobtainable"; the site says so on the page.
-const oneOfAKind = (secrets?.found ?? [])
-  .filter((r) => r.count === 1 && r.spots?.[0] &&
-    r.spots[0].cell !== "outdoors" && r.spots[0].cell !== "unnamed cell")
-  .filter((r) => /WEAP|ARMO/.test(r.signature))
-  .slice(0, 120)
-  .map((r) => ({ name: r.name, kind: r.signature === "WEAP" ? "Weapon" : "Armour", where: r.spots[0].cell }));
-
 // --- The handbook bundle -----------------------------------------------------
 const handbook = {
   builtAt: new Date().toISOString(),
@@ -371,70 +363,9 @@ const handbook = {
   spells,
   benches,
   gathering,
-  oneOfAKind,
 };
 
-// --- The catalogue, for the database route -----------------------------------
-//
-// `wiki.catalog` is [name, signature, modIndex, editorId]. Signature labels come
-// from the same file so the page never hardcodes a four letter code.
-const labelFor = new Map((wiki.signatures ?? []).map((s) => [s.signature, s.label]));
-const groupFor = new Map();
-for (const [group, sigs] of Object.entries(wiki.signatureGroups ?? {})) {
-  for (const sig of sigs) groupFor.set(sig, group);
-}
-
-/*
- * Two sources, because neither is complete on its own.
- *
- * The codex walks record definitions and is thin exactly where a player cares:
- * 70 MISC items in the whole province, which is why on its own it cannot find
- * a single ingot. The placement sweep walks what actually stands in the world
- * and carries about 7,600 names the codex never saw.
- *
- * Merged and deduplicated on name plus signature, so a thing named in both
- * appears once.
- */
-const seen = new Set();
-const records = [];
-const addRecord = (name, signature) => {
-  if (!name || !signature) return;
-  const clean = String(name).trim();
-  if (clean === "" || /^AA|^aa[A-Z]|Test|^zz|^DELETE/i.test(clean)) return;
-  const key = `${clean} ${signature}`;
-  if (seen.has(key)) return;
-  seen.add(key);
-  records.push([clean, signature]);
-};
-
-for (const [name, signature] of wiki.catalog ?? []) addRecord(name, signature);
-for (const row of secrets?.found ?? []) addRecord(row.name, row.signature);
-for (const row of secrets?.never ?? []) addRecord(row.name, row.signature);
-records.sort((a, b) => a[0].localeCompare(b[0]));
-
-/** Counts are recounted from the merged set rather than carried over. */
-const signatureCounts = new Map();
-for (const [, signature] of records) {
-  signatureCounts.set(signature, (signatureCounts.get(signature) ?? 0) + 1);
-}
-
-const catalog = {
-  builtAt: handbook.builtAt,
-  signatures: [...signatureCounts.entries()]
-    .filter(([signature]) => labelFor.has(signature))
-    .map(([signature, count]) => ({
-      signature,
-      label: labelFor.get(signature) ?? signature,
-      group: groupFor.get(signature) ?? "Other",
-      count,
-    }))
-    .sort((a, b) => b.count - a.count),
-  records,
-};
-
-const PUBLIC_DIR = path.resolve("public", "data");
 fs.mkdirSync(OUT_DIR, { recursive: true });
-fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
 const write = (dir, name, value) => {
   const file = path.join(dir, name);
@@ -442,13 +373,7 @@ const write = (dir, name, value) => {
   return (fs.statSync(file).size / 1024).toFixed(0);
 };
 
-// The searchable total belongs to the handbook, because the Records page states
-// it before the catalogue has finished loading. Set after the merge so the two
-// numbers can never disagree.
-handbook.server.searchable = records.length;
-
-console.log(`src/data/mereth.json      ${write(OUT_DIR, "mereth.json", handbook)} KB`);
-console.log(`public/data/catalog.json  ${write(PUBLIC_DIR, "catalog.json", catalog)} KB`);
+console.log(`src/data/mereth.json  ${write(OUT_DIR, "mereth.json", handbook)} KB`);
 console.log(JSON.stringify({
   skills: skills.length,
   categories: categories.length,
@@ -458,6 +383,4 @@ console.log(JSON.stringify({
   releases: releases.length,
   systems: systems.length,
   mods: mods.length,
-  oneOfAKind: oneOfAKind.length,
-  records: records.length,
 }, null, 1));

@@ -117,8 +117,6 @@ export interface Mereth {
     loadOrderLength: number;
     recordsLoaded: number;
     named: number;
-    /** How many named records the Records page can actually search. */
-    searchable: number;
   };
   skills: Skill[];
   categories: SkillCategory[];
@@ -145,7 +143,6 @@ export interface Mereth {
     nodes: GatheringNode[];
     indoors: { where: string; total: number; nodes: GatheringNode[] }[];
   };
-  oneOfAKind: { name: string; kind: string; where: string }[];
 }
 
 export const mereth = bundle as unknown as Mereth;
@@ -228,6 +225,5 @@ export const counts = {
   releases: mereth.server.releases,
   records: mereth.server.recordsLoaded,
   named: mereth.server.named,
-  searchable: mereth.server.searchable,
   checkedFiles: mereth.server.checkedFiles,
 } as const;

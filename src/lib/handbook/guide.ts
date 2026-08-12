@@ -251,9 +251,10 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `**You start as a Stranger.** Your title is Stranger until somebody knows you. The
-              introduce interaction on \`H\` is how a name changes hands. Other titles come from
-              mastering skill categories.`,
+            `**You start as a Stranger.** Nobody sees your name until you give it to them: aim at a
+              person, press \`H\`, and introduce yourself. Until you do, they see "Stranger" above
+              you and you see the same above them. Other titles are earned by mastering a whole
+              skill category.`,
           ],
         },
         { kind: "data", name: "races" },

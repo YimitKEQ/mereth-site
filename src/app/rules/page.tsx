@@ -6,7 +6,8 @@ import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
 import { inline } from "@/lib/markup";
-import { RULES_DOC_URL, jarlPath, ruleSections } from "@/lib/world/rules";
+import { jarlPath, ruleSections } from "@/lib/world/rules";
+import { RULES_DOC_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Rules",

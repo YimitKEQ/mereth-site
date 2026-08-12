@@ -9,26 +9,20 @@ import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { SearchTrigger } from "@/components/search/SearchTrigger";
 import { ButtonLink } from "@/components/ui/Button";
 import { ChevronDown, Menu, X } from "@/components/ui/icons";
-import { primaryNav, type NavItem } from "@/lib/site";
+import { DISCORD_INVITE, primaryNav, type NavItem } from "@/lib/site";
 
 /**
- * The bar, built to the reference's geometry rather than to a guess at it.
+ * One sticky pill, one row: mark, links, actions.
  *
- * It is not a flex row. It is a sticky wrapper with absolutely positioned
- * children, which is what lets the emblem overhang the pill on both edges
- * without changing the header's height:
+ * An earlier version copied the reference's overhanging crest, absolutely
+ * positioned so it could hang above and below the bar. That is right for a
+ * painted crest and wrong for Mereth's mark, which is lettering: hanging it off
+ * the edge reads as a misalignment rather than as ornament. So everything sits
+ * on one centre line inside the pill.
  *
- *   wrapper   sticky, top 0, fixed height, pointer-events none, overflow visible
- *   emblem    absolute top left, above the pill in z order
- *   pill      absolute, inset from both sides, rounded, its own height
- *
- * `pointer-events: none` on the wrapper with `auto` on its children is what
- * stops the empty band beside the emblem from swallowing clicks on the page
- * beneath it. Geometry lives in globals.css so the breakpoint steps read as a
- * group instead of being scattered through class strings.
- *
- * Dropdowns are driven off `primaryNav` rather than hardcoded, because the
- * navigation now carries three of them and a fourth is a config change.
+ * Geometry lives in globals.css so the breakpoint steps read as a group instead
+ * of being scattered through class strings, and dropdowns are driven off
+ * `primaryNav` so a sixth menu is a config change.
  */
 export function SiteHeader() {
   const pathname = usePathname();
@@ -97,13 +91,10 @@ export function SiteHeader() {
         Skip to content
       </a>
 
-      <div className="navbar-logo-link">
-        <Logo />
-      </div>
-
       <div className="navbar-pill">
-        <div className="navbar-pill-content">
-          <nav className="navbar-links" aria-label="Primary" ref={navRef}>
+        <Logo />
+
+        <nav className="navbar-links" aria-label="Primary" ref={navRef}>
             {primaryNav.map((item) => {
               if (item.href !== undefined) {
                 return (
@@ -156,20 +147,19 @@ export function SiteHeader() {
                   ) : null}
                 </div>
               );
-            })}
-          </nav>
+          })}
+        </nav>
 
-          {/*
-            No Login button. The website has no accounts, and the game logs in
-            through Discord, so the action here is the door to Discord rather
-            than a form that cannot log anybody into anything.
-          */}
-          <div className="navbar-actions">
-            <SearchTrigger />
-            <ButtonLink href="/discord" variant="solid" size="nav">
-              Discord
-            </ButtonLink>
-          </div>
+        {/*
+          No Login button. The website has no accounts, and the game logs in
+          through Discord, so the action here is the door to Discord rather than
+          a form that cannot log anybody into anything.
+        */}
+        <div className="navbar-actions">
+          <SearchTrigger />
+          <ButtonLink href={DISCORD_INVITE} variant="solid" size="nav">
+            Discord
+          </ButtonLink>
         </div>
 
         <button

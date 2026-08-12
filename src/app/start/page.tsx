@@ -112,10 +112,8 @@ export default function StartPage() {
         <p className="mt-4 text-[0.98rem] leading-[1.85] text-text-light">
           The reference pages are generated from the plugins and the client our launcher installs:
           {" "}{counts.skills} skills with the in-game text for every tier,{" "}
-          {counts.spells.toLocaleString("en-GB")} spells with their tiers,{" "}
-          {counts.ingredients} alchemy ingredients and{" "}
-          {counts.records.toLocaleString("en-GB")} records from the{" "}
-          {counts.plugins} plugins the launcher installs. Press{" "}
+          {counts.spells.toLocaleString("en-GB")} spells with their tiers, and{" "}
+          {counts.ingredients} alchemy ingredients. Press{" "}
           <kbd className="rounded-sm border border-brand-accent/30 px-1.5 py-0.5 font-mono text-[0.8em] text-text-light">
             Ctrl K
           </kbd>{" "}
@@ -128,8 +126,8 @@ export default function StartPage() {
           <ButtonLink href="/tips" size="md">
             Tips
           </ButtonLink>
-          <ButtonLink href="/records" size="md">
-            Records
+          <ButtonLink href="/progression" size="md">
+            Progression
           </ButtonLink>
         </div>
       </div>

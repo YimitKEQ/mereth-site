@@ -210,23 +210,48 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Picture frames
+   ---------------------------------------------------------------------------
+   Matched to the reference's computed styles rather than estimated: a soft
+   resting shadow, a 2px backdrop blur, and a transition on box-shadow alone.
+   Transitioning only the shadow is what makes a hover read as a light coming
+   up rather than as the card moving.
+   --------------------------------------------------------------------------- */
+
+.plate-frame {
+  box-shadow: 0 0 12px #0006;
+  -webkit-backdrop-filter: blur(var(--blur-panel));
+  backdrop-filter: blur(var(--blur-panel));
+  transition: box-shadow var(--duration-normal) var(--ease-default);
+}
+
+.group:hover .plate-frame,
+a:hover .plate-frame {
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--color-brand-glow) 34%, transparent),
+    0 0 4px color-mix(in srgb, var(--color-brand-glow) 22%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
    Navbar geometry
    ---------------------------------------------------------------------------
-   Absolute children inside a sticky wrapper, not a flex row. The wrapper holds
-   the header's height while the emblem overhangs it, and the pill is inset far
-   enough from the left for the emblem to sit in front of it.
+   One pill, one row, everything inside it.
 
-   Values step at 1500px and again at 1199px, matching the reference's own
-   breakpoints.
+   The reference hangs a painted crest off the left edge, above and below the
+   bar. That works for a crest and does not work for a piece of lettering: with
+   Mereth's own glyph in place, an overhang reads as a misalignment rather than
+   as ornament. So the mark sits on the bar's own centre line, in the row, and
+   the pill is a plain three-part flex: mark, links, actions.
    --------------------------------------------------------------------------- */
 
 .navbar-wrapper {
   position: sticky;
   top: 0;
   z-index: var(--z-navbar);
-  height: 116px;
+  height: 92px;
+  padding: 14px 24px 0;
   overflow: visible;
-  /* The empty band beside the emblem must not eat clicks on the page beneath. */
+  /* The band beside the pill must not eat clicks on the page beneath. */
   pointer-events: none;
 }
 
@@ -234,86 +259,62 @@ body {
   pointer-events: auto;
 }
 
-.navbar-logo-link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  line-height: 0;
-  transition: filter var(--duration-fast) ease;
-}
-
-.navbar-logo-link:hover {
-  filter: brightness(1.12) drop-shadow(0 0 8px #9fb8c433);
-}
-
 .navbar-pill {
-  position: absolute;
-  top: 26px;
-  left: 160px;
-  /* The language selector that used to sit outside the pill is gone, so the
-     pill now runs to the page margin and the row has room for five items plus
-     search without tightening. */
-  right: 40px;
-  height: 90px;
-  border: 3px solid #9fb8c47a;
-  border-radius: 24px;
-  overflow: visible;
-  box-shadow: 0 0 6px 0.5px #0009;
-  background-image: var(--gradient-nav-bar);
-}
-
-.navbar-pill-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-xl);
-  height: 100%;
-  padding: 0 32px 0 180px;
-  white-space: nowrap;
+  gap: 28px;
+  height: 64px;
+  max-width: var(--container-site);
+  margin: 0 auto;
+  padding: 0 14px 0 22px;
+  border: 2px solid #9fb8c466;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px #00000073;
+  background-image: var(--gradient-nav-bar);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xl);
-  flex-shrink: 0;
+  gap: 26px;
+  margin-right: auto;
+  white-space: nowrap;
 }
 
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 10px;
   flex-shrink: 0;
 }
 
-/* Anchored under the trigger, lifted off the page by a drop shadow.
-   Left-aligned rather than centred, because a menu whose items carry a hint
-   line is wide enough that centring pushes the last one off the pill. */
+/* Anchored under its trigger. Left aligned rather than centred, because a menu
+   whose items carry a hint line is wide enough that centring pushes the last
+   one past the pill's edge. */
 .navbar-dropdown {
   position: absolute;
-  top: calc(100% + 26px);
-  left: -20px;
-  width: 286px;
+  top: calc(100% + 18px);
+  left: -18px;
+  width: 282px;
   z-index: var(--z-dropdown);
-  filter: drop-shadow(0 0 10px #0009);
+  filter: drop-shadow(0 6px 16px #000000a6);
 }
 
 /* The last dropdown in the row would otherwise open past the right edge. */
 .navbar-links > div:last-child .navbar-dropdown {
   left: auto;
-  right: -20px;
+  right: -18px;
 }
 
 .navbar-hamburger {
   display: none;
-  position: absolute;
-  top: 11px;
-  right: 12px;
-  height: 36px;
+  margin-left: auto;
+  height: 40px;
+  width: 40px;
   align-items: center;
   justify-content: center;
-  z-index: 12;
 }
 
 /* Scrim behind the drawer. Without it the page stays legible through a 5%
@@ -322,16 +323,16 @@ body {
   position: fixed;
   inset: 0;
   z-index: calc(var(--z-dropdown) - 1);
-  background: #000000b3;
+  background: #000000c4;
   -webkit-backdrop-filter: blur(var(--blur-modal));
   backdrop-filter: blur(var(--blur-modal));
 }
 
 .navbar-mobile-drawer {
   position: absolute;
-  top: 116px;
-  left: 12px;
-  right: 12px;
+  top: 88px;
+  left: 24px;
+  right: 24px;
   z-index: var(--z-dropdown);
 }
 
@@ -361,44 +362,20 @@ body {
   height: auto;
 }
 
-/* Between these widths the row no longer fits at its full gap, so it tightens
-   rather than spilling out of the pill (which is overflow:visible by design,
-   so a spill lands on the page instead of clipping). */
-@media (max-width: 1720px) {
-  .navbar-pill-content { padding: 0 20px 0 180px; gap: 16px; }
-  .navbar-links { gap: 18px; }
+@media (max-width: 1600px) {
+  .navbar-pill { gap: 20px; }
+  .navbar-links { gap: 20px; }
 }
 
-@media (max-width: 1500px) {
-  .navbar-wrapper { height: 100px; }
-  .navbar-logo-link { left: 48px; }
-  .navbar-pill {
-    top: 22px;
-    left: 182px;
-    right: 32px;
-    height: 80px;
-    border-width: 2.667px;
-    border-radius: 20px;
-    box-shadow: 0 0 4px 0.3px #0009;
-  }
-  .navbar-pill-content { padding: 0 16px 0 176px; gap: 12px; }
-  .navbar-links { gap: 14px; }
-  .navbar-mobile-drawer { top: 106px; }
-}
-
-/* Below this the links no longer fit at any tightening, so the pill collapses. */
-@media (max-width: 1279px) {
-  .navbar-wrapper { height: 92px; }
-  .navbar-pill {
-    top: 18px;
-    left: 12px;
-    right: 12px;
-    height: 64px;
-  }
-  .navbar-pill-content { display: none; }
+/* Below this the row cannot hold five items plus the actions at any tightening,
+   so it collapses to the drawer. */
+@media (max-width: 1300px) {
+  .navbar-wrapper { padding: 12px 12px 0; }
+  .navbar-pill { padding: 0 10px 0 16px; }
+  .navbar-links,
+  .navbar-actions { display: none; }
   .navbar-hamburger { display: flex; }
-  .navbar-logo-link { left: 12px; }
-  .navbar-mobile-drawer { top: 92px; }
+  .navbar-mobile-drawer { top: 84px; left: 12px; right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -414,9 +391,7 @@ body {
 
 /* The hero art runs up behind the sticky navbar, so it pulls back by the
    wrapper's height at each step rather than by a single guessed offset. */
-.hero-bleed { margin-top: -116px; }
-@media (max-width: 1500px) { .hero-bleed { margin-top: -106px; } }
-@media (max-width: 1279px) { .hero-bleed { margin-top: -92px; } }
+.hero-bleed { margin-top: -92px; }
 
 /* ---------------------------------------------------------------------------
    Background stage
@@ -453,7 +428,7 @@ body {
 }
 
 .background-stage__video {
-  filter: saturate(0.78) brightness(0.52);
+  filter: saturate(0.82) brightness(0.6);
   transition: opacity 900ms var(--ease-default);
   transform: scale(1.02);
 }
@@ -486,5 +461,5 @@ body {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, #0b1013cc 0%, #0b1013f2 22%, #0b1013 46%, #0b1013 100%);
+    linear-gradient(180deg, #0b101373 0%, #0b1013b8 26%, #0b1013cc 60%, #0b1013e6 100%);
 }

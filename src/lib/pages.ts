@@ -12,6 +12,8 @@
  * it out and point at Discord.
  */
 
+import { DISCORD_INVITE } from "@/lib/site";
+
 export interface SimpleSection {
   heading?: string;
   paragraphs?: string[];
@@ -52,7 +54,7 @@ export const simplePages: Record<string, SimplePageContent> = {
         ],
       },
     ],
-    cta: { label: "Join the Discord", href: "/discord" },
+    cta: { label: "Join the Discord", href: DISCORD_INVITE },
   },
 
   discord: {
@@ -80,35 +82,7 @@ export const simplePages: Record<string, SimplePageContent> = {
         ],
       },
     ],
-    cta: { label: "The connection errors, explained", href: "/faq#connect" },
-  },
-
-  donate: {
-    title: "Supporting Mereth",
-    subtitle: "What support pays for, and what it will never buy.",
-    sections: [
-      {
-        paragraphs: [
-          "Mereth is free to play. Hosting a synchronised Skyrim province with a mod list this size, plus voice, plus the development behind it, is not free, and community support is what covers it.",
-        ],
-      },
-      {
-        heading: "What it never buys",
-        bullets: [
-          "Skills, tiers, memory points or any advantage in play.",
-          "A whitelisted role. Jarl, faction leadership and every other whitelist is earned through the application, never bought.",
-          "Faster ticket handling, or a different answer in one.",
-          "Immunity from any rule in the rulebook.",
-        ],
-      },
-      {
-        heading: "Why the economy cannot be bought into",
-        paragraphs: [
-          "Skills are capped by memory points spent at character creation, magic requires a teacher and a book, and property is granted by a jarl. None of those has a price, which is deliberate: the moment they do, the professions stop meaning anything.",
-        ],
-      },
-    ],
-    cta: { label: "Find us on Discord", href: "/discord" },
+    cta: { label: "Join the Discord", href: DISCORD_INVITE },
   },
 
   privacy: {

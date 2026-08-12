@@ -24,6 +24,18 @@ export interface NavItem {
   menu?: readonly NavLink[];
 }
 
+/**
+ * External links that appear on many surfaces.
+ *
+ * One constant each, because an invite that changes has to change in one place,
+ * and a dead invite on a page nobody edited is the worst kind of stale.
+ */
+export const DISCORD_INVITE = "https://discord.com/invite/mereth";
+export const PATREON_URL = "https://www.patreon.com/cw/merethroleplay";
+export const TRAILER_ID = "KK28lxLJCbw";
+export const RULES_DOC_URL =
+  "https://docs.google.com/document/d/1AhSN2rsXZox0ISYFghavl0t4FJueDWUZ1VcckBUzEHM/edit";
+
 export const site = {
   name: "Mereth",
   tagline: "Skyrim Roleplay",
@@ -45,7 +57,7 @@ export const codexMenu: readonly NavLink[] = [
   { label: "Magic", href: "/magic", hint: "Every spell, with its tier" },
   { label: "Crafting", href: "/crafting", hint: "Benches, recipes and alchemy" },
   { label: "The World", href: "/world", hint: "Parcels, keys, races, the calendar" },
-  { label: "Records", href: "/records", hint: "Search everything in the province" },
+  { label: "The Modlist", href: "/records", hint: "What the launcher installs" },
 ];
 
 /** Behind the Realm dropdown in the navbar. */
@@ -92,7 +104,7 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "Magic", href: "/magic" },
       { label: "Crafting", href: "/crafting" },
       { label: "The World", href: "/world" },
-      { label: "Records", href: "/records" },
+      { label: "The Modlist", href: "/records" },
     ],
   },
   {

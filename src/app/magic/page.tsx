@@ -4,6 +4,7 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { SpellBrowser } from "@/components/codex/SpellBrowser";
 import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
+import { PlateImage } from "@/components/ui/Plate";
 import { counts, mereth, spellsBySchool } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
 
@@ -109,8 +110,22 @@ export default function MagicPage() {
             label: "How you learn it",
             hint: "Teacher, book, time",
             content: (
-              <div className="max-w-[68ch]">
-                <Blocks blocks={pipeline} />
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,68ch)_minmax(0,1fr)] lg:gap-14">
+                <div>
+                  <Blocks blocks={pipeline} />
+                </div>
+                <div className="hidden gap-6 lg:sticky lg:top-[120px] lg:grid lg:self-start">
+                  <PlateImage
+                    slug="spellcasting"
+                    aspect="aspect-[4/3]"
+                    sizes="(max-width: 1024px) 100vw, 30vw"
+                  />
+                  <PlateImage
+                    slug="old-ways"
+                    aspect="aspect-[4/3]"
+                    sizes="(max-width: 1024px) 100vw, 30vw"
+                  />
+                </div>
               </div>
             ),
           },

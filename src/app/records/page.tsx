@@ -1,121 +1,131 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
-import { RecordSearch } from "@/components/codex/RecordSearch";
 import { Tabs } from "@/components/codex/Tabs";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { counts, mereth } from "@/lib/mereth";
 
 export const metadata: Metadata = {
-  title: "Records",
+  title: "Modlist",
   description:
-    "Search every named record in the plugins our launcher installs, plus the full mod list, the load order and the release history.",
+    "Every mod the launcher installs, the load order it installs them in, and the release history of the server.",
 };
 
-export default function RecordsPage() {
+/**
+ * The modlist and the release history. Nothing else.
+ *
+ * This page used to carry a searchable index of every named record in the
+ * province, plus a list of unique weapons and armour and the exact interior
+ * each one stands in. It was the most impressive thing on the site and it was
+ * the wrong thing to build.
+ *
+ * Knowing where an artefact stands is not a convenience on a roleplay server,
+ * it is somebody else's discovery, and a search box that hands it over in two
+ * seconds quietly deletes a whole category of play. The rule we settled on:
+ * publish what helps a player **decide** (what to install, what changed, how a
+ * system works) and never what removes the reason to go and look.
+ *
+ * So: mods, load order, releases. What is in the barrow stays in the barrow.
+ */
+export default function ModlistPage() {
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
-        title="Records"
-        lede={`Everything named in the ${counts.plugins} plugins our launcher installs, searchable.
-          This knows that a thing **exists** and what kind of thing it is. It does not know where it
-          stands, what it costs, or whether anyone will ever sell you one.`}
+        title="The Modlist"
+        lede={`Everything the launcher installs, in the order it installs it, and everything we have
+          shipped since launch. **You do not need to install any of this by hand:** the launcher
+          reads the live manifest and does the whole thing for you.`}
         facts={[
-          { label: "Records read", value: counts.records.toLocaleString("en-GB") },
-          { label: "Searchable", value: counts.searchable.toLocaleString("en-GB") },
-          { label: "Plugins", value: String(counts.plugins) },
           { label: "Mods", value: String(counts.mods) },
+          { label: "Plugins", value: String(counts.plugins) },
+          { label: "Files checked", value: counts.checkedFiles.toLocaleString("en-GB") },
+          { label: "Releases", value: String(counts.releases) },
         ]}
       />
 
       <Tabs
         tabs={[
           {
-            id: "search",
-            label: "Search",
-            hint: "Everything with a name",
-            content: <RecordSearch total={counts.searchable} />,
-          },
-          {
-            id: "gear",
-            label: "One of a kind",
-            hint: "Stands in exactly one place",
+            id: "modlist",
+            label: "Mods and load order",
+            hint: `${counts.mods} mods, ${counts.plugins} plugins`,
             content: (
               <div>
-                <div className="relative mb-8 max-w-3xl border border-brand-accent/40 bg-black/35 px-6 py-5">
-                  <FrameCorners weight="thin" size={16} />
+                <div className="relative mb-9 max-w-3xl border border-brand-accent/40 bg-black/35 px-6 py-5">
+                  <FrameCorners size={14} />
                   <p className="relative text-[0.92rem] leading-relaxed text-text-light">
-                    Weapons and armour that stand in exactly one named interior in the whole
-                    province, so going there is a way to find them.{" "}
                     <strong className="font-semibold text-text-primary">
-                      An empty result elsewhere is never proof that something is unobtainable.
+                      Order matters as much as files.
                     </strong>{" "}
-                    A placement walk only sees objects standing in the world, so anything from a
-                    container, levelled loot, a vendor, a quest or a forge appears nowhere.
+                    A plugin present but in the wrong slot fails exactly the way a missing one does,
+                    and the server checks names, order, light flags and SKSE checksums before it
+                    lets you connect. That is the launcher&apos;s job, not yours. If it will not
+                    connect,{" "}
+                    <Link
+                      href="/faq#connect"
+                      className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 hover:decoration-brand-glow"
+                    >
+                      read the exact error first
+                    </Link>
+                    .
                   </p>
                 </div>
 
-                <ul className="grid gap-x-10 md:grid-cols-2">
-                  {mereth.oneOfAKind.map((item) => (
-                    <li
-                      key={`${item.name}:${item.where}`}
-                      className="flex items-baseline justify-between gap-4 border-b border-border-subtle py-2.5"
-                    >
-                      <span className="min-w-0 truncate text-[0.92rem] text-text-primary">
-                        {item.name}
-                      </span>
-                      <span className="shrink-0 text-[0.78rem] text-text-muted">{item.where}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ),
-          },
-          {
-            id: "modlist",
-            label: "The mod list",
-            hint: `${counts.mods} mods, in order`,
-            content: (
-              <div className="grid gap-12 lg:grid-cols-2">
-                <section>
-                  <h3 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-                    Mods the launcher installs
-                  </h3>
-                  <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
-                    {mereth.mods.map((mod) => (
-                      <li
-                        key={`${mod.modId}:${mod.name}`}
-                        className="break-inside-avoid py-1 text-[0.85rem] text-text-light"
-                      >
-                        {mod.name}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
+                <div className="grid gap-12 lg:grid-cols-2">
+                  <section>
+                    <h3 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
+                      Mods the launcher installs
+                    </h3>
+                    <p className="mb-5 text-[0.85rem] leading-relaxed text-text-muted">
+                      Every one is somebody else&apos;s work. Endorse the authors: their mods are
+                      what makes the province look the way it does.
+                    </p>
+                    <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
+                      {mereth.mods.map((mod) => (
+                        <li
+                          key={`${mod.modId}:${mod.name}`}
+                          className="break-inside-avoid py-1 text-[0.85rem] text-text-light"
+                        >
+                          {mod.modId === null ? (
+                            mod.name
+                          ) : (
+                            <a
+                              href={`https://www.nexusmods.com/skyrimspecialedition/mods/${mod.modId}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="transition-colors hover:text-brand-accent"
+                            >
+                              {mod.name}
+                            </a>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
 
-                <section>
-                  <h3 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-                    Load order
-                  </h3>
-                  <p className="mb-4 text-[0.85rem] leading-relaxed text-text-muted">
-                    Order matters as much as files. A plugin present but in the wrong slot fails the
-                    same way a missing one does, which is why this is the launcher&apos;s job and
-                    not yours.
-                  </p>
-                  <ol className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
-                    {mereth.plugins.map((plugin, index) => (
-                      <li
-                        key={plugin}
-                        className="flex break-inside-avoid gap-3 py-1 font-mono text-[0.78rem] text-text-light"
-                      >
-                        <span className="w-6 shrink-0 text-right tabular-nums text-text-muted">
-                          {index + 1}
-                        </span>
-                        <span className="min-w-0 truncate">{plugin}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </section>
+                  <section>
+                    <h3 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
+                      Load order
+                    </h3>
+                    <p className="mb-5 text-[0.85rem] leading-relaxed text-text-muted">
+                      The exact order the server expects, top to bottom.
+                    </p>
+                    <ol className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
+                      {mereth.plugins.map((plugin, index) => (
+                        <li
+                          key={plugin}
+                          className="flex break-inside-avoid gap-3 py-1 font-mono text-[0.78rem] text-text-light"
+                        >
+                          <span className="w-6 shrink-0 text-right tabular-nums text-text-muted">
+                            {index + 1}
+                          </span>
+                          <span className="min-w-0 truncate">{plugin}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
+                </div>
               </div>
             ),
           },
@@ -125,6 +135,17 @@ export default function RecordsPage() {
             hint: `${counts.releases} since launch`,
             content: (
               <div className="max-w-3xl space-y-9">
+                <p className="text-[0.95rem] leading-relaxed text-text-muted">
+                  The most recent {mereth.releases.length}. For what is coming rather than what has
+                  landed, see the{" "}
+                  <Link
+                    href="/roadmap"
+                    className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 hover:decoration-brand-glow"
+                  >
+                    roadmap
+                  </Link>
+                  .
+                </p>
                 {mereth.releases.map((release) => (
                   <article key={release.version}>
                     <h3 className="flex items-baseline gap-4">

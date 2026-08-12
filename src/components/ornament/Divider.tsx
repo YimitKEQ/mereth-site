@@ -62,11 +62,13 @@ export function OrnateDivider({ className = "" }: { className?: string }) {
 export function OrnateLabelDivider({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full items-center gap-4">
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-accent/60" />
-      <h3 className="font-display text-brand-accent tracking-heading text-lg whitespace-nowrap text-shadow-drop">
+      {/* The rules hide below sm and the label wraps. Forcing nowrap made a long
+          label 545px wide inside a 390px viewport and pushed the page sideways. */}
+      <span className="hidden h-px flex-1 bg-gradient-to-r from-transparent to-brand-accent/60 sm:block" />
+      <h3 className="font-display flex-1 text-center text-base tracking-heading text-brand-accent text-shadow-drop sm:flex-none sm:text-lg md:whitespace-nowrap">
         {children}
       </h3>
-      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-accent/60" />
+      <span className="hidden h-px flex-1 bg-gradient-to-l from-transparent to-brand-accent/60 sm:block" />
     </div>
   );
 }

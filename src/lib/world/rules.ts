@@ -233,5 +233,4 @@ export const jarlPath = {
   ],
 };
 
-export const RULES_DOC_URL =
-  "https://docs.google.com/document/d/1AhSN2rsXZox0ISYFghavl0t4FJueDWUZ1VcckBUzEHM/edit?usp=sharing";
+

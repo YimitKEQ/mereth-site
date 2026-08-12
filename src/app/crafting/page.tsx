@@ -5,6 +5,7 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { RecipeBrowser } from "@/components/codex/RecipeBrowser";
 import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
+import { PlateImage } from "@/components/ui/Plate";
 import { counts, mereth } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
 
@@ -82,6 +83,12 @@ export default function CraftingPage() {
             content: (
               <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
                 <div className="max-w-[62ch]">
+                  <PlateImage
+                    slug="mammoths"
+                    aspect="aspect-[16/9]"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    className="mb-8"
+                  />
                   <Blocks blocks={gathering} />
                 </div>
 
@@ -105,35 +112,11 @@ export default function CraftingPage() {
                     </ul>
                   </section>
 
-                  <section>
-                    <h3 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-                      Richest places indoors
-                    </h3>
-                    <ul className="space-y-2.5">
-                      {indoors.slice(0, 12).map((place) => (
-                        <li
-                          key={place.where}
-                          className="border-b border-border-subtle pb-2.5 last:border-0"
-                        >
-                          <span className="flex items-baseline justify-between gap-4">
-                            <span className="text-[0.9rem] text-text-primary">{place.where}</span>
-                            <span className="shrink-0 text-[0.82rem] tabular-nums text-text-muted">
-                              {place.total}
-                            </span>
-                          </span>
-                          <span className="mt-0.5 block text-[0.78rem] text-text-muted">
-                            {place.nodes.map((n) => `${n.name} (${n.count})`).join(", ")}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-
                   <p className="text-[0.78rem] leading-relaxed text-text-muted">
-                    Counted by walking every placed reference in the plugins the launcher installs.
-                    An item that appears nowhere in this list is usually not unobtainable: it comes
-                    from container contents, levelled loot, a vendor, a quest or a forge, and a
-                    placement walk sees only things standing in the world.
+                    Counted across the province, not mapped. Which nodes exist and roughly how
+                    common they are is worth knowing before you spend a memory point. Where the
+                    good ones are is worth finding out yourself, or worth asking somebody who
+                    already has.
                   </p>
                 </div>
               </div>
