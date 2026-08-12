@@ -3,15 +3,16 @@ import type { HandbookPage } from "./blocks";
 /**
  * The guide: how Mereth works, from installing it to holding a rank.
  *
- * Ported from the devkit's wiki renderer, which built it out of Mereth's own
- * client messages and their dated release notes. Every mechanical claim below
- * either quotes the client or cites a patch note, and the page shows which.
+ * Every mechanical claim here either quotes a message the client itself prints
+ * or cites the dated release note that introduced it, and the page renders both
+ * underneath the claim. That is not decoration: the server ships almost daily,
+ * and a claim with a date on it can be checked against what actually shipped.
  */
 export const guide: HandbookPage = {
   title: "The Guide",
-  lede: `How Mereth actually works, from installing it to holding a rank in a hold. Every rule below
-    is either quoted from the client the launcher ships or cited to a dated patch note, so you can
-    check it rather than take it on trust.`,
+  lede: `How the server works, from installing it to holding a rank in a hold. Where a rule depends on
+    something that changed, the release note that changed it is shown underneath, so you can see when
+    it changed and what it said.`,
 
   sections: [
     {
@@ -21,13 +22,13 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `You need Skyrim Special Edition on PC, SKSE, and Mereth's launcher. The launcher reads
-              a manifest, installs the mod list in a fixed order, and checks your files against the
+            `You need Skyrim Special Edition on PC, SKSE, and our launcher. The launcher reads the live
+              manifest, installs the mod list in the right order, and checks your files against the
               server before it will let you connect. You do not assemble the list by hand.`,
-            `**Login is through Discord**, not a username and password. The client has distinct
-              failures for being outside their Discord and for never having logged in through it,
-              so membership is the gate. It also fails you for a ban, an expired session, an
-              expired token, or a login from a different IP.`,
+            `**Login is through Discord**, not a username and password, so you must be in our Discord to
+              connect at all. The client reports being outside the Discord and never having logged
+              in through it as two different errors, and it will also refuse a ban, an expired
+              session, an expired token, or a login from a different IP.`,
             `**Your mod list is checked, not trusted.** Plugin names, order, and light versus
               regular flags must all match, and so must the SKSE DLLs by name, size and checksum.`,
           ],
@@ -50,9 +51,8 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `The client says exactly what is wrong, and it distinguishes far more cases than most
-              servers bother to. Read the wording before you change anything. These are its own
-              messages:`,
+            `The client names the exact problem, and it separates cases that look identical from the
+              outside. Read the wording before you change anything. These are its own messages:`,
           ],
         },
         { kind: "data", name: "troubles" },
@@ -74,8 +74,8 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Mereth adds an interaction system on top of Skyrim's own controls. Aim at someone and
-              press the key. All of these are bound in the client, on keyboard and on a pad.`,
+            `We add an interaction system on top of Skyrim's own controls. Aim at a person and press the
+              key. All of these are bound in the client, on keyboard and on a pad.`,
           ],
         },
         { kind: "data", name: "binds" },
@@ -125,7 +125,7 @@ export const guide: HandbookPage = {
               memory points at all. Perks unlock every ten levels on skills that grant them.`,
             `**The purple bar is your experience budget.** Exhaustion drops every time you use a
               skill and gain experience, and only starts refilling once it is fully spent. Resting
-              at an inn refills it noticeably faster, which is the real reason to go indoors.`,
+              at an inn refills it faster than resting anywhere else.`,
             `**No points, no damage.** If you have no points in a weapon skill you deal no damage
               at all with that weapon. This is deliberate rather than a penalty curve: civilians
               should not pick up a sword and fight like a warrior, and specialists should feel like
@@ -145,14 +145,14 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `The crafting and gathering skills sit apart from combat, and this is where most of the
-              economy lives. Crafting is not one umbrella stat: a blacksmith might hold any
-              combination of Weapon Smithing, Armor Smithing, Carpentry and Leatherworking, so
-              craftsmen end up genuinely uneven and finding the best leatherworker in the hold
-              becomes its own errand.`,
-            `Carry weight is a real constraint, and the answer to it is crafted rather than bought.
-              What each tier of each profession unlocks is written into the skill itself, so
-              [read the tier text](/skills) before you commit a point.`,
+            `Crafting is split into separate skills rather than one smithing stat, so a blacksmith might
+              hold any combination of Weapon Smithing, Armor Smithing, Carpentry and Leatherworking.
+              Two smiths in the same hold will be good at different things, and anyone wanting
+              quality work has to find the one who bought that specific skill.`,
+            `Carry weight limits what you can move, and the containers that fix it are crafted: a 200
+              carry weight chest from carpentry at level 5, a 50 carry weight satchel from
+              leatherworking at 5. What each tier of each profession unlocks is written into the
+              skill itself, so [read the tier text](/skills) before you commit a point.`,
           ],
         },
         { kind: "cite", pattern: /carpentry|leatherwork|tailoring|smelting/i, limit: 4 },
@@ -186,9 +186,9 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Two needs are live. A third, Rest driven by a fatigue stat, is written into their UI
-              and commented out, so it is intent rather than mechanic. Energy governs regeneration,
-              and inns are how you get it back.`,
+            `Two needs are live. A third, Rest, is written into the client and currently disabled,
+              so nothing tracks it today. Energy governs regeneration, and inns are how you get it
+              back.`,
           ],
         },
         { kind: "cite", pattern: /well.?rested|energy|inn\b|comfort|camp ?fire/i, limit: 4 },

@@ -29,9 +29,10 @@ export default function HoldsPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="The Nine Holds"
-        lede={`Skyrim in 4E 185, a decade after the White-Gold Concordat. A hold is the unit that
-          matters here: you pledge to one, hold a rank in it, and its jarl grants the parcels that
-          make a house or a workshop yours. **Each hold also sets its own law**, including on magic.`}
+        lede={`Skyrim in 4E 185, a decade after the White-Gold Concordat. You pledge to one hold, hold
+          a rank in it, and its jarl or steward grants the parcels that let you own a house or a
+          workshop. **Each hold sets its own law**, including which spells are legal to cast in it,
+          so the same act can be fine in Winterhold and a crime in Markarth.`}
         facts={[
           { label: "Holds", value: String(holds.length) },
           { label: "Jarls seated", value: String(seated.length) },

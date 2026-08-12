@@ -89,10 +89,10 @@ export default function MagicPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="Magic"
-        lede={`Magic is a roleplay pipeline rather than a menu: **a teacher, a book, and time**. It
-          is the system we are asked about most, and it is gated on purpose. Below is every spell a
-          player can be taught, with its tier, so you can see what a Novice, an Adept and a Master
-          actually have access to.`}
+        lede={`You cannot learn a spell from a menu. Every one needs **a teacher who already knows it
+          and a spellbook to learn it from**, which means finding a person before you find a spell.
+          Below is every spell a player can be taught, with its tier, so you can see what a Novice,
+          an Adept and a Master actually have access to.`}
         facts={[
           { label: "Learnable spells", value: counts.spells.toLocaleString("en-GB") },
           { label: "Schools", value: String(schools.length) },

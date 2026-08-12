@@ -23,9 +23,9 @@ export const steps: Step[] = [
     title: "Join the Discord and read the rules",
     summary: "Your Discord account **is** your login. There is no separate password.",
     body: [
-      `Mereth authenticates through Discord, so being in their server is not a social nicety, it
-        is the account system. The client has separate failures for being outside the Discord and
-        for never having logged in through it.`,
+      `Your Discord account is your Mereth account. There is no separate username or password, so
+        you have to be in our Discord to get in at all. The client reports being outside the
+        Discord and never having logged in through it as two different errors.`,
       `Read the rules before you apply rather than after. They are about conduct and consistency:
         stay in character, do not metagame, do not write your character out of consequences. One
         rule catches people out repeatedly, so it is worth saying plainly: **AI-written roleplay is
@@ -35,10 +35,10 @@ export const steps: Step[] = [
   },
   {
     title: "Install through the launcher, and only through the launcher",
-    summary: "It installs the mod list in a fixed order and checks your files before you connect.",
+    summary: "It installs the whole mod list in the right order and checks your files before you connect.",
     body: [
-      `You need Skyrim Special Edition on PC and SKSE. Everything else comes from Mereth's
-        launcher, which reads a manifest and installs the whole list in a fixed order.`,
+      `You need Skyrim Special Edition on PC and SKSE. Everything else comes from our launcher, which
+        reads the live manifest and installs the whole list in the right order.`,
       `**Do not assemble the list by hand and do not update mods yourself.** Plugin names, load
         order, and light versus regular flags are all compared against the server, and SKSE DLLs
         are compared by name, size and checksum. A newer version of the right mod fails exactly
@@ -50,17 +50,16 @@ export const steps: Step[] = [
   },
   {
     title: "Decide who your character is, before the game asks",
-    summary: "Race and hold are political facts here, not a stat screen.",
+    summary: "Where your character is from and who they answer to matters more here than their stats.",
     body: [
       `The setting is 4E 185, ten years after the Great War. It is an alternate timeline, so named
         characters from the games are gone and players fill those roles instead. You cannot play a
         character from the lore.`,
-      `Your race puts you somewhere on a map of grudges before you have said a word: a Dunmer in
-        Windhelm and an Altmer anywhere under Imperial law are both walking into a situation. That
-        is material to work with, not an obstacle.`,
-      `Work out what your character **wants**, and make it something that needs other people. A
-        character with a goal that can be met alone will run out of things to do by the second
-        evening.`,
+      `Race carries real weight here. A Dunmer in Windhelm or an Altmer under Imperial law will meet
+        suspicion from people who have their reasons, and those reasons are playable on both sides.`,
+      `Work out what your character **wants**, and make it something that needs other people. A goal
+        you can complete alone runs out by the second evening; a goal that needs a smith, a patron
+        or a rival gives you somebody to look for every time you log in.`,
     ],
     link: { label: "Setting and lore answers", href: "/faq#setting" },
   },
@@ -79,19 +78,20 @@ export const steps: Step[] = [
         experience you earned in the tier you dropped out of, so decide the whole build first.`,
     ],
     pitfall: `Do not spread points thinly across everything you might want. Eighteen points buys
-      roughly two specialisms and a hobby. A character who is mediocre at nine things has no reason
-      for anyone to seek them out, and being sought out is the game.`,
+      roughly two specialisms and a hobby. Spread across nine skills you are Novice at all of them,
+      which means there is no job anybody needs you specifically for.`,
     link: { label: "Plan it on the planner", href: "/skills" },
   },
   {
     title: "Learn the interaction keys",
-    summary: "Aim at a person and press a key. This is most of what makes it a roleplay server.",
+    summary: "Aim at a person and press a key. Trading, introducing yourself and restraining someone all work this way.",
     body: [
-      `Mereth layers its own interaction system on top of Skyrim's controls. \`E\` opens a two
-        sided trade, \`H\` introduces yourself, \`T\` tackles, \`F\` cuffs, \`B\` sits, \`X\`
-        surrenders. \`K\` opens your skills and \`F3\` re-aims the look target when a menu loses it.`,
-      `**You start as a Stranger** and stay one until somebody introduces themselves to you. Names
-        are not free here, which is the single best thing about the social design.`,
+      `We layer our own interaction system on top of Skyrim's controls. \`E\` opens a two sided
+        trade, \`H\` introduces yourself, \`T\` tackles, \`F\` cuffs, \`B\` sits, \`X\` surrenders.
+        \`K\` opens your skills and \`F3\` re-aims the look target when a menu loses it.`,
+      `**You start as a Stranger.** Everyone sees that above your head, and you see it above
+        theirs, until somebody aims at you and presses \`H\` to introduce themselves. Nobody
+        learns your name by looking at you.`,
     ],
     link: { label: "The full control table", href: "/guide#controls" },
   },
@@ -101,11 +101,12 @@ export const steps: Step[] = [
     body: [
       `Park at an inn for five minutes to pick up Well Rested, which is the cheapest standing
         experience bonus in the game and re-triggers every five minutes while you stay.`,
-      `Pledge to a hold when you know where your character belongs. The holdstone is the spine of
-        the server: rank in a hold carries real mechanical benefits, and jarls and stewards grant
-        parcels, which are how you come to own a house, a workshop or a shop.`,
-      `Check the missive board in the hold. Every hold has one, it doubles as a player pinboard,
-        and it is where work and trouble get advertised.`,
+      `Pledge to a hold when you know where your character belongs. Rank in a hold carries real
+        mechanical benefits, for example a guard rank gives light armour and a court mage rank
+        gives spell points, and jarls and stewards grant the parcels that let you own a house, a
+        workshop or a shop.`,
+      `Check the missive board in the hold. Every hold has one and any player can pin a note to it:
+        one note each, three days before it expires. Jobs, warnings and meetings get posted there.`,
     ],
     link: { label: "Tips worth knowing on night one", href: "/tips#first" },
   },

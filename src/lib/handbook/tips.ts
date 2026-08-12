@@ -11,9 +11,9 @@ import type { HandbookPage } from "./blocks";
  */
 export const tips: HandbookPage = {
   title: "Tips and tricks",
-  lede: `The numbers, the cooldowns and the small mechanical facts that decide whether an evening on
-    Mereth goes well. Everything here is optimisation rather than exploitation: knowing the rules
-    better, not breaking them.`,
+  lede: `Numbers, cooldowns and thresholds that are easy to miss and cost you an evening when you
+    do. All of it is about using the systems well. If anything here ever looks like a way around a
+    system rather than through it, tell us in a ticket so we can fix the system.`,
 
   sections: [
     {
@@ -140,9 +140,9 @@ export const tips: HandbookPage = {
           kind: "note",
           tone: "key",
           title: "A container bound to a parcel stops regenerating loot",
-          body: `The single most useful storage fact on the server. An ordinary container
-            regenerates, which means it is not safe to keep anything in. Bind it to a parcel through
-            the holdstone and it stops, which is what makes a chest yours.`,
+          body: `An ordinary container regenerates its contents on a timer, so anything you leave in one
+            can vanish. Binding it to a parcel through the holdstone stops that, and only then will
+            it keep what you put in it.`,
         },
         { kind: "cite", pattern: /parcel/i, limit: 2 },
         {
@@ -197,8 +197,8 @@ export const tips: HandbookPage = {
           kind: "note",
           tone: "warn",
           title: "Skooma has a 72 hour addiction timer",
-          body: `Addiction is real, it is modelled, and Cure Addiction exists for a reason. Three
-            days is a long time to play around a debuff you took for one scene.`,
+          body: `Three real days of withdrawal, which is a long time to carry a debuff you picked up for one
+            scene. Cure Addiction removes it.`,
         },
         { kind: "cite", pattern: /addiction/i, limit: 2 },
         {

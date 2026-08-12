@@ -45,7 +45,7 @@ export const plates: Record<string, Plate> = {
   "mead-hall": {
     slug: "mead-hall",
     title: "A hall in the evening",
-    caption: "Most of what happens on Mereth happens at a table, over a longfire.",
+    caption: "Voice chat is proximity based, so conversation happens where people gather rather than in a global channel.",
     src: "/img/mead-hall.webp",
     width: 1800,
     height: 1013,
@@ -55,7 +55,7 @@ export const plates: Record<string, Plate> = {
   "jarls-hall": {
     slug: "jarls-hall",
     title: "The jarl's hall",
-    caption: "Court is held where the hold eats. Rank here is granted, and it can be taken back.",
+    caption: "A jarl's hall. Rank inside a hold is granted by the jarl or steward, and it can be revoked.",
     src: "/img/jarls-hall.webp",
     width: 1800,
     height: 1013,
@@ -65,7 +65,7 @@ export const plates: Record<string, Plate> = {
   "hold-guard": {
     slug: "hold-guard",
     title: "The hold guard",
-    caption: "Guards are players. So is whoever they are waiting for.",
+    caption: "There is no NPC watch. The guards on a gate are players holding a rank in that hold.",
     src: "/img/hold-guard.webp",
     width: 1800,
     height: 1013,
@@ -75,7 +75,7 @@ export const plates: Record<string, Plate> = {
   "longfire": {
     slug: "longfire",
     title: "Around the longfire",
-    caption: "Sat down, armed, and in no hurry. An ordinary evening.",
+    caption: "An evening in a hall. Most sessions look more like this than like a fight.",
     src: "/img/longfire.webp",
     width: 1800,
     height: 753,
@@ -95,7 +95,7 @@ export const plates: Record<string, Plate> = {
   "palisade": {
     slug: "palisade",
     title: "Beyond the palisade",
-    caption: "The province is the whole map, and the weather in it is not on your side.",
+    caption: "The playable area is the whole province, weather and all, with travel done on foot or by horse.",
     src: "/img/palisade.webp",
     width: 1800,
     height: 1125,
@@ -105,7 +105,7 @@ export const plates: Record<string, Plate> = {
   "arriving": {
     slug: "arriving",
     title: "Arriving",
-    caption: "Carry weight is a real constraint. The answer to it is crafted, not bought.",
+    caption: "Carry weight limits what you can move. The containers that fix it come off a carpentry or leatherworking bench.",
     src: "/img/arriving.webp",
     width: 981,
     height: 555,

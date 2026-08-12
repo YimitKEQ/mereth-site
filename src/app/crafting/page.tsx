@@ -51,9 +51,9 @@ export default function CraftingPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="Crafting"
-        lede={`Crafting here is **not one umbrella skill**. A blacksmith might be a Master of weapons
-          and only an Adept at armour, which is why finding the best leatherworker in the hold is
-          its own errand, and why the economy has anything to do at all.`}
+        lede={`Crafting is **several separate skills**, not one smithing stat. A blacksmith might be a
+          Master of weapons and only an Adept at armour, so two smiths in the same hold are good at
+          different things and you have to find the one who bought the skill you need.`}
         facts={[
           { label: "Recipes", value: counts.recipes.toLocaleString("en-GB") },
           { label: "Benches", value: String(mereth.benches.length) },

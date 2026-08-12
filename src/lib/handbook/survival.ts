@@ -10,9 +10,9 @@ import type { HandbookPage } from "./blocks";
  */
 export const survival: HandbookPage = {
   title: "Food, Drink and Exhaustion",
-  lede: `Four things tick down while you play, and only two of them can kill you. The one people
-    misread is the purple bar: it is an experience budget rather than a health problem, and being
-    at zero costs you progress, not blood.`,
+  lede: `Four things tick down while you play, and only Food and Drink can kill you. The purple bar
+    is the one people misread: it tracks how much experience you have left to earn, not your health,
+    and at zero you simply stop earning until it refills.`,
 
   sections: [
     {
@@ -68,10 +68,9 @@ export const survival: HandbookPage = {
           kind: "note",
           tone: "warn",
           title: "Low is a warning, critical is a deadline",
-          body: `Passing the low threshold is the game telling you to plan a meal. Passing critical
-            is the game telling you to eat now. Do not carry a critical bar into a dungeon: there is
-            nothing to eat down there, and dying to hunger in a barrow is an embarrassing way to
-            need a healer.`,
+          body: `Low means find food soon. Critical means find food now, because damage starts and
+            keeps going until you eat. Do not enter a dungeon on a critical bar: there is rarely
+            anything edible inside and you cannot always leave quickly.`,
         },
         {
           kind: "prose",
@@ -103,8 +102,8 @@ export const survival: HandbookPage = {
               Spend it, then rest. **Resting at an inn refills it noticeably faster than resting
               anywhere else**, which is the real mechanical reason to go indoors rather than sleep
               in a field.`,
-            `A bard performing in the room speeds that recovery up further, which is why inns with
-              a bard are worth walking to.`,
+            `A bard performing in the room speeds that recovery up further, so an inn with a bard in it
+              is worth the walk.`,
           ],
         },
         { kind: "cite", pattern: /exhaustion|musicanship|musicianship|bard/i, limit: 3 },
@@ -174,8 +173,9 @@ export const survival: HandbookPage = {
           kind: "note",
           tone: "warn",
           title: "Addiction is modelled and it is long",
-          body: `Skooma carries a 72 hour addiction timer, and Cure Addiction exists for a reason.
-            Three days is a long time to play around a debuff you took for one scene.`,
+          body: `Skooma carries a 72 hour addiction timer. That is three real days of playing around the
+            withdrawal, so take it as a decision your character is making rather than as set
+            dressing for one scene. Cure Addiction removes it.`,
         },
         { kind: "cite", pattern: /addiction|disease|healer|downed/i, limit: 3 },
       ],

@@ -45,7 +45,7 @@ export const factions: Faction[] = [
   {
     name: "The College of Winterhold",
     cap: 25,
-    standing: "Teaching, and the only reliable route past a first spellbook.",
+    standing: "Teaching three semesters, and the only place with reliable spellbook access.",
     lore: [
       `The College traces its history to the Cleverfolk, the shamans and spellsingers of the ancient
         Nords, and the worship of the Nordic Owl Totem. Though now mistrusted by the denizens of
@@ -72,7 +72,7 @@ export const factions: Faction[] = [
   {
     name: "The Thieves' Guild",
     cap: 25,
-    standing: "Thriving under the ice, and less a guild than a name several clans wear at once.",
+    standing: "Several clans trading under one name, rather than a single organisation.",
     lore: [
       `Hidden in the shadows of betrayal and coin, the Thieves' Guild thrives buried under ice. Some
         say the Guild exists solely as an interloper of Imperial culture, that true Sons and

@@ -33,9 +33,9 @@ export const progression: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Two numbers decide everything, and they behave differently. **The tier is a ceiling you
-              buy once**, at character creation, out of eighteen memory points. **The level is
-              experience you earn**, and it climbs toward that ceiling and stops.`,
+            `Every skill has two numbers and they work differently. **The tier is a ceiling you buy
+              once**, at character creation, out of eighteen memory points. **The level is
+              experience you earn** by using the skill, and it climbs toward that ceiling and stops.`,
             `So a Master smith and an Apprentice smith are not the same person further along the
               same road. They are two different characters, and the Apprentice can never become
               the Master by playing longer.`,
@@ -47,8 +47,8 @@ export const progression: HandbookPage = {
           tone: "key",
           title: "Nineteen levels to a tier",
           body: `Each tier spans nineteen levels, and reaching the twentieth advances you to the
-            next one **if your cap allows it**. If it does not, you stop. That stop is the whole
-            design: it is what makes finding the right craftsman an errand worth doing.`,
+            next one **if your cap allows it**. If it does not, you stop there permanently. That is
+            why a hold's best armourer and its best weaponsmith are usually two different people.`,
         },
         {
           kind: "prose",
@@ -68,8 +68,8 @@ export const progression: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Novice costs 1, Apprentice 2, Adept 3, Expert 5, Master 8. The curve is deliberately
-              cruel at the top: one Master eats nearly half your character.`,
+            `Novice costs 1, Apprentice 2, Adept 3, Expert 5, Master 8. The cost rises faster than the
+              tier does, so one Master takes 8 of your 18 points.`,
           ],
         },
         {
@@ -86,16 +86,17 @@ export const progression: HandbookPage = {
           kind: "note",
           tone: "warn",
           title: "Spreading thin is the common mistake",
-          body: `Eighteen points buys roughly two specialisms and a hobby. A character who is
-            mediocre at nine things is never the person anyone goes looking for, and being gone
-            looking for is the game. [Work it out on the planner](/skills) before you sit down.`,
+          body: `Eighteen points buys roughly two specialisms and a hobby. Spread them across nine skills and
+            you are Novice at all of them, which means no job needs you specifically.
+            [Work it out on the planner](/skills) before you sit down.`,
         },
         {
           kind: "prose",
           paragraphs: [
             `**You can earn more.** At the end of every month you may submit clips of your
               character learning a skill in roleplay, through a ticket, and earn a memory point to
-              allocate. Points are earned by playing the learning, not by grinding the skill.`,
+              allocate. The clip has to show your character being taught or practising in roleplay; grinding the
+          skill on its own does not qualify.`,
             `**Taking a point back costs you.** You lose the experience earned in the tier you
               dropped out of, though only if you had any in it.`,
           ],
@@ -158,11 +159,11 @@ export const progression: HandbookPage = {
             `Every weapon specialisation has five tiers of text, and none of it is numbers. Swords
               at Adept reads "You parry more than luck allows". Maces at Expert reads "Few can stand
               a clean connection".`,
-            `That is deliberate. We could publish a damage table, and the moment we did every
-              player would know exactly how dangerous every other player is without ever having
-              met them. **The point of a reputation is that somebody had to watch you earn it.**
-              So if you want to know whether a person is better than you with a blade: spar them,
-              watch them fight, or ask somebody who has.`,
+            `That is deliberate. If we published a damage table, anyone could work out how dangerous
+              your character is by asking which tier you bought, without ever meeting you. **We
+              would rather that took a spar, a witness or a reputation.** So to find out whether
+              somebody is better than you with a blade: spar them, watch them fight, or ask
+              somebody who has.`,
           ],
         },
         {
@@ -231,9 +232,9 @@ export const progression: HandbookPage = {
           paragraphs: [
             `Magic does not climb on use. It is taught. Each tier of study runs roughly **a week**,
               and a master of the school can teach you directly or shorten it.`,
-            `That means a mage's progression is a calendar and a set of relationships rather than a
-              grind, and it is why "how long to Adept" has a real answer where "how long to a good
-              swordsman" does not. Every spell in the province with its tier is on the
+            `So "how long to Adept" has a real answer, roughly three weeks of study with a teacher,
+              while "how long to a good swordsman" does not, because that one depends on who you
+              fight and who sees it. Every spell you can be taught, with its tier, is on the
               [magic page](/magic).`,
           ],
         },

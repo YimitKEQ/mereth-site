@@ -82,9 +82,9 @@ const living: Block[] = [
   {
     kind: "prose",
     paragraphs: [
-      `**Needs are live.** Two of them, with thresholds the client enforces. A third, Rest driven by
-        a fatigue stat, is written into their UI and commented out, so it is intent rather than
-        mechanic.`,
+      `**Needs are live.** Food and Drink, with thresholds the client enforces and warns you about
+        twice on the way down. A third, Rest, is written into the client and currently disabled, so
+        nothing tracks it today.`,
     ],
   },
   { kind: "data", name: "needs" },
@@ -114,9 +114,10 @@ export default function WorldPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="The World"
-        lede={`Skyrim in 4E 185, ten years after the Great War, on an alternate timeline where the
-          named characters are gone and players fill those roles. What follows is how the province
-          is actually organised: who grants what, what the keys do, and what the world remembers.`}
+        lede={`Skyrim in 4E 185, ten years after the Great War, on an alternate timeline where the named
+          characters are gone and players fill those roles. This page covers who grants property,
+          what each interaction key does, how needs and the calendar work, and what happens after a
+          crime.`}
         facts={[
           { label: "Races", value: String(mereth.races.length) },
           { label: "Access modes", value: String(mereth.accessLevels.length) },
