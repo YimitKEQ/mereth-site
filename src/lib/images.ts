@@ -338,6 +338,28 @@ export const plates: Record<string, Plate> = {
     blurDataURL:
       "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwDCgB6VvLZuXs4JuwSZ8AD+8ReIOOfW3NIipCazMbMHK5jVpKBNelZvF0XAOIRaIoA1DWiAAA==",
   },
+  "the-patrol": {
+    slug: "the-patrol",
+    title: "Into the dark",
+    caption: "A cleared dungeon seals, waits on a timer, regenerates and reopens. Keys found inside vanish after thirty minutes.",
+    src: asset("/img/the-patrol.webp"),
+    widths: [640, 1024],
+    width: 1160,
+    height: 653,
+    blurDataURL:
+      "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAABQAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JaQAAW+nzISMAAAD+9Bv3sQpxfkMUYkOsq3Ic29mn83xyXiem8jZAAAA=",
+  },
+  "the-long-night": {
+    slug: "the-long-night",
+    title: "The long night",
+    caption: "World time is synced for everyone and runs on the Tamriel year, so night falls on the whole province at once.",
+    src: asset("/img/the-long-night.webp"),
+    widths: [640],
+    width: 900,
+    height: 496,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwAAV/26Xv6uNX0AAP7qAM5iXNL+SVtzjtQ4od3o/FJNO1L4w+N2uaBYgQAA",
+  },
   "the-mammoth": {
     slug: "the-mammoth",
     title: "The mammoth, briefly airborne",

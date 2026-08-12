@@ -129,10 +129,11 @@ export default function WorldPage() {
         ]}
       />
 
-      <div className="mb-12 grid gap-5 md:grid-cols-3">
-        <PlateFigure slug="the-harbour" />
-        <PlateFigure slug="the-arch" />
-        <PlateFigure slug="the-camp" />
+      <div className="mb-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <PlateFigure slug="the-harbour" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="the-arch" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="the-camp" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="the-long-night" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
       </div>
 
       <Tabs

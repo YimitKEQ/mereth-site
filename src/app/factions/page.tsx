@@ -36,10 +36,11 @@ export default function FactionsPage() {
         ]}
       />
 
-      <div className="mb-12 grid gap-5 md:grid-cols-3">
-        <PlateFigure slug="the-legion" />
-        <PlateFigure slug="under-arms" />
-        <PlateFigure slug="the-muster" />
+      <div className="mb-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <PlateFigure slug="the-legion" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="under-arms" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="the-muster" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+        <PlateFigure slug="the-patrol" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw" />
       </div>
 
       <div className="space-y-6">

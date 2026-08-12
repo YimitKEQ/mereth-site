@@ -211,6 +211,19 @@ const PLATES = [
     caption: "Voice is proximity based. If you cannot make out who is talking, neither can your character.",
   },
   {
+    file: "CS_2026-07-31_01-02-49_066.png",
+    slug: "the-patrol",
+    title: "Into the dark",
+    caption: "A cleared dungeon seals, waits on a timer, regenerates and reopens. Keys found inside vanish after thirty minutes.",
+    adjust: { crop: { left: 380, top: 280, width: 1160, height: 653 }, brightness: 1.9, contrast: 1.25 },
+  },
+  {
+    file: "Screenshot_2026-08-11_012103.png",
+    slug: "the-long-night",
+    title: "The long night",
+    caption: "World time is synced for everyone and runs on the Tamriel year, so night falls on the whole province at once.",
+  },
+  {
     file: "489830_20260727160518_1.png",
     slug: "the-mammoth",
     title: "The mammoth, briefly airborne",
@@ -247,10 +260,36 @@ for (const plate of PLATES) {
 
   const image = sharp(source);
   const meta = await image.metadata();
-  const width = Math.min(meta.width ?? MAX_WIDTH, MAX_WIDTH);
-  const height = Math.round(((meta.height ?? 1) / (meta.width ?? 1)) * width);
 
-  await sharp(source).resize({ width }).webp({ quality: 78 }).toFile(path.join(OUT, `${plate.slug}.webp`));
+  /*
+   * An optional crop and exposure lift, declared per plate.
+   *
+   * One shot was taken in an unlit mine: the subject sat in a small lit patch
+   * with half the frame given over to black rock, and at card size it was a
+   * black rectangle. Cropping to the subject and lifting the shadows is the
+   * same order of handling as the resize every other plate gets, and it is
+   * opt-in so nothing correctly exposed is touched.
+   *
+   * `gamma` is the wrong tool here despite the name: it exists to preserve
+   * appearance across a resize, and it came back darker and redder.
+   */
+  const adjust = (pipeline) => {
+    const tweak = plate.adjust;
+    if (tweak === undefined) return pipeline;
+    let out = pipeline;
+    if (tweak.crop !== undefined) out = out.extract(tweak.crop);
+    if (tweak.brightness !== undefined) out = out.modulate({ brightness: tweak.brightness });
+    if (tweak.contrast !== undefined) out = out.linear(tweak.contrast, -8);
+    return out;
+  };
+
+  /* The crop changes the frame, so it has to happen before the resize. */
+  const sourceWidth = plate.adjust?.crop?.width ?? meta.width ?? MAX_WIDTH;
+  const sourceHeight = plate.adjust?.crop?.height ?? meta.height ?? 1;
+  const width = Math.min(sourceWidth, MAX_WIDTH);
+  const height = Math.round((sourceHeight / sourceWidth) * width);
+
+  await adjust(sharp(source)).resize({ width }).webp({ quality: 78 }).toFile(path.join(OUT, `${plate.slug}.webp`));
 
   /*
    * Narrower copies, for the srcset.
@@ -264,13 +303,13 @@ for (const plate of PLATES) {
    */
   for (const w of NARROW_WIDTHS) {
     if (w >= width) continue;
-    await sharp(source).resize({ width: w }).webp({ quality: 74 })
+    await adjust(sharp(source)).resize({ width: w }).webp({ quality: 74 })
       .toFile(path.join(OUT, `${plate.slug}-${w}.webp`));
   }
 
   // 20px wide is enough to read as the picture once blurred, and small enough
   // that inlining it in the page costs less than a request would.
-  const blur = await sharp(source).resize({ width: 20 }).webp({ quality: 40 }).toBuffer();
+  const blur = await adjust(sharp(source)).resize({ width: 20 }).webp({ quality: 40 }).toBuffer();
 
   const webpKb = fs.statSync(path.join(OUT, `${plate.slug}.webp`)).size / 1024;
   entries.push({
