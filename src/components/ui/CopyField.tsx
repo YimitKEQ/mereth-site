@@ -28,7 +28,7 @@ export function CopyField({ value }: { value: string }) {
 
   return (
     <div className="relative mx-auto flex h-12 w-full max-w-lg items-stretch border border-brand-accent/70 bg-black/70 text-brand-accent">
-      <FrameCorners weight="thin" />
+      <FrameCorners size={14} />
       <button
         type="button"
         onClick={copy}

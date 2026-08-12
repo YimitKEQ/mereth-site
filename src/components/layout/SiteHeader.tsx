@@ -82,10 +82,10 @@ export function SiteHeader() {
           type="button"
           className="relative hidden h-14 shrink-0 items-center gap-2 rounded-md border border-brand-accent/80 bg-black/60 px-4 text-white md:flex md:h-16"
         >
-          <FrameCorners weight="thin" />
+          <FrameCorners size={14} />
           <span className="relative text-[10px] tracking-widest text-text-muted">GB</span>
           <span className="font-display relative text-sm tracking-nav">English</span>
-          <ChevronDown className="relative text-brand-accent" />
+          <ChevronDown className="relative text-[var(--color-chevron)]" />
         </button>
       </div>
 

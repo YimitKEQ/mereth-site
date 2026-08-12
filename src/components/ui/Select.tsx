@@ -20,7 +20,7 @@ export function Select({
     <div
       className={`relative flex h-12 items-center border border-brand-accent/70 bg-black/60 pr-3 pl-4 text-brand-accent ${className}`}
     >
-      <FrameCorners weight="thin" />
+      <FrameCorners size={14} />
       <select
         aria-label={label}
         className="font-display relative w-full appearance-none bg-transparent pr-6 text-xs tracking-widest text-brand-accent outline-none"
@@ -33,7 +33,7 @@ export function Select({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-3 text-brand-accent" />
+      <ChevronDown className="pointer-events-none absolute right-3 text-[var(--color-chevron)]" />
     </div>
   );
 }

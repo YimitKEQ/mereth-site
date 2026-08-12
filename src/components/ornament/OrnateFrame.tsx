@@ -9,18 +9,33 @@ import type { ReactNode } from "react";
  * size and recolours with the brand token.
  */
 
+/*
+ * Sizes and rule widths are the reference's own, read off its stylesheet rather
+ * than estimated from a screenshot:
+ *
+ *   panel corners     48px, dropping to 34px on the how-to-play panel
+ *   accordion corners 28px
+ *   rule width        3px on small and medium panels, 4px on large
+ *   panel shadow      0 0 6px #0006
+ */
 type Weight = "thin" | "thick" | "heavy";
 
 const CORNER_SIZE: Record<Weight, number> = {
-  thin: 16,
-  thick: 22,
-  heavy: 30,
+  thin: 28,
+  thick: 34,
+  heavy: 48,
+};
+
+const RULE_WIDTH: Record<Weight, number> = {
+  thin: 3,
+  thick: 3,
+  heavy: 4,
 };
 
 const STROKE: Record<Weight, number> = {
-  thin: 1.5,
+  thin: 2,
   thick: 2,
-  heavy: 2.5,
+  heavy: 2.25,
 };
 
 /**
@@ -54,8 +69,18 @@ function FretCorner({ size, stroke }: { size: number; stroke: number }) {
  * The four brackets on their own, for anything that draws its own border:
  * buttons, inputs, selects, accordion rows. Drop into a `relative` element.
  */
-export function FrameCorners({ weight = "thin" }: { weight?: Weight }) {
-  const size = CORNER_SIZE[weight];
+export function FrameCorners({
+  weight = "thin",
+  size: sizeOverride,
+}: {
+  weight?: Weight;
+  /**
+   * Explicit corner size. Controls need their own scale: a 28px bracket is
+   * right on an accordion row and eats the label on a 36px button.
+   */
+  size?: number;
+}) {
+  const size = sizeOverride ?? CORNER_SIZE[weight];
   const stroke = STROKE[weight];
   const offset = -1;
   const corners = [
@@ -99,9 +124,15 @@ export function OrnateFrame({
 }: OrnateFrameProps) {
   return (
     <div
-      className={`relative border border-brand-accent/70 text-brand-accent ${
+      className={`relative text-brand-accent ${
         filled ? "bg-bg-card backdrop-blur-[var(--blur-panel)]" : ""
       } ${className}`}
+      style={{
+        borderStyle: "solid",
+        borderWidth: RULE_WIDTH[weight],
+        borderColor: "color-mix(in srgb, var(--color-brand-accent) 70%, transparent)",
+        boxShadow: "0 0 6px #0006",
+      }}
     >
       <FrameCorners weight={weight} />
       <div className={`text-text-primary ${contentClassName}`}>{children}</div>

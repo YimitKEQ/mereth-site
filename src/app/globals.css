@@ -30,6 +30,14 @@
   /* Lines and states */
   --color-border-subtle: #ffffff1a;
   --color-nav-hover: #36792f;
+  /*
+   * Hover state. The reference lifts to a brighter yellow than the resting
+   * accent and pairs it with a soft outer glow, which is what gives the gold a
+   * lit-from-behind feel on hover. Neither is visible in a static screenshot.
+   */
+  --color-brand-glow: #f6fe7a;
+  /* The chevron gold, which is warmer than the brand accent. */
+  --color-chevron: #c8aa6e;
 
   /* Typefaces. next/font fills --font-exo and --font-friz in layout.tsx. */
   --font-heading: var(--font-friz), Georgia, serif;
@@ -177,9 +185,23 @@ body {
  * accessibility bug rather than a design decision, so keyboard focus is given
  * a ring here while pointer interaction stays visually identical.
  */
+/* Matches the reference's own focus treatment: 2px accent, offset 3px. */
 :focus-visible {
   outline: 2px solid var(--color-brand-accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
+}
+
+/*
+ * Ornate control hover. Applied by Button and the framed controls so the glow
+ * is defined once. The reference transitions box-shadow only, at 0.15s.
+ */
+.ornate-glow {
+  transition: box-shadow var(--duration-fast) var(--ease-default),
+    color var(--duration-fast) var(--ease-default);
+}
+
+.ornate-glow:hover {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-brand-glow) 40%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

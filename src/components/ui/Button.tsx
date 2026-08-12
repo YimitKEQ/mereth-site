@@ -26,18 +26,24 @@ const SIZES: Record<Size, string> = {
   ].join(" "),
 };
 
+/*
+ * Hover lifts to the glow yellow rather than to white, and the outer glow comes
+ * from `.ornate-glow`. Both were read off the reference's stylesheet; a static
+ * screenshot cannot show either.
+ */
 const VARIANTS: Record<Variant, string> = {
-  solid:
-    "bg-brand-accent text-brand-dark hover:bg-brand-accent/90 text-shadow-none",
+  solid: "bg-brand-accent text-brand-dark hover:bg-[var(--color-brand-glow)]",
   outline:
-    "bg-black/40 text-brand-accent hover:bg-nav-hover/30 hover:text-white text-shadow-drop",
+    "bg-black/40 text-brand-accent hover:text-[var(--color-brand-glow)] text-shadow-drop hover:[text-shadow:0_0_6px_color-mix(in_srgb,var(--color-brand-glow)_40%,transparent)]",
 };
+
+/** Corner scale per button size, so the bracket never eats the label. */
+const CORNER_FOR: Record<Size, number> = { sm: 12, md: 16, lg: 24 };
 
 function classes(variant: Variant, size: Size, className: string): string {
   return [
-    "relative inline-flex items-center justify-center",
-    "font-display border border-brand-accent/80",
-    "transition-colors duration-[var(--duration-fast)] ease-[var(--ease-default)]",
+    "ornate-glow relative inline-flex items-center justify-center",
+    "font-display border-[3px] border-brand-accent/80",
     "cursor-pointer select-none",
     SIZES[size],
     VARIANTS[variant],
@@ -61,7 +67,7 @@ export function Button({
 }: CommonProps & ComponentProps<"button">) {
   return (
     <button className={classes(variant, size, className)} {...rest}>
-      <FrameCorners weight={size === "lg" ? "thick" : "thin"} />
+      <FrameCorners size={CORNER_FOR[size]} />
       <span className="relative">{children}</span>
     </button>
   );
@@ -77,7 +83,7 @@ export function ButtonLink({
 }: CommonProps & { href: string } & Omit<ComponentProps<typeof Link>, "href">) {
   return (
     <Link href={href} className={classes(variant, size, className)} {...rest}>
-      <FrameCorners weight={size === "lg" ? "thick" : "thin"} />
+      <FrameCorners size={CORNER_FOR[size]} />
       <span className="relative">{children}</span>
     </Link>
   );
