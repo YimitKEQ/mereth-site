@@ -5,6 +5,12 @@
  * tier's own colour from the client. Prices and benefits are transcribed from
  * Patreon; if they change there, change them here.
  *
+ * The currency is euros, checked against the live membership page rather than
+ * assumed: it serves euro symbols and no others, and the six prices are 1x, 2x,
+ * 3x, 5x and 8x a 4.50 base, the same shape as the memory point costs. Patreon
+ * may show a reader a converted amount depending on where they are, which is
+ * why the page now says so rather than leaving people to argue about it.
+ *
  * Worth keeping straight when editing: every benefit is a **character slot, a
  * title or a Discord role**. None of it is power. That is the line the donate
  * page makes explicitly, and adding anything to this list that crosses it would

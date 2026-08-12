@@ -61,6 +61,23 @@ const pipeline: Block[] = [
   },
   {
     kind: "note",
+    tone: "key",
+    title: "A week a tier, and a master can cut it",
+    body: `Training runs **a week per tier**. A master of the school can teach spells directly or
+      speed the study up by **three days per twenty four hour period**, which makes a teacher worth
+      finding without making one optional. Staves grant experience too, so a college can train with
+      them where it makes sense.`,
+  },
+  {
+    kind: "note",
+    tone: "key",
+    title: "Spell points",
+    body: `Everyone **starts with 50**. Holding the court mage rank in a holdstone grants
+      **another 50**, and the college and court roles are described as receiving more. The exact
+      figure for a college place is not something we have published a number for yet.`,
+  },
+  {
+    kind: "note",
     tone: "warn",
     title: "Magic is not legal everywhere",
     body: `**Every Hold sets its own magical law.** What is fine in Winterhold may not be in
@@ -154,7 +171,9 @@ export default function MagicPage() {
                   you may cast it, so Flames is Novice and Fire Storm is Master because the record
                   says so. Creature abilities, quest effects and diseases share the same table and
                   are excluded. Records sharing a name are merged, and the magicka column shows the
-                  range their variants span.
+                  range their variants span. Much of what is here comes from Mysticism, the magic
+                  overhaul by Simon Magus that our launcher installs, so the spellbook is wider than
+                  vanilla Skyrim's.
                 </p>
                 <SpellBrowser spells={mereth.spells} tiers={mereth.tiers.slice(0, 5)} />
               </div>

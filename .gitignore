@@ -29,3 +29,7 @@ src/fonts/
 # Their background plate is 24 MB of video. Local only, never in history.
 public/art/*.mp4
 .gstack/
+
+# The source legal documents. The site renders them; the authoritative copies
+# live in the launcher and Discord.
+*.docx

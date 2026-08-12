@@ -577,11 +577,15 @@ a:hover .plate-frame {
 }
 
 /* The disclosure marker rotates rather than swapping glyphs, so the control
-   reads as one thing opening instead of two states flickering. */
+   reads as one thing opening instead of two states flickering.
+
+   Scoped to a class, not to `summary > span:first-child`. That selector also
+   matched the chapter picker on a phone, whose summary opens with the chapter
+   title, so tapping it turned the title on its side. */
 details > summary { list-style: none; }
 details > summary::-webkit-details-marker { display: none; }
-details > summary > span:first-child {
+.fold-marker {
   display: inline-block;
   transition: transform 140ms ease;
 }
-details[open] > summary > span:first-child { transform: rotate(90deg); }
+details[open] > summary .fold-marker { transform: rotate(90deg); }

@@ -44,7 +44,7 @@ function Citations({ pattern, limit }: { pattern: RegExp; limit: number }) {
   return (
     <details className="my-6 border-l border-brand-accent/20 pl-5">
       <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.8rem] text-text-muted transition-colors hover:text-brand-accent">
-        <span className="text-brand-accent/70">&#9656;</span>
+        <span className="fold-marker text-brand-accent/70">&#9656;</span>
         {notes.length === 1 ? "the release note behind this" : `the ${notes.length} release notes behind this`}
       </summary>
       <ul className="mt-3 space-y-2.5">

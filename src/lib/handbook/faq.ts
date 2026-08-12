@@ -334,8 +334,9 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "How long does advancing a tier take?",
-        a: `Study runs about a week per tier, and a master of the school can teach you directly or
-          speed the process up.`,
+        a: `A week per tier. A master of the school can teach you directly or cut the wait, up to
+          **three days per twenty four hour period**, so the fastest a tier goes is still measured
+          in days and still needs somebody else to turn up.`,
         cite: /spell training/i,
       },
     ],

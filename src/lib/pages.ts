@@ -87,32 +87,75 @@ export const simplePages: Record<string, SimplePageContent> = {
 
   privacy: {
     title: "Privacy",
-    subtitle: "What this website collects, which is very little.",
+    subtitle: "Version 1.0, effective 23 July 2026. What Mereth collects, why, and for how long.",
     sections: [
       {
         paragraphs: [
-          "This website is static. It has no accounts, no login, no comments and no forms, so there is nothing here to sign up for and nothing to hand over.",
+          "This page is a readable version of the Mereth RP Privacy Policy. The authoritative copy, with its version number and integrity record, is available through the Bstar Launcher and the official Discord, and it is the one that governs if the two ever differ.",
+          "Mereth RP is operated from Virginia, United States, by the Mereth RP Administration Team, an unincorporated community organisation. The policy covers the launcher, the game servers, the Discord, applications and tickets, and the moderation and security systems behind them. It does not govern Discord, Nexus Mods, Steam or Bethesda, who collect under their own terms.",
         ],
       },
       {
-        heading: "What the website stores",
+        heading: "Eighteen or over, without exception",
+        paragraphs: [
+          "Downloading the launcher, accepting in it, joining the Discord or connecting to the server is a statement that you are at least 18. An account we reasonably believe is under 18 is suspended while it is reviewed, and removed if it is not resolved. Do not send government identification, financial details or medical records unless a separate secure process has been created and specifically asks for them.",
+        ],
+      },
+      {
+        heading: "What is collected",
         bullets: [
-          "Nothing in a database, because it has no database.",
-          "A skill plan lives entirely in the address bar, in the part after the hash, which is never sent to any server. Sharing a plan means sharing that link and nothing else.",
-          "Standard web server request logs, which any host keeps.",
-          "No analytics, no advertising, no third-party trackers, and no cookies set by this site.",
+          "Identifiers: Discord username and ID, Steam and Nexus identifiers where you provide them, Mereth account ID, character names, roles and permissions.",
+          "Acceptance records: which documents you accepted, when, from which IP, in which launcher version, and the integrity hashes of those documents.",
+          "Launcher technical data: IP address, launcher and game versions, operating system and compatibility information, mod names and versions, file validation results, and crash and connection diagnostics.",
+          "Server and gameplay logs: logins, connections, location and movement, commands, chat, inventory, trades, property, deaths, combat, robbery and item transfers, plus administrative actions.",
+          "Community records: whitelist and staff applications, tickets, reports, reimbursement requests, warnings, suspensions, bans and appeals.",
+          "Evidence you submit yourself, and audit records of any staff observation.",
         ],
       },
       {
-        heading: "The game server is separate",
+        heading: "Gameplay observation, and its limits",
         paragraphs: [
-          "Mereth itself authenticates through Discord and handles its own data, including what Discord shares with us when you authorise the login. Nothing on this website is connected to your Mereth account, and this website could not read it if it tried.",
+          "Specifically authorised staff may view your active Mereth session and, when it is genuinely needed, capture an image of the game window. It is limited to moderation, security, investigation, appeal and technical purposes, kept to the shortest period reasonable, and every use writes an audit record naming the staff member, the user, the time, the reason, the case, and whether an image was taken.",
+          "The tool reaches the Mereth game environment and nothing else. It is not authorised to access your desktop, other applications, your browser, private Discord messages, email, personal files, webcam, microphone, passwords or keystrokes outside the game. Staff may not use it out of curiosity, for entertainment, for retaliation or for in-character advantage, and what is seen may not be passed to factions, guilds or other players.",
+          "If that capability is ever materially widened, the policy says plainly that new affirmative acceptance is required first, and that this document will not be used to authorise general computer surveillance.",
         ],
       },
       {
-        heading: "Discord and tickets",
+        heading: "Voice",
         paragraphs: [
-          "Tickets, clips and whitelist submissions live in Discord and are held under Discord's own terms. Staff read them to handle the matter you opened them for. Do not put personal information into a ticket that the matter does not require.",
+          "Interviews, appeals and investigations sometimes happen in voice. Participants are told before any approved recording starts, and anyone who declines can have the matter handled in writing instead. Staff are not authorised to record private conversations secretly.",
+        ],
+      },
+      {
+        heading: "How long it is kept",
+        bullets: [
+          "Connection and technical logs holding raw IP addresses: up to 12 months.",
+          "Support and ordinary moderation cases: case closure plus up to 3 years.",
+          "Screenshots and video evidence: appeal closure plus up to 1 year.",
+          "Voice recordings: closure of the matter and any appeal, plus up to 1 year.",
+          "Whitelist and staff applications: up to 2 years after last activity.",
+          "Acceptance records: while the account is active, then 5 years.",
+          "Backups: up to 90 days after deletion from live systems.",
+          "Permanent ban records last as long as the ban stands. De-identified statistics may be kept indefinitely.",
+        ],
+      },
+      {
+        heading: "Not sold, not advertised against",
+        paragraphs: [
+          "Mereth does not sell, rent or trade personal information, and does not process it for third-party targeted advertising. Changing that would mean updating the policy and giving whatever notice, consent or opt-out the law requires beforehand.",
+        ],
+      },
+      {
+        heading: "Your requests",
+        paragraphs: [
+          "You can ask what is held about you, get a copy, have it corrected or deleted, withdraw consent, object to processing, or appeal a decision. Open a ticket in the Discord categorised as **Privacy Request** and include enough detail to identify the account. Do not post sensitive information in a public channel.",
+          "Where the Virginia Consumer Data Protection Act applies, the response comes within 45 days and an appeal within 60. A request can be limited where the information is genuinely needed for security, an active investigation, enforcing a permanent ban, another person's privacy or a legal claim, and the reason will be given.",
+        ],
+      },
+      {
+        heading: "This website",
+        paragraphs: [
+          "The site you are reading is static and separate. It has no accounts, no database, no analytics, no advertising and no cookies of its own, and a skill plan lives entirely in the part of the address after the hash, which is never sent to any server.",
         ],
       },
     ],
@@ -120,30 +163,88 @@ export const simplePages: Record<string, SimplePageContent> = {
 
   terms: {
     title: "Terms",
-    subtitle: "What this site is, and the boundaries around what it describes.",
+    subtitle: "Version 1.0, effective 23 July 2026. The agreement behind playing here.",
     sections: [
       {
-        heading: "What this is",
         paragraphs: [
-          "The official website for Mereth Roleplay: our handbook, our rules, our roadmap, and a reference built from the plugins and the client our own launcher installs.",
+          "This page is a readable version of the Mereth RP Terms of Service. The authoritative copy is available through the Bstar Launcher and the official Discord, and it governs if the two ever differ.",
+          "You enter the agreement by accepting in the launcher. It covers the launcher, the game servers, the Discord, applications, tickets and the systems behind them, and it takes in the Privacy Policy, the launcher's own licence and the official server rules by reference. Mereth is an independent fan-operated community, not affiliated with or endorsed by Bethesda, ZeniMax, Microsoft, Valve, Nexus Mods or Discord.",
         ],
       },
       {
-        heading: "Accuracy",
+        heading: "Who can play",
         paragraphs: [
-          "We ship almost daily, so anything here can go out of date between one visit and the next. Every reference page shows the date its data was indexed. The rulebook is the authority on rules, the release notes are the record of what shipped, and this site is kept in step with both rather than replacing either.",
+          "You must be at least 18 and able to enter a contract. Accounts are yours to protect: use multi-factor authentication where it is offered, do not share credentials, do not impersonate anybody, and tell staff promptly if you think an account has been compromised.",
         ],
       },
       {
-        heading: "Not affiliated",
-        paragraphs: [
-          "Mereth Roleplay is not associated with ZeniMax Entertainment, Bethesda Softworks or Nexus Mods in any way. The Elder Scrolls and Skyrim are the property of Bethesda Softworks.",
+        heading: "What you agree not to do",
+        bullets: [
+          "Cheat, exploit, duplicate items, interfere with logs, or use modified clients, automation or packet manipulation.",
+          "Evade a warning, suspension or ban through another account, a VPN, or somebody else's login.",
+          "Harass, threaten, stalk, discriminate against or sexually exploit anybody. Roleplay does not excuse it.",
+          "Publish private information, credentials, restricted logs, staff-only material or unlawfully obtained recordings.",
+          "Fabricate, alter, destroy or misrepresent evidence in a report, appeal or application.",
+          "Sell or trade accounts, whitelist status, items, characters or currency for real-world value, unless a specific programme is authorised in writing.",
+          "Distribute malware or phishing, or infringe anybody's copyright, trademark or privacy rights.",
         ],
       },
       {
-        heading: "Mods and credits",
+        heading: "The launcher, and what it may do",
         paragraphs: [
-          "Our launcher installs mods made by other people. Each is linked to its Nexus page so you can read the credits and permissions, and endorse the authors whose work makes Mereth possible. We do not host or redistribute anything we do not have permission to.",
+          "Playing requires the Bstar Launcher and a specific set of third-party mods, and the launcher has its own end user licence covering the software itself. It may authenticate you, validate your files, detect altered content, install and update what the server needs, collect technical diagnostics, and refuse the connection when required versions or acceptance records are missing.",
+          "You agree not to reverse engineer or bypass its security, validation, acceptance, logging or connection controls, except so far as the law expressly allows regardless of contract. Third-party mods stay under their authors' licences, and none of them is guaranteed to remain available.",
+        ],
+      },
+      {
+        heading: "Characters and items are permissions, not property",
+        paragraphs: [
+          "Characters, gold, items, property, titles, ranks, faction positions and whitelist status are permissions inside Mereth. They are not real-world property, have no guaranteed cash value, and carry no right to continued access or restoration. Data may be corrected, confiscated, restored, rebalanced, reset, rolled back or wiped to deal with bugs, exploits, rule breaches, balance or development, and a reimbursement can be refused where the evidence is missing or inconsistent.",
+        ],
+      },
+      {
+        heading: "Staff, evidence and appeals",
+        paragraphs: [
+          "Staff may investigate, gather and preserve evidence, restrict access, correct server data and take other reasonable action. Decisions rest on the evidence available rather than on courtroom rules, and ticket details, deliberations and restricted logs stay confidential to protect privacy, witnesses and investigations.",
+          "Consequences run from guidance and warnings through role removal, suspension and permanent bans, and serious conduct can skip the warning. Where an appeal is offered it goes through the official process, within any posted deadline, and it has to be truthful and complete. The designated final reviewer's decision is final within Mereth.",
+        ],
+      },
+      {
+        heading: "What you write and record",
+        paragraphs: [
+          "You keep whatever ownership you already had in your roleplay writing, clips, applications and messages. You give Mereth a non-exclusive, royalty-free licence to host, store, display, moderate, archive and use that material as far as is reasonably needed to run, secure, document and improve the server and to enforce these terms. It ends when the content is removed from live systems, apart from backups, lawful archives and moderation evidence.",
+        ],
+      },
+      {
+        heading: "Donations",
+        paragraphs: [
+          "Donations support running the community. They do not buy ownership, staff authority, immunity from the rules, guaranteed access or a permanent in-game benefit. Payments are handled by an independent processor under its own terms, and Mereth does not collect or store full card details.",
+        ],
+      },
+      {
+        heading: "No guarantees, and what liability is capped at",
+        paragraphs: [
+          "The services are provided as is and as available, with no warranty that they will be uninterrupted, compatible, complete or error free. Features, rules, mods, worlds and technical requirements change, and any part of the service can be interrupted, reset or discontinued.",
+          "Liability for indirect, incidental or consequential loss is excluded, and total liability is capped at the greater of what you paid Mereth in the previous 12 months or 100 US dollars. Neither limit applies to liability that cannot lawfully be excluded.",
+        ],
+      },
+      {
+        heading: "Law, disputes, and changes",
+        paragraphs: [
+          "Virginia law governs, and the parties consent to venue there. A dispute starts with a **Legal Notice** ticket and 30 days for good-faith resolution, emergencies aside. There is no arbitration clause and no class-action waiver, and adding either would require clear notice and fresh acceptance.",
+          "Nothing here waives a right the law does not allow you to waive. Material changes, including wider monitoring or new data practices, require you to accept the updated terms before connecting: continued play on its own is not treated as agreement to them.",
+        ],
+      },
+      {
+        heading: "Copyright and legal notices",
+        paragraphs: [
+          "Copyright, trademark and other legal complaints go through a **Legal Notice** ticket in the official Discord, identifying the complainant, the material, where it appears, the legal basis and contact details. A direct message to an individual staff member is not formal notice.",
+        ],
+      },
+      {
+        heading: "This website",
+        paragraphs: [
+          "Reference pages here are generated from the plugins and the client the launcher installs, and each shows the date its data was indexed. The rulebook is the authority on rules and the release notes are the record of what shipped; this site is kept in step with both rather than replacing either. The Elder Scrolls and Skyrim are the property of Bethesda Softworks.",
         ],
       },
     ],

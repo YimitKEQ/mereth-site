@@ -135,6 +135,13 @@ export default function DonatePage() {
         })}
       </div>
 
+      {/* Asked about more than once, and answered twice wrongly before somebody
+          checked: the tiers are set in euros. Patreon converts for display. */}
+      <p className="mt-6 max-w-3xl text-[0.85rem] leading-relaxed text-text-muted">
+        Tiers are set in euros. Patreon may show you the equivalent in your own currency at
+        checkout, so the number on your statement can differ from the number here.
+      </p>
+
       <section className="mt-16 grid max-w-4xl gap-10 md:grid-cols-2">
         <div>
           <h2 className="font-display mb-4 text-xl tracking-heading text-brand-accent uppercase">
