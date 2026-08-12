@@ -8,18 +8,31 @@ import type { Status } from "@/app/api/status/route";
  * The status block under the hero, in the reference's shape: a small label, a
  * large value, repeated.
  *
- * Fetched rather than rendered on the server so the number stays fresh on a
+ * Fetched rather than rendered on the server so the figures stay fresh on a
  * page that is otherwise static, and refreshed on the same 45 second cadence
- * the live site uses. While it is loading the labels are already in place and
- * the values are dashes, so the block never changes height and the page does
- * not jump under the reader.
+ * the live site uses. A held figure and a real one reserve the same height, so
+ * the block never resizes and the page does not jump under the reader.
  *
- * If a feed cannot be read the figure is dropped rather than shown as zero. A
+ * If a feed cannot be read the figure is held rather than shown as zero. A
  * confident "0 online" when the truth is "we could not ask" is worse than no
  * number at all.
  */
 
 const REFRESH_MS = 45_000;
+
+/**
+ * Whether the three counts are shown or held.
+ *
+ * Held for now, on request: the labels and the layout are in place and each
+ * figure sits as a drawn rule until the team is ready to publish it. Flip this to
+ * `true` and the live values appear; nothing else has to change, because the
+ * route and the fetch are already working and the reserved space is identical
+ * either way.
+ *
+ * The status line above them is not affected. It is a state rather than a
+ * count, and it is worth showing from the first day.
+ */
+const SHOW_FIGURES = false;
 
 const STATE_LABEL: Record<Status["state"], string> = {
   online: "Open, and taking applications",
@@ -33,15 +46,37 @@ const STATE_COLOUR: Record<Status["state"], string> = {
   unknown: "text-text-muted",
 };
 
-function Figure({ label, value }: { label: string; value: string }) {
+/**
+ * One label with its figure, or a drawn rule where the figure will go.
+ *
+ * The held state is a rule rather than a typed hyphen. In the display face a
+ * hyphen sits low and narrow and reads as a stray mark rather than as a
+ * deliberate blank, and the obvious alternative is an em-dash, which is banned
+ * throughout this codebase. Drawing it solves both and sits at the right
+ * optical height for the digits it is standing in for.
+ */
+function Figure({ label, value }: { label: string; value: string | null }) {
   return (
     <div className="flex flex-col items-center">
       <p className="font-display text-[10px] tracking-[3px] text-brand-accent/80 uppercase text-shadow-drop">
         {label}
       </p>
-      <p className="font-display mt-2 text-3xl tabular-nums text-text-primary text-shadow-heading md:text-4xl">
-        {value}
-      </p>
+      {value === null ? (
+        <span
+          aria-label="not published yet"
+          role="img"
+          className="mt-2 flex h-[2.25rem] items-center md:h-[2.5rem]"
+        >
+          <span
+            aria-hidden="true"
+            className="block h-[3px] w-9 rounded-full bg-text-muted/50"
+          />
+        </span>
+      ) : (
+        <p className="font-display mt-2 text-3xl tabular-nums text-text-primary text-shadow-heading md:text-4xl">
+          {value}
+        </p>
+      )}
     </div>
   );
 }
@@ -83,7 +118,10 @@ export function ServerStatus() {
   }, []);
 
   const state = status?.state ?? "unknown";
-  const dash = "—";
+
+  /** Null means "hold it": the Figure draws a rule instead of a number. */
+  const held = <T,>(value: T | null | undefined): T | null =>
+    !SHOW_FIGURES || value === null || value === undefined ? null : value;
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -102,26 +140,18 @@ export function ServerStatus() {
         <Figure
           label="Souls abroad"
           value={
-            status?.online === null || status?.online === undefined
-              ? dash
-              : `${status.online}${status.maxPlayers ? ` / ${status.maxPlayers}` : ""}`
+            held(status?.online) === null
+              ? null
+              : `${status?.online}${status?.maxPlayers ? ` / ${status.maxPlayers}` : ""}`
           }
         />
         <Figure
           label="In the Discord"
-          value={
-            status?.discordMembers === null || status?.discordMembers === undefined
-              ? dash
-              : status.discordMembers.toLocaleString("en-GB")
-          }
+          value={held(status?.discordMembers)?.toLocaleString("en-GB") ?? null}
         />
         <Figure
           label="Online now"
-          value={
-            status?.discordOnline === null || status?.discordOnline === undefined
-              ? dash
-              : status.discordOnline.toLocaleString("en-GB")
-          }
+          value={held(status?.discordOnline)?.toLocaleString("en-GB") ?? null}
         />
       </div>
     </div>

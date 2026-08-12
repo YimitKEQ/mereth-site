@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Logo } from "@/components/layout/Logo";
+import { InterlaceKnot } from "@/components/ornament/NordicMarks";
 import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { SearchTrigger } from "@/components/search/SearchTrigger";
 import { ButtonLink } from "@/components/ui/Button";
@@ -92,7 +93,23 @@ export function SiteHeader() {
       </a>
 
       <div className="navbar-pill">
+        {/* The carved band, drawn behind the row. See globals.css for why the
+            shape cannot live on the pill itself. */}
+        <span className="navbar-plate" aria-hidden="true" />
+
         <Logo />
+
+        {/*
+          The knot separates the mark from the links. It sat on the top and
+          bottom edges first, where at 18px it lost the weave and read as two
+          specks. Inside the bar it has dark around it and the interlace is
+          legible, which is the only size ornament is worth having.
+        */}
+        <span className="navbar-divider" aria-hidden="true">
+          <span className="navbar-divider__rule" />
+          <InterlaceKnot size={19} className="text-brand-accent/60" />
+          <span className="navbar-divider__rule" />
+        </span>
 
         <nav className="navbar-links" aria-label="Primary" ref={navRef}>
             {primaryNav.map((item) => {

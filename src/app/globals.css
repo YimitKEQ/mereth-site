@@ -259,20 +259,94 @@ a:hover .plate-frame {
   pointer-events: auto;
 }
 
+/*
+ * The bar itself carries no border, no fill and no clip. Everything visible is
+ * drawn by `.navbar-plate` behind it.
+ *
+ * That split exists for one reason: the frame is chamfered with clip-path, and
+ * clip-path on an ancestor also clips its absolutely positioned descendants.
+ * Putting the shape on the pill itself would cut every dropdown off at the bar.
+ */
 .navbar-pill {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 28px;
   height: 64px;
   max-width: var(--container-site);
   margin: 0 auto;
-  padding: 0 14px 0 22px;
-  border: 2px solid #9fb8c466;
-  border-radius: 14px;
-  box-shadow: 0 4px 20px #00000073;
-  background-image: var(--gradient-nav-bar);
+  padding: 0 16px 0 22px;
+  filter: drop-shadow(0 4px 18px #00000080);
+}
+
+/*
+ * The carved band: two stacked chamfered layers, an accent one and a darker one
+ * inset by the rule width. A border cannot be used here because clip-path cuts
+ * the border with the box, leaving the diagonals unstroked; stacking two shapes
+ * strokes every edge including the cuts.
+ *
+ * 13px corners, which is roughly a fifth of the 64px height. Deeper starts to
+ * read as a hexagon rather than as a chamfered plate.
+ */
+.navbar-plate,
+.navbar-plate::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  clip-path: polygon(
+    13px 0, calc(100% - 13px) 0, 100% 13px,
+    100% calc(100% - 13px), calc(100% - 13px) 100%,
+    13px 100%, 0 calc(100% - 13px), 0 13px
+  );
+}
+
+.navbar-plate {
+  z-index: -1;
+  background: #9fb8c47a;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+}
+
+.navbar-plate::after {
+  inset: 2px;
+  clip-path: polygon(
+    12px 0, calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px), 0 12px
+  );
+  background-image: var(--gradient-nav-bar);
+}
+
+/* An inner hairline, set in from the rule, so the band reads as carved metal
+   rather than as a single stroke. */
+.navbar-plate::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  border: 1px solid #9fb8c42e;
+  clip-path: polygon(
+    9px 0, calc(100% - 9px) 0, 100% 9px,
+    100% calc(100% - 9px), calc(100% - 9px) 100%,
+    9px 100%, 0 calc(100% - 9px), 0 9px
+  );
+}
+
+/* Knot between the mark and the links, with a hairline running out of each
+   side of it so it reads as a fitting rather than as a floating glyph. */
+.navbar-divider {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  margin: 0 2px 0 -10px;
+}
+
+.navbar-divider__rule {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #9fb8c459, transparent);
 }
 
 .navbar-links {
@@ -372,6 +446,7 @@ a:hover .plate-frame {
 @media (max-width: 1300px) {
   .navbar-wrapper { padding: 12px 12px 0; }
   .navbar-pill { padding: 0 10px 0 16px; }
+  .navbar-divider { display: none; }
   .navbar-links,
   .navbar-actions { display: none; }
   .navbar-hamburger { display: flex; }
