@@ -113,7 +113,7 @@ export default function RoadmapPage() {
       <p className="mt-12 max-w-3xl text-[0.9rem] leading-relaxed text-text-muted">
         This is the plan.{" "}
         <Link
-          href="/news"
+          href="/changelog"
           className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
         >
           The chronicle

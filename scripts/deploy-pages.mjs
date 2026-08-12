@@ -93,6 +93,80 @@ console.log(`staging in ${staging}`);
 
 fs.cpSync(out, staging, { recursive: true });
 
+/*
+ * Carry the previous deploy's build assets forward.
+ *
+ * GitHub Pages serves HTML with a ten minute cache and no way to change that.
+ * A deploy replaces every content-hashed chunk under `_next/static`, so for ten
+ * minutes after one, a reader holding cached HTML asks for chunks that no
+ * longer exist, gets 404s, and lands on Next's own crash screen: "This page
+ * couldn't load." Anyone with the handbook open in a background tab hits it,
+ * and this site deploys more than once a day.
+ *
+ * Keeping the old files alongside the new ones costs almost nothing (the whole
+ * of `_next/static` is under a megabyte) and makes the stale HTML keep working
+ * until its cache expires. Carried files are dropped after CARRY_DEPLOYS
+ * further deploys, which is far longer than any cache can outlive.
+ */
+const CARRY_DEPLOYS = 3;
+const LEDGER = "carried.json";
+
+const previous = fs.mkdtempSync(path.join(os.tmpdir(), "mereth-previous-"));
+let carried = 0;
+
+try {
+  execFileSync(
+    "git",
+    ["clone", "-q", "--depth", "1", "--branch", BRANCH, `https://github.com/${REPO}.git`, previous],
+    { stdio: "pipe" },
+  );
+
+  const fromStatic = path.join(previous, "_next", "static");
+  const toStatic = path.join(staging, "_next", "static");
+
+  if (fs.existsSync(fromStatic)) {
+    /* How many deploys each carried file has already survived. */
+    const ledgerPath = path.join(fromStatic, LEDGER);
+    const ages = fs.existsSync(ledgerPath)
+      ? JSON.parse(fs.readFileSync(ledgerPath, "utf8"))
+      : {};
+    const next = {};
+
+    const walk = (dir) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walk(full);
+          continue;
+        }
+        const relative = path.relative(fromStatic, full).split(path.sep).join("/");
+        if (relative === LEDGER) continue;
+
+        const target = path.join(toStatic, relative);
+        /* Already in this build, so it is current and needs no ledger entry. */
+        if (fs.existsSync(target)) continue;
+
+        const age = (ages[relative] ?? 0) + 1;
+        if (age > CARRY_DEPLOYS) continue;
+
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.copyFileSync(full, target);
+        next[relative] = age;
+        carried += 1;
+      }
+    };
+    walk(fromStatic);
+
+    fs.mkdirSync(toStatic, { recursive: true });
+    fs.writeFileSync(path.join(toStatic, LEDGER), JSON.stringify(next));
+  }
+} catch {
+  /* No previous deploy to read, which is the normal case the first time. */
+}
+
+fs.rmSync(previous, { recursive: true, force: true });
+console.log(`carried ${carried} assets forward, so cached pages keep working`);
+
 const git = (...args) => run("git", args, { cwd: staging });
 
 git("init", "-q", "-b", BRANCH);
