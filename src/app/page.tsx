@@ -16,8 +16,8 @@ export default function HomePage() {
         <PageHeading
           as="h2"
           size="section"
-          title="Project Information"
-          subtitle={`Learn more about the ${site.name} project`}
+          title="What this place is"
+          subtitle="Systems, not adjectives. Everything below is running now."
         />
         <div className="mt-12">
           <FeatureGrid />
@@ -28,8 +28,8 @@ export default function HomePage() {
         <PageHeading
           as="h2"
           size="section"
-          title={`Latest updates from ${site.name}`}
-          subtitle="Announcements, events, server highlights - stay up to date with the latest of the project"
+          title="The chronicle"
+          subtitle="Dispatches from the holds, and notes on what is being built."
         />
         <div className="mt-12 flex flex-wrap justify-center gap-8 md:justify-start">
           {news.map((article) => (
@@ -42,8 +42,8 @@ export default function HomePage() {
         <PageHeading
           as="h2"
           size="section"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know before you begin, clear, simple, and updated."
+          title="Questions"
+          subtitle="What people ask before they apply."
         />
         <div className="mt-12">
           {/* The home page shows a trimmed list; the full set lives on /faq. */}

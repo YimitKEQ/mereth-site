@@ -26,150 +26,123 @@ export interface NewsArticle {
 }
 
 export const serverStatus = {
-  state: "Under Development (Alpha)",
-  totalOnline: 1,
+  state: "Open, and taking applications",
+  totalOnline: 63,
+  worldDate: "17th of Last Seed, 4E 185",
 } as const;
 
 export const features: readonly Feature[] = [
   {
-    slug: "new-era-of-mop",
-    title: "New Era of MoP",
-    body: "Miststorm is a blizzlike+ project in works. Coming soon™",
+    slug: "holds-and-holdstones",
+    title: "Holds hold themselves",
+    body: "Every hold has a jarl, a steward and a court, and the ranks are real permissions rather than titles in a Discord. Land is parcelled, granted and taken back.",
   },
   {
-    slug: "mythic-system",
-    title: "Mythic System",
-    body: "Experience our custom Mythic+ system tailored for dungeons and raids",
+    slug: "professions",
+    title: "Twenty-five trades",
+    body: "Smithing, mining, farming, brewing, fishing, scribing and the rest, each with its own progression. A blacksmith is a job someone does, not a menu.",
   },
   {
-    slug: "mop-plus-experience",
-    title: "MoP+ Experience",
-    body: "Blizzlike experience with MoP+ features. Solo queue arenas, Reputation boosts, Crossfaction BGs, and much much more",
+    slug: "contracts-and-ledgers",
+    title: "Written and enforced",
+    body: "Contracts are signed, witnessed and held on the server, not in a screenshot. A debt survives the argument about whether there was a debt.",
   },
   {
-    slug: "blizzlike-aspect",
-    title: "Blizzlike Aspect",
-    body: "The development team has high standards for content scripting. Although we are a MoP+ server, we want the existing gameplay to feel blizzlike. Built for players by players.",
+    slug: "magic-is-taught",
+    title: "Magic must be taught",
+    body: "A master and a spellbook, or nothing. There is no learning a school alone in the wilderness, and no character arrives already an archmage.",
   },
   {
-    slug: "scripted-pvp-pve",
-    title: "Scripted PvP & PvE",
-    body: "The server has an enormous focus on PvP Gameplay, including battlegrounds and arenas, as well as having high standards for PvE dungeon and raid scripting.",
+    slug: "living-world",
+    title: "A world that keeps time",
+    body: "One clock for everyone. Proximity voice with lip sync, durability and tempering, lockpicking, survival, horses and dragons in sync.",
   },
   {
-    slug: "events-community",
-    title: "Events & Community",
-    body: "Upcoming weekly events, giveaways, and a friendly staff team. Level up from 1-90 via an accelerated experience.",
+    slug: "law-and-consequence",
+    title: "Consequence, not deletion",
+    body: "Crimes are recorded, tried and answered for. Imprisonment, banishment and execution exist because a world without stakes is a chatroom with mountains.",
   },
 ];
 
 export const faq: readonly FaqItem[] = [
   {
-    question: "What is this server?",
+    question: "What is Mereth?",
     answer:
-      "Miststorm is a free-to-play Mists of Pandaria private server focused on delivering an authentic, high-quality WoW experience. Our team works around the clock to keep the realm stable, scripted, and fun for everyone.",
+      "A serious-roleplay Skyrim server running on SkyMP. It is set in 4E 185, ten years after the White-Gold Concordat, and everything a player does happens in character unless a staff member says otherwise.",
   },
   {
-    question: "What content is available?",
+    question: "Do I need to apply?",
     answer:
-      "All major Mists of Pandaria content is available, including raids, dungeons, battlegrounds, arenas, world bosses, and daily quest hubs. We continuously script and refine encounters to match retail quality.",
+      "Yes. Applications are read by a person and answered in a few days. We ask for a character concept rather than a writing sample, and we would rather see a plain idea you understand than an ornate one you do not.",
   },
   {
-    question: "How active is PvP?",
+    question: "What do I need installed?",
     answer:
-      "PvP is thriving on Miststorm. We have active arena seasons, rated battlegrounds, and an open-world PvP community. Seasonal rewards and leaderboards keep the competition fierce.",
+      "Skyrim Special Edition on PC and our launcher, which installs and updates the modlist for you. Nothing needs to be assembled by hand, and the load order is managed so it matches the server exactly.",
   },
   {
-    question: "Are raids and dungeons fully working?",
+    question: "Can I play a mage?",
     answer:
-      "Yes, all raid tiers and dungeons are fully scripted, including heroic and mythic difficulties. Our QA team tests every boss mechanic to ensure an authentic experience.",
+      "You can, but not immediately. Spells are taught by another character who already knows them, using a spellbook. Nobody arrives able to cast, which is what stops every third character being an archmage.",
   },
   {
-    question: "How do I start playing?",
+    question: "Is there combat and death?",
     answer:
-      "Create a free account, download the client from the How to Play page, set your realmlist, and log in. The whole process takes a few minutes.",
+      "There is, and it is negotiated. Fights between players need consent about the stakes beforehand. Death is permanent only when both people agreed it could be.",
   },
   {
-    question: "Do I need the original Mists of Pandaria client?",
+    question: "What happens if I break a law?",
     answer:
-      "No. You can download a ready-to-play client from us, or point your own 5.4.8 client at our realmlist if you already have one.",
+      "In character, you are arrested, tried and sentenced by the hold that caught you. Out of character, rule breaking goes through a petition and is handled by officers, with the action and the reason recorded.",
   },
   {
-    question: "Is Miststorm free to play?",
+    question: "Is it free?",
     answer:
-      "Absolutely. Miststorm is 100% free to play. Our optional cosmetic shop helps fund server costs, but nothing in the shop provides a gameplay advantage.",
+      "Playing is free. Patronage keeps the server running and buys cosmetics and conveniences. It buys nothing that affects standing, land, wealth or law.",
   },
   {
-    question: "Are there custom features on the server?",
+    question: "How many people play?",
     answer:
-      "Yes. Alongside the blizzlike foundation we run a custom Mythic+ system, solo queue arenas, crossfaction battlegrounds and reputation boosts.",
+      "Roughly sixty to seventy at once on an ordinary evening, out of a few thousand on the Discord. Small enough that your character is recognised, large enough that a market works.",
   },
   {
-    question: "Can I play with friends from the other faction?",
+    question: "Can I bring a guild?",
     answer:
-      "In battlegrounds, yes. Crossfaction queues mean shorter waits and better matches regardless of which side your friends picked.",
+      "Yes, and organisations have member caps and whitelisted leadership so that a group is a structure rather than a name. Speak to us before you arrive and we will find you somewhere to fit.",
   },
   {
-    question: "How do I report a bug or a player?",
+    question: "Where do I ask for help?",
     answer:
-      "Use the in-game ticket system or visit our Support page on the website. For urgent issues you can also reach our staff on Discord.",
+      "A petition on this site for anything involving your account, a character or another player. Discord for questions that just need answering.",
   },
 ];
 
 export const news: readonly NewsArticle[] = [
   {
-    slug: "the-mist-is-rising",
-    title: "Miststorm - The Mist is Rising",
-    publishedAt: "April 6, 2026 at 11:33 AM",
-    excerpt: "Miststorm is officially in development. A Mists of Pandaria",
+    slug: "the-concordat-holds",
+    title: "The Concordat Holds, For Now",
+    publishedAt: "17th of Last Seed, 4E 185",
+    excerpt: "Ten years on, Imperial law still runs in Mereth. The question is who it runs for.",
     sections: [
       {
-        heading: "A New Chapter for MoP",
+        heading: "Ten years of paper peace",
         paragraphs: [
-          "Miststorm is officially in development, and we are building something special.",
-          "For too long, the Mists of Pandaria expansion has been underserved in the private server scene. We believe MoP deserves a home that does it justice: properly scripted content, a passionate development team, and a community-first approach. That is exactly what Miststorm is setting out to be.",
+          "The White-Gold Concordat was signed a decade ago and every hold in Mereth still flies the Imperial banner. That is the whole of the good news.",
+          "What the treaty bought was time, and what it cost was the right to say certain things out loud. Talos worship is illegal. The Thalmor keep an office in the capital, and their justiciars travel the roads with letters that open any door.",
         ],
       },
       {
-        heading: "What is Miststorm?",
+        heading: "What this means at the table",
         paragraphs: [
-          "Miststorm is a Mists of Pandaria Plus+ private server project. At its core, we aim for a blizzlike experience with faithfully scripted dungeons, raids, battlegrounds, and arenas. On top of that, we are adding carefully chosen quality-of-life improvements and custom systems that make the game more enjoyable without breaking the feel of the original expansion.",
+          "Mereth is not a war server. There is no front line to queue for. The tension here is administrative, which is a stranger and slower thing: who holds a writ, whose contract is honoured, which jarl returns a letter.",
+          "A character who wants to matter here does it by accumulating obligations, not kills.",
         ],
       },
       {
-        heading: "What does MoP+ mean?",
+        heading: "What is being built",
         paragraphs: [
-          "Custom Mythic+ System: A dungeon and raid challenge system inspired by retail, tailored for MoP content.",
-          "Solo Queue Arenas: Jump into competitive PvP without needing a partner.",
-          "Crossfaction Battlegrounds: Shorter queues, better matches.",
-          "Reputation Boosts: Less grind, more gameplay.",
-          "Accelerated Leveling: Get from 1-90 and into the endgame faster.",
-          "All of this sits on top of a blizzlike foundation. The development team has high standards for content scripting. Boss mechanics, spell interactions, and class balance are treated with care.",
-        ],
-      },
-      {
-        heading: "Current Status: Alpha",
-        paragraphs: [
-          "Let us be transparent: Miststorm is currently in closed alpha. We are actively developing and testing core systems. This means the server is not yet open to the public, but we are making steady progress toward a closed beta and eventually a full launch.",
-          "We believe in building in the open. Rather than going silent for months and dropping a surprise launch, we want to grow our community alongside the project. Your feedback, your excitement, and your ideas matter to us, even at this early stage.",
-        ],
-      },
-      {
-        heading: "Why Join Now?",
-        paragraphs: [
-          "Even though we are not live yet, there has never been a better time to get involved:",
-          "Shape the server: Early community members have a real voice in development decisions.",
-          "Be first in line: When closed beta keys go out, active community members will be first to receive them.",
-          "Find your guild: Start building your team before launch day.",
-          "Stay informed: Get development updates, sneak peeks, and announcements before anyone else.",
-        ],
-      },
-      {
-        heading: "Join the Community",
-        paragraphs: [
-          "The heart of Miststorm lives on Discord. It is where we share development progress, discuss features, gather feedback, and just hang out. Whether you are a hardcore raider, a PvP enthusiast, or someone who just misses the feeling of Pandaria, there is a place for you.",
-          "We are building something worth waiting for. Come be part of it from the beginning.",
-          "The mist is rising. Will you answer the call?",
+          "Court records, so a trial leaves something behind. Contracts that hold when the people who signed them log off. A bounty system that makes a crime a thing with a cost rather than a screenshot in a ticket.",
+          "None of it is finished. The roadmap is public and honest about what is not there yet.",
         ],
       },
     ],

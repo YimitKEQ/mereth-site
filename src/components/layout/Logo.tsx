@@ -30,14 +30,14 @@ export function Logo({ className = "" }: { className?: string }) {
       >
         <defs>
           <linearGradient id="plaque-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#123016" />
-            <stop offset="50%" stopColor="#08210b" />
-            <stop offset="100%" stopColor="#0a250d" />
+            <stop offset="0%" stopColor="#243139" />
+            <stop offset="50%" stopColor="#111a20" />
+            <stop offset="100%" stopColor="#0b1216" />
           </linearGradient>
           <linearGradient id="plaque-edge" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#f2f6a8" />
-            <stop offset="45%" stopColor="#dde46b" />
-            <stop offset="100%" stopColor="#8d9433" />
+            <stop offset="0%" stopColor="#d7e6ee" />
+            <stop offset="45%" stopColor="#9fb8c4" />
+            <stop offset="100%" stopColor="#5d737f" />
           </linearGradient>
         </defs>
         {/* Crest: a bevelled lozenge with a banner tail, centred in the box */}

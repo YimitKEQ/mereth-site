@@ -113,7 +113,7 @@ export function TicketForm() {
             label="Choose a topic"
             options={TOPICS}
             value={topic}
-            onChange={(event) => setTopic(event.target.value)}
+            onChange={setTopic}
             className="w-full"
           />
           {errors.topic ? (

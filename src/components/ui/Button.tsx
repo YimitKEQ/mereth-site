@@ -34,7 +34,7 @@ const SIZES: Record<Size, string> = {
  * screenshot cannot show either.
  */
 const VARIANTS: Record<Variant, string> = {
-  solid: "bg-brand-accent text-brand-dark hover:bg-[var(--color-brand-glow)]",
+  solid: "bg-[var(--color-brand-action)] text-brand-dark hover:brightness-110",
   outline:
     "bg-black/40 text-brand-accent hover:text-[var(--color-brand-glow)] text-shadow-drop hover:[text-shadow:0_0_6px_color-mix(in_srgb,var(--color-brand-glow)_40%,transparent)]",
 };
@@ -45,7 +45,7 @@ const CORNER_FOR: Record<Size, number> = { sm: 12, md: 16, lg: 24, nav: 14 };
 function classes(variant: Variant, size: Size, className: string): string {
   return [
     "ornate-glow relative inline-flex items-center justify-center",
-    "font-display border-[3px] border-brand-accent/80",
+    "font-display border-[2px] border-brand-accent/70",
     "cursor-pointer select-none",
     SIZES[size],
     VARIANTS[variant],

@@ -131,11 +131,11 @@ export function AccountPanel() {
             <span className="flex h-11 items-center gap-2 px-4 text-sm text-brand-accent">
               <Coins />
               <span className="tabular-nums">{walletBalance.toLocaleString("en-US")}</span>
-              <span className="text-text-muted">Jade Coins</span>
+              <span className="text-text-muted">Septims</span>
             </span>
           </OrnateBox>
-          <Button variant="solid" size="md" onClick={() => setNotice("The store is not open yet.")}>
-            Buy Jade Coins
+          <Button variant="solid" size="md" onClick={() => setNotice("The ledger is not open yet.")}>
+            Add funds
           </Button>
         </div>
       </div>
@@ -151,7 +151,7 @@ export function AccountPanel() {
             label="Select a character"
             options={characters}
             value={deliverTo}
-            onChange={(event) => setDeliverTo(event.target.value)}
+            onChange={setDeliverTo}
             className="w-[260px]"
           />
           <Button
@@ -181,8 +181,8 @@ export function AccountPanel() {
           label="Sort"
           options={["Newest", "Oldest", "Name"]}
           value={sort === "newest" ? "Newest" : sort === "oldest" ? "Oldest" : "Name"}
-          onChange={(event) => {
-            const value = event.target.value.toLowerCase();
+          onChange={(next) => {
+            const value = next.toLowerCase();
             setSort(value === "oldest" ? "oldest" : value === "name" ? "name" : "newest");
           }}
           className="ml-auto w-[160px]"
@@ -190,12 +190,11 @@ export function AccountPanel() {
       </div>
 
       {notice ? (
-        <p
-          role="status"
-          className="mt-4 border-l-2 border-brand-accent bg-brand-accent/10 px-4 py-3 text-sm text-brand-accent"
-        >
-          {notice}
-        </p>
+        <div role="status" className="mt-4">
+          <OrnateBox size="sm" contentClassName="px-4 py-3">
+            <p className="text-sm text-brand-accent">{notice}</p>
+          </OrnateBox>
+        </div>
       ) : null}
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
@@ -334,7 +333,7 @@ export function AccountPanel() {
                       <Coins />
                       {item.price.toLocaleString("en-US")}
                     </span>
-                    <Button size="sm" onClick={() => setNotice("The store is not open yet.")}>
+                    <Button size="sm" onClick={() => setNotice("The ledger is not open yet.")}>
                       Buy
                     </Button>
                   </div>
@@ -354,7 +353,7 @@ export function AccountPanel() {
 
       <Modal
         open={confirming}
-        title="Confirm delivery"
+        title="Confirm despatch"
         onClose={() => setConfirming(false)}
         footer={
           <>
@@ -369,7 +368,7 @@ export function AccountPanel() {
       >
         Deliver {selected.length} {selected.length === 1 ? "item" : "items"} to{" "}
         <strong className="text-brand-accent">{deliverTo}</strong>? Delivery cannot be undone, and
-        the items will appear in that character&apos;s mailbox.
+        the items will appear in that character's coffer.
       </Modal>
     </OrnateFrame>
   );

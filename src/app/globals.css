@@ -8,42 +8,45 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Brand */
-  --color-brand-accent: #dde46b;
-  --color-brand-dark: #0a250d;
+  /* Brand.
+   * Sampled from the hero painting so chrome and art share a light source.
+   * The category reflex is warm gold on black; here the chrome is cold and
+   * warmth is reserved for actions, so a primary button is the only warm
+   * object on screen and needs no other emphasis. */
+  --color-brand-accent: #9fb8c4;   /* frost, the primary accent */
+  --color-brand-dark: #10161a;     /* cold slate, never #000 */
+  --color-brand-action: #b89258;   /* brass, actions only */
+  --color-brand-glow: #cfe2ea;     /* frost lifted, for hover */
+  --color-chevron: #8aa3af;
 
   /* Surfaces */
-  --color-bg-page: #20381c;
-  --color-bg-card: #00000080;
-  --color-bg-overlay-green: #1d361899;
+  --color-bg-page: #10161a;
+  --color-bg-stone: #1b2429;
+  --color-bg-card: #0b1013cc;
+  --color-bg-overlay-green: #1b2429cc;
+  --color-vellum: #e3d9c2;         /* document surfaces */
+  --color-vellum-ink: #2b2418;
 
   /* Text */
-  --color-text-primary: #ffffff;
-  --color-text-muted: #ffffffcc;
-  --color-text-light: #d0d0d0;
-  --color-text-placeholder: #5a574d;
+  --color-text-primary: #e8e4d9;   /* bone, never #fff */
+  --color-text-muted: #b9c2c4;
+  --color-text-light: #d3d8d6;
+  --color-text-placeholder: #6a7880;
 
   /* Feedback */
-  --color-error: #d93e3e;
-  --color-success-icon: #4caf50;
+  --color-error: #a8503c;
+  --color-success-icon: #7fc99a;
 
   /* Lines and states */
-  --color-border-subtle: #ffffff1a;
-  --color-nav-hover: #36792f;
-  /*
-   * Hover state. The reference lifts to a brighter yellow than the resting
-   * accent and pairs it with a soft outer glow, which is what gives the gold a
-   * lit-from-behind feel on hover. Neither is visible in a static screenshot.
-   */
-  --color-brand-glow: #f6fe7a;
-  /* The chevron gold, which is warmer than the brand accent. */
-  --color-chevron: #c8aa6e;
+  --color-border-subtle: #e8e4d914;
+  --color-nav-hover: #7fc99a;
 
-  /* Typefaces. next/font fills --font-exo and --font-friz in layout.tsx. */
-  --font-heading: var(--font-friz), Georgia, serif;
-  --font-body: var(--font-exo), system-ui, sans-serif;
+  /* Typefaces */
+  --font-heading: var(--font-display), Georgia, serif;
+  --font-body: var(--font-ui), system-ui, sans-serif;
+  --font-document: var(--font-serif), Georgia, serif;
 
-  /* Type scale beyond Tailwind's defaults */
+  /* Type scale */
   --text-page-title: 2.75rem;
   --text-section-heading: 2.5rem;
   --text-nav: 1.25rem;
@@ -58,28 +61,23 @@
   --tracking-input: 1.44px;
   --tracking-nav: 1.2px;
 
-  /* The reference leans on text shadow rather than glow filters */
+  /* Depth is rule weight and surface temperature, not shadow. */
   --text-shadow-heading: 0 2px 4px #00000080;
   --text-shadow-drop: 0 1px 2px #0009;
   --text-shadow-page-heading: 0 3px 10px #0009, 0 1px 4px #0006;
   --text-shadow-subtle: 0 0 3px #000000b3;
 
-  /*
-   * Content width. Measured off the reference: the feature grid and the FAQ
-   * list both span 1450px of a 1920px viewport, which is wider than Tailwind's
-   * 7xl (1280px) and is why the first pass read as too narrow.
-   */
   --container-site: 1560px;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
 
   --blur-panel: 2px;
   --blur-modal: 4px;
 
   --duration-fast: 0.15s;
   --duration-normal: 0.25s;
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-default: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Not Tailwind theme namespaces, so they stay plain custom properties. */
@@ -123,9 +121,9 @@
   --border-ornate-thick: 4px;
   --border-ornate-heavy: 8px;
 
-  --gradient-nav-bar: linear-gradient(90deg, #00000040 0%, #00000040 100%),
-    linear-gradient(90deg, #0f2711 0%, #021603 54.1%, #0f2711 100%);
-  --gradient-news-overlay: linear-gradient(to top, #000000d9 0%, #0006 50%, transparent 100%);
+  --gradient-nav-bar: linear-gradient(90deg, #00000059 0%, #00000059 100%),
+    linear-gradient(90deg, #223038 0%, #0d1317 54.1%, #223038 100%);
+  --gradient-news-overlay: linear-gradient(to top, #080d10e6 0%, #080d1099 48%, transparent 100%);
 
   --z-navbar: 50;
   --z-dropdown: 100;
@@ -169,16 +167,12 @@ body {
    * empty and hides whether the spacing is actually right.
    */
   background-image:
-    radial-gradient(90% 60% at 50% 100%, rgba(0, 0, 0, 0.35) 0%, transparent 70%),
-    radial-gradient(120% 55% at 50% 0%, rgba(170, 205, 165, 0.22) 0%, transparent 62%),
-    radial-gradient(70% 45% at 10% 22%, rgba(20, 55, 26, 0.45) 0%, transparent 72%),
-    radial-gradient(70% 45% at 90% 26%, rgba(20, 55, 26, 0.45) 0%, transparent 72%),
-    repeating-linear-gradient(
-      94deg,
-      rgba(0, 0, 0, 0.05) 0 60px,
-      rgba(255, 255, 255, 0.012) 60px 132px
-    ),
-    linear-gradient(180deg, #38583140 0%, #24401f 26%, #1b3318 60%, #12280f 100%);
+    radial-gradient(90% 55% at 50% 100%, #05080ab3 0%, transparent 72%),
+    radial-gradient(120% 60% at 50% 0%, #7fc99a1f 0%, transparent 58%),
+    radial-gradient(75% 45% at 12% 20%, #1b242980 0%, transparent 74%),
+    radial-gradient(75% 45% at 88% 24%, #1b242980 0%, transparent 74%),
+    repeating-linear-gradient(94deg, #0000000d 0 70px, #ffffff08 70px 148px),
+    linear-gradient(180deg, #2b3a42 0%, #1a242a 30%, #131b20 64%, #0b1013 100%);
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
@@ -250,7 +244,7 @@ body {
 }
 
 .navbar-logo-link:hover {
-  filter: brightness(1.15) drop-shadow(0 0 6px #dde46b40);
+  filter: brightness(1.12) drop-shadow(0 0 8px #9fb8c433);
 }
 
 .navbar-pill {
@@ -259,7 +253,7 @@ body {
   left: 160px;
   right: 260px;
   height: 90px;
-  border: 3px solid #dde46bb3;
+  border: 3px solid #9fb8c47a;
   border-radius: 24px;
   overflow: visible;
   box-shadow: 0 0 6px 0.5px #0009;

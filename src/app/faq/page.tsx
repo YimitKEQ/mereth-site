@@ -10,12 +10,12 @@ export default function FaqPage() {
   return (
     <div className="mx-auto max-w-site px-6 pt-12 pb-8 md:px-8 md:pt-16">
       <PageHeading
-        title="Frequently Asked Questions"
-        subtitle="Everything you need to know before you begin, clear, simple, and updated."
+        title="Questions"
+        subtitle="What people ask before they apply, answered plainly."
       />
       <div className="mt-12">
-        {/* The reference lands with the first four already open. */}
-        <Accordion items={faq} openByDefault={4} />
+        {/* Everything starts closed: an accordion that lands open is a list. */}
+        <Accordion items={faq} />
       </div>
     </div>
   );

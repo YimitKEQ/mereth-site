@@ -28,6 +28,7 @@ const BAR: Record<OrnateSize, number> = { sm: 2, md: 2, lg: 3 };
  * three corners so the motif always winds the same way around the frame.
  */
 function Bracket({ size, bar }: { size: number; bar: number }) {
+  const w = (bar / size) * 32;
   return (
     <svg
       width={size}
@@ -35,18 +36,27 @@ function Bracket({ size, bar }: { size: number; bar: number }) {
       viewBox="0 0 32 32"
       fill="none"
       stroke="currentColor"
-      strokeWidth={(bar / size) * 32}
-      strokeLinecap="square"
+      strokeWidth={w}
+      strokeLinecap="butt"
+      strokeLinejoin="miter"
       aria-hidden="true"
       focusable="false"
       style={{ display: "block" }}
     >
-      {/* Outer arm, flush with where the bars pick up */}
+      {/* Outer arm, flush with where the rails pick up */}
       <path d="M1 32 V1 H32" />
-      {/* Return */}
-      <path d="M9 32 V9 H32" />
-      {/* Inward terminus, the detail that makes it a key rather than a chevron */}
-      <path d="M17 24 V17 H24" />
+      {/*
+        Nordic interlace: two angular strands crossing the corner on the
+        diagonal, with a break in the under-strand where the over-strand
+        passes. The break is the whole motif. Without it this is a chevron.
+      */}
+      <path d="M1 20 L11 10 L21 10" />
+      <path d="M20 1 L10 11 L10 21" />
+      {/* Over-strand, unbroken, so the weave reads correctly */}
+      <path d="M4 27 L27 4" />
+      {/* Terminal pegs, which is what stops the diagonals floating */}
+      <path d="M27 4 L27 9" />
+      <path d="M4 27 L9 27" />
     </svg>
   );
 }

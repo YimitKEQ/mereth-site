@@ -41,30 +41,30 @@ export default function HowToPlayPage() {
   return (
     <div className="mx-auto max-w-site px-6 pt-12 pb-8 md:px-8 md:pt-16">
       <PageHeading
-        title="How to Play"
-        subtitle="Follow the steps to start playing."
-        note="Note: Server is still under development"
+        title="Begin"
+        subtitle="Four steps from here to standing in a hold."
+        note="Applications are read by a person and answered within a few days."
       />
 
       <OrnateFrame weight="heavy" className="mt-12" contentClassName="px-6 py-14 md:px-16 md:py-20">
         <div className="flex flex-col gap-16">
-          <Step index={1} title="Create an Account">
+          <Step index={1} title="Make an account">
             <p className={BODY}>
-              Create your free {site.name} account to get started. You&apos;ll use your username
-              (not email) to log in to the game.
+              Your account name is what you sign in with, not your email. Keep it plain: it is
+              administrative, and your character's name is a separate thing entirely.
             </p>
             <ButtonLink href="/register" variant="solid" size="md" className="mt-6 min-w-[260px]">
-              Sign Up
+              Apply
             </ButtonLink>
           </Step>
 
-          <Step index={2} title="Download the Game">
+          <Step index={2} title="Install the modlist">
             <p className={BODY}>
-              Choose your preferred client type and language, then download the game files.
+              Our launcher installs and updates the modlist for you, and keeps your load order matching the server exactly.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Select label="Client Type" options={["Full Client", "Minimal Client"]} className="w-[190px]" />
-              <Select label="Language" options={["English", "Deutsch", "Français"]} className="w-[190px]" />
+              <Select label="Client Type" options={["Full modlist", "Minimal modlist"]} className="w-[220px]" />
+              <Select label="Language" options={["English", "Deutsch", "Français", "Nederlands"]} className="w-[220px]" />
               <button
                 type="button"
                 aria-label="Download"
@@ -75,49 +75,44 @@ export default function HowToPlayPage() {
             </div>
           </Step>
 
-          <Step index={3} title="Play!">
+          <Step index={3} title="Ride in">
             <p className={BODY}>
-              Unzip the downloaded files, launch Wow-64.exe, and log in using your username (not
-              your email address).
-              <br />
-              See you in the Mist!
+              Launch through the launcher, sign in, and make your character. An officer will meet
+              you at the gate for the first hour if you want one.
             </p>
           </Step>
 
-          <OrnateLabelDivider>Want to use your own client?</OrnateLabelDivider>
+          <OrnateLabelDivider>Managing your own install?</OrnateLabelDivider>
 
-          <Step index={1} title="Create an Account">
+          <Step index={1} title="Make an account">
             <p className={BODY}>
-              Create your free {site.name} account to get started. You&apos;ll use your username
-              (not email) to log in to the game.
+              Your account name is what you sign in with, not your email. Keep it plain: it is
+              administrative, and your character's name is a separate thing entirely.
             </p>
             <ButtonLink href="/register" variant="solid" size="md" className="mt-6 min-w-[260px]">
-              Sign Up
+              Apply
             </ButtonLink>
           </Step>
 
-          <Step index={2} title={`Setup ${site.name}`}>
+          <Step index={2} title="Point it at Mereth">
             <p className={BODY}>
-              Open your realmlist.wtf file (located in your WoW Data folder) and replace its
-              contents with:
+              If you would rather manage your own install, point your client at this address:
             </p>
             <div className="mt-5 w-full">
               <CopyField value="NOT PUBLIC YET" />
             </div>
             <p className={`${BODY} mt-8`}>
-              Then open your Config.wtf file (located in your WoW WTF folder) and add this line:
+              And set the world it should load:
             </p>
             <div className="mt-5 w-full">
               <CopyField value="NOT PUBLIC YET" />
             </div>
           </Step>
 
-          <Step index={3} title="Play!">
+          <Step index={3} title="Ride in">
             <p className={BODY}>
-              Unzip the downloaded files, launch Wow-64.exe, and log in using your username (not
-              your email address).
-              <br />
-              See you in the Mist!
+              Launch through the launcher, sign in, and make your character. An officer will meet
+              you at the gate for the first hour if you want one.
             </p>
           </Step>
         </div>

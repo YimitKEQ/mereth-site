@@ -28,9 +28,13 @@ export function ArtPlaceholder({
   label?: string;
 }) {
   const value = hash(seed);
-  const hue = 70 + (value % 90); // greens through to warm golds
-  const hue2 = (hue + 40 + (value % 30)) % 360;
-  const tilt = value % 60;
+  // Cold northern range only: slate blue through steel, with a narrow ochre
+  // window for firelight. The previous version swept greens and golds, which
+  // fought the palette the moment the brand went cold.
+  const hue = 196 + (value % 34);            // 196..229, slate to iron blue
+  const warm = 36 + (value % 12);            // 36..47, tallow and rust
+  const tilt = value % 50;
+  const lift = 10 + (value % 12);
 
   return (
     <div
@@ -42,9 +46,9 @@ export function ArtPlaceholder({
         className="absolute inset-0"
         style={{
           background: [
-            `radial-gradient(80% 70% at ${25 + (value % 40)}% 20%, hsl(${hue} 55% 46% / 0.95), transparent 70%)`,
-            `radial-gradient(90% 80% at 80% 85%, hsl(${hue2} 45% 22% / 0.95), transparent 65%)`,
-            `linear-gradient(${tilt}deg, #0b1f0d 0%, #16351a 55%, #0a1a0c 100%)`,
+            `radial-gradient(85% 70% at ${22 + (value % 40)}% 18%, hsl(${hue} 22% ${lift + 26}% / 0.9), transparent 72%)`,
+            `radial-gradient(60% 50% at 78% 82%, hsl(${warm} 30% ${lift + 12}% / 0.55), transparent 68%)`,
+            `linear-gradient(${tilt}deg, #0d141a 0%, #1b262d 55%, #0a1014 100%)`,
           ].join(","),
         }}
       />
@@ -52,10 +56,10 @@ export function ArtPlaceholder({
       <div
         className="absolute inset-0 opacity-40 mix-blend-overlay"
         style={{
-          background: `repeating-linear-gradient(${tilt + 20}deg, transparent 0 18px, rgba(255,255,255,0.06) 18px 22px)`,
+          background: `repeating-linear-gradient(${tilt + 20}deg, transparent 0 16px, rgba(232,228,217,0.05) 16px 21px)`,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#080d10]/70 to-transparent" />
     </div>
   );
 }
