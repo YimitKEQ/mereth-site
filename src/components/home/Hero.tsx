@@ -49,14 +49,14 @@ export function Hero() {
           once. Magic you have to be taught. Property a jarl grants you.
         </p>
 
-        {/* Start here leads, because the first thing a stranger needs is the
-            page that explains the place, not an invite to a server they have
-            no context for yet. */}
+        {/* Start here sits first because it is what a stranger needs first, but
+            Discord keeps the solid fill: it is still the action, and reading
+            order and visual weight are allowed to say different things. */}
         <div className="mt-9 flex flex-wrap justify-center gap-4">
-          <ButtonLink href="/start" variant="solid" size="lg">
+          <ButtonLink href="/start" size="lg">
             Start here
           </ButtonLink>
-          <ButtonLink href={DISCORD_INVITE} size="lg">
+          <ButtonLink href={DISCORD_INVITE} variant="solid" size="lg">
             Join Discord
           </ButtonLink>
         </div>
