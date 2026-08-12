@@ -134,7 +134,8 @@ function Data({ name }: { name: DataBlock }) {
           rows={mereth.tiers.map((tier) => [
             tier.name,
             tier.cost === null ? "cannot be bought" : String(tier.cost),
-            `${tier.from} to ${tier.to}`,
+            // Legendary spans a single level, so "100 to 100" is accurate and daft.
+            tier.from === tier.to ? String(tier.from) : `${tier.from} to ${tier.to}`,
           ])}
         />
       );

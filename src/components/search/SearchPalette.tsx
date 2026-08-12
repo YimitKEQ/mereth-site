@@ -31,6 +31,9 @@ const KIND_LABEL: Record<EntryKind, string> = {
   ingredient: "Ingredient",
   recipe: "Recipe",
   profession: "Profession",
+  rule: "Rule",
+  place: "Hold",
+  faction: "Faction",
 };
 
 /** Ties break toward the thing a reader more likely meant. */
@@ -39,6 +42,9 @@ const KIND_WEIGHT: Record<EntryKind, number> = {
   section: 5,
   answer: 4,
   skill: 4,
+  place: 4,
+  faction: 4,
+  rule: 3,
   profession: 3,
   recipe: 2,
   ingredient: 2,

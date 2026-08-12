@@ -4,9 +4,10 @@ import type { HandbookPage } from "./blocks";
  * Tips: the numbers, the cooldowns and the small mechanical facts that decide
  * whether an evening goes well.
  *
- * The stance is optimisation, not exploitation. Everything here is knowing the
- * rules better, not breaking them. Anything that looked like a genuine weakness
- * in the server belongs in a message to the team, not on a public page.
+ * The stance is optimisation, not exploitation: knowing the systems better,
+ * never working around them. If something here ever reads as a way to break a
+ * system rather than use it, that is a bug in the system and it goes in a
+ * ticket, not on this page.
  */
 export const tips: HandbookPage = {
   title: "Tips and tricks",

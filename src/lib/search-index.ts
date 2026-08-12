@@ -1,8 +1,13 @@
 import { faqSections } from "@/lib/handbook/faq";
 import { guide } from "@/lib/handbook/guide";
+import { progression } from "@/lib/handbook/progression";
+import { survival } from "@/lib/handbook/survival";
 import { tips } from "@/lib/handbook/tips";
 import { mereth } from "@/lib/mereth";
 import { allNavLinks } from "@/lib/site";
+import { factions } from "@/lib/world/factions";
+import { holds } from "@/lib/world/holds";
+import { ruleSections } from "@/lib/world/rules";
 
 /**
  * The index behind the command palette.
@@ -24,7 +29,10 @@ export type EntryKind =
   | "spell"
   | "ingredient"
   | "recipe"
-  | "profession";
+  | "profession"
+  | "rule"
+  | "place"
+  | "faction";
 
 export interface SearchEntry {
   /** What the row shows and what the query matches against. */
@@ -68,6 +76,8 @@ export function buildSearchIndex(): SearchEntry[] {
   for (const [page, path] of [
     [guide, "/guide"],
     [tips, "/tips"],
+    [progression, "/progression"],
+    [survival, "/survival"],
   ] as const) {
     for (const section of page.sections) {
       entries.push({
@@ -117,6 +127,37 @@ export function buildSearchIndex(): SearchEntry[] {
         terms: recipe.items.map((i) => i.name).join(" "),
       });
     }
+  }
+
+  for (const section of ruleSections) {
+    for (const rule of section.rules) {
+      entries.push({
+        label: `${rule.code} ${rule.text.slice(0, 70)}${rule.text.length > 70 ? "..." : ""}`,
+        kind: "rule",
+        href: `/rules#${section.id}`,
+        sub: section.title,
+        terms: rule.text,
+      });
+    }
+  }
+
+  for (const hold of holds) {
+    entries.push({
+      label: hold.name,
+      kind: "place",
+      href: "/holds",
+      sub: hold.jarl === null ? `Seat of ${hold.seat}` : `${hold.seat}, ${hold.jarl}`,
+      terms: hold.seat,
+    });
+  }
+
+  for (const faction of factions) {
+    entries.push({
+      label: faction.name,
+      kind: "faction",
+      href: "/factions",
+      sub: faction.standing,
+    });
   }
 
   for (const profession of mereth.gathering.professions) {

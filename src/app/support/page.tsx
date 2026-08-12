@@ -16,10 +16,9 @@ export const metadata: Metadata = {
 /**
  * Routing, not a form.
  *
- * This site has no ticket system and cannot get anybody unstuck, so a contact
- * form here would be theatre. What it can do is answer the question fastest for
- * the failures that are self-inflicted, and send everything else to the one
- * place that can actually help, which is a Discord ticket.
+ * A form here would be a second inbox nobody watches, and tickets already live
+ * in Discord where staff and clips are. So this page routes instead: the fast
+ * answer for the self-inflicted failures, and a ticket for everything else.
  */
 const routes = [
   {
@@ -83,9 +82,8 @@ export default function SupportPage() {
           Getting help
         </h1>
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
-          This site is a player-built handbook. It has no ticket system and cannot get anybody
-          unstuck, so the useful thing it can do is answer the questions that are self-inflicted and
-          send everything else to the people who can actually help.
+          Most problems have a published answer, and the ones that do not need a ticket. This page
+          sorts them: what you can fix in a minute, and what staff need to see.
         </p>
       </header>
 

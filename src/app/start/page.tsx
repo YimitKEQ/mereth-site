@@ -110,9 +110,9 @@ export default function StartPage() {
           Then keep this open
         </h2>
         <p className="mt-4 text-[0.98rem] leading-[1.85] text-text-light">
-          Everything on this site is read out of Mereth&apos;s own client, their published manifest
-          and their dated release notes: {counts.skills} skills with the team&apos;s own text for
-          every tier, {counts.spells.toLocaleString("en-GB")} spells,{" "}
+          The reference pages are generated from the plugins and the client our launcher installs:
+          {" "}{counts.skills} skills with the in-game text for every tier,{" "}
+          {counts.spells.toLocaleString("en-GB")} spells with their tiers,{" "}
           {counts.ingredients} alchemy ingredients and{" "}
           {counts.records.toLocaleString("en-GB")} records from the{" "}
           {counts.plugins} plugins the launcher installs. Press{" "}

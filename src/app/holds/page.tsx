@@ -1,0 +1,88 @@
+import type { Metadata } from "next";
+
+import { CodexHeader } from "@/components/codex/CodexHeader";
+import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { inline } from "@/lib/markup";
+import { holds } from "@/lib/world/holds";
+
+export const metadata: Metadata = {
+  title: "The Nine Holds",
+  description:
+    "Skyrim's nine holds in 4E 185, their seats and the jarls who hold them, and how rank and property work inside one.",
+};
+
+/**
+ * The nine holds.
+ *
+ * Four seats have no published jarl. They are shown as vacant rather than
+ * hidden, because a player choosing where to belong wants to know which courts
+ * exist and which are still open, and an invented jarl is the fastest way to
+ * break somebody else's roleplay.
+ */
+export default function HoldsPage() {
+  const seated = holds.filter((hold) => hold.jarl !== null);
+  const open = holds.filter((hold) => hold.jarl === null);
+
+  return (
+    <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
+      <CodexHeader
+        title="The Nine Holds"
+        lede={`Skyrim in 4E 185, a decade after the White-Gold Concordat. A hold is the unit that
+          matters here: you pledge to one, hold a rank in it, and its jarl grants the parcels that
+          make a house or a workshop yours. **Each hold also sets its own law**, including on magic.`}
+        facts={[
+          { label: "Holds", value: String(holds.length) },
+          { label: "Jarls seated", value: String(seated.length) },
+          { label: "Courts unannounced", value: String(open.length) },
+        ]}
+      />
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        {seated.map((hold) => (
+          <article key={hold.name} className="relative border border-brand-accent/30 bg-black/30 p-7">
+            <FrameCorners weight="thin" size={18} />
+            <h2 className="font-display relative text-xl tracking-heading text-brand-accent uppercase">
+              {hold.name}
+            </h2>
+            <p className="relative mt-1 text-[0.85rem] text-text-muted">
+              Seat of {hold.seat}
+            </p>
+            <p className="relative mt-4 text-[1rem] text-text-primary">{hold.jarl}</p>
+
+            <div className="relative mt-4 space-y-3.5">
+              {[...hold.jarlStory, ...hold.holdStory].map((paragraph, i) => (
+                <p key={i} className="text-[0.92rem] leading-[1.8] text-text-light">
+                  {inline(paragraph)}
+                </p>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {open.length > 0 ? (
+        <section className="mt-12">
+          <h2 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
+            Courts not yet announced
+          </h2>
+          <p className="mb-6 max-w-[68ch] text-[0.95rem] leading-relaxed text-text-muted">
+            These seats have no published jarl. That is a gap in what has been announced rather than
+            an empty throne you can walk into: seizing a hold bypasses the Moot, and an Usurper is
+            retaken and executed. Watch Discord for whitelist openings.
+          </p>
+          <ul className="flex flex-wrap gap-3">
+            {open.map((hold) => (
+              <li
+                key={hold.name}
+                className="border border-border-subtle px-4 py-2.5 text-[0.9rem] text-text-light"
+              >
+                {hold.name}
+                <span className="ml-2 text-text-muted">{hold.seat}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+    </div>
+  );
+}

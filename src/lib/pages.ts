@@ -4,12 +4,12 @@
  * One map instead of a dozen near-identical route files. Each entry renders
  * through `SimplePage`, so adding a page is adding an entry.
  *
- * A standing rule for everything in this file: **this site does not speak for
- * Mereth.** The first version of these pages was inherited from a template and
- * invented plausible-sounding policy (rated play, a cosmetics shop, an appeals
- * process), which on a Mereth-branded page reads as official and is worse than
- * saying nothing. Every page here now either states something checkable or
- * sends the reader to the people who can actually answer.
+ * A standing rule for everything in this file: **this is an official Mereth
+ * surface, so anything written here reads as policy.** An earlier version
+ * inherited a template and invented plausible-sounding policy: rated play, a
+ * cosmetics shop, an appeals process. None of it existed. Do not add anything
+ * here that has not actually been decided. If it is undecided, say so, or leave
+ * it out and point at Discord.
  */
 
 export interface SimpleSection {
@@ -28,26 +28,27 @@ export interface SimplePageContent {
 export const simplePages: Record<string, SimplePageContent> = {
   community: {
     title: "The Hall",
-    subtitle: "Where the server actually lives between patches.",
+    subtitle: "Where the server lives between patches.",
     sections: [
       {
         paragraphs: [
-          "Mereth runs on Discord as much as it runs on SkyMP. That is not a convenience: your Discord account is the login, so the server and the community are the same membership.",
+          "Mereth runs on Discord as much as it runs on SkyMP. That is not a convenience: your Discord account is your login, so the server and the community are the same membership.",
         ],
       },
       {
         heading: "What happens there",
         bullets: [
-          "Release notes, which land near-daily and are the closest thing to a changelog the server publishes.",
-          "Tickets, which is how every rule question, dispute and bug report reaches staff.",
-          "Applications for whitelisted roles, including the leadership positions inside holds.",
+          "Release notes, which land near-daily.",
+          "Tickets, which is how every rule question, dispute, bug report and whitelist application reaches staff.",
+          "Whitelist postings for Jarls, lore factions and other roles that need an application.",
+          "Faction and organisation recruitment. Lore factions have their own servers; everything else shares one, with categories separated by role.",
           "The out-of-character conversation that most in-character plots are arranged in.",
         ],
       },
       {
-        heading: "About this site",
+        heading: "House style, out of character too",
         paragraphs: [
-          "This is a player-built handbook, not an official Mereth surface. It is assembled from the client their launcher installs, their published manifest and their dated release notes, and it says on every claim which of those it came from. Where it disagrees with the team, the team is right.",
+          "The Discord rules are short and enforced: be respectful, no spam, no advertising, no adult content, no hate speech or iconography, and do not ping staff. Keep personal information to yourself, and to other people.",
         ],
       },
     ],
@@ -60,150 +61,84 @@ export const simplePages: Record<string, SimplePageContent> = {
     sections: [
       {
         paragraphs: [
-          "Mereth authenticates through Discord rather than a username and password. The client has separate failure messages for being outside their Discord and for never having logged in through it, so joining is not optional: it is the account system.",
+          "Mereth authenticates through Discord rather than a username and password. The client has separate failures for being outside our Discord and for never having logged in through it, so joining is not optional: it is the account system.",
         ],
       },
       {
-        heading: "Once you are in",
+        heading: "First things to do once you are in",
         bullets: [
-          "Read the rules before applying. They are about conduct and consistency, and one of them forbids AI-written roleplay outright.",
-          "Open a ticket for anything that needs staff: rule questions, disputes, bugs, or being genuinely stuck.",
-          "Bring your exact error text if the game will not connect. The client distinguishes far more failures than most, and the wording tells you which one you have.",
+          "Read the rules. Mereth is 18+ and the standard is serious roleplay.",
+          "Set your Discord name to your character's name. That is rule CRE.3.",
+          "Download the launcher. It installs the whole mod list for you; do not assemble it by hand.",
+          "Open a ticket for anything that needs staff, and bring clips with context rather than fifteen seconds of a fight.",
         ],
       },
       {
-        heading: "This page is not the invite",
+        heading: "If the game will not connect",
         paragraphs: [
-          "The invite belongs to Mereth and changes at their discretion, so this handbook does not mirror it. Search for Mereth Roleplay, or follow the link from their own site.",
+          "Bring the exact error text. The client distinguishes far more failures than most, and the wording tells you which one you have before anyone has to guess.",
         ],
       },
     ],
     cta: { label: "The connection errors, explained", href: "/faq#connect" },
   },
 
-  staff: {
-    title: "Officers",
-    subtitle: "Who runs Mereth, and what this site can honestly tell you about them.",
-    sections: [
-      {
-        paragraphs: [
-          "Mereth is run by BStarRP, a roleplay community that came to Skyrim from FiveM and RedM. Development is effectively one person, shipping at a pace that shows in the release history: hundreds of releases since the server launched in July 2026.",
-        ],
-      },
-      {
-        heading: "In-world authority is played, not administered",
-        bullets: [
-          "Jarls and stewards hold real mechanical power through the holdstone: ranks, parcels and access.",
-          "Guard, Guard Captain and Commander are ranks inside a hold, held by players.",
-          "Leadership roles are whitelisted, which means an application rather than an election.",
-        ],
-      },
-      {
-        heading: "Out-of-character authority is a ticket",
-        paragraphs: [
-          "There is no bounty system and no automated enforcement. Accusations, sentences and appeals are adjudicated by staff reading Discord tickets, which is worth knowing before you build a character around consequences: nothing in the game records one for you.",
-        ],
-      },
-      {
-        heading: "Names",
-        paragraphs: [
-          "This handbook does not publish a staff roster. Roles change, and a stale list of real people on a site the team does not control is worth less than a link to the current one.",
-        ],
-      },
-    ],
-    cta: { label: "Open a ticket", href: "/discord" },
-  },
-
-  rules: {
-    title: "Laws",
-    subtitle: "What this site can tell you, and where the authoritative version lives.",
-    sections: [
-      {
-        paragraphs: [
-          "Mereth's rules are published and enforced by the team on Discord, and that copy is the only one that counts. What follows is context a new player usually wants before reading them, not a substitute.",
-        ],
-      },
-      {
-        heading: "The one people trip over",
-        paragraphs: [
-          "AI-written roleplay is forbidden. The rule is explicit, and the applications for whitelisted leadership roles ask about it directly. Write your own character.",
-        ],
-      },
-      {
-        heading: "How consequence works here",
-        bullets: [
-          "In character, players can tackle, cuff and shackle each other, and cuffing produces a real incapacitated state.",
-          "Nothing persists after that. No bounty, no record, no debt that follows anyone.",
-          "So sentences are written ones. The published sanctions run as far as life imprisonment, banishment and execution, adjudicated by staff.",
-          "Which means a scene has the weight the people in it agree to give it, and the ticket afterwards is where it becomes real.",
-        ],
-      },
-      {
-        heading: "Also worth knowing before you play",
-        bullets: [
-          "Magic is legal by hold, not by province. Every hold sets its own law on casting, teaching and licences.",
-          "No characters from Elder Scrolls lore. Familiar clans, yes; copy-paste characters, no.",
-          "New players do not start with magic, without exception.",
-        ],
-      },
-    ],
-    cta: { label: "Read the rules on Discord", href: "/discord" },
-  },
-
   donate: {
     title: "Supporting Mereth",
-    subtitle: "Where support goes, and what this handbook does not take.",
+    subtitle: "What support pays for, and what it will never buy.",
     sections: [
       {
         paragraphs: [
-          "Mereth is free to play and funded by its own community through Patreon. Hosting a synchronised Skyrim province with a mod list this size is not cheap, and the money goes there.",
+          "Mereth is free to play. Hosting a synchronised Skyrim province with a mod list this size, plus voice, plus the development behind it, is not free, and community support is what covers it.",
         ],
       },
       {
-        heading: "This site takes nothing",
-        paragraphs: [
-          "This handbook is player-built and unaffiliated. It has no shop, no accounts and no payments, and it will not collect money on Mereth's behalf. If you want to support the server, do it through the team's own channels so it reaches them directly.",
+        heading: "What it never buys",
+        bullets: [
+          "Skills, tiers, memory points or any advantage in play.",
+          "A whitelisted role. Jarl, faction leadership and every other whitelist is earned through the application, never bought.",
+          "Faster ticket handling, or a different answer in one.",
+          "Immunity from any rule in the rulebook.",
         ],
       },
       {
-        heading: "Worth saying plainly",
+        heading: "Why the economy cannot be bought into",
         paragraphs: [
-          "Support is not a route to advantage. Skills are capped by memory points spent at character creation, magic requires a teacher and a book, and property is granted by a jarl. None of those has a price.",
+          "Skills are capped by memory points spent at character creation, magic requires a teacher and a book, and property is granted by a jarl. None of those has a price, which is deliberate: the moment they do, the professions stop meaning anything.",
         ],
       },
     ],
-    cta: { label: "Find the team on Discord", href: "/discord" },
+    cta: { label: "Find us on Discord", href: "/discord" },
   },
 
   privacy: {
     title: "Privacy",
-    subtitle: "What this site collects, which is very little.",
+    subtitle: "What this website collects, which is very little.",
     sections: [
       {
         paragraphs: [
-          "This is a static handbook. It has no accounts, no login, no comments and no forms, so there is nothing here to sign up for and nothing to hand over.",
+          "This website is static. It has no accounts, no login, no comments and no forms, so there is nothing here to sign up for and nothing to hand over.",
         ],
       },
       {
-        heading: "What the site stores",
+        heading: "What the website stores",
         bullets: [
-          "Nothing in a database, because there is no database.",
-          "A skill plan lives entirely in the address bar, in the part after the #, which is never sent to any server. Sharing a plan means sharing that link and nothing else.",
+          "Nothing in a database, because it has no database.",
+          "A skill plan lives entirely in the address bar, in the part after the hash, which is never sent to any server. Sharing a plan means sharing that link and nothing else.",
           "Standard web server request logs, which any host keeps.",
+          "No analytics, no advertising, no third-party trackers, and no cookies set by this site.",
         ],
       },
       {
-        heading: "What it loads",
-        bullets: [
-          "One self-hosted display typeface and one from Google Fonts.",
-          "Its own data files, served from the same site.",
-          "No analytics, no advertising, no third-party trackers, no cookies set by this site.",
-        ],
-      },
-      {
-        heading: "Mereth itself is separate",
+        heading: "The game server is separate",
         paragraphs: [
-          "The game server authenticates through Discord and handles its own data. Nothing on this site is connected to your Mereth account, and this site could not read it if it tried.",
+          "Mereth itself authenticates through Discord and handles its own data, including what Discord shares with us when you authorise the login. Nothing on this website is connected to your Mereth account, and this website could not read it if it tried.",
+        ],
+      },
+      {
+        heading: "Discord and tickets",
+        paragraphs: [
+          "Tickets, clips and whitelist submissions live in Discord and are held under Discord's own terms. Staff read them to handle the matter you opened them for. Do not put personal information into a ticket that the matter does not require.",
         ],
       },
     ],
@@ -211,33 +146,30 @@ export const simplePages: Record<string, SimplePageContent> = {
 
   terms: {
     title: "Terms",
-    subtitle: "What this site is, and what it is not.",
+    subtitle: "What this site is, and the boundaries around what it describes.",
     sections: [
       {
-        heading: "Not official",
+        heading: "What this is",
         paragraphs: [
-          "This is a player-built handbook for Mereth Roleplay. It is not run by, endorsed by, or affiliated with the Mereth team, BStarRP, Bethesda Softworks or ZeniMax. Where anything here disagrees with the team, the team is right and this site is wrong.",
-        ],
-      },
-      {
-        heading: "Where the facts come from",
-        bullets: [
-          "The client Mereth's own launcher installs, quoted verbatim where it is quoted.",
-          "Their published release notes, cited by version and date.",
-          "The plugins in their published mod list, read as data.",
-          "The team's own posted answers, reorganised but never changed in substance.",
+          "The official website for Mereth Roleplay: our handbook, our rules, our roadmap, and a reference built from the plugins and the client our own launcher installs.",
         ],
       },
       {
         heading: "Accuracy",
         paragraphs: [
-          "The server ships almost daily, so anything here can go out of date between one visit and the next. Every page shows the date its data was indexed. Treat this as a good map, not as the territory, and check anything that matters against the team.",
+          "We ship almost daily, so anything here can go out of date between one visit and the next. Every reference page shows the date its data was indexed. The rulebook is the authority on rules, the release notes are the record of what shipped, and this site is kept in step with both rather than replacing either.",
         ],
       },
       {
-        heading: "Content",
+        heading: "Not affiliated",
         paragraphs: [
-          "The Elder Scrolls, Skyrim and their content are the property of Bethesda Softworks. Mereth's own text, quoted here as evidence, belongs to Mereth. The writing, code and design of this handbook are its author's.",
+          "Mereth Roleplay is not associated with ZeniMax Entertainment, Bethesda Softworks or Nexus Mods in any way. The Elder Scrolls and Skyrim are the property of Bethesda Softworks.",
+        ],
+      },
+      {
+        heading: "Mods and credits",
+        paragraphs: [
+          "Our launcher installs mods made by other people. Each is linked to its Nexus page so you can read the credits and permissions, and endorse the authors whose work makes Mereth possible. We do not host or redistribute anything we do not have permission to.",
         ],
       },
     ],
@@ -245,17 +177,25 @@ export const simplePages: Record<string, SimplePageContent> = {
 
   refunds: {
     title: "Refunds",
-    subtitle: "There is nothing here to buy.",
+    subtitle: "Where to ask, and what to bring.",
     sections: [
       {
         paragraphs: [
-          "This handbook sells nothing, takes no payments and has no shop, so there is nothing to refund. The page exists because people look for it.",
+          "This website sells nothing and takes no payments. Anything you have contributed went through our own support channels, and a question about it goes to staff.",
         ],
       },
       {
-        heading: "If you supported Mereth",
+        heading: "How to ask",
+        bullets: [
+          "Open a ticket in Discord rather than a direct message to a staff member.",
+          "Include the date and the platform the payment went through.",
+          "One ticket per issue, and confirm with staff before it closes.",
+        ],
+      },
+      {
+        heading: "What support does not entitle you to",
         paragraphs: [
-          "Anything you have paid went to the Mereth team through their own channels, and only they can answer a question about it. Open a Discord ticket.",
+          "Supporting the server buys no advantage in play, no whitelisted role and no exemption from the rulebook. A refund request is handled on its own merits, and neither affects nor is affected by anything about your character.",
         ],
       },
     ],

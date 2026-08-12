@@ -160,10 +160,9 @@ export function SiteHeader() {
           </nav>
 
           {/*
-            No Login button. This is a player-built handbook with no accounts of
-            its own, and Mereth authenticates through Discord, so the honest
-            action here is the door to Discord rather than a form that cannot
-            log anybody into anything.
+            No Login button. The website has no accounts, and the game logs in
+            through Discord, so the action here is the door to Discord rather
+            than a form that cannot log anybody into anything.
           */}
           <div className="navbar-actions">
             <SearchTrigger />

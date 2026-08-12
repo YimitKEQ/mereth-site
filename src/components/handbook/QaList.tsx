@@ -5,44 +5,29 @@ import { useEffect, useState } from "react";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ChevronDown } from "@/components/ui/icons";
 import { inline } from "@/lib/markup";
-import type { Source } from "@/lib/handbook/faq";
 
 /**
  * The question list.
  *
- * The tag on each row is the point of this page. Readers of a fan-made wiki are
- * right to ask "who says?", and the honest answer differs per question: some of
- * this is the team's own wording, some is read out of the client their launcher
- * installs, and one question has no published answer at all. Hiding that
- * difference would make the page feel more authoritative and be worth less.
+ * Answers are stated plainly, because they are ours. What is kept is the
+ * evidence underneath: the exact string the client prints, so a player can
+ * match an error on screen to an answer, and the dated release note behind
+ * anything that changed.
  *
- * Rows open independently, several at a time, and a row whose anchor is in the
- * URL opens itself so a deep link lands on an answer rather than on a heading.
+ * A question with no decided answer is marked rather than filled in. Rows open
+ * independently, several at a time, and a row whose anchor is in the URL opens
+ * itself so a deep link lands on an answer rather than on a heading.
  */
 
 export interface ResolvedAnswer {
   q: string;
   a: string;
-  source: Source;
+  /** True when there is genuinely no decided answer yet. */
+  open?: boolean;
   quote?: string;
   /** Citations resolved on the server, because the patterns cannot cross over. */
   notes?: { version: string; date: string | null; text: string }[];
 }
-
-const TAG: Record<Source, { label: string; className: string }> = {
-  mereth: {
-    label: "Mereth's own answer",
-    className: "border-[#7fc99a]/45 text-[#8fd3a8]",
-  },
-  client: {
-    label: "Read from the client",
-    className: "border-brand-accent/40 text-brand-accent/90",
-  },
-  open: {
-    label: "No answer published",
-    className: "border-[#a8503c]/55 text-[#d08a76]",
-  },
-};
 
 /** A stable anchor per question, so a single answer can be linked to. */
 export function anchorFor(question: string): string {
@@ -56,7 +41,6 @@ export function anchorFor(question: string): string {
 function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) {
   const [open, setOpen] = useState(startOpen);
   const id = anchorFor(item.q);
-  const tag = TAG[item.source];
 
   // A deep link should land on the answer, not on a collapsed heading.
   useEffect(() => {
@@ -76,11 +60,11 @@ function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) 
           <span className="relative flex-1 text-[0.98rem] leading-snug text-text-primary md:text-[1.05rem]">
             {item.q}
           </span>
-          <span
-            className={`relative hidden shrink-0 border px-2.5 py-1 font-display text-[10px] tracking-[1.4px] uppercase sm:block ${tag.className}`}
-          >
-            {tag.label}
-          </span>
+          {item.open === true ? (
+            <span className="relative hidden shrink-0 border border-[#a8503c]/55 px-2.5 py-1 font-display text-[10px] tracking-[1.4px] text-[#d08a76] uppercase sm:block">
+              Not decided yet
+            </span>
+          ) : null}
           <ChevronDown
             className={`relative mt-1 shrink-0 text-brand-accent transition-transform duration-[var(--duration-fast)] ${
               open ? "rotate-180" : ""
@@ -91,11 +75,11 @@ function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) 
 
       {open ? (
         <div className="relative mt-px border border-brand-accent/30 border-t-0 bg-black/25 px-5 py-5 md:px-6">
-          <span
-            className={`mb-3 inline-block border px-2.5 py-1 font-display text-[10px] tracking-[1.4px] uppercase sm:hidden ${tag.className}`}
-          >
-            {tag.label}
-          </span>
+          {item.open === true ? (
+            <span className="mb-3 inline-block border border-[#a8503c]/55 px-2.5 py-1 font-display text-[10px] tracking-[1.4px] text-[#d08a76] uppercase sm:hidden">
+              Not decided yet
+            </span>
+          ) : null}
           <p className="text-[0.98rem] leading-[1.8] text-text-light">{inline(item.a)}</p>
 
           {item.quote !== undefined ? (

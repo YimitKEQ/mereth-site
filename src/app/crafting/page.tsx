@@ -22,8 +22,8 @@ const gathering: Block[] = [
         province, and each tier of each skill names exactly which materials open up: mining moves
         from iron through corundum and quicksilver to moonstone and ebony, fishing changes which
         bait works, saltmaking starts at sea salt and ends at void salts.`,
-      `That text is Mereth's own, and it is the honest answer to "is another point worth it", so
-        it is quoted in full on the [skills page](/skills).`,
+      `That text is the honest answer to "is another point worth it", so it is reproduced in full
+        on the [skills page](/skills).`,
     ],
   },
   {

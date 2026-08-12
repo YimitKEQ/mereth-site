@@ -76,6 +76,8 @@ export interface Ingredient {
 export interface Spell {
   name: string;
   school: string;
+  /** Novice through Master, read from the spell's own casting perk. */
+  tier: string;
   /** The cheapest variant's magicka cost. */
   cost: number;
   /** The dearest variant's. Equal to `cost` when there is only one. */

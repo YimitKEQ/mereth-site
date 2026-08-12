@@ -7,15 +7,12 @@ import { footerColumns, legalLinks, site } from "@/lib/site";
 import { counts, mereth } from "@/lib/mereth";
 
 /**
- * The footer carries the site's provenance, which no other surface does.
+ * The footer carries the provenance line, which no other surface does.
  *
- * A fan-built handbook for somebody else's server has to say so somewhere, and
- * has to say where its facts came from. Putting that on every page in the
- * footer is more honest than an about page nobody opens.
- *
- * The plate is the page's own cold slate rather than the reference's forest
- * green: the green was that site's brand and reads as a mistake against this
- * palette.
+ * The reference data on this site is generated from the plugins and the client
+ * our launcher installs, so it can drift when the server ships. Stamping the
+ * index date on every page is cheaper than a reader discovering the drift by
+ * being wrong in front of somebody.
  */
 export function SiteFooter() {
   const built = new Date(mereth.builtAt).toLocaleDateString("en-GB", {
@@ -43,8 +40,8 @@ export function SiteFooter() {
             <div className="flex flex-col gap-5">
               <Logo />
               <p className="max-w-xs text-[0.85rem] leading-relaxed text-text-muted">
-                A player-built handbook for Mereth Roleplay. Read out of the client their launcher
-                installs, their published manifest, and their dated release notes.
+                A serious roleplay Skyrim server, set in 4E 185. Reference pages are generated from
+                the plugins and the client our launcher installs.
               </p>
               <Link
                 href="/discord"
@@ -75,7 +72,8 @@ export function SiteFooter() {
 
           <div className="mt-12 flex flex-col gap-3 border-t border-border-subtle pt-7 text-[0.78rem] text-text-muted md:flex-row md:items-center md:justify-between">
             <p>
-              {site.copyright}. Not affiliated with Bethesda, ZeniMax, or the Mereth Roleplay team.
+              {site.copyright}. Not associated with ZeniMax Entertainment, Bethesda Softworks or
+              Nexus Mods in any way.
             </p>
             <ul className="flex flex-wrap gap-5">
               <li>

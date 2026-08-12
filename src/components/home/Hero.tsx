@@ -27,7 +27,7 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-site px-6 pt-[180px] pb-24 md:px-8 md:pt-[240px] md:pb-32">
         <p className="font-display text-[11px] tracking-[4px] text-brand-accent/80 uppercase text-shadow-drop">
-          The player&apos;s handbook
+          Serious roleplay, 4E 185
         </p>
 
         <h1 className="font-display mt-4 text-5xl leading-none tracking-title text-brand-accent text-shadow-page-heading md:text-7xl lg:text-8xl">

@@ -9,7 +9,7 @@ import { counts, mereth } from "@/lib/mereth";
 export const metadata: Metadata = {
   title: "Records",
   description:
-    "Search every named record in the plugins Mereth's launcher installs, plus the mod list, the load order and the release history.",
+    "Search every named record in the plugins our launcher installs, plus the full mod list, the load order and the release history.",
 };
 
 export default function RecordsPage() {
@@ -17,7 +17,7 @@ export default function RecordsPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="Records"
-        lede={`Everything named in the ${counts.plugins} plugins the launcher installs, searchable.
+        lede={`Everything named in the ${counts.plugins} plugins our launcher installs, searchable.
           This knows that a thing **exists** and what kind of thing it is. It does not know where it
           stands, what it costs, or whether anyone will ever sell you one.`}
         facts={[

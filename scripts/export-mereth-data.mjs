@@ -202,31 +202,24 @@ const ingredients = (deep?.ingredients ?? [])
   .filter((i) => i.effects.length > 0)
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// --- Spells, grouped by school ----------------------------------------------
+// --- Spells, the spellbook rather than the record table ---------------------
 //
-// The raw SPEL list is not a spellbook. It also carries creature abilities
-// ("Werewolf Claws"), diseases ("Ataxia"), standing stone effects and armour
-// enchantments, and it holds 130 duplicate names because mods ship the same
-// spell at a dozen power levels.
+// A SPEL record is not automatically a spell anybody casts. The sweep now reads
+// the casting perk out of SPIT and reports it as `castable` plus a tier, which
+// is what separates the 400 spells a player can learn from the 550 creature
+// abilities, quest effects, diseases and enchantments sharing the same table.
 //
-// Two filters and a merge turn it into something a player can read:
-//
-//   cost 0            never a castable spell here. Every real one, checked
-//                     against Candlelight, Magelight, Healing, Oakflesh,
-//                     Clairvoyance and Muffle, has a magicka cost.
-//   "... of Eminent"  vanilla enchantment naming, not a spell.
-//   merge by name     one row per spell, with the range of costs the variants
-//                     span, because "Flames" existing at 5 and at 343 is a real
-//                     fact about the world rather than two spells.
+// Names still merge, because mods ship the same spell at many power levels and
+// fourteen rows of "Lightning Bolt" is not a spellbook. The merge keeps the
+// cost range and the lowest tier seen, since that is the one you learn first.
 const SCHOOLS = ["Alteration", "Conjuration", "Destruction", "Illusion", "Restoration"];
-const ENCHANT_NAME = / of (Eminent|Major|Minor|Extreme|Peerless|Waning|Grand|Petty|Lesser|Greater|Common) /i;
+const TIER_ORDER = ["Novice", "Apprentice", "Adept", "Expert", "Master"];
 
 const spellVariants = new Map();
 for (const s of deep?.spells ?? []) {
   if (!s.name || !s.school || !SCHOOLS.includes(s.school)) continue;
+  if (!s.castable || !s.tier) continue;
   if (/^AA|Test|^DLC1?Test/i.test(s.name)) continue;
-  if ((s.cost ?? 0) <= 0) continue;
-  if (ENCHANT_NAME.test(`${s.name} `)) continue;
 
   const key = `${s.school}:${s.name}`;
   const found = spellVariants.get(key);
@@ -234,6 +227,7 @@ for (const s of deep?.spells ?? []) {
     spellVariants.set(key, {
       name: s.name,
       school: s.school,
+      tier: s.tier,
       cost: s.cost,
       costHigh: s.cost,
       variants: 1,
@@ -243,12 +237,17 @@ for (const s of deep?.spells ?? []) {
     found.cost = Math.min(found.cost, s.cost);
     found.costHigh = Math.max(found.costHigh, s.cost);
     found.variants += 1;
+    if (TIER_ORDER.indexOf(s.tier) < TIER_ORDER.indexOf(found.tier)) found.tier = s.tier;
     if (found.effects.length === 0) found.effects = [...new Set(s.effects ?? [])].slice(0, 3);
   }
 }
 
 const spells = [...spellVariants.values()].sort(
-  (a, b) => a.school.localeCompare(b.school) || a.cost - b.cost || a.name.localeCompare(b.name),
+  (a, b) =>
+    a.school.localeCompare(b.school) ||
+    TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier) ||
+    a.cost - b.cost ||
+    a.name.localeCompare(b.name),
 );
 
 // --- Crafting, aggregated by bench ------------------------------------------

@@ -5,13 +5,13 @@ import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
-import { faqCount, faqSections, merethAnsweredCount } from "@/lib/handbook/faq";
+import { faqCount, faqSections } from "@/lib/handbook/faq";
 import { citations } from "@/lib/mereth";
 
 export const metadata: Metadata = {
   title: "Questions",
   description:
-    "Answers about Mereth, each labelled with where it came from: the team's own words, read out of the client, or not published anywhere.",
+    "Answers about playing on Mereth: skills and memory points, magic, fighting, holds and jarls, and every reason the game refuses to connect.",
 };
 
 export default function FaqPage() {
@@ -26,7 +26,7 @@ export default function FaqPage() {
       (item): ResolvedAnswer => ({
         q: item.q,
         a: item.a,
-        source: item.source,
+        open: item.open,
         quote: item.quote,
         notes: item.cite === undefined ? undefined : citations(item.cite, 2),
       }),
@@ -46,24 +46,19 @@ export default function FaqPage() {
           Questions
         </h1>
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
-          {faqCount} answers, and every one says where it came from.{" "}
-          <span className="text-text-light">Mereth&apos;s own answer</span> means the team&apos;s
-          words, reorganised but never changed in substance.{" "}
-          <span className="text-text-light">Read from the client</span> means mechanical detail
-          taken out of the client their launcher installs, for the questions their own FAQ does not
-          cover. One question is marked as having no published answer, because guessing at it would
-          be worse than admitting it.
+          {faqCount} answers about playing on Mereth: what the skill system actually does, why your
+          sword might be doing nothing, how magic is taught, what a Jarl whitelist asks for, and
+          every reason the game refuses to connect. Where an answer depends on something that
+          changed, the release note that changed it is shown underneath.
         </p>
       </header>
 
       <div className="relative mt-8 max-w-3xl border border-brand-accent/40 bg-black/35 px-6 py-5">
         <FrameCorners weight="thin" size={16} />
         <p className="relative text-[0.95rem] leading-relaxed text-text-light">
-          <strong className="font-semibold text-text-primary">
-            {merethAnsweredCount} of these answers are Mereth&apos;s own.
-          </strong>{" "}
-          Where the team has stated a rule, that wording wins over anything read out of the client.
-          If the two ever disagree, the team is right and this page is wrong.
+          <strong className="font-semibold text-text-primary">Cannot find it here?</strong> Open a
+          ticket in Discord, or speak to a Court Wizard in game if the question is about magic. The
+          rulebook covers conduct; this page covers how things work.
         </p>
       </div>
 

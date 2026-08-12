@@ -9,7 +9,7 @@ import { buyableTiers, counts, mereth } from "@/lib/mereth";
 export const metadata: Metadata = {
   title: "Skills",
   description:
-    "All 51 Mereth skills with the team's own text for every tier, and an 18 point planner that does the arithmetic before you spend anything.",
+    "All 51 skills with the in-game text for every tier, and an 18 point planner that does the arithmetic before you spend anything.",
 };
 
 export default function SkillsPage() {
@@ -46,7 +46,7 @@ export default function SkillsPage() {
           {
             id: "all",
             label: "Every skill, every tier",
-            hint: "Mereth's own words",
+            hint: "What each tier unlocks",
             content: (
               <SkillList
                 skills={mereth.skills}

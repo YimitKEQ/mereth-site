@@ -15,12 +15,12 @@ const doors = [
   {
     href: "/skills",
     title: "Skills",
-    line: `${counts.skills} skills, and what all ${counts.skills * 5} tiers unlock, in Mereth's own words. Plus a planner for the eighteen points.`,
+    line: `${counts.skills} skills, and what all ${counts.skills * 5} tiers unlock. Plus a planner for the eighteen memory points.`,
   },
   {
     href: "/magic",
     title: "Magic",
-    line: `Why you cannot teach yourself, how the College actually works, and all ${counts.spells.toLocaleString("en-GB")} spells in the province.`,
+    line: `Why you cannot teach yourself, how the College actually works, and every spell you can be taught with its tier.`,
   },
   {
     href: "/crafting",

@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 /**
- * The pipeline first, the catalogue second.
+ * The pipeline first, the spellbook second.
  *
- * A spell list is the wrong thing to lead with here. Magic on Mereth is gated
- * behind another player and behind time, and a reader who scrolls a table of
- * 950 spells without knowing that leaves with exactly the wrong impression.
+ * A spell list is the wrong thing to lead with. Magic here is gated behind
+ * another player and behind time, and a reader who scrolls 351 spells without
+ * knowing that leaves with exactly the wrong impression of how they get one.
  */
 const pipeline: Block[] = [
   {
@@ -88,11 +88,12 @@ export default function MagicPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="Magic"
-        lede={`The most complained about system on the server, and the most deliberate. Magic is a
-          roleplay pipeline rather than a menu: a teacher, a book, and time. The catalogue below is
-          what **exists in the world**, which is not the same as what anyone will teach you.`}
+        lede={`Magic is a roleplay pipeline rather than a menu: **a teacher, a book, and time**. It
+          is the system we are asked about most, and it is gated on purpose. Below is every spell a
+          player can be taught, with its tier, so you can see what a Novice, an Adept and a Master
+          actually have access to.`}
         facts={[
-          { label: "Spells", value: counts.spells.toLocaleString("en-GB") },
+          { label: "Learnable spells", value: counts.spells.toLocaleString("en-GB") },
           { label: "Schools", value: String(schools.length) },
           {
             label: "Magic skills",
@@ -116,17 +117,18 @@ export default function MagicPage() {
           {
             id: "spells",
             label: "Every spell",
-            hint: `${counts.spells.toLocaleString("en-GB")} in the province`,
+            hint: `${counts.spells.toLocaleString("en-GB")} you can be taught`,
             content: (
               <div>
                 <p className="mb-6 max-w-[68ch] text-[0.9rem] leading-relaxed text-text-muted">
-                  Read out of the plugins the launcher installs, so this is what exists in the
-                  world rather than what you can be taught. Records sharing a name are merged into
-                  one row: mods ship the same spell at many power levels, and the magicka column
-                  shows the range those variants span. Creature and quest abilities live in the
-                  same table as spells, so a few rows here are things no player casts.
+                  Every spell a player can be taught, with its real tier. Tier comes from the
+                  casting perk on the spell itself, the same field the game uses to decide whether
+                  you may cast it, so Flames is Novice and Fire Storm is Master because the record
+                  says so. Creature abilities, quest effects and diseases share the same table and
+                  are excluded. Records sharing a name are merged, and the magicka column shows the
+                  range their variants span.
                 </p>
-                <SpellBrowser spells={mereth.spells} />
+                <SpellBrowser spells={mereth.spells} tiers={mereth.tiers.slice(0, 5)} />
               </div>
             ),
           },

@@ -17,8 +17,8 @@ import { citations, counts, mereth } from "@/lib/mereth";
  * questions with real answers, and what the server shipped this week.
  *
  * No feature grid of stock adjectives, and no placeholder art. Everything on
- * this page is either a link into real content or a figure counted out of
- * Mereth's own files.
+ * this page is either a link into real content or a figure counted out of the
+ * plugins the launcher installs.
  */
 export default function HomePage() {
   // The questions people actually ask before they have an account.
@@ -26,7 +26,7 @@ export default function HomePage() {
   const questions: ResolvedAnswer[] = (opening?.items ?? []).map((item) => ({
     q: item.q,
     a: item.a,
-    source: item.source,
+    open: item.open,
     quote: item.quote,
     notes: item.cite === undefined ? undefined : citations(item.cite, 2),
   }));
@@ -42,8 +42,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-site px-6 pt-24 md:px-8 md:pt-32">
         <OrnateLabelDivider>The codex</OrnateLabelDivider>
         <p className="mx-auto mt-6 max-w-2xl text-center text-[0.95rem] leading-relaxed text-text-muted">
-          Read out of the client Mereth&apos;s launcher installs, their published manifest and their
-          dated release notes. Press{" "}
+          Generated from the plugins and the client our launcher installs, so it matches the
+          server rather than a wiki someone updated once. Press{" "}
           <kbd className="rounded-sm border border-brand-accent/30 px-1.5 py-0.5 font-mono text-[0.8em] text-text-light">
             Ctrl K
           </kbd>{" "}
@@ -59,7 +59,7 @@ export default function HomePage() {
         <div className="mx-auto mt-12 max-w-3xl">
           <QaList items={questions} openFirst />
           <p className="mt-8 text-center text-[0.9rem] text-text-muted">
-            Every answer says where it came from.{" "}
+            There are a lot more.{" "}
             <Link
               href="/faq"
               className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"

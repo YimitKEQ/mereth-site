@@ -14,10 +14,9 @@ export const metadata: Metadata = {
 /**
  * The chronicle is Mereth's real release history, not written announcements.
  *
- * An invented news post on a fan site is worth nothing and, worse, is the kind
- * of thing that gets mistaken for an official statement. Their releases are
- * dated, specific and theirs, so the honest version of this page is to present
- * those and say where they came from.
+ * Written announcements go on Discord, where people actually read them. What
+ * belongs here is the record: dated release notes, in the words they shipped
+ * with, so a player can find out exactly when something changed under them.
  */
 export default function ChroniclePage() {
   const active = mereth.systems.slice(0, 8);
@@ -34,9 +33,9 @@ export default function ChroniclePage() {
           Chronicle
         </h1>
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
-          What Mereth has actually shipped. These are their own release notes, dated, in their own
-          words. Nothing here is written by this site, because an invented announcement on a
-          player-built handbook is worth less than nothing.
+          What has actually shipped, taken from our release notes and dated. Announcements go out
+          on Discord; this page is the record, so you can find exactly when something changed
+          under you.
         </p>
       </header>
 
