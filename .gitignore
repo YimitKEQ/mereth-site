@@ -1,0 +1,22 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local env. Discord client secret and the staff session secret live here.
+.env
+.env.*
+!.env.example
+
+# Screenshots of somebody else's site, kept only as a design reference while the
+# layout is being matched. Not ours to redistribute, so they stay out of git.
+reference/
+
+# Output of the screenshot compare loop.
+shots/
+
+# Scratch output from CSS inspection.
+*.tmp
