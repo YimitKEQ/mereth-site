@@ -101,6 +101,12 @@ export default function CraftingPage() {
                     className="mb-8"
                   />
                   <Blocks blocks={gathering} />
+                  <PlateImage
+                    slug="the-kill"
+                    aspect="aspect-[16/9]"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    className="mt-8"
+                  />
                 </div>
 
                 <div className="space-y-10">

@@ -126,6 +126,96 @@ const PLATES = [
     title: "Alone on the pass",
     caption: "Some questions do not have a published answer. You find those out in character.",
   },
+  {
+    file: "falkreath.png",
+    slug: "hold-moot",
+    title: "The hold gathers",
+    caption: "The jarl, the steward and every person stood in front of them are players. Nothing here is an NPC keeping a seat warm.",
+  },
+  {
+    file: "im23e4age.png",
+    slug: "the-court",
+    title: "Court in session",
+    caption: "Rank in a hold is granted through the holdstone, and it can be taken back the same way.",
+  },
+  {
+    file: "Painted.jpg",
+    slug: "a-jarl",
+    title: "A jarl in his own hall",
+    caption: "Five of the nine seats are filled and four are open. Jarl is the most demanding whitelist on the server.",
+  },
+  {
+    file: "CS_2026-07-23_04-32-45_543.png",
+    slug: "the-legion",
+    title: "The Legion, still holding",
+    caption: "It is 4E 185, ten years after the Great War. Imperial rule is formally intact and the Thalmor presence is growing.",
+  },
+  {
+    file: "ScreenShot10.png",
+    slug: "under-arms",
+    title: "Under arms",
+    caption: "There is no bounty meter. The guard who stops you and the jarl who sentences you are both people.",
+  },
+  {
+    file: "20260808181123_1.jpg",
+    slug: "the-muster",
+    title: "The muster",
+    caption: "A rank in a holdstone carries real mechanical benefits, for example a guard rank granting light armour.",
+  },
+  {
+    file: "SS.jpg",
+    slug: "the-harbour",
+    title: "Longships in the shallows",
+    caption: "The whole province is playable, so a harbour is somewhere people actually arrive.",
+  },
+  {
+    file: "90xdjw8.png",
+    slug: "the-arch",
+    title: "Old bones in the snow",
+    caption: "This site documents the systems. What waits at the bottom of a ruin is not one of them.",
+  },
+  {
+    file: "Woods.png",
+    slug: "the-camp",
+    title: "A camp in the woods",
+    caption: "Comfort gives fifty percent health regeneration near a camp fire, and it drops the moment you walk away.",
+  },
+  {
+    file: "Skyrim_Special_Edition_7_26_2026_4_46_38_PM.png",
+    slug: "the-lesson",
+    title: "A lesson in a hall",
+    caption: "A master willing to teach you, and a spellbook for the spell. Nobody here teaches themselves.",
+  },
+  {
+    file: "image-129.png",
+    slug: "the-shrine",
+    title: "By candlelight",
+    caption: "A blessing lasts eight hours, and you cannot take a second until the first has worn off.",
+  },
+  {
+    file: "ScreenShot36.png",
+    slug: "the-kill",
+    title: "The kill, and the work after it",
+    caption: "Butcher in the field before the skill is high enough and you ruin pelts and ingredients. The client says so in its own tier text.",
+  },
+  {
+    file: "CS_2026-07-24_20-54-48_531.png",
+    slug: "the-terrace",
+    title: "Business, done in person",
+    caption: "There is no global out-of-character channel. To find something out, you go and ask somebody.",
+  },
+  {
+    file: "IMG_4429.png",
+    slug: "the-standoff",
+    title: "Something in the mist",
+    caption: "Voice is proximity based. If you cannot make out who is talking, neither can your character.",
+  },
+  {
+    file: "489830_20260727160518_1.png",
+    slug: "the-mammoth",
+    title: "The mammoth, briefly airborne",
+    caption: "It is still Skyrim underneath. Some evenings the physics has opinions of its own.",
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });
@@ -135,9 +225,22 @@ const NARROW_WIDTHS = [640, 1024];
 
 const entries = [];
 
+/*
+ * Originals live either loose in MerethPics or in its `Used` folder, which is
+ * where a picture gets filed once it is on the site. Looking in both means
+ * tidying the folder never silently drops a plate from the manifest.
+ */
+const findSource = (file) => {
+  for (const dir of [SOURCE, path.join(SOURCE, "Used")]) {
+    const candidate = path.join(dir, file);
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+};
+
 for (const plate of PLATES) {
-  const source = path.join(SOURCE, plate.file);
-  if (!fs.existsSync(source)) {
+  const source = findSource(plate.file);
+  if (source === null) {
     console.warn(`  missing, skipped: ${plate.file}`);
     continue;
   }

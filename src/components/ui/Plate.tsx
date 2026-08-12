@@ -160,3 +160,40 @@ export function PlateCard({
     </Link>
   );
 }
+
+/**
+ * A plate with its own caption underneath.
+ *
+ * The caption lives in the picture manifest beside the file, so a screenshot
+ * carries its explanation wherever it is used and the two cannot drift apart.
+ * Every caption says something true about how the server works rather than
+ * describing what is visible: a reader can see that it is a hall, and what they
+ * cannot see is that everybody in it is a player.
+ */
+export function PlateFigure({
+  slug,
+  className = "",
+  sizes = "(max-width: 768px) 100vw, 33vw",
+  aspect = "aspect-[16/10]",
+}: {
+  slug: string;
+  className?: string;
+  sizes?: string;
+  aspect?: string;
+}) {
+  const image = plate(slug);
+
+  return (
+    <figure className={className}>
+      <PlateImage slug={slug} sizes={sizes} aspect={aspect} />
+      <figcaption className="mt-3.5">
+        <span className="font-display block text-[0.82rem] tracking-heading text-brand-accent uppercase">
+          {image.title}
+        </span>
+        <span className="mt-1.5 block text-[0.84rem] leading-relaxed text-text-muted">
+          {image.caption}
+        </span>
+      </figcaption>
+    </figure>
+  );
+}

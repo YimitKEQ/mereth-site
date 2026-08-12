@@ -5,6 +5,7 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { inline } from "@/lib/markup";
 import { factions, orgCaps, orgLimits } from "@/lib/world/factions";
+import { PlateFigure } from "@/components/ui/Plate";
 
 export const metadata: Metadata = {
   title: "Factions",
@@ -34,6 +35,12 @@ export default function FactionsPage() {
           { label: "Headquarters each", value: "1" },
         ]}
       />
+
+      <div className="mb-12 grid gap-5 md:grid-cols-3">
+        <PlateFigure slug="the-legion" />
+        <PlateFigure slug="under-arms" />
+        <PlateFigure slug="the-muster" />
+      </div>
 
       <div className="space-y-6">
         {factions.map((faction) => (

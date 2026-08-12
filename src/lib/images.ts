@@ -184,6 +184,171 @@ export const plates: Record<string, Plate> = {
     blurDataURL:
       "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JYwC7ACHM/9x47QdYrgD+6+bHPwP4OUlhB1L9KZH48umrZkY/SAAPAAA=",
   },
+  "hold-moot": {
+    slug: "hold-moot",
+    title: "The hold gathers",
+    caption: "The jarl, the steward and every person stood in front of them are players. Nothing here is an NPC keeping a seat warm.",
+    src: asset("/img/hold-moot.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JZQCdABag2yqtcpOMAAD+zcS0cGXFUmpprmwFJfcty9iYFVBAQeiyOIHa8s6NY0xmEW9GEzFB36YB6qZg+2EUOoJtPsyERAgwhkIqROGacewU73B35M/0K6AAAA==",
+  },
+  "the-court": {
+    slug: "the-court",
+    title: "Court in session",
+    caption: "Rank in a hold is granted through the holdstone, and it can be taken back the same way.",
+    src: asset("/img/the-court.webp"),
+    widths: [640],
+    width: 972,
+    height: 598,
+    blurDataURL:
+      "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAAwAPu1iqU2ppaOiMAgBMB2JZQCo9BoeHcwnFiK2ySwAAPzjmsdrhdjGygzSks3UPp00WizwAt58UjWVtfoPfzmD5l2s5IHqd2qt7haLpOS7LLj0JJVZb+x60p1OLe/f5Dv5q7//9DZfHNxZmgr+wAA=",
+  },
+  "a-jarl": {
+    slug: "a-jarl",
+    title: "A jarl in his own hall",
+    caption: "Five of the nine seats are filled and four are open. Jarl is the most demanding whitelist on the server.",
+    src: asset("/img/a-jarl.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQBACdASoUAAsAPu1iqU2ppaQiMAgBMB2JbACdMoR4GCmjBABfZoOyWAD+6+zYpX2lxGE5i1eogTQfnw0fvuq5WbHfbF3XSFGXpoJcNizr329X8BRK2fFCQSx+15eE9WnmODZyJAAAAA==",
+  },
+  "the-legion": {
+    slug: "the-legion",
+    title: "The Legion, still holding",
+    caption: "It is 4E 185, ten years after the Great War. Imperial rule is formally intact and the Thalmor presence is growing.",
+    src: asset("/img/the-legion.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwBACdASoUAAsAPu1iqU2ppaQiMAgBMB2JYwCsMoADQcm1WHLvW2FkuwAA/u6oZZScXXeCPiP4WB3wVtnlobLmGnjYhH+zawvKZImnEQ9e96xK4MUDf9yftYRfHz0wNTWVTnzYA1l0THJ99SPwKAAA",
+  },
+  "under-arms": {
+    slug: "under-arms",
+    title: "Under arms",
+    caption: "There is no bounty meter. The guard who stops you and the jarl who sentences you are both people.",
+    src: asset("/img/under-arms.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwAAW4aB6rNEkudDhtAA/ogW0xYP1Jk4hbYuhXykgE9M7h8PQLgXRYJNtRuXUpzdxiIss9i0uP44mpKe7+eMAAA=",
+  },
+  "the-muster": {
+    slug: "the-muster",
+    title: "The muster",
+    caption: "A rank in a holdstone carries real mechanical benefits, for example a guard rank granting light armour.",
+    src: asset("/img/the-muster.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwC7ACHhcR7GOj4ag3qAAP6jWPpUMSKdTqSddor5CIfuyL5iLOTz5k/NHbeK5fxfGuoluWYLDKSR9zDoThXkhp2Dq6zCj6Q4VyXqRzsf6uVAAAA=",
+  },
+  "the-harbour": {
+    slug: "the-harbour",
+    title: "Longships in the shallows",
+    caption: "The whole province is playable, so a harbour is somewhere people actually arrive.",
+    src: asset("/img/the-harbour.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 759,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAwCdASoUAAgAPu1iqk2ppaQiMAgBMB2JZQDG9CHUpy1FVp7eAAD+w4+X3+3t5tFCUQiA/83RMNWFN3lQwAO8rMuxRiwgAAA=",
+  },
+  "the-arch": {
+    slug: "the-arch",
+    title: "Old bones in the snow",
+    caption: "This site documents the systems. What waits at the bottom of a ruin is not one of them.",
+    src: asset("/img/the-arch.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 707,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAABQAwCdASoUAAgAPu1iqk4ppaQiMAgBMB2JaQAALEb0lO/jQAD6AUPijUiw/vRWJP1Fvc009fk9AOjMK5S0C06kzu/wOp26ZbAAAA==",
+  },
+  "the-camp": {
+    slug: "the-camp",
+    title: "A camp in the woods",
+    caption: "Comfort gives fifty percent health regeneration near a camp fire, and it drops the moment you walk away.",
+    src: asset("/img/the-camp.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 842,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABwBACdASoUAAkAPu1iqk2ppaQiMAgBMB2JaACdMoR3ACP8vc1rQN4x8GZYAAD+7I6TFy7+Yn1IrxnCcFK0VHV+zwfllca/KmS9UEJ11mOXG3xM1ikGE2M/TNAlcaDlwCK6w9/mL4xkmQAA",
+  },
+  "the-lesson": {
+    slug: "the-lesson",
+    title: "A lesson in a hall",
+    caption: "A master willing to teach you, and a spellbook for the spell. Nobody here teaches themselves.",
+    src: asset("/img/the-lesson.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1013,
+    blurDataURL:
+      "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAABwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQAARUR9RXs6gAAA/uNNE1MMI1avFgWNrBhQ+8SgAGDpuxX5uaHMQ+p3Xvgm9K2vI1eF4AA=",
+  },
+  "the-shrine": {
+    slug: "the-shrine",
+    title: "By candlelight",
+    caption: "A blessing lasts eight hours, and you cannot take a second until the first has worn off.",
+    src: asset("/img/the-shrine.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 959,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAwBACdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBOmUABwQ4X31dkNYUmDGAAA/uZ5KShHmamHmD0sWiSBOOZWKRz3/na1nUdWtEPqIREvP/pxkiwPP1JmY7t8ZQ9UQAAA",
+  },
+  "the-kill": {
+    slug: "the-kill",
+    title: "The kill, and the work after it",
+    caption: "Butcher in the field before the skill is high enough and you ruin pelts and ingredients. The client says so in its own tier text.",
+    src: asset("/img/the-kill.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1012,
+    blurDataURL:
+      "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAADQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwAAUpwkM/1a+aa75iAA/nWGGeClSFm8QJU0lcT+4KFSTb3aiH+ptHG83iRhpgf/KQi3raHl4u+XoMECY7nyIbNaKDU+0YbMNEAYshvc4JdeDHr+T6IVgAA=",
+  },
+  "the-terrace": {
+    slug: "the-terrace",
+    title: "Business, done in person",
+    caption: "There is no global out-of-character channel. To find something out, you go and ask somebody.",
+    src: asset("/img/the-terrace.webp"),
+    widths: [640, 1024],
+    width: 1732,
+    height: 863,
+    blurDataURL:
+      "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAACwAwCdASoUAAoAPu1iqU2ppaOiMAgBMB2JQAAJSHjwpy/1iA/y4AD+5b6UgRFBMuxJzG5K4WGQHAIRai4u6YIJbkTS2i0YS+iQQ0h2VAvmU1suiDu7rRfquHEy3KZh0neKkMsYPSxrnLOZ9BwmaqAAAAA=",
+  },
+  "the-standoff": {
+    slug: "the-standoff",
+    title: "Something in the mist",
+    caption: "Voice is proximity based. If you cannot make out who is talking, neither can your character.",
+    src: asset("/img/the-standoff.webp"),
+    widths: [640, 1024],
+    width: 1650,
+    height: 875,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JZwDCgB6VvLZuXs4JuwSZ8AD+8ReIOOfW3NIipCazMbMHK5jVpKBNelZvF0XAOIRaIoA1DWiAAA==",
+  },
+  "the-mammoth": {
+    slug: "the-mammoth",
+    title: "The mammoth, briefly airborne",
+    caption: "It is still Skyrim underneath. Some evenings the physics has opinions of its own.",
+    src: asset("/img/the-mammoth.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1125,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAwCdASoUAA0APu1kqU2ppaOiMAgBMB2JQBfnAx1B+EUWMWf5AAD+9DJJV4ES96KRlX4DTFHL+ABbL0vkFnnCr3wxZba+fte1CAeSGtpmuoeChKRMtAAA",
+  },
 };
 
 /** Throws rather than rendering a broken image, so a typo fails at build. */

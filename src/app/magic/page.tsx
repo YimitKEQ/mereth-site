@@ -119,6 +119,16 @@ export default function MagicPage() {
                 </div>
                 <div className="hidden gap-6 lg:sticky lg:top-[120px] lg:grid lg:self-start">
                   <PlateImage
+                    slug="the-lesson"
+                    aspect="aspect-[4/3]"
+                    sizes="(max-width: 1024px) 100vw, 30vw"
+                  />
+                  <PlateImage
+                    slug="the-shrine"
+                    aspect="aspect-[4/3]"
+                    sizes="(max-width: 1024px) 100vw, 30vw"
+                  />
+                  <PlateImage
                     slug="spellcasting"
                     aspect="aspect-[4/3]"
                     sizes="(max-width: 1024px) 100vw, 30vw"

@@ -5,6 +5,7 @@ import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
 import { counts, mereth } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
+import { PlateFigure } from "@/components/ui/Plate";
 
 export const metadata: Metadata = {
   title: "The World",
@@ -127,6 +128,12 @@ export default function WorldPage() {
           { label: "Systems shipped", value: String(counts.systems) },
         ]}
       />
+
+      <div className="mb-12 grid gap-5 md:grid-cols-3">
+        <PlateFigure slug="the-harbour" />
+        <PlateFigure slug="the-arch" />
+        <PlateFigure slug="the-camp" />
+      </div>
 
       <Tabs
         tabs={[

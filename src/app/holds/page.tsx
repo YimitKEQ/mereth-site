@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
-import { PlateImage } from "@/components/ui/Plate";
+import { PlateFigure, PlateImage } from "@/components/ui/Plate";
 import { plate } from "@/lib/images";
 import { inline } from "@/lib/markup";
 import { holds } from "@/lib/world/holds";
@@ -56,6 +56,14 @@ export default function HoldsPage() {
           {plate("holds-map").caption}
         </figcaption>
       </figure>
+
+      {/* Who actually sits in these places. The map says where a hold is; these
+          say that the court inside it is staffed by people. */}
+      <div className="mb-14 grid gap-5 md:grid-cols-3">
+        <PlateFigure slug="hold-moot" />
+        <PlateFigure slug="the-court" />
+        <PlateFigure slug="a-jarl" />
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {seated.map((hold) => (
