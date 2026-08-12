@@ -20,3 +20,8 @@ shots/
 
 # Scratch output from CSS inspection.
 *.tmp
+
+# Commercial typeface supplied locally for the prototype. Not ours to
+# redistribute, so it stays on this machine and out of the repo.
+src/fonts/
+*.zip

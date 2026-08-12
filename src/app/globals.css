@@ -85,6 +85,17 @@
 /* Not Tailwind theme namespaces, so they stay plain custom properties. */
 :root {
   /*
+   * Fill for anything floating over the page: dropdowns, the mobile drawer,
+   * modals. --color-bg-card is #00000080, which is right for a panel sitting in
+   * the layout and wrong for a menu, where the page reads straight through it.
+   *
+   * Declared here rather than in @theme on purpose: Tailwind v4 drops theme
+   * variables no utility references, and this one is only ever read through
+   * var() in an inline style, so it was being tree-shaken away.
+   */
+  --color-bg-overlay: #10160f;
+
+  /*
    * The named spacing scale, deliberately NOT in @theme.
    *
    * Tailwind v4 resolves `max-w-sm|md|lg|xl|2xl` against --spacing-* before
@@ -204,6 +215,191 @@ body {
   box-shadow: 0 0 12px color-mix(in srgb, var(--color-brand-glow) 40%, transparent);
 }
 
+/* ---------------------------------------------------------------------------
+   Navbar geometry
+   ---------------------------------------------------------------------------
+   Absolute children inside a sticky wrapper, not a flex row. The wrapper holds
+   the header's height while the emblem overhangs it, and the pill is inset far
+   enough from the left for the emblem to sit in front of it.
+
+   Values step at 1500px and again at 1199px, matching the reference's own
+   breakpoints.
+   --------------------------------------------------------------------------- */
+
+.navbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-navbar);
+  height: 116px;
+  overflow: visible;
+  /* The empty band beside the emblem must not eat clicks on the page beneath. */
+  pointer-events: none;
+}
+
+.navbar-wrapper > * {
+  pointer-events: auto;
+}
+
+.navbar-logo-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  line-height: 0;
+  transition: filter var(--duration-fast) ease;
+}
+
+.navbar-logo-link:hover {
+  filter: brightness(1.15) drop-shadow(0 0 6px #dde46b40);
+}
+
+.navbar-pill {
+  position: absolute;
+  top: 26px;
+  left: 160px;
+  right: 260px;
+  height: 90px;
+  border: 3px solid #dde46bb3;
+  border-radius: 24px;
+  overflow: visible;
+  box-shadow: 0 0 6px 0.5px #0009;
+  background-image: var(--gradient-nav-bar);
+}
+
+.navbar-pill-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  height: 100%;
+  padding: 0 32px 0 180px;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  flex-shrink: 0;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.navbar-language-selector {
+  position: absolute;
+  top: 40px;
+  right: 84px;
+  display: flex;
+  align-items: center;
+}
+
+/* Anchored under the trigger, lifted off the page by a drop shadow. */
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  z-index: var(--z-dropdown);
+  filter: drop-shadow(0 0 6px #0006);
+}
+
+.navbar-hamburger {
+  display: none;
+  position: absolute;
+  top: 11px;
+  right: 12px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+}
+
+/* Scrim behind the drawer. Without it the page stays legible through a 5%
+   gap and the menu reads as broken even though its fill is correct. */
+.navbar-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-dropdown) - 1);
+  background: #000000b3;
+  -webkit-backdrop-filter: blur(var(--blur-modal));
+  backdrop-filter: blur(var(--blur-modal));
+}
+
+.navbar-mobile-drawer {
+  position: absolute;
+  top: 116px;
+  left: 12px;
+  right: 12px;
+  z-index: var(--z-dropdown);
+}
+
+/* Screen reader escape hatch, visible only when focused. */
+.navbar-skip-link {
+  position: absolute;
+  top: auto;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: var(--z-toast);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-brand-accent);
+  color: var(--color-brand-dark);
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.navbar-skip-link:focus {
+  position: fixed;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  width: auto;
+  height: auto;
+}
+
+@media (max-width: 1500px) {
+  .navbar-wrapper { height: 106px; }
+  .navbar-logo-link { left: 48px; }
+  .navbar-pill {
+    top: 22px;
+    left: 182px;
+    right: 288px;
+    height: 80px;
+    border-width: 2.667px;
+    border-radius: 20px;
+    box-shadow: 0 0 4px 0.3px #0009;
+  }
+  .navbar-pill-content { padding: 0 20px 0 132px; }
+  .navbar-links { gap: 20px; }
+  .navbar-mobile-drawer { top: 106px; }
+}
+
+/* Below this the links no longer fit, so the pill collapses to a hamburger. */
+@media (max-width: 1199px) {
+  .navbar-wrapper { height: 92px; }
+  .navbar-pill {
+    top: 18px;
+    left: 12px;
+    right: 12px;
+    height: 64px;
+  }
+  .navbar-pill-content,
+  .navbar-language-selector {
+    display: none;
+  }
+  .navbar-hamburger { display: flex; }
+  .navbar-logo-link { left: 12px; }
+  .navbar-mobile-drawer { top: 92px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -214,3 +410,9 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* The hero art runs up behind the sticky navbar, so it pulls back by the
+   wrapper's height at each step rather than by a single guessed offset. */
+.hero-bleed { margin-top: -116px; }
+@media (max-width: 1500px) { .hero-bleed { margin-top: -106px; } }
+@media (max-width: 1199px) { .hero-bleed { margin-top: -92px; } }

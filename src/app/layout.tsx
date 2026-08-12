@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Cinzel, Exo } from "next/font/google";
+import { Exo } from "next/font/google";
+import localFont from "next/font/local";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -24,9 +25,17 @@ const exo = Exo({
   display: "swap",
 });
 
-const friz = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+/*
+ * Friz Quadrata Std, supplied locally. Self-hosted through next/font/local so
+ * the files never leave this machine: `src/fonts/` is gitignored.
+ */
+const friz = localFont({
+  src: [
+    { path: "../fonts/FrizQuadrataStd-Medium.otf", weight: "500", style: "normal" },
+    { path: "../fonts/FrizQuadrataStd-Bold.otf", weight: "700", style: "normal" },
+    { path: "../fonts/FrizQuadrataStd-Italic.otf", weight: "500", style: "italic" },
+    { path: "../fonts/FrizQuadrataStd-BoldItalic.otf", weight: "700", style: "italic" },
+  ],
   variable: "--font-friz",
   display: "swap",
 });
@@ -51,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="page-backdrop" aria-hidden="true" />
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">{children}</main>
           <SiteFooter />
         </div>
       </body>

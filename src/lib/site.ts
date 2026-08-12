@@ -34,6 +34,14 @@ export const authedNav: readonly NavLink[] = [
   { label: "Community", href: "/community" },
 ];
 
+/** Items behind the Community dropdown in the navbar pill. */
+export const communityMenu: readonly NavLink[] = [
+  { label: "Discord", href: "/discord" },
+  { label: "Forums", href: "/forums" },
+  { label: "Staff Team", href: "/staff" },
+  { label: "Rules", href: "/rules" },
+];
+
 export const footerColumns: readonly { links: readonly NavLink[] }[] = [
   {
     links: [

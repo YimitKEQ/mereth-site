@@ -2,119 +2,203 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Logo } from "@/components/layout/Logo";
-import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { ButtonLink } from "@/components/ui/Button";
 import { ChevronDown, Menu, X } from "@/components/ui/icons";
-import { primaryNav } from "@/lib/site";
+import { communityMenu, primaryNav } from "@/lib/site";
 
 /**
- * The bar: one gradient strip with an accent rule, the emblem overhanging its
- * left edge, links, then the auth pair. The language selector sits outside the
- * strip as its own framed pill, which is why it is a sibling and not a child.
+ * The bar, rebuilt to the reference's geometry rather than to a guess at it.
+ *
+ * It is not a flex row. It is a sticky wrapper with three absolutely positioned
+ * children, which is what lets the emblem overhang the pill on both edges
+ * without changing the header's height:
+ *
+ *   wrapper   sticky, top 0, fixed height, pointer-events none, overflow visible
+ *   emblem    absolute top left, above the pill in z order
+ *   pill      absolute, inset from both sides, rounded, its own height
+ *   language  absolute, outside the pill entirely
+ *
+ * `pointer-events: none` on the wrapper with `auto` on its children is what
+ * stops the empty band beside the emblem from swallowing clicks on the page
+ * beneath it. Geometry lives in globals.css so the breakpoint steps read as a
+ * group instead of being scattered through class strings.
  */
 export function SiteHeader() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
+  const communityRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string): boolean =>
     pathname === href || pathname.startsWith(`${href}/`);
 
-  return (
-    <header
-      className="relative w-full px-4 pt-4 md:px-8"
-      style={{ zIndex: "var(--z-navbar)" }}
-    >
-      <div className="mx-auto flex w-full items-center gap-3">
-        {/* Main strip */}
-        <div
-          className="relative flex h-14 flex-1 items-center rounded-md border border-brand-accent/80 pr-2 pl-[176px] md:h-16 md:pl-[262px]"
-          style={{ backgroundImage: "var(--gradient-nav-bar)" }}
-        >
-          {/*
-            Wrapped rather than positioned through Logo's own className: Logo
-            sets `relative` for its text overlay, and passing `absolute` in only
-            produced two position declarations where the stylesheet order, not
-            the class order, decided the winner.
-          */}
-          <span className="absolute top-1/2 left-0 -translate-y-1/2">
-            <Logo />
-          </span>
+  // Outside click and Escape close the dropdown. Both are expected of a menu,
+  // and both are what hand-rolled ones usually miss.
+  useEffect(() => {
+    if (!communityOpen) return;
+    const onPointerDown = (event: MouseEvent): void => {
+      if (communityRef.current && !communityRef.current.contains(event.target as Node)) {
+        setCommunityOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") setCommunityOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [communityOpen]);
 
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+  // The page must not scroll behind the mobile drawer.
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  // Navigating anywhere dismisses both.
+  useEffect(() => {
+    setMenuOpen(false);
+    setCommunityOpen(false);
+  }, [pathname]);
+
+  const linkClass = (href: string): string =>
+    [
+      "font-display uppercase whitespace-nowrap text-shadow-drop cursor-pointer",
+      "text-[1rem] xl:text-[var(--text-nav)]",
+      "tracking-[0.96px] xl:tracking-nav",
+      "transition-colors duration-[var(--duration-fast)]",
+      // Nav links lift to green on hover in the reference, not to the brand gold.
+      "hover:text-[#5cbf4a] hover:[text-shadow:0_0_6px_#5cbf4a4d]",
+      isActive(href) ? "text-brand-accent" : "text-text-primary",
+    ].join(" ");
+
+  return (
+    <header className="navbar-wrapper">
+      <a href="#main" className="navbar-skip-link">
+        Skip to content
+      </a>
+
+      <div className="navbar-logo-link">
+        <Logo />
+      </div>
+
+      <div className="navbar-pill">
+        <div className="navbar-pill-content">
+          <nav className="navbar-links" aria-label="Primary">
             {primaryNav.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-display text-base tracking-nav transition-colors duration-[var(--duration-fast)] text-shadow-drop hover:text-brand-accent xl:text-lg ${
-                  isActive(link.href) ? "text-brand-accent" : "text-white"
-                }`}
-              >
+              <Link key={link.href} href={link.href} className={linkClass(link.href)}>
                 {link.label}
               </Link>
             ))}
+
+            <div className="relative" ref={communityRef}>
+              <button
+                type="button"
+                onClick={() => setCommunityOpen((value) => !value)}
+                aria-expanded={communityOpen}
+                aria-haspopup="menu"
+                className={`${linkClass("/community")} inline-flex items-center gap-2 border-0 bg-transparent p-0`}
+              >
+                Community
+                <ChevronDown
+                  className={`text-[var(--color-chevron)] transition-transform duration-[var(--duration-fast)] ${
+                    communityOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {communityOpen ? (
+                <div className="navbar-dropdown" role="menu" aria-label="Community">
+                  <OrnateBox size="sm" fill="var(--color-bg-overlay)" contentClassName="py-2">
+                    {communityMenu.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        role="menuitem"
+                        className="font-display block px-6 py-3 text-sm tracking-nav text-text-primary uppercase transition-colors duration-[var(--duration-fast)] hover:bg-[#dde46b14] hover:text-brand-accent"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </OrnateBox>
+                </div>
+              ) : null}
+            </div>
           </nav>
 
-          <div className="ml-auto hidden items-center gap-2 md:flex">
-            <ButtonLink href="/login" size="sm" className="min-w-[120px]">
+          <div className="navbar-actions">
+            <ButtonLink href="/login" size="nav">
               Login
             </ButtonLink>
-            <ButtonLink href="/register" size="sm" className="min-w-[120px]">
+            <ButtonLink href="/register" size="nav">
               Register
             </ButtonLink>
           </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            className="ml-auto p-2 text-brand-accent lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            {open ? <X /> : <Menu />}
-          </button>
         </div>
 
-        {/* Language pill, its own frame outside the strip */}
         <button
           type="button"
-          className="relative hidden h-14 shrink-0 items-center gap-2 rounded-md border border-brand-accent/80 bg-black/60 px-4 text-white md:flex md:h-16"
+          onClick={() => setMenuOpen((value) => !value)}
+          className="navbar-hamburger text-brand-accent"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
         >
-          <FrameCorners size={14} />
-          <span className="relative text-[10px] tracking-widest text-text-muted">GB</span>
-          <span className="font-display relative text-sm tracking-nav">English</span>
-          <ChevronDown className="relative text-[var(--color-chevron)]" />
+          {menuOpen ? <X className="text-2xl" /> : <Menu className="text-2xl" />}
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      {open ? (
-        <div className="mx-auto mt-2 w-full rounded-md border border-brand-accent/60 bg-black/80 p-4 backdrop-blur-[var(--blur-modal)] lg:hidden">
-          <nav className="flex flex-col gap-3" aria-label="Mobile">
-            {primaryNav.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`font-display tracking-nav text-base ${
-                  isActive(link.href) ? "text-brand-accent" : "text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="mt-4 flex gap-2 md:hidden">
-            <ButtonLink href="/login" size="sm" className="flex-1">
-              Login
-            </ButtonLink>
-            <ButtonLink href="/register" size="sm" className="flex-1">
-              Register
-            </ButtonLink>
+      <div className="navbar-language-selector">
+        <OrnateBox size="sm">
+          <button type="button" className="flex h-11 items-center gap-2 px-4 text-white">
+            <span className="text-[10px] tracking-widest text-text-muted">GB</span>
+            <span className="font-display text-sm tracking-nav">English</span>
+            <ChevronDown className="text-[var(--color-chevron)]" />
+          </button>
+        </OrnateBox>
+      </div>
+
+      {menuOpen ? (
+        <>
+          <button
+            type="button"
+            className="navbar-scrim"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div className="navbar-mobile-drawer">
+          <OrnateBox size="sm" fill="var(--color-bg-overlay)" contentClassName="p-6">
+            <nav className="flex flex-col gap-4" aria-label="Mobile">
+              {primaryNav.map((link) => (
+                <Link key={link.href} href={link.href} className={linkClass(link.href)}>
+                  {link.label}
+                </Link>
+              ))}
+              {communityMenu.map((item) => (
+                <Link key={item.href} href={item.href} className={linkClass(item.href)}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="mt-6 flex flex-col gap-3">
+              <ButtonLink href="/login" size="nav" className="w-full">
+                Login
+              </ButtonLink>
+              <ButtonLink href="/register" size="nav" className="w-full">
+                Register
+              </ButtonLink>
+            </div>
+          </OrnateBox>
           </div>
-        </div>
+        </>
       ) : null}
     </header>
   );

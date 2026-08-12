@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
  */
 export function Hero() {
   return (
-    <section className="relative -mt-[76px] w-full overflow-hidden md:-mt-[88px]">
+    <section className="hero-bleed relative w-full overflow-hidden">
       {/*
         Art plate stand-in.
         Masked to transparent at the bottom rather than faded to the page colour:
@@ -45,7 +45,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-site px-6 pt-[150px] pb-16 md:px-8 md:pt-[210px] md:pb-28">
+      <div className="relative mx-auto max-w-site px-6 pt-[190px] pb-16 md:px-8 md:pt-[260px] md:pb-28">
         <h1 className="font-display text-brand-accent text-5xl leading-none tracking-title text-shadow-page-heading md:text-7xl lg:text-8xl">
           {site.name}
         </h1>

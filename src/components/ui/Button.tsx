@@ -14,9 +14,11 @@ import { FrameCorners } from "@/components/ornament/OrnateFrame";
  */
 
 type Variant = "solid" | "outline";
-type Size = "sm" | "md" | "lg";
+type Size = "sm" | "md" | "lg" | "nav";
 
 const SIZES: Record<Size, string> = {
+  // The navbar pair: fixed 178x48, stepping down with the pill at 1500px.
+  nav: "h-[44px] w-[162px] text-[1.146rem] tracking-[1.1px] xl:h-[48px] xl:w-[178px] xl:text-[var(--text-nav)] xl:tracking-nav",
   sm: "h-9 px-4 text-xs tracking-widest",
   md: "h-12 px-6 text-sm tracking-widest",
   lg: [
@@ -38,7 +40,7 @@ const VARIANTS: Record<Variant, string> = {
 };
 
 /** Corner scale per button size, so the bracket never eats the label. */
-const CORNER_FOR: Record<Size, number> = { sm: 12, md: 16, lg: 24 };
+const CORNER_FOR: Record<Size, number> = { sm: 12, md: 16, lg: 24, nav: 14 };
 
 function classes(variant: Variant, size: Size, className: string): string {
   return [

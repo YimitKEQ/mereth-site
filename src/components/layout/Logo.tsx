@@ -17,9 +17,14 @@ export function Logo({ className = "" }: { className?: string }) {
       className={`group relative inline-flex shrink-0 items-center justify-center ${className}`}
       aria-label={`${site.name} home`}
     >
+      {/*
+        Sized to the reference's emblem footprint (320x155, stepping to 288x140
+        at 1500px and smaller again on mobile). It is far taller than the pill
+        on purpose: the emblem overhangs above and below it.
+      */}
       <svg
-        viewBox="0 0 240 64"
-        className="h-14 w-[210px] md:h-16 md:w-[240px]"
+        viewBox="0 0 320 155"
+        className="h-[110px] w-[228px] min-[1200px]:h-[140px] min-[1200px]:w-[288px] min-[1501px]:h-[155px] min-[1501px]:w-[320px]"
         aria-hidden="true"
         focusable="false"
       >
@@ -35,22 +40,30 @@ export function Logo({ className = "" }: { className?: string }) {
             <stop offset="100%" stopColor="#8d9433" />
           </linearGradient>
         </defs>
-        {/* Bevelled lozenge, wider than tall with clipped corners */}
+        {/* Crest: a bevelled lozenge with a banner tail, centred in the box */}
         <path
-          d="M18 4 H222 L236 32 L222 60 H18 L4 32 Z"
+          d="M40 30 H280 L306 74 L280 118 H40 L14 74 Z"
           fill="url(#plaque-fill)"
           stroke="url(#plaque-edge)"
-          strokeWidth="2.5"
+          strokeWidth="3"
         />
         <path
-          d="M24 10 H216 L227 32 L216 54 H24 L13 32 Z"
+          d="M50 40 H270 L292 74 L270 108 H50 L28 74 Z"
           fill="none"
           stroke="url(#plaque-edge)"
-          strokeWidth="1"
+          strokeWidth="1.25"
           opacity="0.55"
         />
+        {/* Wing flourishes, which is what gives the reference mark its width */}
+        <path
+          d="M14 74 L2 62 M14 74 L2 86 M306 74 L318 62 M306 74 L318 86"
+          stroke="url(#plaque-edge)"
+          strokeWidth="2"
+          fill="none"
+          opacity="0.8"
+        />
       </svg>
-      <span className="absolute inset-0 flex flex-col items-center justify-center">
+      <span className="absolute inset-x-0 top-[19%] bottom-[23%] flex flex-col items-center justify-center">
         <span className="font-display text-brand-accent text-lg leading-none tracking-[2px] text-shadow-heading md:text-xl">
           {site.name}
         </span>
