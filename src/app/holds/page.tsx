@@ -22,8 +22,8 @@ export const metadata: Metadata = {
  * break somebody else's roleplay.
  */
 export default function HoldsPage() {
-  const seated = holds.filter((hold) => hold.jarl !== null);
-  const open = holds.filter((hold) => hold.jarl === null);
+  const written = holds.filter((hold) => hold.jarl !== null);
+  const awaiting = holds.filter((hold) => hold.jarl === null);
 
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
@@ -35,8 +35,8 @@ export default function HoldsPage() {
           so the same act can be fine in Winterhold and a crime in Markarth.`}
         facts={[
           { label: "Holds", value: String(holds.length) },
-          { label: "Jarls seated", value: String(seated.length) },
-          { label: "Courts unannounced", value: String(open.length) },
+          { label: "Seats held", value: String(holds.length) },
+          { label: "Courts written up", value: String(written.length) },
         ]}
       />
 
@@ -66,7 +66,7 @@ export default function HoldsPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {seated.map((hold) => (
+        {written.map((hold) => (
           <article key={hold.name} className="relative border border-brand-accent/30 bg-black/30 p-7">
             <FrameCorners weight="thin" size={18} />
             <h2 className="font-display relative text-xl tracking-heading text-brand-accent uppercase">
@@ -88,24 +88,42 @@ export default function HoldsPage() {
         ))}
       </div>
 
-      {open.length > 0 ? (
+      {awaiting.length > 0 ? (
         <section className="mt-12">
           <h2 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-            Courts not yet announced
+            Held, and not yet written up
           </h2>
+          {/* The distinction that matters on this page. These are not empty
+              thrones: somebody holds each one, and building a character around
+              taking a vacant seat here would be building on a mistake. */}
           <p className="mb-6 max-w-[68ch] text-[0.95rem] leading-relaxed text-text-muted">
-            These seats have no published jarl. That is a gap in what has been announced rather than
-            an empty throne you can walk into: seizing a hold bypasses the Moot, and an Usurper is
-            retaken and executed. Watch Discord for whitelist openings.
+            Every seat in Skyrim is held. These courts simply have no write-up here yet, which is a
+            gap in this page rather than a gap in the province. None of them is a throne you can
+            walk into: seizing a hold bypasses the Moot, and an Usurper is retaken and executed.
+            Watch Discord for whitelist openings.
           </p>
-          <ul className="flex flex-wrap gap-3">
-            {open.map((hold) => (
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {awaiting.map((hold) => (
               <li
                 key={hold.name}
-                className="border border-border-subtle px-4 py-2.5 text-[0.9rem] text-text-light"
+                className="border border-border-subtle px-4 py-3 text-[0.9rem] text-text-light"
               >
-                {hold.name}
-                <span className="ml-2 text-text-muted">{hold.seat}</span>
+                <span className="flex items-baseline justify-between gap-3">
+                  <span>
+                    {hold.name}
+                    <span className="ml-2 text-text-muted">{hold.seat}</span>
+                  </span>
+                  {hold.title === undefined ? null : (
+                    <span className="font-display shrink-0 text-[10px] tracking-[1.4px] text-brand-accent uppercase">
+                      {hold.title}
+                    </span>
+                  )}
+                </span>
+                {hold.pending === undefined ? null : (
+                  <span className="mt-1.5 block text-[0.82rem] leading-relaxed text-text-muted">
+                    {hold.pending}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

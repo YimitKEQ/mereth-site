@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { counts, mereth } from "@/lib/mereth";
+import { LauncherDownload } from "@/components/ui/LauncherDownload";
 
 export const metadata: Metadata = {
   title: "Modlist",
@@ -41,6 +42,8 @@ export default function ModlistPage() {
           { label: "Files checked", value: counts.checkedFiles.toLocaleString("en-GB") },
         ]}
       />
+
+      <LauncherDownload className="mb-9 max-w-3xl" />
 
       <div className="relative mb-9 max-w-3xl border border-brand-accent/40 bg-black/35 px-6 py-5">
         <FrameCorners size={14} />

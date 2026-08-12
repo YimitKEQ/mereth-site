@@ -30,6 +30,28 @@ if (!fs.existsSync(OUT)) {
 
 let copied = 0;
 
+/*
+ * Flatten one payload tree into dotted filenames beside it.
+ *
+ * A static route nests one level (`__next.guide/__PAGE__.txt`), but a dynamic
+ * one nests two (`__next.lore/$d$slug/__PAGE__.txt`), and the client asks for
+ * every segment joined by dots. The first version of this assumed one level and
+ * died trying to copy a directory onto a file path the moment /lore/[slug]
+ * existed.
+ */
+function flatten(dir, base, prefix) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    const name = `${prefix}.${entry.name}`;
+    if (entry.isDirectory()) {
+      flatten(full, base, name);
+      continue;
+    }
+    fs.copyFileSync(full, path.join(base, name));
+    copied += 1;
+  }
+}
+
 /** Walk the export looking for `__next.<route>` directories to flatten. */
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -37,11 +59,7 @@ function walk(dir) {
     if (!entry.isDirectory()) continue;
 
     if (entry.name.startsWith("__next.")) {
-      for (const payload of fs.readdirSync(full)) {
-        const flat = path.join(dir, `${entry.name}.${payload}`);
-        fs.copyFileSync(path.join(full, payload), flat);
-        copied += 1;
-      }
+      flatten(full, dir, entry.name);
       continue;
     }
     walk(full);

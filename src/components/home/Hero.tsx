@@ -45,8 +45,8 @@ export function Hero() {
         </h1>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-text-light text-shadow-subtle md:text-lg">
-          A Skyrim roleplay server set ten years after the Great War. Eighteen memory points, spent
-          once. Magic you have to be taught. Property a jarl grants you.
+          A Skyrim roleplay server set ten years after the Great War. We strive to be an authentic,
+          immersive experience where player agency is key.
         </p>
 
         {/* Start here sits first because it is what a stranger needs first, but

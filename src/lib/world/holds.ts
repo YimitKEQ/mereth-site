@@ -1,15 +1,27 @@
 /**
- * The nine holds and the jarls who sit them.
+ * The nine holds and the courts that sit them.
  *
- * Transcribed from the holds map on merethroleplay.com. Four seats are marked
- * TBD there, and they are marked TBD here rather than filled in: an invented
- * jarl is the fastest way to break somebody's roleplay.
+ * Every seat is held. What differs is how much has been written up: five courts
+ * have a published name and history, and the rest are filled but not yet
+ * described here.
+ *
+ * That distinction is the whole point of this file. "Filled, details to follow"
+ * and "empty, walk in" are opposite facts, and getting them the wrong way round
+ * on an official page invites somebody to build a character around a seat that
+ * is already somebody else's. Names are transcribed from what the team has
+ * published, never inferred: an invented jarl is the fastest way to break
+ * another player's roleplay.
  */
 
 export interface Hold {
   name: string;
   seat: string;
+  /** The court's holder, once the team has published a name. */
   jarl: string | null;
+  /** Not every seat is a jarl. Markarth is held by a regent. */
+  title?: string;
+  /** Why the details are not here yet. Present only while `jarl` is null. */
+  pending?: string;
   /** The jarl, in the words already published. */
   jarlStory: string[];
   /** The hold's own situation. */
@@ -21,6 +33,7 @@ export const holds: Hold[] = [
     name: "Haafingar",
     seat: "Solitude",
     jarl: null,
+    pending: "Seated. The court has not been written up here yet.",
     jarlStory: [],
     holdStory: [],
   },
@@ -46,6 +59,8 @@ export const holds: Hold[] = [
     name: "The Reach",
     seat: "Markarth",
     jarl: null,
+    title: "Regent",
+    pending: "Held by a regent rather than a jarl. Not written up here yet.",
     jarlStory: [],
     holdStory: [],
   },
@@ -110,23 +125,20 @@ export const holds: Hold[] = [
   {
     name: "Winterhold",
     seat: "Winterhold",
-    jarl: "Jarl Dujek One-Eye",
-    jarlStory: [
-      `He traces his lineage, the line of Jorunn, back to the Second Era. Born in 4E 142 to Jarl
-        Valdimar, he ascended in 4E 175 after returning from the Great War to find his father dead.
-        As the last living son of Valdimar he took the seat with unyielding determination to serve
-        his people and uphold Nordic tradition.`,
-    ],
+    jarl: null,
+    pending: "Recently changed hands. The new jarl is not written up here yet.",
+    jarlStory: [],
     holdStory: [
-      `Winterhold's glory is long faded, but its Jarl remembers what it was. The Great Collapse, the
-        College's looming towers, and the Sea of Ghosts gnawing at the broken coast all define a
-        hold caught between ancient pride and modern ruin.`,
+      `Winterhold's glory is long faded. The Great Collapse, the College's looming towers, and the
+        Sea of Ghosts gnawing at the broken coast all define a hold caught between ancient pride
+        and modern ruin.`,
     ],
   },
   {
     name: "Eastmarch",
     seat: "Windhelm",
     jarl: null,
+    pending: "Settled at the Moot. Nothing published until it has happened.",
     jarlStory: [],
     holdStory: [],
   },
@@ -134,6 +146,7 @@ export const holds: Hold[] = [
     name: "The Rift",
     seat: "Riften",
     jarl: null,
+    pending: "Seated. The court has not been written up here yet.",
     jarlStory: [],
     holdStory: [],
   },

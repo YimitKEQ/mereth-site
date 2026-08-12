@@ -142,7 +142,7 @@ const PLATES = [
     file: "Painted.jpg",
     slug: "a-jarl",
     title: "A jarl in his own hall",
-    caption: "Five of the nine seats are filled and four are open. Jarl is the most demanding whitelist on the server.",
+    caption: "Every seat in Skyrim is held. Jarl is the most demanding whitelist on the server, and the seat can be lost as well as won.",
   },
   {
     file: "CS_2026-07-23_04-32-45_543.png",

@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { steps } from "@/lib/handbook/start";
 import { inline } from "@/lib/markup";
 import { counts } from "@/lib/mereth";
+import { LauncherDownload } from "@/components/ui/LauncherDownload";
 
 export const metadata: Metadata = {
   title: "Start Here",
@@ -48,6 +49,8 @@ export default function StartPage() {
           </ButtonLink>
         </div>
       </header>
+
+      <LauncherDownload className="mt-10 max-w-3xl" />
 
       <OrnateDivider className="my-12" />
 

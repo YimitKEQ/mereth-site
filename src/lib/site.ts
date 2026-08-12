@@ -30,6 +30,15 @@ export interface NavItem {
  * One constant each, because an invite that changes has to change in one place,
  * and a dead invite on a page nobody edited is the worst kind of stale.
  */
+/*
+ * The launcher, straight from Mereth's own storage. Taken from the official
+ * site's own download handler rather than guessed, and the size is what the
+ * server reports so a reader knows what an 86 MB download is meant to look
+ * like before it starts.
+ */
+export const LAUNCHER_DOWNLOAD = "https://storage.bstarrp.com/launcher/BStarRP_SkyMP_Launcher.exe";
+export const LAUNCHER_SIZE_MB = 86;
+
 export const DISCORD_INVITE = "https://discord.com/invite/mereth";
 export const PATREON_URL = "https://www.patreon.com/cw/merethroleplay";
 export const TRAILER_ID = "KK28lxLJCbw";
@@ -66,6 +75,7 @@ export const realmMenu: readonly NavLink[] = [
   { label: "Factions", href: "/factions", hint: "What they are in 4E 185" },
   { label: "Rules", href: "/rules", hint: "The rulebook, with its codes" },
   { label: "Roadmap", href: "/roadmap", hint: "What is built and what is next" },
+  { label: "Lore", href: "/lore", hint: "The province, in its own documents" },
   { label: "Changelog", href: "/changelog", hint: "Every patch note, searchable" },
   { label: "Gallery", href: "/gallery", hint: "Screenshots from the province" },
 ];
@@ -116,6 +126,7 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "Factions", href: "/factions" },
       { label: "Rules", href: "/rules" },
       { label: "Roadmap", href: "/roadmap" },
+      { label: "Lore", href: "/lore" },
       { label: "Changelog", href: "/changelog" },
       { label: "Gallery", href: "/gallery" },
     ],
