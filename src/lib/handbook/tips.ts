@@ -42,17 +42,17 @@ export const tips: HandbookPage = {
           kind: "note",
           tone: "key",
           title: "Vary what you do, or earn less for it",
-          body: `Experience has diminishing returns. Farming the same creature or spamming one
-            recipe such as daggers pays steadily less, so rotating targets and recipes is worth more
-            than grinding the single most convenient one.`,
+          body: `Experience from a target is capped with diminishing returns, so hitting the same
+            creature over and over pays steadily less. Rotate what you fight rather than grinding
+            the single most convenient thing.`,
         },
         {
           kind: "note",
           tone: "key",
-          title: "The purple bar is a budget, not a status effect",
-          body: `Exhaustion drops as you earn experience and only begins refilling once fully spent.
-            Resting at an inn refills it faster. If your gains have gone flat, check the bar before
-            you blame the skill.`,
+          title: "The purple bar is Energy, not a debuff",
+          body: `Energy is spent by activity and refills while you sit, faster at an inn. At zero the
+            bar turns to grey stripes and you are Exhausted. It recovers nothing while you are
+            hungry or thirsty, so eat and drink before you settle in.`,
         },
         {
           kind: "note",

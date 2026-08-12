@@ -74,8 +74,10 @@ const living: Block[] = [
     kind: "prose",
     paragraphs: [
       `**You start as a Stranger.** Your title stays Stranger until somebody introduces themselves
-        to you, which is the introduce interaction on \`H\`. Other titles come from mastering skill
-        categories. Names are not free here, and that is the best thing about the social design.`,
+        to you, which is the introduce interaction on \`H\`. The titles menu on \`F1\` only lists what you
+        have unlocked, and the two documented ways to unlock one are holding a rank in a holdstone
+        and supporting the server. Names are not free here, and that is the best thing about the
+        social design.`,
     ],
   },
   { kind: "data", name: "races" },
@@ -83,8 +85,8 @@ const living: Block[] = [
     kind: "prose",
     paragraphs: [
       `**Needs are live.** Food and Drink, with thresholds the client enforces and warns you about
-        twice on the way down. A third, Rest, is written into the client and currently disabled, so
-        nothing tracks it today.`,
+        twice on the way down. A third row, Rest, sits in the client's config as a commented-out
+        example waiting on a value the server does not send, so nothing tracks it today.`,
     ],
   },
   { kind: "data", name: "needs" },

@@ -37,7 +37,7 @@ const FEATURES = [
   {
     slug: "jarls-hall",
     title: "Holds hold themselves",
-    body: "Nine holds, each with a jarl, a court and its own law. Rank is granted through the holdstone, and it can be taken back.",
+    body: "Nine holds, each with its own law and court. Five have a seated jarl and four are open. Rank is granted through the holdstone, and it can be taken back.",
     href: "/holds",
   },
   {

@@ -426,6 +426,84 @@ const handbook = {
   gathering,
 };
 
+// --- No dashes, anywhere --------------------------------------------------
+//
+// House rule for every Mereth surface: no em dashes and no en dashes in
+// published text. Roughly fifty strings arrive carrying one, and they are not
+// ours to rewrite by hand: they are Mereth's own client text, quoted verbatim
+// so a player can match what the game says. So the punctuation is normalised
+// here, at the boundary, once. Do it on the page instead and the next string
+// the client adds walks straight past.
+//
+// The dash is doing one of three jobs, and each gets the punctuation it earned:
+// a label introducing its definition takes a colon, a joined afterthought takes
+// a comma, and two whole clauses become two sentences.
+const JOINERS = /^(and|but|or|so|yet|nor|then|though|although)\b/i;
+const CLAUSE_OPENERS =
+  /^(you|i|we|they|he|she|it|the|this|that|there|nothing|everything|your|their|its|use|check|wait|assign|learn|keep|ask|see|read|expect|bring|do)\b/i;
+
+/** Words since the last full stop. A short run reads as a label. */
+const leadWords = (before) => {
+  const clause = before.split(/(?<=[.!?])\s+/).pop() ?? before;
+  return clause.trim().split(/\s+/).filter(Boolean).length;
+};
+
+/*
+ * Written as escapes rather than as the characters themselves, so this file
+ * stays free of the thing it exists to remove. A grep for a stray dash in the
+ * codebase should come back empty, including here.
+ */
+const DASH = new RegExp("[\u2014\u2013]");
+const DASH_WITH_SPACE = new RegExp("(\\s*)[\\u2014\\u2013](\\s*)", "g");
+
+const undash = (text) => {
+  if (typeof text !== "string" || !DASH.test(text)) return text;
+
+  let out = text.replace(DASH_WITH_SPACE, (match, spaceBefore, spaceAfter, offset, whole) => {
+    const before = whole.slice(0, offset);
+    const after = whole.slice(offset + match.length);
+    const spaced = spaceBefore.length > 0 || spaceAfter.length > 0;
+
+    // A dash straight after a full stop or a closing quote is only a pause.
+    if (/[.!?]["'”]?\s*$/.test(before)) return " ";
+
+    // A second colon in one sentence reads worse than the dash did.
+    const clause = before.split(/(?<=[.!?])\s+/).pop() ?? before;
+    const colonFree = !clause.includes(":");
+
+    if (leadWords(before) <= 4 && colonFree) return ": ";
+    if (JOINERS.test(after)) return ", ";
+    if (spaced) return ". ";
+    if (colonFree && CLAUSE_OPENERS.test(after)) return ": ";
+    return ", ";
+  });
+
+  // Capitalise whatever now opens a sentence, then tidy the seams.
+  out = out.replace(
+    /([.!?]["'”]?)(\s+)([a-z])/g,
+    (_m, stop, gap, letter) => `${stop}${gap}${letter.toUpperCase()}`,
+  );
+  return out
+    .replace(/\s+([,.:;!?])/g, "$1")
+    .replace(/,\s*,/g, ",")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+};
+
+/** Walk every string in the bundle. Keys are untouched, only values. */
+const undashDeep = (value) => {
+  if (typeof value === "string") return undash(value);
+  if (Array.isArray(value)) return value.map(undashDeep);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, undashDeep(v)]));
+  }
+  return value;
+};
+
+const clean = undashDeep(handbook);
+const remaining = (JSON.stringify(clean).match(new RegExp("[\u2014\u2013]", "g")) ?? []).length;
+if (remaining > 0) throw new Error(`${remaining} dashes survived normalisation`);
+
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const write = (dir, name, value) => {
@@ -434,7 +512,7 @@ const write = (dir, name, value) => {
   return (fs.statSync(file).size / 1024).toFixed(0);
 };
 
-console.log(`src/data/mereth.json  ${write(OUT_DIR, "mereth.json", handbook)} KB`);
+console.log(`src/data/mereth.json  ${write(OUT_DIR, "mereth.json", clean)} KB`);
 console.log(JSON.stringify({
   skills: skills.length,
   categories: categories.length,

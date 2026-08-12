@@ -47,6 +47,16 @@ const gathering: Block[] = [
 export default function CraftingPage() {
   const { professions, nodes, indoors } = mereth.gathering;
 
+  /*
+   * Two different numbers, and they were being conflated. The Gathering
+   * category holds eight skills; `gathering.professions` groups every
+   * profession that has nodes in the world, which includes crafting trades
+   * like smithing and milling. Labelling the second one "gathering skills"
+   * contradicted the prose on this page's own first tab.
+   */
+  const gatheringSkills =
+    mereth.categories.find((category) => category.label === "Gathering")?.keys.length ?? 0;
+
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
@@ -58,7 +68,8 @@ export default function CraftingPage() {
           { label: "Recipes", value: counts.recipes.toLocaleString("en-GB") },
           { label: "Benches", value: String(mereth.benches.length) },
           { label: "Ingredients", value: String(counts.ingredients) },
-          { label: "Gathering skills", value: String(professions.length) },
+          { label: "Gathering skills", value: String(gatheringSkills) },
+          { label: "Professions with nodes", value: String(professions.length) },
         ]}
       />
 

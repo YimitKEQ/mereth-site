@@ -169,11 +169,11 @@ export const progression: HandbookPage = {
         {
           kind: "note",
           tone: "warn",
-          title: "The one weapon rule that is published, because guessing it costs an evening",
-          body: `**No points in a weapon skill means no damage at all with that weapon.** Not
-            reduced damage. None. It is deliberate: a civilian should not pick up a sword and fight
-            like a warrior, and a specialist should feel like a specialist. If your blade is doing
-            nothing, this is why, and it is not a bug.`,
+          title: "Weapon skill is in the damage formula, so spread points hit like it",
+          body: `Combat skills were tied into damage in 0.31.0 and the weapon specialisations exist
+            to carry that, so what you are holding only performs if the matching specialisation is
+            on your plan. A civilian who picked up a sword swings like a civilian. If your blade
+            feels like it is doing nothing, check your plan before you report a bug.`,
         },
         {
           kind: "prose",
@@ -203,19 +203,19 @@ export const progression: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `**Repetition pays less.** Diminishing returns are real: farming one creature or
-              spamming one recipe such as daggers earns steadily less. Rotating targets and recipes
-              is worth more than grinding the single most convenient one.`,
-            `**The purple bar is a budget, not a debuff.** Exhaustion drops every time you earn
-              experience and only begins refilling once it is fully spent. Resting at an inn refills
-              it noticeably faster, which is the real reason to go indoors. If your gains have gone
-              flat, check the bar before you blame the skill.`,
+            `**Repetition pays less.** Experience from a target is capped with diminishing returns,
+              so hitting the same creature over and over earns steadily less. Rotate what you fight
+              rather than grinding the single most convenient thing.`,
+            `**The purple bar is Energy, not an experience budget.** Activity spends it, sitting
+              refills it and an inn refills it faster, which is the real reason to go indoors. At
+              zero you are Exhausted until you rest, and nothing refills while you are hungry or
+              thirsty.`,
           ],
         },
         {
           kind: "note",
           tone: "key",
-          title: "Well Rested is the cheapest bonus in the game",
+          title: "Well Rested is the cheapest bonus to keep",
           body: `Five minutes at an inn on full energy, and it re-triggers every five minutes while
             you stay. Park before you log off and before you head out.`,
         },

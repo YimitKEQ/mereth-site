@@ -167,14 +167,14 @@ export const faqSections: FaqSection[] = [
       {
         q: "What is diminishing returns?",
         a: `Repeating the same thing pays less over time. Killing the same creature again and again,
-          or spamming one recipe like daggers, earns steadily less. Rotating is worth more than
-          grinding the most convenient thing.`,
+          earns steadily less, because experience from a target is capped with diminishing
+          returns. Rotating is worth more than grinding the most convenient thing.`,
       },
       {
-        q: "What is the purple exhaustion bar?",
-        a: `Your experience budget, not a debuff. It drops as you earn and only begins refilling
-          once fully spent, faster at an inn. If your gains have gone flat, check it before blaming
-          the skill. [Full detail here.](/survival#exhaustion)`,
+        q: "What is the purple bar?",
+        a: `Energy. Activity spends it, sitting refills it and an inn refills it faster. At zero the
+          bar turns to grey stripes and the client calls you Exhausted. Nothing refills while you
+          are hungry or thirsty. [Full detail here.](/survival#exhaustion)`,
       },
       {
         q: "Can I reach Legendary?",
@@ -196,9 +196,10 @@ export const faqSections: FaqSection[] = [
     title: "Fighting",
     items: [
       {
-        q: "Why can I not hurt anything with this sword?",
-        a: `Because you have no points in that weapon skill. With no points you deal **no damage at
-          all** with that weapon. If your blade is doing nothing, this is why, and it is not a bug.`,
+        q: "Why can I barely hurt anything with this sword?",
+        a: `Almost always because that weapon's specialisation is not on your plan. **Combat skills
+          feed the damage formula**, tied in back in 0.31.0, so an untrained character swings like
+          one. Check your plan before you report a bug.`,
       },
       {
         q: "Why is that a rule rather than a penalty?",

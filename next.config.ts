@@ -1,7 +1,48 @@
-import type { NextConfig } from "next";
+﻿import type { NextConfig } from "next";
+
+/*
+ * Static export, for GitHub Pages.
+ *
+ * Opt-in through the environment so `next dev` and `next start` keep behaving
+ * like a normal Next app locally. The deploy workflow sets both variables.
+ *
+ * `MERETH_BASE_PATH` is the sub-path the site is served from. A project page
+ * lives at `<user>.github.io/<repo>/`, so every asset and internal link has to
+ * be prefixed or the whole thing 404s one level up. Empty for a custom domain
+ * or a user page, which is the shape this moves to if it ever goes to
+ * merethroleplay.com.
+ */
+const staticExport = process.env.MERETH_STATIC === "1";
+const basePath = process.env.MERETH_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  /*
+   * The base path, readable from client code. `src/lib/asset.ts` uses it for
+   * the handful of paths Next does not rewrite by itself: a raw <video src>, a
+   * poster, the metadata icons and the search index fetch.
+   */
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  ...(staticExport
+    ? {
+        output: "export" as const,
+        /*
+         * The image optimiser is a server. There is not one on GitHub Pages, so
+         * the originals are served as they are. They are already sized and
+         * compressed by `scripts/build-images.mjs`, and the blur placeholders
+         * are baked into the bundle rather than generated per request, so the
+         * visible difference is nil.
+         */
+        images: { unoptimized: true },
+        /*
+         * Without this, export writes `out/changelog.html` and a static host
+         * answers `/changelog` with a 404. With it, every route becomes
+         * `out/changelog/index.html`, which every static host resolves.
+         */
+        trailingSlash: true,
+        ...(basePath === "" ? {} : { basePath, assetPrefix: basePath }),
+      }
+    : {}),
   /*
    * This project has its own git repository nested inside the mod repo, so
    * Turbopack walks up, finds the parent's lockfile, and warns that it is

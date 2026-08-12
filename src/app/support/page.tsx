@@ -36,9 +36,9 @@ const routes = [
     label: "How memory points work",
   },
   {
-    problem: "My weapon does no damage",
+    problem: "My weapon barely does anything",
     answer:
-      "No points in that weapon skill means no damage at all with it. Deliberate, so that civilians stay civilian and specialists feel like specialists.",
+      "Almost always the plan rather than the weapon. Combat skills feed the damage formula, so a weapon whose specialisation is not on your plan performs like nobody trained on it.",
     href: "/faq#combat",
     label: "Why that is a rule",
   },

@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-import type { Status } from "@/app/api/status/route";
+import { fetchStatus, type Status } from "@/lib/status";
 
 /**
  * The status block under the hero, in the reference's shape: a small label, a
  * large value, repeated.
  *
- * Fetched rather than rendered on the server so the figures stay fresh on a
- * page that is otherwise static, and refreshed on the same 45 second cadence
- * the live site uses. A held figure and a real one reserve the same height, so
+ * Fetched in the browser rather than rendered on the server, so the figures
+ * stay live on a site that ships as static files, and refreshed on the same 45
+ * second cadence the live site uses. A held figure and a real one reserve the same height, so
  * the block never resizes and the page does not jump under the reader.
  *
  * If a feed cannot be read the figure is held rather than shown as zero. A
@@ -85,34 +85,20 @@ export function ServerStatus() {
   const [status, setStatus] = useState<Status | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
     let cancelled = false;
 
     const load = (): void => {
-      fetch("/api/status")
-        .then((response) => {
-          if (!response.ok) throw new Error(`status responded ${response.status}`);
-          return response.json();
-        })
-        .then((data: Status) => {
-          if (!cancelled) setStatus(data);
-        })
-        .catch(() => {
-          if (!cancelled) {
-            setStatus({
-              state: "unknown",
-              online: null,
-              maxPlayers: null,
-              discordMembers: null,
-              discordOnline: null,
-            });
-          }
-        });
+      void fetchStatus(controller.signal).then((data) => {
+        if (!cancelled) setStatus(data);
+      });
     };
 
     load();
     const timer = window.setInterval(load, REFRESH_MS);
     return () => {
       cancelled = true;
+      controller.abort();
       window.clearInterval(timer);
     };
   }, []);

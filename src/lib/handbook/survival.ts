@@ -1,18 +1,18 @@
 import type { HandbookPage } from "./blocks";
 
 /**
- * Survival: the four bars, what each one does, and what refills it.
+ * Survival: the three bars, what each one does, and what refills it.
  *
  * Separated from the guide because players keep asking about the bars
- * specifically, and because two of them are commonly confused for each other:
- * the purple exhaustion bar is an experience budget, not a stamina or fatigue
- * meter, and nothing about it hurts you.
+ * specifically, and because the purple one is routinely misread. It is Energy,
+ * and it is a rest meter: at zero you are Exhausted, which is a state you
+ * recover from by sitting down, not a penalty that damages you.
  */
 export const survival: HandbookPage = {
-  title: "Food, Drink and Exhaustion",
-  lede: `Four things tick down while you play, and only Food and Drink can kill you. The purple bar
-    is the one people misread: it tracks how much experience you have left to earn, not your health,
-    and at zero you simply stop earning until it refills.`,
+  title: "Food, Drink and Energy",
+  lede: `Three bars tick down while you play, and only Food and Drink can kill you. The purple one
+    is Energy: it is spent by activity, it refills while you sit and faster at an inn, and at zero
+    the bar turns to grey stripes and you are Exhausted.`,
 
   sections: [
     {
@@ -37,15 +37,9 @@ export const survival: HandbookPage = {
             ],
             [
               "**Energy**",
-              "How rested you are. Governs regeneration.",
-              "Sleeping, and time spent at an inn.",
-              "Regeneration falls off and Well Rested is unavailable.",
-            ],
-            [
-              "**Exhaustion**",
-              "The purple bar. An experience budget.",
-              "Refills only once fully spent. Faster at an inn.",
-              "You stop earning experience. Nothing else.",
+              "The purple bar. How rested you are, spent by activity.",
+              "Sitting down. An inn is faster. Not while hungry or thirsty.",
+              "Grey stripes, and you are Exhausted until you rest.",
             ],
           ],
         },
@@ -75,8 +69,9 @@ export const survival: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `A third need, **Rest**, driven by a fatigue stat, is written into the client and
-              commented out. It is intent rather than a mechanic, so nothing tracks it today.`,
+            `A fourth row, **Rest**, sits in the client's needs config as a commented-out
+              example waiting on a fatigue value from the server. It is a note to a future
+              developer rather than a mechanic, so nothing tracks it today.`,
           ],
         },
       ],
@@ -89,24 +84,31 @@ export const survival: HandbookPage = {
         {
           kind: "note",
           tone: "key",
-          title: "It is a budget, not a debuff",
-          body: `Exhaustion drops every time you use a skill and gain experience. **It does not hurt
-            you, slow you or weaken you.** When it is empty you simply stop earning, and it only
-            begins refilling once it is fully spent. If your gains have gone flat and you cannot
-            work out why, this is almost always the answer.`,
+          title: "Energy is a rest meter",
+          body: `Activity spends it. At zero the bar turns to grey diagonal stripes and the client
+            calls you Exhausted, which its own tooltip answers with **rest or visit an inn to
+            recover faster**. There is no timer to wait out: it was removed, and energy now simply
+            regenerates while you are sitting.`,
+        },
+        {
+          kind: "note",
+          tone: "warn",
+          title: "You cannot recover energy while hungry or thirsty",
+          body: `This is the one that catches people. Sitting in an inn with an empty food or drink
+            bar recovers nothing at all. Eat and drink first, then rest, or you are just sitting.`,
         },
         {
           kind: "prose",
           paragraphs: [
-            `Because it refills only after being fully spent, there is no benefit to resting early.
-              Spend it, then rest. **Resting at an inn refills it noticeably faster than resting
-              anywhere else**, which is the real mechanical reason to go indoors rather than sleep
-              in a field.`,
-            `A bard performing in the room speeds that recovery up further, so an inn with a bard in it
-              is worth the walk.`,
+            `**An inn is faster than anywhere else**, which is the real mechanical reason to go
+              indoors rather than sit in a field, and base regeneration outside was halved in
+              0.66.0 to widen that gap.`,
+            `Full energy is also the gate on Well Rested, so the bar is worth keeping topped up
+              before a session rather than after it. A bard performing in the room stacks with
+              sitting and with being at an inn, so an inn with a bard in it is worth the walk.`,
           ],
         },
-        { kind: "cite", pattern: /exhaustion|musicanship|musicianship|bard/i, limit: 3 },
+        { kind: "cite", pattern: /energy|exhaution|exhaustion|well rested|bard/i, limit: 4 },
       ],
     },
 
@@ -118,10 +120,10 @@ export const survival: HandbookPage = {
           kind: "note",
           tone: "key",
           title: "Well Rested",
-          body: `Needs full energy and five minutes at an inn. Once you have it, it re-triggers
-            every five minutes while you stay. It is the cheapest standing experience bonus in the
-            game and the single best habit to build: park before you log off, and park before you
-            head out.`,
+          body: `Ten percent bonus experience for an hour. Needs full energy and five minutes at
+            an inn, and once you have it, it re-triggers every five minutes while you stay. Cheap
+            enough to be a habit worth building: park before you log off, and park before you head
+            out.`,
         },
         {
           kind: "note",

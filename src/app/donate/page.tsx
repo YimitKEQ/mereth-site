@@ -127,7 +127,7 @@ export default function DonatePage() {
                 </li>
                 <li className="flex gap-2.5 text-[0.88rem] leading-relaxed text-text-light">
                   {bullet}
-                  <span>A Discord role, and patron channels</span>
+                  <span>A Discord role, and Discord access</span>
                 </li>
               </ul>
             </article>

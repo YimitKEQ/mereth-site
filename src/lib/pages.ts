@@ -42,7 +42,7 @@ export const simplePages: Record<string, SimplePageContent> = {
         bullets: [
           "Release notes, which land near-daily.",
           "Tickets, which is how every rule question, dispute, bug report and whitelist application reaches staff.",
-          "Whitelist postings for Jarls, lore factions and other roles that need an application.",
+          "Whitelist postings. The Jarl seats and the Dark Brotherhood are the two the rulebook names; anything else that needs an application is posted here too.",
           "Faction and organisation recruitment. Lore factions have their own servers; everything else shares one, with categories separated by role.",
           "The out-of-character conversation that most in-character plots are arranged in.",
         ],

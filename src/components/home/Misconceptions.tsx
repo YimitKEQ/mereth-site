@@ -14,10 +14,10 @@ import { inline } from "@/lib/markup";
  */
 const misconceptions = [
   {
-    heading: "Your sword does literally nothing",
-    body: `With **no points in that weapon skill you deal no damage at all**. Not reduced damage,
-      none. It is deliberate: civilians should not pick up a blade and fight like a warrior. It
-      also means a build that spread points thinly can be unable to hurt anything.`,
+    heading: "Your sword swings like the plan you built",
+    body: `**Weapon skill sits inside the damage formula**, and the specialisations exist to carry
+      it. A build that spread its points thinly fights like one. Magic states the hard version of
+      the same rule outright: without Spellcasting on your plan, spells have no combat effect.`,
     href: "/faq#combat",
     link: "Why it is a rule and not a penalty",
   },

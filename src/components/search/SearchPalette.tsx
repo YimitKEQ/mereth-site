@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { Search, X } from "@/components/ui/icons";
 import type { EntryKind, SearchEntry } from "@/lib/search-index";
+import { asset } from "@/lib/asset";
 
 /**
  * One box that searches everything: pages, skills, answers, spells,
@@ -81,7 +82,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   useEffect(() => {
     if (!open || entries !== null || failed) return;
     let cancelled = false;
-    fetch("/api/search")
+    fetch(asset("/api/search"))
       .then((response) => {
         if (!response.ok) throw new Error(`search index responded ${response.status}`);
         return response.json();

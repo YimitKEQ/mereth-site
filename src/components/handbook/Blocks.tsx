@@ -169,7 +169,8 @@ function Data({ name }: { name: DataBlock }) {
             ["`spellBook`", "the grimoire of what you have been taught"],
             ["`holdstone`", "pledging, ranks and parcels"],
             ["`boardMenu`", "the missive board in every hold"],
-            ["`tradeMenu`", "two sided player trade"],
+            ["`titleMenu`", "the titles you have unlocked"],
+            ["`settingsMenu`", "your own client settings"],
             ["`kitMenu`, `animMenu`, `performMenu`, `sceneMenu`", "the roleplay tools"],
           ]}
         />

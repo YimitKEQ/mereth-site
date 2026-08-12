@@ -123,13 +123,14 @@ export const guide: HandbookPage = {
           paragraphs: [
             `A plan reaches Master. Legendary sits above it at level 100 and cannot be bought with
               memory points at all. Perks unlock every ten levels on skills that grant them.`,
-            `**The purple bar is your experience budget.** Exhaustion drops every time you use a
-              skill and gain experience, and only starts refilling once it is fully spent. Resting
-              at an inn refills it faster than resting anywhere else.`,
-            `**No points, no damage.** If you have no points in a weapon skill you deal no damage
-              at all with that weapon. This is deliberate rather than a penalty curve: civilians
-              should not pick up a sword and fight like a warrior, and specialists should feel like
-              specialists.`,
+            `**The purple bar is Energy, and it is a rest meter.** Activity spends it, sitting
+              refills it, and an inn refills it faster than anywhere else. It recovers nothing at
+              all while you are hungry or thirsty, which is the part that catches people.`,
+            `**Weapon skills feed the damage formula.** Skill was tied into damage in 0.31.0 and the
+              weapon specialisations exist to carry it, so a character with no points in the
+              specialisation for what they are holding is not a fighter. The documented absolute
+              is on the magic side: without Spellcasting on your plan, spells have no combat
+              effect at all.`,
             `Work your build out before you sit down: the [planner](/skills) holds the same 18
               points and the same costs, and will not let you overspend.`,
           ],

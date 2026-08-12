@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { site } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 /**
  * Mereth's own mark, recoloured for a dark page by `scripts/build-logo.mjs`.
@@ -24,7 +25,7 @@ export function Logo({
     return (
       <Link href="/" className={`inline-block ${className}`} aria-label={`${site.name} home`}>
         <Image
-          src="/brand/mereth-lockup.png"
+          src={asset("/brand/mereth-lockup.png")}
           alt={`${site.name} Roleplay`}
           width={985}
           height={713}
@@ -42,7 +43,7 @@ export function Logo({
       aria-label={`${site.name} home`}
     >
       <Image
-        src="/brand/mereth-mark.png"
+        src={asset("/brand/mereth-mark.png")}
         alt=""
         width={799}
         height={605}

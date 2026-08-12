@@ -88,16 +88,21 @@ export default function RoadmapPage() {
             <ul className="relative mt-5 space-y-2.5">
               {stage.items.map((item) => (
                 <li
-                  key={item}
-                  className="relative pl-4 text-[0.88rem] leading-[1.7] text-text-light before:absolute before:top-[0.65em] before:left-0 before:h-1 before:w-1"
-                  style={{ ["--tw-before" as string]: undefined }}
+                  key={item.text}
+                  className="relative pl-4 text-[0.88rem] leading-[1.7] text-text-light"
                 >
                   <span
                     aria-hidden="true"
                     className="absolute top-[0.65em] left-0 h-1 w-1"
                     style={{ background: ACCENT[stage.id] }}
                   />
-                  {item}
+                  {item.text}
+                  {/* Evidence, for anything the release notes moved here. */}
+                  {item.shipped === undefined ? null : (
+                    <span className="ml-2 inline-block align-baseline text-[0.72rem] tabular-nums whitespace-nowrap text-text-muted/80">
+                      {item.shipped.version} &middot; {item.shipped.date}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>

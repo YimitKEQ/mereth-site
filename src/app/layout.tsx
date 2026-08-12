@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { site } from "@/lib/site";
 
 import "./globals.css";
+import { asset } from "@/lib/asset";
 
 /*
  * Back to the reference's pairing, because it is simply better here.
@@ -46,12 +47,12 @@ export const metadata: Metadata = {
     template: `%s | ${site.name} Roleplay`,
   },
   description: site.description,
-  icons: { icon: "/brand/icon.png", apple: "/brand/icon.png" },
+  icons: { icon: asset("/brand/icon.png"), apple: asset("/brand/icon.png") },
   openGraph: {
     title: `${site.name} Roleplay`,
     description: site.description,
     type: "website",
-    images: [{ url: "/brand/banner.png", width: 2800, height: 722 }],
+    images: [{ url: asset("/brand/banner.png"), width: 2800, height: 722 }],
   },
 };
 
@@ -61,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen antialiased">
         {/* Mereth's own plate, moving. Falls back to a still frame when autoplay
             is refused or motion is not wanted. */}
-        <BackgroundStage poster="/art/hero-hold.png" video="/art/mereth-bg.mp4" />
+        <BackgroundStage poster={asset("/art/hero-hold.png")} video={asset("/art/mereth-bg.mp4")} />
 
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
