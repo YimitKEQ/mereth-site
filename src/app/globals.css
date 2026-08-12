@@ -359,8 +359,17 @@ body {
   height: auto;
 }
 
+/* Between these widths the link row plus both buttons no longer fit inside the
+   pill, and because the pill is overflow:visible the overflow lands on top of
+   the language selector instead of clipping. Tighten rather than let it spill. */
+@media (max-width: 1720px) {
+  .navbar-pill { right: 300px; }
+  .navbar-pill-content { padding: 0 20px 0 180px; gap: 16px; }
+  .navbar-links { gap: 16px; }
+}
+
 @media (max-width: 1500px) {
-  .navbar-wrapper { height: 106px; }
+  .navbar-wrapper { height: 100px; }
   .navbar-logo-link { left: 48px; }
   .navbar-pill {
     top: 22px;
@@ -376,8 +385,8 @@ body {
   .navbar-mobile-drawer { top: 106px; }
 }
 
-/* Below this the links no longer fit, so the pill collapses to a hamburger. */
-@media (max-width: 1199px) {
+/* Below this the links no longer fit at any tightening, so the pill collapses. */
+@media (max-width: 1499px) {
   .navbar-wrapper { height: 92px; }
   .navbar-pill {
     top: 18px;
@@ -408,5 +417,65 @@ body {
 /* The hero art runs up behind the sticky navbar, so it pulls back by the
    wrapper's height at each step rather than by a single guessed offset. */
 .hero-bleed { margin-top: -116px; }
+/* Between these widths the link row plus both buttons no longer fit inside the
+   pill, and because the pill is overflow:visible the overflow lands on top of
+   the language selector instead of clipping. Tighten rather than let it spill. */
+@media (max-width: 1720px) {
+  .navbar-pill { right: 300px; }
+  .navbar-pill-content { padding: 0 20px 0 180px; gap: 16px; }
+  .navbar-links { gap: 16px; }
+}
+
 @media (max-width: 1500px) { .hero-bleed { margin-top: -106px; } }
 @media (max-width: 1199px) { .hero-bleed { margin-top: -92px; } }
+
+/* ---------------------------------------------------------------------------
+   Background stage
+   ---------------------------------------------------------------------------
+   Fixed, behind everything, on its own layer. `z-index: -1` on a fixed element
+   keeps it out of every stacking context the page creates, which is why panels
+   need no z-index of their own to sit above it.
+   --------------------------------------------------------------------------- */
+
+.background-stage {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--color-bg-page);
+}
+
+.background-stage__plate,
+.background-stage__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.background-stage__plate {
+  background-size: cover;
+  background-position: center 40%;
+  /* Blurred and dimmed: the plate is atmosphere, not the subject. Reading
+     happens on top of it, so detail here is noise. */
+  filter: blur(2px) saturate(0.78) brightness(0.5);
+  transform: scale(1.04);
+}
+
+.background-stage__video {
+  filter: saturate(0.78) brightness(0.52);
+  transition: opacity 900ms var(--ease-default);
+  transform: scale(1.02);
+}
+
+/* Cools the plate into the palette, darkens the foot so the footer separates,
+   and lifts the crown so the hero has somewhere to sit. */
+.background-stage__grade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 62% at 50% 0%, #9fb8c41f 0%, transparent 58%),
+    radial-gradient(100% 60% at 50% 100%, #070b0ee6 0%, transparent 72%),
+    linear-gradient(180deg, #0d1318b3 0%, #0d131866 34%, #0b1013d9 100%);
+}

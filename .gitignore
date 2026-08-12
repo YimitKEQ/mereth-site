@@ -25,3 +25,6 @@ shots/
 # redistribute, so it stays on this machine and out of the repo.
 src/fonts/
 *.zip
+
+# Their background plate is 24 MB of video. Local only, never in history.
+public/art/*.mp4

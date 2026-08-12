@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { ButtonLink } from "@/components/ui/Button";
 import { serverStatus } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -14,29 +12,17 @@ import { site } from "@/lib/site";
 export function Hero() {
   return (
     <section className="hero-bleed relative w-full overflow-hidden">
-      {/*
-        Commissioned oil plate. Masked to transparent at the foot rather than
-        faded to the page colour, because the fixed backdrop sits behind it and
-        fading to an opaque colour leaves a visible seam.
-      */}
+      {/* No plate of its own: the background stage carries the art for the whole
+          document, and layering a second copy here ghosted the wordmark. Only
+          the scrim remains, to hold the copy off the moving image. */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
         style={{
-          maskImage: "linear-gradient(to bottom, black 58%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 58%, transparent 100%)",
+          background:
+            "linear-gradient(100deg, #0b1013f2 0%, #0b1013cc 38%, #0b101359 62%, transparent 100%)",
         }}
-      >
-        <Image
-          src="/art/mereth-banner.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_38%]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1013e6] via-[#0b101399] to-transparent" />
-      </div>
+      />
 
       <div className="relative mx-auto max-w-site px-6 pt-[190px] pb-16 md:px-8 md:pt-[260px] md:pb-28">
         <h1 className="font-display text-brand-accent text-5xl leading-none tracking-title text-shadow-page-heading md:text-7xl lg:text-8xl">

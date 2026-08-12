@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Exo } from "next/font/google";
 import localFont from "next/font/local";
 
+import { BackgroundStage } from "@/components/layout/BackgroundStage";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { site } from "@/lib/site";
@@ -51,12 +52,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${friz.variable} ${ui.variable}`}>
       <body className="min-h-screen antialiased">
-        {/*
-          One fixed backdrop behind the whole document. The reference uses a
-          photographic forest plate here; this is a procedural stand-in so the
-          layout reads correctly until real art is dropped in.
-        */}
-        <div className="page-backdrop" aria-hidden="true" />
+        {/* Mereth's own plate, moving. Falls back to a still frame when autoplay
+            is refused or motion is not wanted. */}
+        <BackgroundStage poster="/art/hero-hold.png" video="/art/mereth-bg.mp4" />
+
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
           <main id="main" className="flex-1">{children}</main>
