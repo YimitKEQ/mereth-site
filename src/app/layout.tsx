@@ -70,9 +70,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${friz.variable} ${ui.variable}`}
     >
       <body className="min-h-screen antialiased">
-        {/* Mereth's own plate, moving. Falls back to a still frame when autoplay
-            is refused or motion is not wanted. */}
-        <BackgroundStage poster={asset("/art/hero-hold.png")} video={asset("/art/mereth-bg.mp4")} />
+        {/* Mereth's own plate, moving. The poster is the video's own opening
+            frame, pulled out of the file itself: it used to be a different
+            painting altogether, so every refresh showed a keep in a snowstorm
+            for a moment and then cut to a statue on a mountain. */}
+        <BackgroundStage poster={asset("/art/hero-hold.webp")} video={asset("/art/mereth-bg.mp4")} />
 
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
