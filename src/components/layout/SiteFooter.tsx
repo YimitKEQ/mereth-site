@@ -60,6 +60,14 @@ export function SiteFooter() {
               <Discord className="text-sm" />
               Join the Discord
             </Link>
+
+            {/* The site credit, on its own line rather than folded into the
+                small print at the very bottom, where it read as part of the
+                build stamp and nobody found it. */}
+            <p className="mt-7 text-[0.82rem] text-text-muted">
+              Site made by{" "}
+              <span className="font-display tracking-heading text-brand-accent">Levitate</span>
+            </p>
           </div>
 
           <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -90,9 +98,7 @@ export function SiteFooter() {
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="text-text-muted/70">
-              Built by{" "}
-              <span className="text-brand-accent/80">Levitate</span>. Reference indexed {built},
-              from {counts.plugins} plugins
+              Reference indexed {built}, from {counts.plugins} plugins
             </span>
             <ul className="flex flex-wrap gap-5">
               {legalLinks.map((link) => (
