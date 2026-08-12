@@ -33,14 +33,22 @@ const run = (file, args, options = {}) =>
 const capture = (file, args, options = {}) =>
   execFileSync(file, args, { encoding: "utf8", shell: false, ...options }).trim();
 
-const npm = process.platform === "win32" ? "npm.cmd" : "npm";
+/*
+ * The build steps are run through their own JS entry points rather than through
+ * npm. Node will not spawn a .cmd shim without a shell on Windows, and reaching
+ * for a shell to work around that is how a path with a space in it becomes a
+ * bug. These are the same binaries `npm run export` would reach.
+ */
+const node = process.execPath;
+const bin = (...parts) => path.resolve("node_modules", ...parts);
 
 console.log(`building for ${REPO} at base path "${BASE_PATH}"`);
 
-run(npm, ["run", "typecheck"]);
-run(npm, ["run", "export"], {
+run(node, [bin("typescript", "bin", "tsc"), "--noEmit"]);
+run(node, [bin("next", "dist", "bin", "next"), "build"], {
   env: { ...process.env, MERETH_STATIC: "1", MERETH_BASE_PATH: BASE_PATH },
 });
+run(node, [path.resolve("scripts", "flatten-export.mjs")]);
 
 const out = path.resolve("out");
 if (!fs.existsSync(path.join(out, "index.html"))) {

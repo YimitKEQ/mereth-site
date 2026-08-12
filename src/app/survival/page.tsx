@@ -6,7 +6,7 @@ import { survival } from "@/lib/handbook/survival";
 export const metadata: Metadata = {
   title: "Food, Drink and Exhaustion",
   description:
-    "The four bars that tick down while you play, what refills each one, and why the purple bar is a budget rather than a debuff.",
+    "The three bars that tick down while you play, what refills each one, and why the purple bar is Energy rather than an experience budget.",
 };
 
 export default function SurvivalPage() {

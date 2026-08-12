@@ -47,7 +47,7 @@ export const site = {
 export const handbookMenu: readonly NavLink[] = [
   { label: "The Guide", href: "/guide", hint: "How the server works, end to end" },
   { label: "Progression", href: "/progression", hint: "What a tier is actually worth" },
-  { label: "Food and Exhaustion", href: "/survival", hint: "The four bars, explained" },
+  { label: "Food, Drink and Energy", href: "/survival", hint: "The three bars, explained" },
   { label: "Tips", href: "/tips", hint: "The numbers, cooldowns and traps" },
   { label: "Questions", href: "/faq", hint: "Answers to what gets asked most" },
 ];
@@ -94,7 +94,7 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "Start Here", href: "/start" },
       { label: "The Guide", href: "/guide" },
       { label: "Progression", href: "/progression" },
-      { label: "Food and Exhaustion", href: "/survival" },
+      { label: "Food, Drink and Energy", href: "/survival" },
       { label: "Tips", href: "/tips" },
       { label: "Questions", href: "/faq" },
     ],
