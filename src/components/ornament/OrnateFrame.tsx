@@ -83,11 +83,21 @@ export function FrameCorners({
   const size = sizeOverride ?? CORNER_SIZE[weight];
   const stroke = STROKE[weight];
   const offset = -1;
+  /*
+   * The brackets sit above whatever they frame.
+   *
+   * Without this they lose to any positioned sibling that comes later in the
+   * DOM, which is exactly the shape every picture uses: corners first, then a
+   * `position: relative` box holding the image. Positioned elements paint in
+   * document order at the same z-index, so the picture covered its own frame.
+   * A z-index puts the ornament back on top wherever it is used, rather than
+   * making every caller remember to order its children a particular way.
+   */
   const corners = [
-    { style: { top: offset, left: offset } },
-    { style: { top: offset, right: offset, transform: "rotate(90deg)" } },
-    { style: { bottom: offset, right: offset, transform: "rotate(180deg)" } },
-    { style: { bottom: offset, left: offset, transform: "rotate(270deg)" } },
+    { style: { top: offset, left: offset, zIndex: 5 } },
+    { style: { top: offset, right: offset, zIndex: 5, transform: "rotate(90deg)" } },
+    { style: { bottom: offset, right: offset, zIndex: 5, transform: "rotate(180deg)" } },
+    { style: { bottom: offset, left: offset, zIndex: 5, transform: "rotate(270deg)" } },
   ];
   return (
     <>

@@ -1,14 +1,18 @@
+import { ServerStatus } from "@/components/home/ServerStatus";
 import { ButtonLink } from "@/components/ui/Button";
-import { counts } from "@/lib/mereth";
-import { site } from "@/lib/site";
+import { DISCORD_INVITE, site } from "@/lib/site";
 
 /**
- * Full-bleed opening plate.
+ * The opening plate.
  *
- * The wordmark is large, the promise is one line, and the two actions are the
- * two things a visitor actually arrives to do: work out how to start, or look
- * something up. The old hero sold the server; this one sells the handbook,
- * because the server has its own site and this is not a second one.
+ * Centred, and deliberately short. An earlier version ran the copy down the
+ * left with four counted statistics under it, which put a lot of numbers in
+ * front of somebody who has not yet been told what the place is. The reference
+ * gets this right: wordmark, one line, two actions, then the live status. That
+ * is all a landing screen owes anybody.
+ *
+ * The status block underneath is the only live thing on the page, which is why
+ * it is the only part fetched in the browser.
  */
 export function Hero() {
   return (
@@ -21,53 +25,36 @@ export function Hero() {
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(100deg, #0b1013f7 0%, #0b1013d9 40%, #0b101373 66%, transparent 100%)",
+            "linear-gradient(180deg, #0b1013d9 0%, #0b101373 30%, #0b101359 62%, #0b1013e6 100%)",
         }}
       />
 
-      <div className="relative mx-auto max-w-site px-6 pt-[128px] pb-20 md:px-8 md:pt-[172px] md:pb-24">
+      <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 pt-[150px] pb-20 text-center md:pt-[186px] md:pb-24">
         <p className="font-display text-[11px] tracking-[4px] text-brand-accent/80 uppercase text-shadow-drop">
           Serious roleplay, 4E 185
         </p>
 
-        <h1 className="font-display mt-4 text-5xl leading-none tracking-title text-brand-accent text-shadow-page-heading md:text-7xl lg:text-8xl">
+        <h1 className="font-display mt-4 text-5xl leading-none tracking-title text-brand-accent text-shadow-page-heading md:text-7xl">
           {site.name}
         </h1>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-text-light text-shadow-subtle md:text-lg">
-          Serious Skyrim roleplay in 4E 185, ten years after the Great War. Eighteen memory points,
-          spent once. Magic you have to be taught. Property a jarl grants you.{" "}
-          <span className="text-text-primary">
-            This is the part nobody explains before you log in.
-          </span>
+          A Skyrim roleplay server set ten years after the Great War. Eighteen memory points, spent
+          once. Magic you have to be taught. Property a jarl grants you.
         </p>
 
-        <div className="mt-9 flex flex-wrap gap-4">
-          <ButtonLink href="/start" variant="solid" size="lg">
-            Start here
+        <div className="mt-9 flex flex-wrap justify-center gap-4">
+          <ButtonLink href={DISCORD_INVITE} variant="solid" size="lg">
+            Join Discord
           </ButtonLink>
-          <ButtonLink href="/skills" size="lg">
-            Plan a character
+          <ButtonLink href="/start" size="lg">
+            Start here
           </ButtonLink>
         </div>
 
-        <dl className="mt-14 flex flex-wrap gap-x-12 gap-y-6">
-          {[
-            { label: "Skills", value: String(counts.skills) },
-            { label: "Spells, tiered", value: counts.spells.toLocaleString("en-GB") },
-            { label: "Mods installed for you", value: String(counts.mods) },
-            { label: "Releases since launch", value: String(counts.releases) },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <dt className="font-display text-[10px] tracking-[2px] text-text-muted uppercase text-shadow-drop">
-                {stat.label}
-              </dt>
-              <dd className="font-display mt-1 text-3xl tabular-nums text-text-primary text-shadow-heading">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="mt-16 w-full md:mt-20">
+          <ServerStatus />
+        </div>
       </div>
     </section>
   );
