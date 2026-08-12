@@ -15,3 +15,13 @@ export function asset(path: string): string {
   if (!path.startsWith("/")) return path;
   return `${BASE}${path}`;
 }
+
+/**
+ * Where the built site is served from, absolute.
+ *
+ * Only used for metadata that must be absolute: the Open Graph image, the
+ * canonical URL. Set `NEXT_PUBLIC_SITE_ORIGIN` in the deploy to move the site
+ * to a custom domain without touching code.
+ */
+export const SITE_ORIGIN =
+  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://yimitkeq.github.io";

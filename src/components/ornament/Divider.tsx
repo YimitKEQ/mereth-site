@@ -25,7 +25,7 @@ function RuneBand() {
       strokeLinecap="square"
       aria-hidden="true"
       focusable="false"
-      className="text-brand-accent"
+      className="ornate-rune-band text-brand-accent"
     >
       {/* Fehu */}
       <path d="M6 3 V17 M6 5 L12 8 M6 10 L12 13" />

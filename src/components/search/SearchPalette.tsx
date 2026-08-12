@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { OrnateBox } from "@/components/ornament/OrnateBox";
 import { Search, X } from "@/components/ui/icons";
@@ -21,6 +22,13 @@ import { asset } from "@/lib/asset";
  * typing "skills" offers the page before it offers a skill. A fuzzy matcher
  * would rank better on paper and worse in the hand, because the reader cannot
  * predict it.
+ *
+ * Rendered through a portal into `document.body`, and that is load bearing
+ * rather than tidiness. The trigger lives inside the navbar pill, which carries
+ * a `filter` for its drop shadow, and any non-none filter makes an element the
+ * containing block for `position: fixed` descendants. The overlay was therefore
+ * covering the navbar and nothing else: clicking the page did not close it,
+ * because the page was never under the overlay to begin with.
  */
 
 const KIND_LABEL: Record<EntryKind, string> = {
@@ -98,14 +106,51 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
     };
   }, [open, entries, failed]);
 
+  /*
+   * Mounted only in the browser. `document` does not exist while this renders
+   * on the server, and a portal needs a real node to attach to.
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
-    if (open) {
-      inputRef.current?.focus();
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    if (!open) return;
+
+    /* Remember what had focus so it can be handed back on close. Losing focus
+       to the top of the document after closing a palette is disorienting for
+       anybody driving the site by keyboard. */
+    const opener = document.activeElement;
+    inputRef.current?.focus();
+
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = "hidden";
+    /* Compensate for the scrollbar the line above removes, or the whole page
+       jumps sideways as the palette opens. */
+    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
+
+    /* Escape at the document, not on the input. The input loses focus the
+       moment a result is hovered or the list is scrolled, and a palette that
+       stops answering Escape halfway through using it is the definition of
+       janky. */
+    const onEscape = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+      }
     };
+    document.addEventListener("keydown", onEscape);
+
+    return () => {
+      document.removeEventListener("keydown", onEscape);
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      if (opener instanceof HTMLElement) opener.focus();
+    };
+  }, [open, onClose]);
+
+  /* A reopened palette starts fresh rather than on the last search. */
+  useEffect(() => {
+    if (!open) setQuery("");
   }, [open]);
 
   const results = useMemo(() => {
@@ -140,11 +185,6 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   );
 
   const onKeyDown = (event: React.KeyboardEvent): void => {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      onClose();
-      return;
-    }
     if (event.key === "ArrowDown" || (event.key === "n" && event.ctrlKey)) {
       event.preventDefault();
       setCursor((c) => Math.min(c + 1, results.length - 1));
@@ -169,10 +209,10 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
     if (row instanceof HTMLElement) row.scrollIntoView({ block: "nearest" });
   }, [cursor]);
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 z-[var(--z-modal)] flex items-start justify-center px-4 pt-[12vh]">
+  return createPortal(
+    <div className="search-overlay fixed inset-0 z-[var(--z-modal)] flex items-start justify-center px-4 pt-[12vh]">
       <button
         type="button"
         aria-label="Close search"
@@ -186,7 +226,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
         aria-label="Search Mereth"
         className="relative w-full max-w-2xl"
       >
-        <OrnateBox size="md" fill="var(--color-bg-overlay)" contentClassName="p-1">
+        <OrnateBox size="sm" fill="var(--color-bg-overlay)" contentClassName="p-1">
           <div className="flex items-center gap-3 border-b border-brand-accent/20 px-5 py-4">
             <Search className="shrink-0 text-lg text-brand-accent" />
             <input
@@ -264,6 +304,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
           </div>
         </OrnateBox>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

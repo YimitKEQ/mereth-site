@@ -11,6 +11,7 @@ import { SearchTrigger } from "@/components/search/SearchTrigger";
 import { ButtonLink } from "@/components/ui/Button";
 import { ChevronDown, Menu, X } from "@/components/ui/icons";
 import { DISCORD_INVITE, primaryNav, type NavItem } from "@/lib/site";
+import { CalmToggle } from "@/components/layout/CalmToggle";
 
 /**
  * One sticky pill, one row: mark, links, actions.
@@ -174,6 +175,7 @@ export function SiteHeader() {
           a form that cannot log anybody into anything.
         */}
         <div className="navbar-actions">
+          <CalmToggle />
           <SearchTrigger />
           <ButtonLink href={DISCORD_INVITE} variant="solid" size="nav">
             Discord

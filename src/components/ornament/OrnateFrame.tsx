@@ -104,7 +104,7 @@ export function FrameCorners({
       {corners.map((corner, index) => (
         <span
           key={index}
-          className="pointer-events-none absolute text-current"
+          className="ornate-corner pointer-events-none absolute text-current"
           style={corner.style}
         >
           <FretCorner size={size} stroke={stroke} />

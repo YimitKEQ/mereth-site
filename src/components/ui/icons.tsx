@@ -175,3 +175,23 @@ export const Sparkle = (props: Props) => (
     <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
   </Icon>
 );
+
+/**
+ * Quiet mode, on and off.
+ *
+ * A waning moon for "settle down", a sun for "bring the decoration back". Both
+ * read at 16px, which a more literal pair of glyphs (a wave and a flourish) did
+ * not.
+ */
+export const Calm = (props: Props) => (
+  <Icon {...props}>
+    <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" />
+  </Icon>
+);
+
+export const Ornate = (props: Props) => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="4.2" />
+    <path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6" />
+  </Icon>
+);

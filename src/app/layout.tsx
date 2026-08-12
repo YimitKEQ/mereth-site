@@ -8,7 +8,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { site } from "@/lib/site";
 
 import "./globals.css";
-import { asset } from "@/lib/asset";
+import { asset, SITE_ORIGIN } from "@/lib/asset";
+import { CALM_BOOT } from "@/lib/calm";
 
 /*
  * Back to the reference's pairing, because it is simply better here.
@@ -42,6 +43,13 @@ const ui = Exo({
 });
 
 export const metadata: Metadata = {
+  /*
+   * Where relative metadata URLs resolve from. Without it the Open Graph image
+   * resolves against localhost, so a link pasted into Discord previews with a
+   * broken image from whichever machine built the page. `SITE_ORIGIN` is where
+   * the built site is served from.
+   */
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: `${site.name} Roleplay | ${site.tagline}`,
     template: `%s | ${site.name} Roleplay`,
@@ -58,7 +66,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${friz.variable} ${ui.variable}`}>
+    <html
+      lang="en"
+      className={`${friz.variable} ${ui.variable}`}
+      /* The boot script stamps data-calm on this element before React
+         hydrates, so the server markup and the client tree differ here by
+         design. Without this, React reports it as a hydration mismatch. */
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Sets quiet mode before first paint. In React it would cost every
+            reader who wants it one frame of the decorated page, which is the
+            jolt the mode exists to prevent. */}
+        <script dangerouslySetInnerHTML={{ __html: CALM_BOOT }} />
+      </head>
       <body className="min-h-screen antialiased">
         {/* Mereth's own plate, moving. Falls back to a still frame when autoplay
             is refused or motion is not wanted. */}

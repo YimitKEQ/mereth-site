@@ -199,6 +199,14 @@ body {
   outline-offset: 3px;
 }
 
+/* The search field is focused the instant the palette opens, so a focus ring
+   around it marks nothing: it is the only place typing can go. Drawn as a box
+   inside a box, it read as a stray rectangle rather than as a control. Every
+   other focusable thing keeps its ring. */
+.search-overlay input:focus-visible {
+  outline: none;
+}
+
 /*
  * Ornate control hover. Applied by Button and the framed controls so the glow
  * is defined once. The reference transitions box-shadow only, at 0.15s.
@@ -456,6 +464,32 @@ a:hover .plate-frame {
   .navbar-mobile-drawer { top: 84px; left: 12px; right: 12px; }
 }
 
+/* ---------------------------------------------------------------------------
+   Search palette
+   ---------------------------------------------------------------------------
+   A short settle on open. Long enough to show where the panel came from, short
+   enough that a fast typist is never waiting on it. Both parts are suppressed
+   under reduced motion by the block below.
+   --------------------------------------------------------------------------- */
+
+.search-overlay {
+  animation: search-overlay-in 140ms ease-out;
+}
+
+.search-overlay > [role="dialog"] {
+  animation: search-panel-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes search-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes search-panel-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -540,4 +574,147 @@ a:hover .plate-frame {
   pointer-events: none;
   background:
     linear-gradient(180deg, #0b101373 0%, #0b1013b8 26%, #0b1013cc 60%, #0b1013e6 100%);
+}
+
+/* ---------------------------------------------------------------------------
+   Quiet mode
+   ---------------------------------------------------------------------------
+   Set by the boot script in the document head as `data-calm="on"` on <html>,
+   before first paint. Everything below is decoration coming off: no rule here
+   hides content, moves anything, or changes what a page says.
+
+   The four things doing the most work, in order of how much they cost a reader
+   who finds the page hard going:
+
+     1. A video looping behind every word, forever.
+     2. Photographic texture under body copy.
+     3. Carved corners and rune bands repeating down the page.
+     4. Glows and hover lifts that move while the eye is trying to hold a line.
+
+   Body text also gets more contrast and more room, because the register the
+   rest of the site is written in leans quiet and low, and quiet and low is
+   exactly what is hard to read when the background is busy.
+   --------------------------------------------------------------------------- */
+
+:root[data-calm="on"] {
+  /* A flat, slightly lifted surface instead of a photograph. */
+  --color-bg-page: #12181c;
+  --color-text-primary: #f1eee6;
+  --color-text-light: #dfe4e2;
+  --color-text-muted: #c3ccce;
+  --blur-panel: 0px;
+  --blur-modal: 4px;
+}
+
+/* The plate and the video, gone. The stage itself stays as the page colour. */
+:root[data-calm="on"] .background-stage__plate,
+:root[data-calm="on"] .background-stage__video {
+  display: none;
+}
+
+/* The hero scrim has nothing left to hold copy off. */
+:root[data-calm="on"] .hero-bleed > [aria-hidden="true"]:first-child {
+  background: none !important;
+}
+
+/* Carved corners, rune bands and the navbar's woven edge. Decorative by
+   definition: each one is marked aria-hidden where it is drawn. */
+:root[data-calm="on"] .ornate-corner,
+:root[data-calm="on"] .ornate-rune-band,
+:root[data-calm="on"] .navbar-divider {
+  display: none;
+}
+
+/* Text shadows exist to lift copy off a moving image. With the image gone they
+   only soften the letterforms. */
+:root[data-calm="on"] .text-shadow-drop,
+:root[data-calm="on"] .text-shadow-subtle,
+:root[data-calm="on"] .text-shadow-heading,
+:root[data-calm="on"] .text-shadow-page-heading {
+  text-shadow: none;
+}
+
+/* No glow, no lift, no blur. Borders stay: they are structure, not ornament. */
+:root[data-calm="on"] .ornate-glow,
+:root[data-calm="on"] .plate-frame {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+:root[data-calm="on"] * {
+  animation: none !important;
+  transition-property: color, background-color, border-color !important;
+}
+
+/* Panels were translucent so the plate could show through. Nothing behind them
+   now, so they read as flat cards. */
+:root[data-calm="on"] .reading-scrim {
+  background: none;
+}
+
+/* More room per line, and a shorter measure. Both are ordinary readability
+   levers and both are undone by turning the mode off. */
+:root[data-calm="on"] p,
+:root[data-calm="on"] li {
+  line-height: 1.85;
+}
+
+:root[data-calm="on"] .navbar-plate {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: #0f151999;
+}
+
+/* The quiet-mode switch in the navbar. Sized to the search trigger beside it so
+   the two read as one pair of controls rather than two decisions. */
+.navbar-icon-button {
+  position: relative;
+  display: flex;
+  height: 44px;
+  width: 44px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid color-mix(in srgb, var(--color-brand-accent) 45%, transparent);
+  background: #00000066;
+  font-size: 17px;
+  color: var(--color-brand-accent);
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.navbar-icon-button:hover {
+  border-color: color-mix(in srgb, var(--color-brand-accent) 80%, transparent);
+  color: var(--color-brand-glow);
+}
+
+.navbar-icon-button[aria-pressed="true"] {
+  border-color: var(--color-brand-accent);
+  background: color-mix(in srgb, var(--color-brand-accent) 14%, transparent);
+}
+
+@media (min-width: 1280px) {
+  .navbar-icon-button { height: 48px; width: 48px; }
+}
+
+/* Hiding the rune band left the two flanking rules with a gap between them,
+   which reads as a broken line rather than a plain one. Collapse the padding so
+   the divider closes into a single rule. */
+:root[data-calm="on"] .ornate-rune-band { display: none; }
+:root[data-calm="on"] .ornate-rune-band ~ *,
+:root[data-calm="on"] span:has(> .ornate-rune-band) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* The rails stop short of each corner so the brackets can sit in the gap. With
+   the brackets hidden the gaps became four notches in an otherwise plain
+   rectangle, so the rails run the full edge instead. */
+:root[data-calm="on"] .ornate-rail {
+  left: 0 !important;
+  right: 0 !important;
+}
+:root[data-calm="on"] .ornate-rail--v {
+  top: 0 !important;
+  bottom: 0 !important;
 }

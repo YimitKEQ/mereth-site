@@ -19,13 +19,19 @@ export function Hero() {
     <section className="hero-bleed relative w-full overflow-hidden">
       {/* No plate of its own: the background stage carries the art for the whole
           document, and layering a second copy here ghosted the wordmark. Only
-          the scrim remains, to hold the copy off the moving image. */}
+          the scrim remains, to hold the copy off the moving image.
+
+          It fades out at the bottom rather than deepening to near-black. Ending
+          the section on an opaque colour drew a hard horizontal line across the
+          page, because nothing below the hero carries the same tint: the scrim
+          announced where it stopped. Fading to nothing makes the seam
+          disappear without touching the contrast the copy sits on. */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            "linear-gradient(180deg, #0b1013d9 0%, #0b101373 30%, #0b101359 62%, #0b1013e6 100%)",
+            "linear-gradient(180deg, #0b1013d9 0%, #0b101373 30%, #0b101359 62%, #0b10134d 86%, #0b101300 100%)",
         }}
       />
 
@@ -43,12 +49,15 @@ export function Hero() {
           once. Magic you have to be taught. Property a jarl grants you.
         </p>
 
+        {/* Start here leads, because the first thing a stranger needs is the
+            page that explains the place, not an invite to a server they have
+            no context for yet. */}
         <div className="mt-9 flex flex-wrap justify-center gap-4">
-          <ButtonLink href={DISCORD_INVITE} variant="solid" size="lg">
-            Join Discord
-          </ButtonLink>
-          <ButtonLink href="/start" size="lg">
+          <ButtonLink href="/start" variant="solid" size="lg">
             Start here
+          </ButtonLink>
+          <ButtonLink href={DISCORD_INVITE} size="lg">
+            Join Discord
           </ButtonLink>
         </div>
 

@@ -102,29 +102,29 @@ export function OrnateBox({
       ) : null}
 
       {/* Bars, stopping short of each corner by exactly the bracket size */}
-      <span aria-hidden="true" style={{ ...rail, top: 0, left: c, right: c, height: b }} />
-      <span aria-hidden="true" style={{ ...rail, bottom: 0, left: c, right: c, height: b }} />
-      <span aria-hidden="true" style={{ ...rail, left: 0, top: c, bottom: c, width: b }} />
-      <span aria-hidden="true" style={{ ...rail, right: 0, top: c, bottom: c, width: b }} />
+      <span aria-hidden="true" className="ornate-rail" style={{ ...rail, top: 0, left: c, right: c, height: b }} />
+      <span aria-hidden="true" className="ornate-rail" style={{ ...rail, bottom: 0, left: c, right: c, height: b }} />
+      <span aria-hidden="true" className="ornate-rail ornate-rail--v" style={{ ...rail, left: 0, top: c, bottom: c, width: b }} />
+      <span aria-hidden="true" className="ornate-rail ornate-rail--v" style={{ ...rail, right: 0, top: c, bottom: c, width: b }} />
 
       {/* Brackets, one drawing mirrored four ways */}
-      <span className="pointer-events-none absolute" style={{ top: 0, left: 0, zIndex: 2 }}>
+      <span className="ornate-corner pointer-events-none absolute" style={{ top: 0, left: 0, zIndex: 2 }}>
         <Bracket size={c} bar={b} />
       </span>
       <span
-        className="pointer-events-none absolute"
+        className="ornate-corner pointer-events-none absolute"
         style={{ top: 0, right: 0, zIndex: 2, transform: "scaleX(-1)" }}
       >
         <Bracket size={c} bar={b} />
       </span>
       <span
-        className="pointer-events-none absolute"
+        className="ornate-corner pointer-events-none absolute"
         style={{ bottom: 0, left: 0, zIndex: 2, transform: "scaleY(-1)" }}
       >
         <Bracket size={c} bar={b} />
       </span>
       <span
-        className="pointer-events-none absolute"
+        className="ornate-corner pointer-events-none absolute"
         style={{ bottom: 0, right: 0, zIndex: 2, transform: "rotate(180deg)" }}
       >
         <Bracket size={c} bar={b} />
