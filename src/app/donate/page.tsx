@@ -108,7 +108,7 @@ export default function DonatePage() {
               </div>
 
               <p className="relative mt-3 font-display text-2xl tabular-nums text-text-primary">
-                &euro;{tier.euros.toFixed(2).replace(/\.00$/, "")}
+                ${tier.usd}
                 <span className="ml-1.5 text-[0.68rem] tracking-wide text-text-muted">/ month</span>
               </p>
 
@@ -135,11 +135,12 @@ export default function DonatePage() {
         })}
       </div>
 
-      {/* Asked about more than once, and answered twice wrongly before somebody
-          checked: the tiers are set in euros. Patreon converts for display. */}
+      {/* The thing that made this hard to pin down: reading the rendered Patreon
+          page gives you your own currency, not the tier's. The definitions are
+          in dollars. */}
       <p className="mt-6 max-w-3xl text-[0.85rem] leading-relaxed text-text-muted">
-        Tiers are set in euros. Patreon may show you the equivalent in your own currency at
-        checkout, so the number on your statement can differ from the number here.
+        Tiers are priced in US dollars. Patreon converts to your own currency when you subscribe,
+        so the figure on your statement will not usually match the figure here.
       </p>
 
       <section className="mt-16 grid max-w-4xl gap-10 md:grid-cols-2">

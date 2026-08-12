@@ -73,9 +73,9 @@ export const codexMenu: readonly NavLink[] = [
 export const realmMenu: readonly NavLink[] = [
   { label: "The Nine Holds", href: "/holds", hint: "The seats, and who sits them" },
   { label: "Factions", href: "/factions", hint: "What they are in 4E 185" },
+  { label: "Lore", href: "/lore", hint: "The province, in its own documents" },
   { label: "Rules", href: "/rules", hint: "The rulebook, with its codes" },
   { label: "Roadmap", href: "/roadmap", hint: "What is built and what is next" },
-  { label: "Lore", href: "/lore", hint: "The province, in its own documents" },
   { label: "Changelog", href: "/changelog", hint: "Every patch note, searchable" },
   { label: "Gallery", href: "/gallery", hint: "Screenshots from the province" },
 ];
@@ -124,9 +124,9 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
     links: [
       { label: "The Nine Holds", href: "/holds" },
       { label: "Factions", href: "/factions" },
+      { label: "Lore", href: "/lore" },
       { label: "Rules", href: "/rules" },
       { label: "Roadmap", href: "/roadmap" },
-      { label: "Lore", href: "/lore" },
       { label: "Changelog", href: "/changelog" },
       { label: "Gallery", href: "/gallery" },
     ],

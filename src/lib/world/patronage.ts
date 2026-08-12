@@ -5,11 +5,14 @@
  * tier's own colour from the client. Prices and benefits are transcribed from
  * Patreon; if they change there, change them here.
  *
- * The currency is euros, checked against the live membership page rather than
- * assumed: it serves euro symbols and no others, and the six prices are 1x, 2x,
- * 3x, 5x and 8x a 4.50 base, the same shape as the memory point costs. Patreon
- * may show a reader a converted amount depending on where they are, which is
- * why the page now says so rather than leaving people to argue about it.
+ * The currency is US dollars, and getting this right took three attempts.
+ * Reading the rendered page is not enough: Patreon converts tier prices into
+ * the viewer's own currency, so the same page shows euros here and dollars in
+ * the United States. The tier definitions in its payload carry
+ * `"currency":"USD"` with `amount_cents` of 500, 1000, 1500, 2500, 4000 and
+ * 6000, and the euro figures sit beside them under `patron_currency`. The
+ * numbers below are the definitions. The page says the conversion happens, so
+ * nobody has to argue about it again.
  *
  * Worth keeping straight when editing: every benefit is a **character slot, a
  * title or a Discord role**. None of it is power. That is the line the donate
@@ -22,19 +25,20 @@ export interface Tier {
   name: string;
   /** The skill tier it is named for, which is also where its colour comes from. */
   rank: string;
-  euros: number;
+  /** The tier price as Patreon defines it, in US dollars. */
+  usd: number;
   slots: number;
   /** The in-game title the tier grants. */
   title: string;
 }
 
 export const tiers: Tier[] = [
-  { name: "Hero I", rank: "Novice", euros: 4.5, slots: 1, title: "Wayfarer" },
-  { name: "Hero II", rank: "Apprentice", euros: 9, slots: 2, title: "Oathbound" },
-  { name: "Hero III", rank: "Adept", euros: 13.5, slots: 3, title: "Mereth's Chosen" },
-  { name: "Hero IV", rank: "Expert", euros: 22.5, slots: 4, title: "Dawn Patron" },
-  { name: "Hero V", rank: "Master", euros: 36, slots: 5, title: "Starforged" },
-  { name: "Hero VI", rank: "Legendary", euros: 54, slots: 6, title: "Mereth Eternal" },
+  { name: "Hero I", rank: "Novice", usd: 5, slots: 1, title: "Wayfarer" },
+  { name: "Hero II", rank: "Apprentice", usd: 10, slots: 2, title: "Oathbound" },
+  { name: "Hero III", rank: "Adept", usd: 15, slots: 3, title: "Mereth's Chosen" },
+  { name: "Hero IV", rank: "Expert", usd: 25, slots: 4, title: "Dawn Patron" },
+  { name: "Hero V", rank: "Master", usd: 40, slots: 5, title: "Starforged" },
+  { name: "Hero VI", rank: "Legendary", usd: 60, slots: 6, title: "Mereth Eternal" },
 ];
 
 
