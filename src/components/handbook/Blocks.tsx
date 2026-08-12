@@ -19,7 +19,7 @@ function Quote({ text }: { text: string }) {
         {text}
       </blockquote>
       <figcaption className="mt-1.5 text-[11px] tracking-wide text-text-muted">
-        the client, verbatim
+        the client's own message
       </figcaption>
     </figure>
   );
@@ -70,9 +70,9 @@ function Note({ tone, title, body }: { tone: "key" | "warn"; title?: string; bod
     <div className={`relative my-7 border ${accent} bg-black/35 px-6 py-5`}>
       <FrameCorners weight="thin" size={16} />
       {title !== undefined ? (
-        <h4 className={`font-display relative mb-2 text-[0.95rem] tracking-heading uppercase ${label}`}>
+        <h3 className={`font-display relative mb-2 text-[0.95rem] tracking-heading uppercase ${label}`}>
           {title}
-        </h4>
+        </h3>
       ) : null}
       <p className="relative text-[0.95rem] leading-relaxed text-text-light">{inline(body)}</p>
     </div>

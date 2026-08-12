@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import type { Skill, Tier } from "@/lib/mereth";
@@ -47,8 +47,22 @@ function parsePlan(hash: string, valid: Set<string>, costOf: (tier: number) => n
   const raw = hash.replace(/^#plan=/, "");
   if (raw === "" || raw === hash) return plan;
 
+  /*
+   * A shared plan arrives from somewhere we do not control, so the decode is
+   * guarded. `decodeURIComponent` throws URIError on a lone or truncated
+   * percent escape, and this runs in a mount effect, so `/skills#plan=%` took
+   * the exception all the way out to the error boundary and replaced the page
+   * with "Application error". An unreadable plan is an empty plan.
+   */
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    return plan;
+  }
+
   let spent = 0;
-  for (const pair of decodeURIComponent(raw).split(",")) {
+  for (const pair of decoded.split(",")) {
     const [key, level] = pair.split(":");
     const tier = Number(level);
     if (key === undefined || !valid.has(key) || plan.has(key)) continue;
@@ -71,15 +85,46 @@ export function SkillPlanner({ skills, categories, tiers }: Props) {
   const [plan, setPlan] = useState<Map<string, number>>(new Map());
   const [copied, setCopied] = useState(false);
 
+  /*
+   * Set by the reader, cleared by the writer, and it exists because the two
+   * effects run in the same commit.
+   *
+   * The reader calls `setPlan` and React applies that on the next render, so
+   * the writer that runs immediately afterwards still sees the empty starting
+   * plan. It then wrote the empty plan to the URL and destroyed the fragment
+   * the reader had just parsed: a shared link opened blank, every time. So the
+   * writer skips exactly one turn after each read.
+   */
+  const justLoaded = useRef(false);
+
   // Read a shared plan out of the URL on arrival, and follow the back button.
   useEffect(() => {
     const valid = new Set(skills.map((s) => s.key));
     const costOf = (tier: number): number => tiers[tier - 1]?.cost ?? Number.POSITIVE_INFINITY;
-    const load = (): void => setPlan(parsePlan(window.location.hash, valid, costOf));
+    const load = (): void => {
+      setPlan(parsePlan(window.location.hash, valid, costOf));
+      justLoaded.current = true;
+    };
     load();
     window.addEventListener("hashchange", load);
     return () => window.removeEventListener("hashchange", load);
   }, [skills, tiers]);
+
+  /*
+   * The URL follows the plan, from an effect rather than from inside the state
+   * updater it used to live in. React is allowed to run an updater more than
+   * once (StrictMode does exactly that), and a history write is not something
+   * that should happen twice. `replaceState` does not fire `hashchange`, so the
+   * reader effect above does not see this and there is no loop.
+   */
+  useEffect(() => {
+    if (justLoaded.current) {
+      justLoaded.current = false;
+      return;
+    }
+    const next = plan.size === 0 ? window.location.pathname : `#plan=${formatPlan(plan)}`;
+    window.history.replaceState(null, "", next);
+  }, [plan]);
 
   const spent = useMemo(
     () => [...plan.values()].reduce((total, tier) => total + (tiers[tier - 1]?.cost ?? 0), 0),
@@ -99,8 +144,6 @@ export function SkillPlanner({ skills, categories, tiers }: Props) {
         const total = [...next.values()].reduce((sum, t) => sum + (tiers[t - 1]?.cost ?? 0), 0);
         if (total > BUDGET) return previous;
 
-        const hash = next.size === 0 ? " " : `#plan=${formatPlan(next)}`;
-        window.history.replaceState(null, "", next.size === 0 ? window.location.pathname : hash);
         return next;
       });
       setCopied(false);

@@ -225,7 +225,11 @@ export function SiteHeader() {
                   ),
                 )}
               </nav>
-              <div className="mt-7">
+              {/* Search lives in `.navbar-actions`, which is hidden below
+                  1300px, so on a phone or a tablet the palette could only be
+                  opened with a keyboard shortcut. */}
+              <div className="mt-7 flex flex-col gap-3">
+                <SearchTrigger />
                 <ButtonLink href="/discord" variant="solid" size="nav" className="w-full">
                   Discord
                 </ButtonLink>

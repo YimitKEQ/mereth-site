@@ -22,6 +22,8 @@ export interface Plate {
   title: string;
   caption: string;
   src: string;
+  /** Narrower copies that exist on disk, for the srcset. */
+  widths: number[];
   width: number;
   height: number;
   blurDataURL: string;
@@ -33,6 +35,7 @@ export const plates: Record<string, Plate> = {
     title: "Under the aurora",
     caption: "The Sea of Ghosts throws light over the north for most of the year.",
     src: asset("/img/aurora.webp"),
+    widths: [640, 1024],
     width: 1280,
     height: 720,
     blurDataURL:
@@ -43,6 +46,7 @@ export const plates: Record<string, Plate> = {
     title: "The old ways",
     caption: "Clevercraft is the ancestral tradition of Skyrim's people. Where you find magic and Nords together, expect a fire and a shaman.",
     src: asset("/img/old-ways.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1012,
     blurDataURL:
@@ -53,6 +57,7 @@ export const plates: Record<string, Plate> = {
     title: "A hall in the evening",
     caption: "Most of what happens on Mereth happens at a table, over a longfire.",
     src: asset("/img/mead-hall.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:
@@ -63,6 +68,7 @@ export const plates: Record<string, Plate> = {
     title: "The jarl's hall",
     caption: "Court is held where the hold eats. Rank here is granted, and it can be taken back.",
     src: asset("/img/jarls-hall.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:
@@ -73,6 +79,7 @@ export const plates: Record<string, Plate> = {
     title: "The hold guard",
     caption: "Guards are players. So is whoever they are waiting for.",
     src: asset("/img/hold-guard.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:
@@ -83,6 +90,7 @@ export const plates: Record<string, Plate> = {
     title: "Around the longfire",
     caption: "Sat down, armed, and in no hurry. An ordinary evening.",
     src: asset("/img/longfire.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 753,
     blurDataURL:
@@ -93,6 +101,7 @@ export const plates: Record<string, Plate> = {
     title: "A port in winter",
     caption: "Nine holds, each with its own law, its own court and its own trade.",
     src: asset("/img/winter-port.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1125,
     blurDataURL:
@@ -103,6 +112,7 @@ export const plates: Record<string, Plate> = {
     title: "Beyond the palisade",
     caption: "The province is the whole map, and the weather in it is not on your side.",
     src: asset("/img/palisade.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1125,
     blurDataURL:
@@ -113,6 +123,7 @@ export const plates: Record<string, Plate> = {
     title: "Arriving",
     caption: "Carry weight is a real constraint. The answer to it is crafted, not bought.",
     src: asset("/img/arriving.webp"),
+    widths: [640],
     width: 981,
     height: 555,
     blurDataURL:
@@ -123,6 +134,7 @@ export const plates: Record<string, Plate> = {
     title: "The hunt",
     caption: "Hunting, herbalism, mining, fishing. Eight gathering trades, each with its own nodes.",
     src: asset("/img/mammoths.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:
@@ -133,6 +145,7 @@ export const plates: Record<string, Plate> = {
     title: "The skill plan",
     caption: "Press K. Eighteen memory points across 51 skills, and the tier you buy is the ceiling that skill can ever reach.",
     src: asset("/img/skill-menu.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 956,
     blurDataURL:
@@ -143,6 +156,7 @@ export const plates: Record<string, Plate> = {
     title: "A spell, finally",
     caption: "Nobody starts with this. A master willing to teach you, a spellbook, and a season of study.",
     src: asset("/img/spellcasting.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:
@@ -153,6 +167,7 @@ export const plates: Record<string, Plate> = {
     title: "Province of Skyrim",
     caption: "Drawn 4E 182 by Nataly Dravarol, cartographer. Nine holds, nine seats, nine sets of law.",
     src: asset("/img/holds-map.webp"),
+    widths: [640],
     width: 1024,
     height: 768,
     blurDataURL:
@@ -163,6 +178,7 @@ export const plates: Record<string, Plate> = {
     title: "Alone on the pass",
     caption: "Some questions do not have a published answer. You find those out in character.",
     src: asset("/img/night-watch.webp"),
+    widths: [640, 1024],
     width: 1800,
     height: 1013,
     blurDataURL:

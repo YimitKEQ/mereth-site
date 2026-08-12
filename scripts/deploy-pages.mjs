@@ -34,6 +34,20 @@ const capture = (file, args, options = {}) =>
   execFileSync(file, args, { encoding: "utf8", shell: false, ...options }).trim();
 
 /*
+ * `git config <key>` exits 1 when the key is unset, and execFileSync turns a
+ * non-zero exit into a throw. The `|| "Mereth"` fallbacks below could never
+ * run: on a machine with no configured identity the deploy died at the commit
+ * with a raw "Command failed" instead.
+ */
+const captureOrEmpty = (file, args, options = {}) => {
+  try {
+    return capture(file, args, options);
+  } catch {
+    return "";
+  }
+};
+
+/*
  * The build steps are run through their own JS entry points rather than through
  * npm. Node will not spawn a .cmd shim without a shell on Windows, and reaching
  * for a shell to work around that is how a path with a space in it becomes a
@@ -66,7 +80,7 @@ const scan = (dir) => {
       scan(full);
       continue;
     }
-    if (!/\.(html|txt)$/.test(entry.name)) continue;
+    if (!/\.(html|txt|js)$/.test(entry.name) && entry.name !== "search") continue;
     dashes += (fs.readFileSync(full, "utf8").match(DASH) ?? []).length;
   }
 };
@@ -82,8 +96,8 @@ fs.cpSync(out, staging, { recursive: true });
 const git = (...args) => run("git", args, { cwd: staging });
 
 git("init", "-q", "-b", BRANCH);
-git("config", "user.name", capture("git", ["config", "user.name"]) || "Mereth");
-git("config", "user.email", capture("git", ["config", "user.email"]) || "noreply@example.com");
+git("config", "user.name", captureOrEmpty("git", ["config", "user.name"]) || "Mereth");
+git("config", "user.email", captureOrEmpty("git", ["config", "user.email"]) || "noreply@example.com");
 git("add", "-A");
 git("commit", "-q", "-m", `deploy: ${capture("git", ["rev-parse", "--short", "HEAD"])}`);
 git("remote", "add", "origin", `https://github.com/${REPO}.git`);

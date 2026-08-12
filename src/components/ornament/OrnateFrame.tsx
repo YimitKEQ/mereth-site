@@ -114,38 +114,3 @@ export function FrameCorners({
   );
 }
 
-export interface OrnateFrameProps {
-  children: ReactNode;
-  /** Rule and corner scale. `heavy` is the full-page panel, `thin` is a row. */
-  weight?: Weight;
-  /** Translucent black card fill. Off for frames laid over their own artwork. */
-  filled?: boolean;
-  className?: string;
-  /** Applied to the inner content wrapper, for padding. */
-  contentClassName?: string;
-}
-
-export function OrnateFrame({
-  children,
-  weight = "thick",
-  filled = true,
-  className = "",
-  contentClassName = "",
-}: OrnateFrameProps) {
-  return (
-    <div
-      className={`relative text-brand-accent ${
-        filled ? "bg-bg-card backdrop-blur-[var(--blur-panel)]" : ""
-      } ${className}`}
-      style={{
-        borderStyle: "solid",
-        borderWidth: RULE_WIDTH[weight],
-        borderColor: "color-mix(in srgb, var(--color-brand-accent) 70%, transparent)",
-        boxShadow: "0 0 6px #0006",
-      }}
-    >
-      <FrameCorners weight={weight} />
-      <div className={`text-text-primary ${contentClassName}`}>{children}</div>
-    </div>
-  );
-}

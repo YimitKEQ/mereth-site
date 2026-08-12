@@ -65,15 +65,3 @@ export function inline(text: string): ReactNode {
   });
 }
 
-/** A block of paragraphs, each parsed through `inline`. */
-export function Prose({ paragraphs, className = "" }: { paragraphs: string[]; className?: string }) {
-  return (
-    <>
-      {paragraphs.map((paragraph, i) => (
-        <p key={i} className={className}>
-          {inline(paragraph)}
-        </p>
-      ))}
-    </>
-  );
-}

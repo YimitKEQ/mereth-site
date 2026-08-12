@@ -11,7 +11,11 @@
 // Three outputs per image:
 //
 //   .webp        the asset, capped at 1800px wide
-//   .jpg         a fallback, because a stray old browser showing nothing is a
+//   (a .jpg fallback used to be emitted beside each .webp. Nothing ever linked
+//   to one: the manifest only writes .webp and no <picture> was ever wired up,
+//   so it was 2.3 MB of dead weight in every deploy. WebP has been supported
+//   everywhere since 2020.)
+//   was: .jpg    a fallback, because a stray old browser showing nothing is a
 //                worse failure than 40 KB of duplication
 //   blurDataURL  a 20px base64 thumbnail, so next/image can blur up instead of
 //                popping in. Screenshots are dark and heavy; a pop is jarring.
@@ -126,6 +130,9 @@ const PLATES = [
 
 fs.mkdirSync(OUT, { recursive: true });
 
+/** Extra widths emitted beside the full-size plate, for the srcset. */
+const NARROW_WIDTHS = [640, 1024];
+
 const entries = [];
 
 for (const plate of PLATES) {
@@ -141,7 +148,22 @@ for (const plate of PLATES) {
   const height = Math.round(((meta.height ?? 1) / (meta.width ?? 1)) * width);
 
   await sharp(source).resize({ width }).webp({ quality: 78 }).toFile(path.join(OUT, `${plate.slug}.webp`));
-  await sharp(source).resize({ width }).jpeg({ quality: 78, mozjpeg: true }).toFile(path.join(OUT, `${plate.slug}.jpg`));
+
+  /*
+   * Narrower copies, for the srcset.
+   *
+   * `images: { unoptimized: true }` is required on a host with no image
+   * server, and it makes next/image skip srcset generation entirely: the
+   * `sizes` prop on every picture was inert and a 1800px file was being sent
+   * to a 400px card. Three of the home page's cards alone shipped 533 KB where
+   * 94 KB would do. So the widths are baked here instead, at build time, where
+   * sharp is already running.
+   */
+  for (const w of NARROW_WIDTHS) {
+    if (w >= width) continue;
+    await sharp(source).resize({ width: w }).webp({ quality: 74 })
+      .toFile(path.join(OUT, `${plate.slug}-${w}.webp`));
+  }
 
   // 20px wide is enough to read as the picture once blurred, and small enough
   // that inlining it in the page costs less than a request would.
@@ -152,6 +174,7 @@ for (const plate of PLATES) {
     ...plate,
     width,
     height,
+    widths: NARROW_WIDTHS.filter((w) => w < width),
     blurDataURL: `data:image/webp;base64,${blur.toString("base64")}`,
   });
   console.log(`  ${plate.slug.padEnd(14)} ${width}x${height}  ${webpKb.toFixed(0)} KB`);
@@ -181,6 +204,8 @@ export interface Plate {
   title: string;
   caption: string;
   src: string;
+  /** Narrower copies that exist on disk, for the srcset. */
+  widths: number[];
   width: number;
   height: number;
   blurDataURL: string;
@@ -194,6 +219,7 @@ ${entries
     title: ${JSON.stringify(e.title)},
     caption: ${JSON.stringify(e.caption)},
     src: asset("/img/${e.slug}.webp"),
+    widths: [${e.widths.join(", ")}],
     width: ${e.width},
     height: ${e.height},
     blurDataURL:

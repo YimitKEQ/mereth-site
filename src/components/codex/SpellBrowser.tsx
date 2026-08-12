@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useHashSeed } from "@/components/codex/hash-seed";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { Search } from "@/components/ui/icons";
 import type { Spell, Tier } from "@/lib/mereth";
@@ -34,6 +35,22 @@ export function SpellBrowser({ spells, tiers }: { spells: Spell[]; tiers: Tier[]
   const [query, setQuery] = useState("");
   const [school, setSchool] = useState<string | null>(null);
   const [tier, setTier] = useState<string | null>(null);
+
+  /*
+   * Seeded from `#spells&q=<name>`, which is how the command palette hands over
+   * a spell. 351 rows is far too many to leave a reader hunting for the one
+   * they just typed the name of.
+   *
+   * Applied, never written back. The hash belongs to `Tabs`, and two owners for
+   * one string is how a filter starts fighting the reader every time they clear
+   * the box. A later empty seed is ignored for the same reason: it means the
+   * reader changed tabs, not that they wanted the search undone.
+   */
+  const seed = useHashSeed();
+  useEffect(() => {
+    const term = seed.get("q");
+    if (term !== undefined && term !== "") setQuery(term);
+  }, [seed]);
 
   const tierColour = useMemo(() => {
     const map = new Map<string, string>();

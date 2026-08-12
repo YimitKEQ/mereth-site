@@ -62,21 +62,6 @@ interface CommonProps {
   className?: string;
 }
 
-export function Button({
-  children,
-  variant = "outline",
-  size = "md",
-  className = "",
-  ...rest
-}: CommonProps & ComponentProps<"button">) {
-  return (
-    <button className={classes(variant, size, className)} {...rest}>
-      <FrameCorners size={CORNER_FOR[size]} />
-      <span className="relative">{children}</span>
-    </button>
-  );
-}
-
 export function ButtonLink({
   children,
   href,

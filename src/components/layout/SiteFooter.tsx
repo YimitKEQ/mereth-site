@@ -70,6 +70,7 @@ export function SiteFooter() {
                 </span>
                 {column.links.map((link) => (
                   <Link
+                    prefetch={false}
                     key={link.href}
                     href={link.href}
                     className="text-[0.85rem] text-text-light transition-colors duration-[var(--duration-fast)] hover:text-brand-accent"
@@ -89,12 +90,18 @@ export function SiteFooter() {
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="text-text-muted/70">
-              Reference indexed {built}, from {counts.plugins} plugins
+              Built by{" "}
+              <span className="text-brand-accent/80">Levitate</span>. Reference indexed {built},
+              from {counts.plugins} plugins
             </span>
             <ul className="flex flex-wrap gap-5">
               {legalLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="transition-colors hover:text-brand-accent">
+                  <Link
+                    prefetch={false}
+                    href={link.href}
+                    className="transition-colors hover:text-brand-accent"
+                  >
                     {link.label}
                   </Link>
                 </li>

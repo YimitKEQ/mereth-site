@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 
 import { ChevronDown } from "@/components/ui/icons";
+import { subscribeToHash } from "@/lib/hash";
 
 /**
  * One chapter on screen at a time.
@@ -31,10 +32,19 @@ export interface Chapter {
   id: string;
   title: string;
   content: ReactNode;
+  /**
+   * Anchors that live inside this chapter, if it publishes any.
+   *
+   * The FAQ gives every question its own id. Only one chapter is in the DOM at
+   * a time, so a link to a question cannot be resolved by looking it up: the
+   * chapter that owns it has to say so up front.
+   */
+  anchors?: string[];
 }
 
 export function Chapters({ chapters }: { chapters: Chapter[] }) {
   const [active, setActive] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Open on whatever the URL asked for, then keep the hash in step.
   useEffect(() => {
@@ -42,11 +52,35 @@ export function Chapters({ chapters }: { chapters: Chapter[] }) {
       const id = window.location.hash.replace("#", "");
       if (id === "") return;
       const index = chapters.findIndex((chapter) => chapter.id === id);
-      if (index >= 0) setActive(index);
+      if (index >= 0) {
+        setActive(index);
+        return;
+      }
+
+      /*
+       * Not a chapter id, so it may be an anchor inside one. A link to an FAQ
+       * question used to land on chapter one with the question nowhere on the
+       * page, because the chapter that holds it was never rendered.
+       */
+      const owner = chapters.findIndex((chapter) => chapter.anchors?.includes(id) === true);
+      if (owner < 0) return;
+      setActive(owner);
+
+      /* The chapter has to render before the anchor exists to scroll to. */
+      window.requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+      });
     };
     fromHash();
-    window.addEventListener("hashchange", fromHash);
-    return () => window.removeEventListener("hashchange", fromHash);
+
+    /*
+     * `subscribeToHash` rather than a bare `hashchange` listener. The search
+     * palette navigates through the Next router, and a navigation that only
+     * changes the fragment fires no event at all: jumping from one FAQ answer
+     * to another on the same page changed the address bar and left the reader
+     * looking at the chapter they were already in.
+     */
+    return subscribeToHash(fromHash);
   }, [chapters]);
 
   const go = useCallback(
@@ -59,7 +93,13 @@ export function Chapters({ chapters }: { chapters: Chapter[] }) {
          browser jump to the element, and the element is the thing that just
          changed underneath it. */
       window.history.replaceState(null, "", `#${chapter.id}`);
-      if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+      if (!scroll) return;
+
+      /* An explicit `behavior: "smooth"` beats the reduced-motion rule in the
+         stylesheet, which only sets the `scroll-behavior` property. Somebody
+         who asked their system for less movement gets none. */
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: still ? "auto" : "smooth" });
     },
     [chapters],
   );
@@ -79,7 +119,11 @@ export function Chapters({ chapters }: { chapters: Chapter[] }) {
 
         {/* On a phone the rail would push the reading column a screen down, so
             it collapses to a single control that says where you are. */}
-        <details className="lg:hidden">
+        <details
+          className="lg:hidden"
+          open={menuOpen}
+          onToggle={(event) => setMenuOpen(event.currentTarget.open)}
+        >
           <summary className="flex cursor-pointer list-none items-center justify-between border border-brand-accent/30 bg-black/30 px-4 py-3 text-[0.9rem] text-brand-accent">
             <span>
               {active + 1}. {current.title}
@@ -91,7 +135,10 @@ export function Chapters({ chapters }: { chapters: Chapter[] }) {
               <li key={chapter.id}>
                 <button
                   type="button"
-                  onClick={() => go(index, false)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    go(index, true);
+                  }}
                   className={`block w-full cursor-pointer px-4 py-2.5 text-left text-[0.88rem] ${
                     index === active ? "text-brand-accent" : "text-text-muted"
                   }`}

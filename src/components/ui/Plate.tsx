@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
-import { plate } from "@/lib/images";
+import { plate, type Plate } from "@/lib/images";
 
 /**
  * A picture in the site's frame.
@@ -28,6 +27,22 @@ type Scale = "sm" | "md" | "lg";
 
 /** Bracket size per card scale, and the rule width that goes with it. */
 const CORNER: Record<Scale, number> = { sm: 16, md: 22, lg: 30 };
+
+/**
+ * The srcset for a plate, from the widths that were actually emitted.
+ *
+ * next/image builds this itself normally, but `images: { unoptimized: true }`
+ * is required on a host with no image server and it turns srcset generation
+ * off entirely. The `sizes` prop below was therefore inert, and an 1800px file
+ * was being sent to a 400px card: three of the home page's cards alone shipped
+ * 533 KB where 94 KB would do. `scripts/build-images.mjs` bakes the narrow
+ * copies at build time and this stitches them into the attribute the browser
+ * needs, so `sizes` starts meaning something again.
+ */
+function srcSetFor(image: Plate): string {
+  const narrow = image.widths.map((w) => `${image.src.replace(/\.webp$/, `-${w}.webp`)} ${w}w`);
+  return [...narrow, `${image.src} ${image.width}w`].join(", ");
+}
 
 export function PlateImage({
   slug,
@@ -58,15 +73,24 @@ export function PlateImage({
           borderColor: "color-mix(in srgb, var(--color-brand-accent) 62%, transparent)",
         }}
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element -- next/image
+            drops srcSet under `unoptimized`, which is the whole point here. */}
+        <img
           src={image.src}
-          alt={image.title}
-          fill
+          srcSet={srcSetFor(image)}
           sizes={sizes}
-          placeholder="blur"
-          blurDataURL={image.blurDataURL}
-          priority={priority}
-          className="object-cover"
+          alt={image.title}
+          width={image.width}
+          height={image.height}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{
+            backgroundImage: `url(${image.blurDataURL})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         />
         {/*
           A hairline of the page's own dark at the foot of every picture. The
@@ -134,58 +158,5 @@ export function PlateCard({
         Read on <span aria-hidden="true">&rarr;</span>
       </span>
     </Link>
-  );
-}
-
-/**
- * A wide picture used as a page masthead, with the heading sitting on it.
- *
- * Kept shallow on purpose. A tall hero on a reference page pushes the thing the
- * reader came for below the fold, which is a bad trade for atmosphere.
- */
-export function PlateBanner({
-  slug,
-  children,
-  className = "",
-}: {
-  slug: string;
-  children?: ReactNode;
-  className?: string;
-}) {
-  const image = plate(slug);
-
-  return (
-    <div className={`relative text-brand-accent ${className}`}>
-      <FrameCorners size={CORNER.lg} />
-      <div
-        className="plate-frame relative h-[168px] w-full overflow-hidden md:h-[240px]"
-        style={{
-          borderWidth: "var(--border-ornate-thin)",
-          borderStyle: "solid",
-          borderColor: "color-mix(in srgb, var(--color-brand-accent) 62%, transparent)",
-        }}
-      >
-        <Image
-          src={image.src}
-          alt={image.title}
-          fill
-          sizes="100vw"
-          placeholder="blur"
-          blurDataURL={image.blurDataURL}
-          className="object-cover"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, #0b1013f2 0%, #0b1013d9 42%, #0b101359 72%, #0b101326 100%)",
-          }}
-        />
-        {children === undefined ? null : (
-          <div className="relative flex h-full items-center px-7 md:px-10">{children}</div>
-        )}
-      </div>
-    </div>
   );
 }

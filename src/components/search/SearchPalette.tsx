@@ -62,12 +62,21 @@ const KIND_WEIGHT: Record<EntryKind, number> = {
 
 const MAX_RESULTS = 40;
 
-function score(entry: SearchEntry, query: string): number {
+/*
+ * Compiled once per query rather than once per entry. The index holds 1,700
+ * rows, so building this inside `score` meant 1,700 RegExp allocations for
+ * every character typed.
+ */
+function wordStart(query: string): RegExp {
+  return new RegExp(`\\b${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`);
+}
+
+function score(entry: SearchEntry, query: string, atWordStart: RegExp): number {
   const label = entry.label.toLowerCase();
   if (label === query) return 1000;
   if (label.startsWith(query)) return 600 - label.length;
   // A match at the start of any word: "iron ore" for the query "ore".
-  if (new RegExp(`\\b${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`).test(label)) {
+  if (atWordStart.test(label)) {
     return 400 - label.length;
   }
   if (label.includes(query)) return 200 - label.length;
@@ -158,8 +167,9 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
     if (entries === null) return [];
     if (trimmed === "") return entries.filter((entry) => entry.kind === "page");
 
+    const atWordStart = wordStart(trimmed);
     return entries
-      .map((entry) => ({ entry, points: score(entry, trimmed) }))
+      .map((entry) => ({ entry, points: score(entry, trimmed, atWordStart) }))
       .filter((row) => row.points >= 0)
       .sort((a, b) =>
         b.points - a.points ||
@@ -187,7 +197,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   const onKeyDown = (event: React.KeyboardEvent): void => {
     if (event.key === "ArrowDown" || (event.key === "n" && event.ctrlKey)) {
       event.preventDefault();
-      setCursor((c) => Math.min(c + 1, results.length - 1));
+      setCursor((c) => Math.max(0, Math.min(c + 1, results.length - 1)));
       return;
     }
     if (event.key === "ArrowUp" || (event.key === "p" && event.ctrlKey)) {

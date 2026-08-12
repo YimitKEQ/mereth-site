@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useHashSeed } from "@/components/codex/hash-seed";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { Search, X } from "@/components/ui/icons";
 import type { Ingredient } from "@/lib/mereth";
@@ -20,6 +21,22 @@ import type { Ingredient } from "@/lib/mereth";
 export function AlchemyBench({ ingredients }: { ingredients: Ingredient[] }) {
   const [query, setQuery] = useState("");
   const [picked, setPicked] = useState<string[]>([]);
+
+  /*
+   * Seeded from `#alchemy&q=<name>`, which is how the command palette hands
+   * over an ingredient. The list otherwise opens on the first 60 of several
+   * hundred, so an unseeded landing shows the reader everything except the one
+   * thing they asked for.
+   *
+   * The mortar is left empty on purpose. Filling it would be guessing at which
+   * question was being asked, and picking is one click away once the right
+   * ingredient is on screen.
+   */
+  const seed = useHashSeed();
+  useEffect(() => {
+    const term = seed.get("q");
+    if (term !== undefined && term !== "") setQuery(term);
+  }, [seed]);
 
   const byName = useMemo(() => new Map(ingredients.map((i) => [i.name, i])), [ingredients]);
 

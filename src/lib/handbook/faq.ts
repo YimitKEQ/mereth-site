@@ -91,7 +91,7 @@ export const faqSections: FaqSection[] = [
           collected in the Emperor's name, and the Moot still recognises a High King. Beneath that,
           trust in Imperial authority is rotting: the Thalmor gained their foothold in 4E 176, the
           Embassy enforces the ban on Talos worship, and the Reach has not healed since the Forsworn
-          Uprising. Tension is the point of the setting, not a background detail.`,
+          Uprising. You are meant to play inside that tension rather than around it.`,
       },
       {
         q: "Can I play a character from Elder Scrolls lore?",

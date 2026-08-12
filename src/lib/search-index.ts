@@ -3,6 +3,7 @@ import { guide } from "@/lib/handbook/guide";
 import { progression } from "@/lib/handbook/progression";
 import { survival } from "@/lib/handbook/survival";
 import { tips } from "@/lib/handbook/tips";
+import { hashHref } from "@/lib/hash";
 import { mereth } from "@/lib/mereth";
 import { allNavLinks } from "@/lib/site";
 import { factions } from "@/lib/world/factions";
@@ -19,6 +20,13 @@ import { ruleSections } from "@/lib/world/rules";
  *
  * Entries are deliberately terse. A palette row shows a label, a kind and one
  * line of context, so anything else is weight for no gain.
+ *
+ * Every href has to be one the destination can actually honour. The codex
+ * pages are tabbed and only the open tab is in the DOM, so a link that names
+ * no tab lands on whichever one happens to be first: the right page, the wrong
+ * view, nothing found. `hashHref` writes the grammar those pages read, which
+ * is why the tab id comes before the search term rather than a `?q=` after it.
+ * See `src/lib/hash.ts` for why a fragment and not a query string.
  */
 
 export type EntryKind =
@@ -52,11 +60,14 @@ export function buildSearchIndex(): SearchEntry[] {
     entries.push({ label: link.label, kind: "page", href: link.href, sub: link.hint });
   }
 
+  /* The skill anchors are real ids, but they are rendered inside the "all"
+     tab, so naming the skill alone resolved to nothing while the planner was
+     the tab on screen. The tab first, then the name as the term. */
   for (const skill of mereth.skills) {
     entries.push({
       label: skill.name,
       kind: "skill",
-      href: `/skills#${skill.key}`,
+      href: hashHref("/skills", "all", { q: skill.name }),
       sub: skill.summary,
       terms: skill.category,
     });
@@ -93,7 +104,7 @@ export function buildSearchIndex(): SearchEntry[] {
     entries.push({
       label: spell.name,
       kind: "spell",
-      href: `/magic?q=${encodeURIComponent(spell.name)}`,
+      href: hashHref("/magic", "spells", { q: spell.name }),
       sub:
         spell.cost === spell.costHigh
           ? `${spell.school}, ${spell.cost} magicka`
@@ -106,7 +117,7 @@ export function buildSearchIndex(): SearchEntry[] {
     entries.push({
       label: ingredient.name,
       kind: "ingredient",
-      href: `/crafting?ingredient=${encodeURIComponent(ingredient.name)}`,
+      href: hashHref("/crafting", "alchemy", { q: ingredient.name }),
       sub: ingredient.effects.slice(0, 2).join(", "),
       terms: ingredient.effects.join(" "),
     });
@@ -122,7 +133,7 @@ export function buildSearchIndex(): SearchEntry[] {
       entries.push({
         label: recipe.result,
         kind: "recipe",
-        href: `/crafting?bench=${encodeURIComponent(bench.name)}&q=${encodeURIComponent(recipe.result)}`,
+        href: hashHref("/crafting", "benches", { bench: bench.name, q: recipe.result }),
         sub: `Made at the ${bench.name.toLowerCase()}`,
         terms: recipe.items.map((i) => i.name).join(" "),
       });
@@ -164,7 +175,7 @@ export function buildSearchIndex(): SearchEntry[] {
     entries.push({
       label: profession.profession,
       kind: "profession",
-      href: "/crafting#gathering",
+      href: hashHref("/crafting", "gathering"),
       sub: `${profession.outdoors.toLocaleString("en-GB")} nodes standing outdoors`,
     });
   }

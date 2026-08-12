@@ -258,11 +258,17 @@ const releases = releaseOrder
   .slice(0, 80);
 
 // --- Alchemy -----------------------------------------------------------------
-const ingredients = (deep?.ingredients ?? [])
-  .filter((i) => i.name && !/^AA|^aa|Test/i.test(i.name))
-  .map((i) => ({ name: i.name, effects: (i.effects ?? []).slice(0, 4) }))
-  .filter((i) => i.effects.length > 0)
-  .sort((a, b) => a.name.localeCompare(b.name));
+// Deduplicated by name. Two ingredients ship twice with byte-identical
+// effects, which gave the alchemy bench duplicate React keys and two rows that
+// selected as one.
+const ingredientByName = new Map();
+for (const i of deep?.ingredients ?? []) {
+  if (!i.name || /^AA|^aa|Test/i.test(i.name)) continue;
+  const effects = (i.effects ?? []).slice(0, 4);
+  if (effects.length === 0) continue;
+  if (!ingredientByName.has(i.name)) ingredientByName.set(i.name, { name: i.name, effects });
+}
+const ingredients = [...ingredientByName.values()].sort((a, b) => a.name.localeCompare(b.name));
 
 // --- Spells, the spellbook rather than the record table ---------------------
 //

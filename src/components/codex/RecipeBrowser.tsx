@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useHashSeed } from "@/components/codex/hash-seed";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { Search } from "@/components/ui/icons";
 import type { Bench } from "@/lib/mereth";
@@ -20,6 +21,25 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
   const [query, setQuery] = useState("");
   const [limit, setLimit] = useState(PAGE);
 
+  /*
+   * Seeded from `#benches&bench=<name>&q=<result>`, which is how the command
+   * palette hands over a recipe. Both halves matter: a query on its own would
+   * search whichever bench happened to be first, and a recipe is only findable
+   * at the bench that makes it.
+   *
+   * Applied, never written back. The hash belongs to `Tabs`, and a browser that
+   * also wrote it would fight the reader every time they cleared the box.
+   */
+  const seed = useHashSeed();
+  useEffect(() => {
+    // Only honour a bench that exists, or the rail would highlight the fallback
+    // while the state claimed something else entirely.
+    const wanted = seed.get("bench");
+    if (wanted !== undefined && benches.some((item) => item.name === wanted)) setBench(wanted);
+    const term = seed.get("q");
+    if (term !== undefined && term !== "") setQuery(term);
+  }, [benches, seed]);
+
   const active = benches.find((b) => b.name === bench) ?? benches[0];
 
   const recipes = useMemo(() => {
@@ -33,12 +53,23 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
     );
   }, [active, query]);
 
-  /* The workbench alone holds 1,567 recipes. Rendered whole it made the page
-     eight thousand pixels of rows nobody scrolled, so it opens on a readable
-     number and grows on request. Searching still looks at every recipe: the
-     cap is on what is drawn, never on what is matched. */
+  /* Two separate caps, and only this one is about drawing. A bench rendered
+     whole made the page thousands of pixels of rows nobody scrolled, so the
+     list opens on a readable number and grows on request.
+
+     The other cap is upstream and is not a display concern at all: the export
+     ships `RECIPE_SAMPLE` recipes per bench and carries the true count beside
+     them, so the workbench arrives as 150 of 1,567. Searching therefore looks
+     at every recipe that shipped, which is not every recipe that exists. The
+     note above the list and the empty state below both say so, because a
+     search that silently misses things is worse than one that admits it. */
   const shown = recipes.slice(0, limit);
   const remaining = recipes.length - shown.length;
+
+  /* Only where it is true. Most benches ship whole, and warning a reader at the
+     campfire that they might be missing something would send them hunting for a
+     recipe that was never there. */
+  const sampled = active !== undefined && active.total > active.recipes.length;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
@@ -79,7 +110,7 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
           />
         </div>
 
-        {active !== undefined && active.total > active.recipes.length ? (
+        {sampled && active !== undefined ? (
           <p className="mb-5 text-[0.8rem] text-text-muted">
             Showing {active.recipes.length} of {active.total.toLocaleString("en-GB")} recipes at the{" "}
             {active.name.toLowerCase()}. Most of the remainder are variants of what is listed.
@@ -89,6 +120,14 @@ export function RecipeBrowser({ benches }: { benches: Bench[] }) {
         {recipes.length === 0 ? (
           <p className="text-sm text-text-muted">
             Nothing at this bench matches <span className="text-text-primary">{query}</span>.
+            {sampled && active !== undefined ? (
+              <>
+                {" "}
+                What is listed is a sample of the {active.total.toLocaleString("en-GB")} recipes at
+                the {active.name.toLowerCase()} rather than the whole set, so a rarer variant may
+                not be in it.
+              </>
+            ) : null}
           </p>
         ) : (
           <ul>

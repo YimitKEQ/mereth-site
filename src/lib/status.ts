@@ -26,6 +26,19 @@ const INVITE_URL = "https://discord.com/api/v10/invites/mereth?with_counts=true"
 /** Mereth's own key in the feed, which also lists other servers. */
 const SERVER_KEY = "bstarrp";
 
+/*
+ * A deadline on every request.
+ *
+ * A hung connection, one where the socket is accepted and no bytes ever
+ * arrive, does not reject. Without this the poller simply starts another
+ * request on the next tick and keeps doing that, so a stalled upstream turns
+ * into a growing pile of open sockets in the reader's browser.
+ */
+const TIMEOUT_MS = 8_000;
+
+const deadline = (signal: AbortSignal): AbortSignal =>
+  AbortSignal.any([signal, AbortSignal.timeout(TIMEOUT_MS)]);
+
 export interface Status {
   /** "online", "offline", or "unknown" when the feed could not be read. */
   state: "online" | "offline" | "unknown";
@@ -44,16 +57,31 @@ interface ServerRow {
 
 async function readServers(signal: AbortSignal): Promise<Pick<Status, "state" | "online" | "maxPlayers">> {
   try {
-    const response = await fetch(SERVERS_URL, { signal, cache: "no-store" });
+    const response = await fetch(SERVERS_URL, { signal: deadline(signal), cache: "no-store" });
     if (!response.ok) throw new Error(`servers.json responded ${response.status}`);
 
     const rows: unknown = await response.json();
     if (!Array.isArray(rows)) throw new Error("servers.json was not a list");
 
-    const row = (rows as ServerRow[]).find((r) => r.key === SERVER_KEY) ?? (rows as ServerRow[])[0];
-    if (row === undefined) throw new Error("servers.json was empty");
+    /*
+     * Mereth's own row or nothing. The feed lists other servers too, and there
+     * used to be a fallback to the first row: rename the key upstream and this
+     * page would have published somebody else's uptime as ours.
+     */
+    const row = (rows as ServerRow[]).find((r) => r.key === SERVER_KEY);
+    if (row === undefined) throw new Error(`no ${SERVER_KEY} row in servers.json`);
 
+    /*
+     * Three states, and the third one matters. An unrecognised value is "we
+     * could not tell", never "offline": a renamed field or a changed shape
+     * upstream would otherwise put "Offline for maintenance" on the front page
+     * of a server that is running perfectly well.
+     */
     const status = (row.status ?? "").toLowerCase();
+    if (status !== "online" && status !== "up" && status !== "offline" && status !== "down") {
+      return { state: "unknown", online: null, maxPlayers: null };
+    }
+
     return {
       state: status === "online" || status === "up" ? "online" : "offline",
       online: Math.max(0, Number(row.online) || 0),
@@ -69,7 +97,7 @@ async function readDiscord(
   signal: AbortSignal,
 ): Promise<Pick<Status, "discordMembers" | "discordOnline">> {
   try {
-    const response = await fetch(INVITE_URL, { signal, cache: "no-store" });
+    const response = await fetch(INVITE_URL, { signal: deadline(signal), cache: "no-store" });
     if (!response.ok) throw new Error(`invite endpoint responded ${response.status}`);
 
     const invite = (await response.json()) as {

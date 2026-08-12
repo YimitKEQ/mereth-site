@@ -45,21 +45,32 @@ export function BackgroundStage({
     const element = ref.current;
     if (element === null) return;
 
+    /*
+     * Deferred to idle. The plate is 24 MB of decoration and `preload="auto"`
+     * had it competing with the text, the fonts and the images for bandwidth
+     * on first paint. The still poster is already showing, so nothing is
+     * missing while this waits.
+     */
     const play = (): void => {
+      if (element.preload !== "auto") element.preload = "auto";
       const started = element.play();
       if (started !== undefined) {
         // Refused autoplay is an expected outcome, not an error worth throwing.
         started.catch(() => setReady(false));
       }
     };
-    play();
+    const idle = window.requestIdleCallback?.bind(window) ?? ((fn: () => void) => window.setTimeout(fn, 1200));
+    const handle = idle(() => play());
 
     const onVisibility = (): void => {
       if (document.hidden) element.pause();
       else play();
     };
     document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.cancelIdleCallback?.(handle as number);
+    };
   }, [motion]);
 
   return (
@@ -80,7 +91,7 @@ export function BackgroundStage({
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           tabIndex={-1}
           onCanPlay={() => setReady(true)}
           onError={() => setReady(false)}

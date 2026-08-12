@@ -157,55 +157,12 @@ export const mereth = bundle as unknown as Mereth;
 /** The five buyable tiers. Legendary is level 100 only and cannot be planned. */
 export const buyableTiers = mereth.tiers.filter((t) => t.cost !== null) as (Tier & { cost: number })[];
 
-const bySkillKey = new Map(mereth.skills.map((s) => [s.key, s]));
-
-export function skill(key: string): Skill | null {
-  return bySkillKey.get(key) ?? null;
-}
-
-/** Skills in their own menu's category order, which is not alphabetical. */
-export function skillsByCategory(): { label: string; skills: Skill[] }[] {
-  return mereth.categories.map((category) => ({
-    label: category.label,
-    skills: category.keys.map((key) => bySkillKey.get(key)).filter((s): s is Skill => s !== undefined),
-  }));
-}
-
 /** Spells grouped by school, schools in the order a player meets them. */
 export function spellsBySchool(): { school: string; spells: Spell[] }[] {
   const order = ["Alteration", "Conjuration", "Destruction", "Illusion", "Restoration"];
   return order
     .map((school) => ({ school, spells: mereth.spells.filter((s) => s.school === school) }))
     .filter((group) => group.spells.length > 0);
-}
-
-/**
- * Ingredients sharing at least two effects with the given one.
- *
- * Two shared effects is the alchemy rule: a potion needs a matching effect on
- * two ingredients, and a third ingredient only ever adds to that.
- */
-export function pairsFor(name: string, limit = 12): { name: string; shared: string[] }[] {
-  const source = mereth.ingredients.find((i) => i.name === name);
-  if (source === undefined) return [];
-  const wanted = new Set(source.effects);
-  return mereth.ingredients
-    .filter((other) => other.name !== name)
-    .map((other) => ({ name: other.name, shared: other.effects.filter((e) => wanted.has(e)) }))
-    .filter((match) => match.shared.length > 0)
-    .sort((a, b) => b.shared.length - a.shared.length || a.name.localeCompare(b.name))
-    .slice(0, limit);
-}
-
-/**
- * A client message matching a pattern, for quoting on a page.
- *
- * Quoted strings are Mereth's, verbatim, including their punctuation. They are
- * evidence, so they are never tidied to house style.
- */
-export function clientSays(pattern: RegExp): string | null {
-  const all = [...mereth.messages.rules, ...mereth.messages.troubles, ...mereth.messages.other];
-  return all.find((message) => pattern.test(message)) ?? null;
 }
 
 /** Every release note matching a pattern, newest first, for citing a claim. */

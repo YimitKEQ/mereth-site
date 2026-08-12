@@ -92,6 +92,12 @@ export default function RulesPage() {
                         }`}
                       >
                         {rule.code}
+                        {/* The red border was the only marker, so the severity
+                            vanished in greyscale and was silent to a screen
+                            reader. This says it in words. */}
+                        {rule.severe === true ? (
+                          <span className="sr-only"> (ends a character or an account)</span>
+                        ) : null}
                       </span>
                       <span className="text-[0.95rem] leading-[1.75] text-text-light">
                         {rule.text}

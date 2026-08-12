@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Chapters } from "@/components/handbook/Chapters";
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
+import { anchorFor } from "@/lib/anchor";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
@@ -36,6 +37,8 @@ export default function FaqPage() {
   const chapters = sections.map((section) => ({
     id: section.id,
     title: section.title,
+    /* So a link to one question can find the chapter that holds it. */
+    anchors: section.items.map((item) => anchorFor(item.q)),
     content: (
       <>
         {section.blurb === undefined ? null : (

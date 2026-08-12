@@ -87,19 +87,30 @@ export function ServerStatus() {
   useEffect(() => {
     const controller = new AbortController();
     let cancelled = false;
+    let timer = 0;
 
+    /*
+     * Re-armed after each cycle settles rather than run on a fixed interval.
+     *
+     * With setInterval a slow upstream gets a fresh request every 45 seconds
+     * whether or not the last one finished, and the answers then land in
+     * whatever order they complete: a stale reply from two cycles ago can
+     * overwrite a fresh one. Chaining the next wait to the previous result
+     * makes both impossible.
+     */
     const load = (): void => {
       void fetchStatus(controller.signal).then((data) => {
-        if (!cancelled) setStatus(data);
+        if (cancelled) return;
+        setStatus(data);
+        timer = window.setTimeout(load, REFRESH_MS);
       });
     };
 
     load();
-    const timer = window.setInterval(load, REFRESH_MS);
     return () => {
       cancelled = true;
       controller.abort();
-      window.clearInterval(timer);
+      window.clearTimeout(timer);
     };
   }, []);
 

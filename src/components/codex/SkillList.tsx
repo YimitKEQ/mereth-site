@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useHashSeed } from "@/components/codex/hash-seed";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ChevronDown, Search } from "@/components/ui/icons";
 import type { Skill, Tier } from "@/lib/mereth";
@@ -24,6 +25,23 @@ export function SkillList({
   tiers: Tier[];
 }) {
   const [query, setQuery] = useState("");
+
+  /*
+   * Seeded from `#all&q=<name>`, which is how the command palette hands over a
+   * skill. The per-skill anchors below cannot carry that on their own: this
+   * list lives in a tab, and a closed tab puts no ids in the DOM to jump to.
+   * Naming the tab opens it, and the term does the finding.
+   *
+   * The seed comes through `Tabs` rather than off the address bar because the
+   * planner in the neighbouring tab clears any hash that is not a saved plan,
+   * and it does so before anything in here gets a turn.
+   */
+  const seed = useHashSeed();
+  useEffect(() => {
+    const term = seed.get("q");
+    if (term !== undefined && term !== "") setQuery(term);
+  }, [seed]);
+
   const byKey = useMemo(() => new Map(skills.map((s) => [s.key, s])), [skills]);
 
   const trimmed = query.trim().toLowerCase();

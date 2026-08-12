@@ -111,9 +111,14 @@ export default function CreditsPage() {
                   community that came to Skyrim from FiveM and RedM. Development, art, moderation and
                   the whitelists are all handled by volunteers.
                 </p>
-                <p>
+                <p className="mb-3">
                   Roles change often enough that a roster here would be wrong within a month. The
                   current staff list lives in Discord, where it is kept up to date.
+                </p>
+                <p>
+                  This site was built by{" "}
+                  <strong className="text-text-primary">Levitate</strong>, from the server's own
+                  client files, its release notes and its rulebook.
                 </p>
               </>
             ),

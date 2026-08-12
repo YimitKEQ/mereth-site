@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ChevronDown } from "@/components/ui/icons";
 import { inline } from "@/lib/markup";
+import { anchorFor } from "@/lib/anchor";
 
 /**
  * The question list.
@@ -27,15 +28,6 @@ export interface ResolvedAnswer {
   quote?: string;
   /** Citations resolved on the server, because the patterns cannot cross over. */
   notes?: { version: string; date: string | null; text: string }[];
-}
-
-/** A stable anchor per question, so a single answer can be linked to. */
-export function anchorFor(question: string): string {
-  return question
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 60);
 }
 
 function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) {
@@ -88,7 +80,7 @@ function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) 
                 {item.quote}
               </blockquote>
               <figcaption className="mt-1 text-[11px] text-text-muted">
-                the client, verbatim
+                the client's own message
               </figcaption>
             </figure>
           ) : null}
