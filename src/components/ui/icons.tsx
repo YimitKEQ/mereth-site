@@ -129,3 +129,49 @@ export const YouTube = (props: Props) => (
     <path d="M21.6 7.2s-.2-1.4-.8-2c-.75-.8-1.6-.8-2-.85C16 4.2 12 4.2 12 4.2h-.02s-4 0-6.8.2c-.4.05-1.25.05-2 .85-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.75.8 1.75.75 2.2.85 1.6.15 6.8.2 6.8.2s4 0 6.8-.21c.4-.05 1.25-.05 2-.85.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1.6c0-1.6-.2-3.3-.2-3.3zM9.9 14.2V8.6l5.2 2.8-5.2 2.8z" />
   </svg>
 );
+
+export const Check = (props: Props) => (
+  <Icon {...props}>
+    <path d="M20 6L9 17l-5-5" />
+  </Icon>
+);
+
+export const Book = (props: Props) => (
+  <Icon {...props}>
+    <path d="M4 4h11a3 3 0 013 3v13H7a3 3 0 01-3-3z" />
+    <path d="M4 17a3 3 0 013-3h11" />
+  </Icon>
+);
+
+export const Shield = (props: Props) => (
+  <Icon {...props}>
+    <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+  </Icon>
+);
+
+export const Coins = (props: Props) => (
+  <Icon {...props}>
+    <ellipse cx="12" cy="7" rx="8" ry="3.5" />
+    <path d="M4 7v5c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5V7" />
+    <path d="M4 12v5c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-5" />
+  </Icon>
+);
+
+export const Bag = (props: Props) => (
+  <Icon {...props}>
+    <path d="M5 8h14l-1 12H6z" />
+    <path d="M9 8V6a3 3 0 016 0v2" />
+  </Icon>
+);
+
+export const Ticket = (props: Props) => (
+  <Icon {...props}>
+    <path d="M3 9a2 2 0 002-2h14a2 2 0 002 2v1a2 2 0 000 4v1a2 2 0 00-2 2H5a2 2 0 00-2-2v-1a2 2 0 000-4z" />
+  </Icon>
+);
+
+export const Sparkle = (props: Props) => (
+  <Icon {...props}>
+    <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+  </Icon>
+);

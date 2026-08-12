@@ -22,6 +22,7 @@ export const site = {
 export const primaryNav: readonly NavLink[] = [
   { label: "How to Play", href: "/how-to-play" },
   { label: "News", href: "/news" },
+  { label: "Wiki", href: "/wiki" },
   { label: "FAQ", href: "/faq" },
   { label: "Support", href: "/support" },
 ];
@@ -47,8 +48,8 @@ export const footerColumns: readonly { links: readonly NavLink[] }[] = [
     links: [
       { label: "How to Play", href: "/how-to-play" },
       { label: "News", href: "/news" },
+      { label: "Wiki", href: "/wiki" },
       { label: "Shop", href: "/shop" },
-      { label: "Community", href: "/community" },
     ],
   },
   {

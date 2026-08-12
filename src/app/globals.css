@@ -377,7 +377,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 4px 0.3px #0009;
   }
-  .navbar-pill-content { padding: 0 20px 0 132px; }
+  .navbar-pill-content { padding: 0 20px 0 176px; }
   .navbar-links { gap: 20px; }
   .navbar-mobile-drawer { top: 106px; }
 }
