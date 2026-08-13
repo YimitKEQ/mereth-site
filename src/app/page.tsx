@@ -4,6 +4,7 @@ import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { Hero } from "@/components/home/Hero";
 import { Misconceptions } from "@/components/home/Misconceptions";
 import { Trailer } from "@/components/home/Trailer";
+import { UnderConstruction } from "@/components/home/UnderConstruction";
 import { OrnateLabelDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
@@ -81,6 +82,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      <UnderConstruction />
 
       <section className="mx-auto max-w-5xl px-6 pt-20 md:px-8 md:pt-24">
         <Trailer />
