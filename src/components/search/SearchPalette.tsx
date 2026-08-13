@@ -99,7 +99,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   useEffect(() => {
     if (!open || entries !== null || failed) return;
     let cancelled = false;
-    fetch(asset("/api/search"))
+    fetch(asset("/search-index"))
       .then((response) => {
         if (!response.ok) throw new Error(`search index responded ${response.status}`);
         return response.json();
