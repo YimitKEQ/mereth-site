@@ -230,6 +230,19 @@ const PLATES = [
     title: "The mammoth, briefly airborne",
     caption: "It is still Skyrim underneath. Some evenings the physics has opinions of its own.",
   },
+  {
+    file: "CS_2026-08-13_11-52-45_95.png",
+    slug: "the-busker",
+    title: "Playing to whoever stops",
+    caption:
+      "Voice carries by distance, so a song reaches the people standing close enough to hear it and nobody further. Some days that is a full market, and some days it is the rain.",
+    /* Uncropped, the figure is a sixth of the frame and the whole thing reads
+       as somebody standing near a tree: at card width the lute disappears and
+       the rain with it. Cropping in past the empty foreground keeps the stalls
+       on both sides, so the market is still legible, and a little contrast
+       separates the player from the trunk through the rain haze. */
+    adjust: { crop: { left: 400, top: 40, width: 1200, height: 830 }, contrast: 1.1 },
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

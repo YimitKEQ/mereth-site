@@ -371,6 +371,17 @@ export const plates: Record<string, Plate> = {
     blurDataURL:
       "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAwCdASoUAA0APu1kqU2ppaOiMAgBMB2JQBfnAx1B+EUWMWf5AAD+9DJJV4ES96KRlX4DTFHL+ABbL0vkFnnCr3wxZba+fte1CAeSGtpmuoeChKRMtAAA",
   },
+  "the-busker": {
+    slug: "the-busker",
+    title: "Playing to whoever stops",
+    caption: "Voice carries by distance, so a song reaches the people standing close enough to hear it and nobody further. Some days that is a full market, and some days it is the rain.",
+    src: asset("/img/the-busker.webp"),
+    widths: [640, 1024],
+    width: 1200,
+    height: 830,
+    blurDataURL:
+      "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBACdASoUAA4APu1iqU2ppaOiMAgBMB2JQBOmUABmhBznBQpCDINl4oAA3h8c4J4SNQcEuXHW30/Wv8bjYLZlExebnb2+F8VJh8ACW/EPP1UcQUOL1O3eN05ZSvTIc77JHMPlRzqW7GQwThTM2J+KgixLlL42MDIogfljPEYvkSalBvV0CaUEAAA=",
+  },
 };
 
 /** Throws rather than rendering a broken image, so a typo fails at build. */
