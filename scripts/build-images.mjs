@@ -281,6 +281,18 @@ fs.mkdirSync(OUT, { recursive: true });
 /** Extra widths emitted beside the full-size plate, for the srcset. */
 const NARROW_WIDTHS = [640, 1024];
 
+/*
+ * Pictures that are on the site but are not plates.
+ *
+ * They get the same resize and re-encode as everything else, and deliberately
+ * never enter the manifest below. `plates` is what the gallery iterates, so an
+ * entry there puts a picture on the gallery page whether or not that was the
+ * intention. Anything here is loaded by an explicit path instead.
+ */
+const EXTRAS = [
+  { file: "content.jpg", slug: "chudmor", width: 900 },
+];
+
 const entries = [];
 
 /*
@@ -365,6 +377,17 @@ for (const plate of PLATES) {
     blurDataURL: `data:image/webp;base64,${blur.toString("base64")}`,
   });
   console.log(`  ${plate.slug.padEnd(14)} ${width}x${height}  ${webpKb.toFixed(0)} KB`);
+}
+
+for (const extra of EXTRAS) {
+  const source = findSource(extra.file);
+  if (source === null) {
+    console.warn("  extra missing, skipped: " + extra.file);
+    continue;
+  }
+  const out = path.join(OUT, `${extra.slug}.webp`);
+  await sharp(source).resize({ width: extra.width }).webp({ quality: 80 }).toFile(out);
+  console.log("  extra " + extra.slug + ".webp  " + Math.round(fs.statSync(out).size / 1024) + " KB");
 }
 
 const body = `import { asset } from "@/lib/asset";

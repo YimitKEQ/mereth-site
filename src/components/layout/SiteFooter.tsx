@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Chudmor } from "@/components/easter/Chudmor";
 import { Logo } from "@/components/layout/Logo";
 import { PlateImage } from "@/components/ui/Plate";
 import { Discord } from "@/components/ui/icons";
@@ -97,8 +98,9 @@ export function SiteFooter() {
             Mods in any way.
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span className="text-text-muted/70">
+            <span className="inline-flex items-center text-text-muted/70">
               Reference indexed {built}, from {counts.plugins} plugins
+              <Chudmor />
             </span>
             <ul className="flex flex-wrap gap-5">
               {legalLinks.map((link) => (
