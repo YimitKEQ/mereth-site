@@ -16,11 +16,20 @@ import { FrameCorners } from "@/components/ornament/OrnateFrame";
 type Variant = "solid" | "outline";
 type Size = "sm" | "md" | "lg" | "nav";
 
+/*
+ * The navbar metrics, exported because the search control sits directly beside
+ * the Discord button and is a `button` rather than a link, so it cannot be a
+ * `ButtonLink`. It used to carry its own height and drifted four pixels taller,
+ * and eight at xl, which read as one of them being misaligned. Anything placed
+ * in that row should use this rather than restating the numbers.
+ */
+export const NAV_BUTTON_SIZE = "h-[40px] px-5 text-[0.92rem] tracking-[1.4px]";
+
 const SIZES: Record<Size, string> = {
   /* Sized to the 64px pill: tall enough to read as a button, short enough that
      the bar does not become a toolbar. Width is content-driven now, because a
      fixed 178px was set for a two-button bar that no longer exists. */
-  nav: "h-[40px] px-5 text-[0.92rem] tracking-[1.4px]",
+  nav: NAV_BUTTON_SIZE,
   sm: "h-9 px-4 text-xs tracking-widest",
   md: "h-12 px-6 text-sm tracking-widest",
   lg: [

@@ -267,6 +267,14 @@ const PLATES = [
        aurora above it because that is the light source. */
     adjust: { crop: { left: 60, top: 0, width: 1700, height: 1150 }, brightness: 1.15 },
   },
+  {
+    file: "hall-portrait-20260813.png",
+    slug: "made-to-be-looked-at",
+    title: "Made to be looked at",
+    caption:
+      "The paint, the scars and the build are somebody's decisions. You meet people here at speaking distance, so a character is a face long before it is a list of skills.",
+    credit: "Sent in by a member of the community.",
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });
@@ -383,6 +391,8 @@ export interface Plate {
   slug: string;
   title: string;
   caption: string;
+  /** Set when the picture came from somebody outside the team, so the gallery can say so. */
+  credit?: string;
   src: string;
   /** Narrower copies that exist on disk, for the srcset. */
   widths: number[];
@@ -397,7 +407,9 @@ ${entries
     (e) => `  "${e.slug}": {
     slug: "${e.slug}",
     title: ${JSON.stringify(e.title)},
-    caption: ${JSON.stringify(e.caption)},
+    caption: ${JSON.stringify(e.caption)},${
+      e.credit === undefined ? "" : `\n    credit: ${JSON.stringify(e.credit)},`
+    }
     src: asset("/img/${e.slug}.webp"),
     widths: [${e.widths.join(", ")}],
     width: ${e.width},

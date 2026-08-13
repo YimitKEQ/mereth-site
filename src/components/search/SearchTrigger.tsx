@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { SearchPalette } from "@/components/search/SearchPalette";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { NAV_BUTTON_SIZE } from "@/components/ui/Button";
 import { Search } from "@/components/ui/icons";
 
 /**
@@ -44,13 +45,14 @@ export function SearchTrigger() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Search Mereth"
-        className="ornate-glow relative flex h-[44px] cursor-pointer items-center gap-2.5 border-[2px] border-brand-accent/70 bg-black/40 px-4 text-brand-accent transition-colors hover:text-[var(--color-brand-glow)] xl:h-[48px]"
+        className={`ornate-glow relative flex cursor-pointer items-center gap-2.5 border-[2px] border-brand-accent/70 bg-black/40 text-brand-accent transition-colors hover:text-[var(--color-brand-glow)] ${NAV_BUTTON_SIZE}`}
       >
         <FrameCorners size={14} />
         <Search className="relative text-base" />
-        <span className="font-display relative hidden text-sm tracking-nav uppercase 2xl:inline">
-          Search
-        </span>
+        {/* No size or tracking of its own: it inherits them from the shared
+            navbar metrics, so the word sits at the same weight as "Discord"
+            beside it. */}
+        <span className="font-display relative hidden uppercase 2xl:inline">Search</span>
         <kbd className="relative hidden rounded-sm border border-brand-accent/30 px-1.5 py-0.5 font-mono text-[10px] text-text-muted 2xl:inline">
           Ctrl K
         </kbd>

@@ -21,6 +21,8 @@ export interface Plate {
   slug: string;
   title: string;
   caption: string;
+  /** Set when the picture came from somebody outside the team, so the gallery can say so. */
+  credit?: string;
   src: string;
   /** Narrower copies that exist on disk, for the srcset. */
   widths: number[];
@@ -403,6 +405,18 @@ export const plates: Record<string, Plate> = {
     height: 1150,
     blurDataURL:
       "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBACdASoUAA4APu1iqU2ppaOiMAgBMB2JYgC06CHhn5myE0aawoG7gAD+6V2PYBVpqZnFwIynSmWU5pm/kqzeKxy/yfaavERBsdxAjP/q37mKOFRBeQJwnj2YzmzGtrbSCEbJOeno3O4+K006qs0VKvNkgmPqcLZwAOnO0VA/Nc+K5h0AAAAA",
+  },
+  "made-to-be-looked-at": {
+    slug: "made-to-be-looked-at",
+    title: "Made to be looked at",
+    caption: "The paint, the scars and the build are somebody's decisions. You meet people here at speaking distance, so a character is a face long before it is a list of skills.",
+    credit: "Sent in by a member of the community.",
+    src: asset("/img/made-to-be-looked-at.webp"),
+    widths: [640, 1024],
+    width: 1672,
+    height: 941,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQC06C0H2jDIAAD+73ppJKQ937xni7hjqcO243kuJC22NZWD1E4RkkpUJx8F42DiX0eCjtcAAA==",
   },
 };
 
