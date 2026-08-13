@@ -49,6 +49,13 @@ carries a header saying so.
 | `src/lib/world/lore.ts` | `scripts/build-lore.mjs` | the published lore documents as HTML |
 | `src/data/mereth.json` | `scripts/export-mereth-data.mjs` | the devkit's plugin dumps |
 | `public/brand/*` | `scripts/build-logo.mjs` | the source mark |
+| `public/brand/og-card.jpg` | `scripts/build-og-card.mjs` | `public/brand/banner.png` |
+
+The share card is the one nobody checks, because nothing on the site displays it.
+If the banner changes, rerun `node scripts/build-og-card.mjs`, and after any
+change to metadata or to where the site is hosted, confirm the card still
+resolves: `curl -s https://merethroleplay.com/ | grep og:image` and fetch the URL
+it names.
 
 The derived output is committed, so a clone builds and deploys without any of the
 sources above. You only need them to add a picture, a lore document, or to pick

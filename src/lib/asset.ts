@@ -41,10 +41,15 @@ export const SITE_ORIGIN =
  * the image. That is exactly what happened to the twelve lore documents, which
  * are the most shared pages on the site. Any page that sets `openGraph` must
  * spread this in, and having one constant means there is nothing to keep in
- * sync when the banner changes.
+ * sync when the card changes.
+ *
+ * Not the banner. That is 2800x722 and 3.6 MB, so it arrived as a thin strip
+ * inside a 1.91:1 box after a wait long enough that people stopped seeing it at
+ * all. `scripts/build-og-card.mjs` crops it to the ratio unfurlers actually use
+ * and encodes it as JPEG, which is 137 KB for the same painting.
  */
 export const OG_IMAGE = {
-  url: `${SITE_ORIGIN}/brand/banner.png`,
-  width: 2800,
-  height: 722,
+  url: `${SITE_ORIGIN}/brand/og-card.jpg`,
+  width: 1200,
+  height: 630,
 } as const;
