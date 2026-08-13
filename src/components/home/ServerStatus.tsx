@@ -55,7 +55,15 @@ const STATE_COLOUR: Record<Status["state"], string> = {
  * throughout this codebase. Drawing it solves both and sits at the right
  * optical height for the digits it is standing in for.
  */
-function Figure({ label, value }: { label: string; value: string | null }) {
+function Figure({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string | null;
+  tone: "community" | "live";
+}) {
   return (
     <div className="flex flex-col items-center">
       <p className="font-display text-[10px] tracking-[3px] text-brand-accent/80 uppercase text-shadow-drop">
@@ -73,7 +81,11 @@ function Figure({ label, value }: { label: string; value: string | null }) {
           />
         </span>
       ) : (
-        <p className="font-display mt-2 text-3xl tabular-nums text-text-primary text-shadow-heading md:text-4xl">
+        <p
+          className={`font-display mt-2 text-3xl tabular-nums text-shadow-heading md:text-4xl ${
+            tone === "community" ? "text-stat-community" : "text-stat-live"
+          }`}
+        >
           {value}
         </p>
       )}
@@ -133,22 +145,32 @@ export function ServerStatus() {
         {status === null ? "Checking..." : STATE_LABEL[state]}
       </p>
 
+      {/*
+        Ordered as a funnel, which is the reading Bruin gave them and the reason all
+        three earn their place: everyone who has joined, then who is at their desk,
+        then who is actually in Skyrim. Souls abroad used to sit first, directly
+        beside Online now, and the two were read as the same number twice. Last is
+        where it stops competing and where the sequence lands.
+
+        No capacity beside the player count, on request. "119 / 1000" invites the
+        reader to divide, and a tenth of a cap they have no feel for reads as a quiet
+        room rather than as a busy one.
+      */}
       <div className="mt-10 flex flex-wrap items-start justify-center gap-x-14 gap-y-8">
         <Figure
-          label="Souls abroad"
-          value={
-            held(status?.online) === null
-              ? null
-              : `${status?.online}${status?.maxPlayers ? ` / ${status.maxPlayers}` : ""}`
-          }
-        />
-        <Figure
           label="In the Discord"
+          tone="community"
           value={held(status?.discordMembers)?.toLocaleString("en-GB") ?? null}
         />
         <Figure
           label="Online now"
+          tone="live"
           value={held(status?.discordOnline)?.toLocaleString("en-GB") ?? null}
+        />
+        <Figure
+          label="Souls abroad"
+          tone="live"
+          value={held(status?.online)?.toLocaleString("en-GB") ?? null}
         />
       </div>
     </div>

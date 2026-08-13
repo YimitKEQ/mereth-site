@@ -36,6 +36,15 @@
   --color-error: #a8503c;
   --color-success-icon: #7fc99a;
 
+  /* The live figures under the hero.
+   * They read as a funnel, everyone in the Discord, then who is at their desk,
+   * then who is actually in Skyrim, so the colour carries that: one hue for the
+   * standing total and one for anything happening right now. Both are pulled
+   * toward the frost palette rather than taken from Discord's own blurple or a
+   * stock green, which sit outside this page's light entirely. */
+  --color-stat-community: #8ab6dd;
+  --color-stat-live: #7fc99a;
+
   /* Lines and states */
   --color-border-subtle: #e8e4d914;
   /* Nav and menu hover. Frost lifted, the same value the buttons hover to,

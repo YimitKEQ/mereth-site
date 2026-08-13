@@ -1,12 +1,13 @@
 /**
- * Live server status, read straight from the two public feeds.
+ * Live server status, read straight from the public feeds.
  *
- *   servers.json     whether the server is up, and the player count.
+ *   /api/servers     how many are in the world, and whether it is up.
+ *   servers.json     a fallback for the up/down state alone.
  *   Discord invite   member and online counts, from the public invite endpoint.
  *
- * This used to be a route handler that fetched both on our side and re-served
- * them, on the assumption that neither upstream allowed a cross-origin read.
- * That assumption was wrong: `merethroleplay.com` answers with
+ * This used to be a route handler that fetched on our side and re-served the
+ * result, on the assumption that no upstream allowed a cross-origin read. That
+ * assumption was wrong: `merethroleplay.com` answers with
  * `Access-Control-Allow-Origin: *` and Discord echoes the requesting origin, so
  * the browser can read both itself.
  *
@@ -15,9 +16,9 @@
  * a snapshot at build time, and a page confidently reporting "open" because that
  * was true when it was built is worse than one that says it could not check.
  *
- * Deliberately narrow. `servers.json` also carries the server's IP and port. We
- * read four numbers and a state out of it and keep nothing else, so the address
- * never reaches a rendered surface.
+ * Deliberately narrow. Both server feeds also carry the machine's IP and port. A
+ * count and a state come out and nothing else does, so the address never reaches
+ * a rendered surface.
  */
 
 /*
@@ -58,7 +59,6 @@ export interface Status {
   /** "online", "offline", or "unknown" when the feed could not be read. */
   state: "online" | "offline" | "unknown";
   online: number | null;
-  maxPlayers: number | null;
   discordMembers: number | null;
   discordOnline: number | null;
 }
@@ -67,12 +67,11 @@ interface ServerRow {
   key?: string;
   status?: string;
   online?: number;
-  maxPlayers?: number;
 }
 
-type ServerFacts = Pick<Status, "state" | "online" | "maxPlayers">;
+type ServerFacts = Pick<Status, "state" | "online">;
 
-const UNKNOWN: ServerFacts = { state: "unknown", online: null, maxPlayers: null };
+const UNKNOWN: ServerFacts = { state: "unknown", online: null };
 
 /** Mereth's own row, or null. Never the first row: rename the key upstream and
  *  this page would publish somebody else's uptime as ours. */
@@ -104,11 +103,7 @@ async function readServers(signal: AbortSignal): Promise<ServerFacts> {
     if (row !== null) {
       const state = stateOf(row);
       if (state !== "unknown") {
-        return {
-          state,
-          online: Math.max(0, Number(row.online) || 0),
-          maxPlayers: Math.max(0, Number(row.maxPlayers) || 0),
-        };
+        return { state, online: Math.max(0, Number(row.online) || 0) };
       }
     }
   } catch {
@@ -119,7 +114,7 @@ async function readServers(signal: AbortSignal): Promise<ServerFacts> {
   try {
     const row = await readFeed(SERVERS_URL, signal);
     if (row === null) return UNKNOWN;
-    return { state: stateOf(row), online: null, maxPlayers: null };
+    return { state: stateOf(row), online: null };
   } catch {
     // Fail quiet. The block renders without a count rather than with an error.
     return UNKNOWN;
