@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { site } from "@/lib/site";
 
 import "./globals.css";
-import { asset, SITE_ORIGIN } from "@/lib/asset";
+import { asset, OG_IMAGE, SITE_ORIGIN } from "@/lib/asset";
 
 /*
  * Back to the reference's pairing, because it is simply better here.
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     },
     description: site.description,
     type: "website",
-    images: [{ url: asset("/brand/banner.png"), width: 2800, height: 722 }],
+    images: [OG_IMAGE],
   },
 };
 

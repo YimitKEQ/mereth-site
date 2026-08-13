@@ -17,11 +17,34 @@ export function asset(path: string): string {
 }
 
 /**
- * Where the built site is served from, absolute.
+ * Where the site lives, absolute, for the metadata that cannot be relative:
+ * the Open Graph image and the canonical URL.
  *
- * Only used for metadata that must be absolute: the Open Graph image, the
- * canonical URL. Set `NEXT_PUBLIC_SITE_ORIGIN` in the deploy to move the site
- * to a custom domain without touching code.
+ * This is the canonical home, not whichever host built the page. The GitHub
+ * Pages copy is a mirror and should point a share card at the real site, so it
+ * deliberately does not override this.
+ *
+ * It defaulted to the Pages host once, and that broke every Discord embed the
+ * day the site moved: `metadataBase` resolved the banner to a host where the
+ * base path is `/mereth-site`, so the share card asked for
+ * `yimitkeq.github.io/brand/banner.png`, got a 404, and Discord rendered the
+ * link with no image. A share card is the one thing nobody tests by visiting.
  */
 export const SITE_ORIGIN =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://yimitkeq.github.io";
+  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://merethroleplay.com";
+
+/**
+ * The share card, in one place.
+ *
+ * Next does not merge `openGraph` field by field: a page that declares its own
+ * block replaces the root's entirely, so naming a title there silently drops
+ * the image. That is exactly what happened to the twelve lore documents, which
+ * are the most shared pages on the site. Any page that sets `openGraph` must
+ * spread this in, and having one constant means there is nothing to keep in
+ * sync when the banner changes.
+ */
+export const OG_IMAGE = {
+  url: `${SITE_ORIGIN}/brand/banner.png`,
+  width: 2800,
+  height: 722,
+} as const;

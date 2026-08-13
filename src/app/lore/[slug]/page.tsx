@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
+import { OG_IMAGE } from "@/lib/asset";
 import { loreDocument, loreDocuments, loreShelves } from "@/lib/world/lore";
 
 /**
@@ -41,7 +42,10 @@ export async function generateMetadata({
   return {
     title: document.title,
     description: document.note,
-    openGraph: { title: document.title, description: document.note },
+    /* `images` has to be repeated here. Next replaces the root's `openGraph`
+       block rather than merging into it, so declaring a title without this
+       dropped the banner from every one of these cards. */
+    openGraph: { title: document.title, description: document.note, images: [OG_IMAGE] },
   };
 }
 
