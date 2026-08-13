@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ChangelogBrowser } from "@/components/codex/ChangelogBrowser";
+import { LatestRelease } from "@/components/codex/LatestRelease";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
@@ -24,7 +25,6 @@ export const metadata: Metadata = {
  * that fixed it needs the wording the note actually used.
  */
 export default function ChangelogPage() {
-  const latest = mereth.releases[0];
   const shownFrom = mereth.releases[mereth.releases.length - 1];
 
   return (
@@ -38,28 +38,17 @@ export default function ChangelogPage() {
         <h1 className="font-display mt-3 text-3xl tracking-title text-text-primary text-shadow-page-heading md:text-[var(--text-page-title)]">
           Changelog
         </h1>
+        {/* The release count deliberately lives in one place, the row of facts below,
+            because that row corrects itself against what has been published since this
+            page was built. Repeating the figure in the prose meant the two disagreed by
+            however many patches had shipped that day. */}
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
-          Every patch note, in the wording it shipped with. We have put out{" "}
-          {counts.releases} releases since {mereth.server.firstRelease}, which works out at more
-          than one a day, so this page is searchable rather than something to scroll.
+          Every patch note, in the wording it shipped with. More than one a day since{" "}
+          {mereth.server.firstRelease}, so this page is searchable rather than something to
+          scroll.
         </p>
 
-        <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-          {[
-            { label: "Latest", value: latest?.version ?? "?" },
-            { label: "Shipped", value: latest?.date ?? "?" },
-            { label: "Releases", value: String(counts.releases) },
-          ].map((fact) => (
-            <div key={fact.label}>
-              <dt className="font-display text-[10px] tracking-[2px] text-text-muted uppercase">
-                {fact.label}
-              </dt>
-              <dd className="font-display mt-1 text-2xl tabular-nums text-brand-accent">
-                {fact.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <LatestRelease releases={mereth.releases} bakedCount={counts.releases} />
       </header>
 
       <div className="relative mt-9 max-w-3xl border border-brand-accent/40 bg-black/35 px-6 py-5">
@@ -81,9 +70,11 @@ export default function ChangelogPage() {
 
       <ChangelogBrowser releases={mereth.releases} />
 
+      {/* No count here either. The window reaches back to a fixed release, which does not
+          move, while the number of releases inside it grows every time one is published. */}
       <p className="mt-12 max-w-3xl text-[0.85rem] leading-relaxed text-text-muted">
-        Showing the most recent {mereth.releases.length} releases, back to{" "}
-        {shownFrom?.version} on {shownFrom?.date}. The full history from{" "}
+        This page reaches back to {shownFrom?.version} on {shownFrom?.date}, and picks up
+        anything published since it was built. The full history from{" "}
         {mereth.server.firstRelease} onward is in the launcher.
       </p>
     </div>

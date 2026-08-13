@@ -20,6 +20,21 @@
  * never reaches a rendered surface.
  */
 
+/*
+ * Two feeds for the same fact, tried in order, and the order is the whole point.
+ *
+ * `/api/servers` is a Cloudflare Pages Function on our own origin that proxies
+ * `api.bstarrp.com` and is therefore the live figure the launcher and the game
+ * see. It is first because it is the only one that is actually true.
+ *
+ * `servers.json` is a static file committed beside the site. It is a fallback for
+ * one field only, whether we are up, and its counts are deliberately ignored: the
+ * committed copy reads `"online": 0, "maxPlayers": 666` and has since it was
+ * written, so trusting it would put a confident and permanent "0 souls abroad" on
+ * the front page of a server with a hundred people on it. A stale state is a
+ * small lie; a stale count is a number a reader will believe.
+ */
+const PROXY_URL = "https://merethroleplay.com/api/servers";
 const SERVERS_URL = "https://merethroleplay.com/servers.json";
 const INVITE_URL = "https://discord.com/api/v10/invites/mereth?with_counts=true";
 
@@ -55,41 +70,59 @@ interface ServerRow {
   maxPlayers?: number;
 }
 
-async function readServers(signal: AbortSignal): Promise<Pick<Status, "state" | "online" | "maxPlayers">> {
+type ServerFacts = Pick<Status, "state" | "online" | "maxPlayers">;
+
+const UNKNOWN: ServerFacts = { state: "unknown", online: null, maxPlayers: null };
+
+/** Mereth's own row, or null. Never the first row: rename the key upstream and
+ *  this page would publish somebody else's uptime as ours. */
+async function readFeed(url: string, signal: AbortSignal): Promise<ServerRow | null> {
+  const response = await fetch(url, { signal: deadline(signal), cache: "no-store" });
+  if (!response.ok) throw new Error(`${url} responded ${response.status}`);
+  const rows: unknown = await response.json();
+  if (!Array.isArray(rows)) throw new Error(`${url} was not a list`);
+  return (rows as ServerRow[]).find((r) => r.key === SERVER_KEY) ?? null;
+}
+
+/**
+ * Three states, and the third one matters. An unrecognised value is "we could not
+ * tell", never "offline": a renamed field or a changed shape upstream would
+ * otherwise put "Offline for maintenance" on the front page of a server that is
+ * running perfectly well.
+ */
+function stateOf(row: ServerRow): Status["state"] {
+  const status = (row.status ?? "").toLowerCase();
+  if (status === "online" || status === "up") return "online";
+  if (status === "offline" || status === "down") return "offline";
+  return "unknown";
+}
+
+async function readServers(signal: AbortSignal): Promise<ServerFacts> {
+  // The live proxy, which carries a real count.
   try {
-    const response = await fetch(SERVERS_URL, { signal: deadline(signal), cache: "no-store" });
-    if (!response.ok) throw new Error(`servers.json responded ${response.status}`);
-
-    const rows: unknown = await response.json();
-    if (!Array.isArray(rows)) throw new Error("servers.json was not a list");
-
-    /*
-     * Mereth's own row or nothing. The feed lists other servers too, and there
-     * used to be a fallback to the first row: rename the key upstream and this
-     * page would have published somebody else's uptime as ours.
-     */
-    const row = (rows as ServerRow[]).find((r) => r.key === SERVER_KEY);
-    if (row === undefined) throw new Error(`no ${SERVER_KEY} row in servers.json`);
-
-    /*
-     * Three states, and the third one matters. An unrecognised value is "we
-     * could not tell", never "offline": a renamed field or a changed shape
-     * upstream would otherwise put "Offline for maintenance" on the front page
-     * of a server that is running perfectly well.
-     */
-    const status = (row.status ?? "").toLowerCase();
-    if (status !== "online" && status !== "up" && status !== "offline" && status !== "down") {
-      return { state: "unknown", online: null, maxPlayers: null };
+    const row = await readFeed(PROXY_URL, signal);
+    if (row !== null) {
+      const state = stateOf(row);
+      if (state !== "unknown") {
+        return {
+          state,
+          online: Math.max(0, Number(row.online) || 0),
+          maxPlayers: Math.max(0, Number(row.maxPlayers) || 0),
+        };
+      }
     }
+  } catch {
+    // Falls through to the static file below.
+  }
 
-    return {
-      state: status === "online" || status === "up" ? "online" : "offline",
-      online: Math.max(0, Number(row.online) || 0),
-      maxPlayers: Math.max(0, Number(row.maxPlayers) || 0),
-    };
+  // The static file, for the state only. Its counts are not read on purpose.
+  try {
+    const row = await readFeed(SERVERS_URL, signal);
+    if (row === null) return UNKNOWN;
+    return { state: stateOf(row), online: null, maxPlayers: null };
   } catch {
     // Fail quiet. The block renders without a count rather than with an error.
-    return { state: "unknown", online: null, maxPlayers: null };
+    return UNKNOWN;
   }
 }
 

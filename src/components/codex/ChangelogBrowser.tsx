@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { Search } from "@/components/ui/icons";
+import { fetchNewReleases } from "@/lib/live-changelog";
 import type { Release } from "@/lib/mereth";
 
 /**
@@ -58,10 +59,34 @@ function monthOf(date: string | null): string {
   return `${name} ${year}`;
 }
 
-export function ChangelogBrowser({ releases }: { releases: Release[] }) {
+export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
   const [query, setQuery] = useState("");
   const [kind, setKind] = useState<string | null>(null);
   const [limit, setLimit] = useState(PAGE);
+  const [live, setLive] = useState<Release[]>([]);
+
+  /*
+   * Anything upstream has published since this site was built, prepended.
+   *
+   * We ship more than one patch a day, so the baked list is behind the moment a
+   * build lands and somebody has to remember to rebuild it. Asking GitHub in the
+   * browser closes that gap on its own. It can only ever add: every failure path
+   * in `fetchNewReleases` returns nothing, leaving exactly the page that was
+   * rendered on the server.
+   */
+  useEffect(() => {
+    const controller = new AbortController();
+    let cancelled = false;
+    void fetchNewReleases(baked, controller.signal).then((found) => {
+      if (!cancelled && found.length > 0) setLive(found);
+    });
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [baked]);
+
+  const releases = useMemo(() => (live.length > 0 ? [...live, ...baked] : baked), [live, baked]);
 
   const kinds = useMemo(() => {
     const tally = new Map<string, number>();

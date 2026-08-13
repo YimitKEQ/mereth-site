@@ -23,16 +23,16 @@ const REFRESH_MS = 45_000;
 /**
  * Whether the three counts are shown or held.
  *
- * Held for now, on request: the labels and the layout are in place and each
- * figure sits as a drawn rule until the team is ready to publish it. Flip this to
- * `true` and the live values appear; nothing else has to change, because the
- * route and the fetch are already working and the reserved space is identical
- * either way.
+ * Held while the figures were not yet worth publishing. Turned on once each one
+ * had a source that is actually live: the two Discord counts come from the public
+ * invite endpoint, and the player count from the proxy on our own origin.
  *
- * The status line above them is not affected. It is a state rather than a
- * count, and it is worth showing from the first day.
+ * This is not the only guard. A figure with no readable source arrives as null and
+ * the row draws a rule in its place, so a feed going down shows a blank rather
+ * than a zero, and the count that used to come from a static file is not read at
+ * all. See `src/lib/status.ts`.
  */
-const SHOW_FIGURES = false;
+const SHOW_FIGURES = true;
 
 const STATE_LABEL: Record<Status["state"], string> = {
   online: "Open, and taking applications",
