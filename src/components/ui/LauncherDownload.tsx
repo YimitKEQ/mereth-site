@@ -26,7 +26,7 @@ export function LauncherDownload({ className = "" }: { className?: string }) {
       </h2>
       <p className="relative mt-2.5 max-w-[62ch] text-[0.95rem] leading-relaxed text-text-light">
         It installs the whole mod list in the right order and checks your files against the server
-        before it lets you connect. You need Skyrim Special Edition on PC and SKSE. Everything else
+        before it lets you connect. All you need is Skyrim Special Edition on PC. Everything else
         comes from here, and you should not assemble the list by hand.
       </p>
 

@@ -56,10 +56,11 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "What do I need to own and install?",
-        a: `Skyrim Special Edition on PC, SKSE, and our launcher. The launcher reads the live
-          manifest, installs the full mod list in a fixed order and checks your files against the
-          server before you connect. **Do not assemble the list by hand**, and do not update mods
-          yourself: a newer version of the right mod fails exactly like a missing one.`,
+        a: `Skyrim Special Edition on PC, and our launcher. That is the whole list. The launcher
+          reads the live manifest and installs everything else, the script extender and the full mod
+          list, in a fixed order, then checks your files against the server before you connect.
+          **Do not assemble the list by hand**, and do not update mods yourself: a newer version of
+          the right mod fails exactly like a missing one.`,
       },
       {
         q: "How do I log in?",
@@ -475,8 +476,8 @@ export const faqSections: FaqSection[] = [
       {
         q: "It says my SKSE plugins do not match",
         a: `SKSE DLLs are checked by name, size and checksum, not just presence, so a different build
-          of the same plugin fails. Replace them with the server versions rather than updating to
-          the newest.`,
+          of the same plugin fails. Let the launcher put the server's versions back rather than
+          updating anything to the newest by hand: newer is exactly what it is rejecting.`,
         quote: "An SKSE DLL name, size, or checksum does not match the server.",
       },
       {

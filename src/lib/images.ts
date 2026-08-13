@@ -21,8 +21,6 @@ export interface Plate {
   slug: string;
   title: string;
   caption: string;
-  /** Set when the picture came from somebody outside the team, so the gallery can say so. */
-  credit?: string;
   src: string;
   /** Narrower copies that exist on disk, for the srcset. */
   widths: number[];
@@ -410,7 +408,6 @@ export const plates: Record<string, Plate> = {
     slug: "made-to-be-looked-at",
     title: "Made to be looked at",
     caption: "The paint, the scars and the build are somebody's decisions. You meet people here at speaking distance, so a character is a face long before it is a list of skills.",
-    credit: "Sent in by a member of the community.",
     src: asset("/img/made-to-be-looked-at.webp"),
     widths: [640, 1024],
     width: 1672,

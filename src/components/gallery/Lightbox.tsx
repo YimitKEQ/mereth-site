@@ -88,14 +88,6 @@ export function Gallery({ plates }: { plates: Plate[] }) {
               <p className="mt-1.5 text-[0.85rem] leading-relaxed text-text-muted">
                 {plate.caption}
               </p>
-              {/* Only present on pictures sent in from outside the team. The
-                  gallery asks people to send theirs, so the ones who do get
-                  their name on it. */}
-              {plate.credit === undefined ? null : (
-                <p className="mt-2 text-[0.75rem] tracking-wide text-text-muted/70 italic">
-                  {plate.credit}
-                </p>
-              )}
             </button>
           </li>
         ))}
@@ -145,9 +137,6 @@ export function Gallery({ plates }: { plates: Plate[] }) {
                   {shown.title}
                 </p>
                 <p className="mt-1 text-[0.85rem] text-text-muted">{shown.caption}</p>
-                {shown.credit === undefined ? null : (
-                  <p className="mt-1.5 text-[0.75rem] text-text-muted/70 italic">{shown.credit}</p>
-                )}
               </div>
 
               <div className="flex shrink-0 items-center gap-2">

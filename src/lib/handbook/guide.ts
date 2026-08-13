@@ -22,9 +22,10 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `You need Skyrim Special Edition on PC, SKSE, and our launcher. The launcher reads the live
-              manifest, installs the mod list in the right order, and checks your files against the
-              server before it will let you connect. You do not assemble the list by hand.`,
+            `You need Skyrim Special Edition on PC, and our launcher. The launcher reads the live
+              manifest and installs the rest, the script extender and the mod list, in the right
+              order, then checks your files against the server before it will let you connect. You
+              do not assemble the list by hand.`,
             `**Login is through Discord**, not a username and password, so you must be in our Discord to
               connect at all. The client reports being outside the Discord and never having logged
               in through it as two different errors, and it will also refuse a ban, an expired

@@ -39,8 +39,8 @@ export const steps: Step[] = [
     title: "Install through the launcher, and only through the launcher",
     summary: "It installs the whole mod list in the right order and checks your files before you connect.",
     body: [
-      `You need Skyrim Special Edition on PC and SKSE. Everything else comes from our launcher,
-        which reads the live manifest and does the rest.`,
+      `All you need is Skyrim Special Edition on PC. Everything else, the script extender and the
+        whole mod list, comes from our launcher, which reads the live manifest and does the rest.`,
       `**Do not assemble the list by hand and do not update mods yourself.** Names, order, light
         flags and SKSE checksums are all compared against the server, so a newer version of the
         right mod fails exactly the way a missing one does.`,
