@@ -382,6 +382,28 @@ export const plates: Record<string, Plate> = {
     blurDataURL:
       "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAAAwBACdASoUAA4APu1iqU2ppaOiMAgBMB2JQBOmUABmhBznBQpCDINl4oAA3h8c4J4SNQcEuXHW30/Wv8bjYLZlExebnb2+F8VJh8ACW/EPP1UcQUOL1O3eN05ZSvTIc77JHMPlRzqW7GQwThTM2J+KgixLlL42MDIogfljPEYvkSalBvV0CaUEAAA=",
   },
+  "nothing-scheduled": {
+    slug: "nothing-scheduled",
+    title: "Nothing scheduled",
+    caption: "No quest marker put anybody here. Somebody walked out to the end of the boards, sat down, and watched the sky, because that is what their character would do.",
+    src: asset("/img/nothing-scheduled.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 940,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAwCdASoUAAoAPu1kqk4ppaQiMAgBMB2JaQAAV98dxOqF7Pl1QAD+2nmcPxOcHnsfKMOHtZuQa8E3MiuOWasl5/dvk1PEo6rfxwAA",
+  },
+  "outside-the-hall": {
+    slug: "outside-the-hall",
+    title: "Sat out under the lights",
+    caption: "Conversation happens where people are standing, so a row along a wall outside a hall is a real place to be. There is no global channel to talk in instead.",
+    src: asset("/img/outside-the-hall.webp"),
+    widths: [640, 1024],
+    width: 1700,
+    height: 1150,
+    blurDataURL:
+      "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBACdASoUAA4APu1iqU2ppaOiMAgBMB2JYgC06CHhn5myE0aawoG7gAD+6V2PYBVpqZnFwIynSmWU5pm/kqzeKxy/yfaavERBsdxAjP/q37mKOFRBeQJwnj2YzmzGtrbSCEbJOeno3O4+K006qs0VKvNkgmPqcLZwAOnO0VA/Nc+K5h0AAAAA",
+  },
 };
 
 /** Throws rather than rendering a broken image, so a typo fails at build. */

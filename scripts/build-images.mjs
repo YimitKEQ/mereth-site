@@ -243,6 +243,30 @@ const PLATES = [
        separates the player from the trunk through the rain haze. */
     adjust: { crop: { left: 400, top: 40, width: 1200, height: 830 }, contrast: 1.1 },
   },
+  {
+    file: "aurora-boards-20260813.png",
+    slug: "nothing-scheduled",
+    title: "Nothing scheduled",
+    caption:
+      "No quest marker put anybody here. Somebody walked out to the end of the boards, sat down, and watched the sky, because that is what their character would do.",
+    /* Kept wide. A small figure against a large sky is the whole picture, and
+       cropping in to make them bigger would throw away the thing being said.
+       Lifted instead, because at card size the boards and the seated figure
+       were sinking into the same darkness as the treeline. */
+    adjust: { brightness: 1.3, contrast: 1.05 },
+  },
+  {
+    file: "aurora-hall-20260813.png",
+    slug: "outside-the-hall",
+    title: "Sat out under the lights",
+    caption:
+      "Conversation happens where people are standing, so a row along a wall outside a hall is a real place to be. There is no global channel to talk in instead.",
+    /* The lower third was stone wall and the right edge was cliff, so the row
+       of people, which is the subject, sat small in the middle of two dead
+       areas. Cropped to the hall and the wall they are sitting on, keeping the
+       aurora above it because that is the light source. */
+    adjust: { crop: { left: 60, top: 0, width: 1700, height: 1150 }, brightness: 1.15 },
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });
