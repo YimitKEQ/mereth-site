@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
@@ -11,7 +12,27 @@ import { ButtonLink } from "@/components/ui/Button";
 import { PlateCard, PlateImage } from "@/components/ui/Plate";
 import { faqSections } from "@/lib/handbook/faq";
 import { citations, counts, mereth } from "@/lib/mereth";
-import { DISCORD_INVITE } from "@/lib/site";
+import { pageMeta } from "@/lib/seo";
+import { DISCORD_INVITE, site } from "@/lib/site";
+
+/*
+ * The home page inherited the root's title and description, which is correct,
+ * but it had no canonical of its own and shared its exact title with `/news`.
+ * Declared explicitly here so the one page most likely to rank says what it is.
+ *
+ * The title keeps the brand first, because that is what people search, and adds
+ * the words somebody who has never heard of Mereth would use instead.
+ */
+export const metadata: Metadata = {
+  ...pageMeta({
+    path: "/",
+    title: `${site.name} Roleplay | Skyrim Multiplayer Roleplay Server`,
+    description: site.description,
+  }),
+  /* The root template appends " | Mereth Roleplay" to every page title. This
+     one is already whole, so it opts out rather than saying the name twice. */
+  title: { absolute: `${site.name} Roleplay | Skyrim Multiplayer Roleplay Server` },
+};
 
 /**
  * The home page, in the reference's rhythm.

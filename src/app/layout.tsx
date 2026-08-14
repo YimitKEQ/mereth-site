@@ -5,6 +5,8 @@ import localFont from "next/font/local";
 import { BackgroundStage } from "@/components/layout/BackgroundStage";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteJsonLd } from "@/components/seo/JsonLd";
+import { canonicalFor, IS_MIRROR } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 import "./globals.css";
@@ -55,6 +57,20 @@ export const metadata: Metadata = {
   },
   description: site.description,
   icons: { icon: asset("/brand/icon.png"), apple: asset("/brand/icon.png") },
+  /*
+   * The default canonical, for the handful of routes that do not set their own.
+   * Every page that goes through `pageMeta` overrides this with its own path;
+   * this stops a page that forgets from having none at all, which was the state
+   * of all forty of them.
+   */
+  alternates: { canonical: canonicalFor("/") },
+  /*
+   * The GitHub Pages copy is the same forty pages on a second host, with
+   * nothing telling a crawler which is the original. Canonicals point at the
+   * domain from both builds, and the mirror additionally refuses indexing,
+   * because a canonical is a hint and this is not.
+   */
+  ...(IS_MIRROR ? { robots: { index: false, follow: true } } : {}),
   openGraph: {
     /* Templated like `title` above, so a shared page previews as itself. A
        fixed string here meant every lore document, the most link-shareable
@@ -76,6 +92,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${friz.variable} ${ui.variable}`}
     >
       <body className="min-h-screen antialiased">
+        {/* Who the site is and what it is about, once, for every page. Every
+            other piece of markup on the site refers back to these by @id. */}
+        <SiteJsonLd />
         {/* Mereth's own plate, moving. The poster is the video's own opening
             frame, pulled out of the file itself: it used to be a different
             painting altogether, so every refresh showed a keep in a snowstorm

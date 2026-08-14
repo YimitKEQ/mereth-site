@@ -5,14 +5,16 @@ import { SpellBrowser } from "@/components/codex/SpellBrowser";
 import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
 import { PlateImage } from "@/components/ui/Plate";
+import { pageMeta } from "@/lib/seo";
 import { counts, mereth, spellsBySchool } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/magic",
   title: "Magic",
   description:
     "How magic is learned on Mereth: a teacher, a book, and time. Plus every spell in the province, by school.",
-};
+});
 
 /**
  * The pipeline first, the spellbook second.

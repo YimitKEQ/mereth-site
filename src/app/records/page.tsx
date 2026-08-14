@@ -3,13 +3,16 @@ import Link from "next/link";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { pageMeta } from "@/lib/seo";
 import { counts, mereth } from "@/lib/mereth";
 import { LauncherDownload } from "@/components/ui/LauncherDownload";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/records",
   title: "Modlist",
-  description: "Every mod the launcher installs, and the exact load order it installs them in.",
-};
+  description:
+    "Every mod the launcher installs, and the exact load order it installs them in.",
+});
 
 /**
  * The modlist and the load order. Nothing else.

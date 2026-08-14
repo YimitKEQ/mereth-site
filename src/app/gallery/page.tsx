@@ -7,14 +7,16 @@ import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { pageMeta } from "@/lib/seo";
 import { plates } from "@/lib/images";
 import { DISCORD_INVITE } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/gallery",
   title: "Gallery",
   description:
     "Screenshots from the province, and the custom work being built for it: interiors, and models from our own artist.",
-};
+});
 
 /**
  * The gallery.

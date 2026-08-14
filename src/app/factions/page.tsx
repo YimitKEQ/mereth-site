@@ -3,15 +3,17 @@ import Link from "next/link";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { pageMeta } from "@/lib/seo";
 import { inline } from "@/lib/markup";
 import { factions, orgCaps, orgLimits } from "@/lib/world/factions";
 import { PlateFigure } from "@/components/ui/Plate";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/factions",
   title: "Factions",
   description:
     "The lore factions, what each one is right now, what joining actually offers, and the rules every organisation plays by.",
-};
+});
 
 /**
  * Factions, and the organisation rules.

@@ -6,14 +6,16 @@ import { RecipeBrowser } from "@/components/codex/RecipeBrowser";
 import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
 import { PlateImage } from "@/components/ui/Plate";
+import { pageMeta } from "@/lib/seo";
 import { counts, mereth } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/crafting",
   title: "Crafting",
   description:
     "Mereth's benches and what comes off them, an alchemy bench that shows what two ingredients actually brew, and where the gathering nodes stand.",
-};
+});
 
 const gathering: Block[] = [
   {

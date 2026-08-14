@@ -48,8 +48,12 @@ export const RULES_DOC_URL =
 export const site = {
   name: "Mereth",
   tagline: "Skyrim Roleplay",
+  /* 160 characters is where Google truncates a description, and this was 166,
+     so the last clause was being cut mid-phrase in every result. It also now
+     names SkyMP, which is what somebody looking for a Skyrim multiplayer
+     roleplay server actually types. */
   description:
-    "Mereth Roleplay: a serious roleplay Skyrim server set in 4E 185, ten years after the White-Gold Concordat. Memory points, professions, holds, magic and law, explained.",
+    "A serious roleplay Skyrim server on SkyMP, set in 4E 185 after the White-Gold Concordat. Memory points, professions, holds, magic and law, explained.",
   copyright: "© 4E 185 Mereth Roleplay",
 } as const;
 

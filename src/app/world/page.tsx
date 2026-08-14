@@ -3,15 +3,17 @@ import type { Metadata } from "next";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { Tabs } from "@/components/codex/Tabs";
 import { Blocks } from "@/components/handbook/Blocks";
+import { pageMeta } from "@/lib/seo";
 import { counts, mereth } from "@/lib/mereth";
 import type { Block } from "@/lib/handbook/blocks";
 import { PlateFigure } from "@/components/ui/Plate";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/world",
   title: "The World",
   description:
     "Holds, parcels and property, the interaction keys, races and the Tamriel calendar, and what happens when you cause trouble.",
-};
+});
 
 const holds: Block[] = [
   {

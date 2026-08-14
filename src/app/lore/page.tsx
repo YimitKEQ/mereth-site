@@ -4,13 +4,15 @@ import Link from "next/link";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { PlateFigure } from "@/components/ui/Plate";
+import { pageMeta } from "@/lib/seo";
 import { loreDocuments, loreShelves } from "@/lib/world/lore";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/lore",
   title: "Lore",
   description:
     "The documents Mereth has published about its own setting: the orders, magic and faith, and who holds the province in 4E 185.",
-};
+});
 
 /**
  * The library.

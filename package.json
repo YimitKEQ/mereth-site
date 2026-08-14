@@ -12,7 +12,9 @@
     "build:video": "node scripts/build-video.mjs",
     "export:domain": "node scripts/export.mjs domain",
     "export:pages": "node scripts/export.mjs pages",
-    "publish": "node scripts/publish-website.mjs"
+    "publish": "node scripts/publish-website.mjs",
+    "build:llms": "node scripts/build-llms.mjs",
+    "prebuild": "node scripts/build-llms.mjs"
   },
   "dependencies": {
     "next": "^16.3.0",

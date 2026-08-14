@@ -3,15 +3,17 @@ import type { Metadata } from "next";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { PlateFigure, PlateImage } from "@/components/ui/Plate";
+import { pageMeta } from "@/lib/seo";
 import { plate } from "@/lib/images";
 import { inline } from "@/lib/markup";
 import { holds } from "@/lib/world/holds";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/holds",
   title: "The Nine Holds",
   description:
     "Skyrim's nine holds in 4E 185, their seats and the jarls who hold them, and how rank and property work inside one.",
-};
+});
 
 /**
  * The nine holds.

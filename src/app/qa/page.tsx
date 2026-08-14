@@ -6,14 +6,17 @@ import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
+import { pageMeta } from "@/lib/seo";
 import { anchorFor } from "@/lib/anchor";
 import { qaAnsweredOn, qaCount, qaSections } from "@/lib/handbook/qa";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/qa",
   title: "Latest Q&A",
   description:
-    "Answers from the team on where Mereth is heading: enchanting, crafting tiers and materials, memory points, horses and fishing, Fear RP, starter kits and skill progression.",
-};
+    "Answers from the team on where Mereth is heading: enchanting, crafting tiers, memory points, horses, fishing, Fear RP, starter kits and skill progression.",
+});
 
 /**
  * The community Q&A.
@@ -46,9 +49,25 @@ export default function QaPage() {
     ),
   }));
 
+  /* The same rule as the FAQ page: every answer below is in the HTML, which is
+     what makes this markup honest rather than a claim about a page. */
+  const faqEntries = qaSections.flatMap((section) =>
+    section.items.map((item) => ({
+      question: item.q,
+      answer: item.a.replace(/\s+/g, " ").trim(),
+    })),
+  );
+
   return (
     <div className="mx-auto max-w-[70rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <ReadingScrim />
+      <FaqJsonLd entries={faqEntries} path="/qa" />
+      <BreadcrumbJsonLd
+        trail={[
+          { name: "Mereth Roleplay", path: "/" },
+          { name: "Latest Q&A", path: "/qa" },
+        ]}
+      />
 
       <header className="max-w-3xl">
         <p className="font-display text-[11px] tracking-[3px] text-brand-accent/70 uppercase">

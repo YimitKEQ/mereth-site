@@ -5,15 +5,17 @@ import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { pageMeta } from "@/lib/seo";
 import { mereth } from "@/lib/mereth";
 import { PATREON_URL } from "@/lib/site";
 import { tiers } from "@/lib/world/patronage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/donate",
   title: "Supporting Mereth",
   description:
     "What patronage pays for, the six tiers and what each grants, and the line we will not cross: support buys no advantage in play.",
-};
+});
 
 /**
  * Patronage.

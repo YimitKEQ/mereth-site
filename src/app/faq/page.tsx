@@ -2,18 +2,21 @@ import type { Metadata } from "next";
 
 import { Chapters } from "@/components/handbook/Chapters";
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
+import { pageMeta } from "@/lib/seo";
 import { anchorFor } from "@/lib/anchor";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { faqCount, faqSections } from "@/lib/handbook/faq";
 import { citations } from "@/lib/mereth";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/faq",
   title: "Questions",
   description:
     "Answers about playing on Mereth: skills and memory points, magic, fighting, holds and jarls, and every reason the game refuses to connect.",
-};
+});
 
 export default function FaqPage() {
   // Citation patterns are resolved here, on the server. A RegExp cannot cross
@@ -51,9 +54,30 @@ export default function FaqPage() {
     ),
   }));
 
+  /*
+   * Every answer on this page is rendered into the HTML, which is the condition
+   * Google actually enforces for FAQ markup: describing answers that are not on
+   * the page is treated as spam rather than as a mistake. The answers carry
+   * citation patterns for the release notes, so the text is flattened here to
+   * what a reader sees rather than passing the raw source through.
+   */
+  const faqEntries = faqSections.flatMap((section) =>
+    section.items.map((item) => ({
+      question: item.q,
+      answer: item.a.replace(/\s+/g, " ").trim(),
+    })),
+  );
+
   return (
     <div className="mx-auto max-w-[70rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <ReadingScrim />
+      <FaqJsonLd entries={faqEntries} path="/faq" />
+      <BreadcrumbJsonLd
+        trail={[
+          { name: "Mereth Roleplay", path: "/" },
+          { name: "Questions", path: "/faq" },
+        ]}
+      />
       <header className="max-w-3xl">
         <p className="font-display text-[11px] tracking-[3px] text-brand-accent/70 uppercase">
           The Handbook

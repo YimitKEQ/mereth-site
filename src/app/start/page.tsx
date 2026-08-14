@@ -5,16 +5,18 @@ import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { pageMeta } from "@/lib/seo";
 import { steps } from "@/lib/handbook/start";
 import { inline } from "@/lib/markup";
 import { counts } from "@/lib/mereth";
 import { LauncherDownload } from "@/components/ui/LauncherDownload";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/start",
   title: "Start Here",
   description:
     "The path from hearing about Mereth to standing in Skyrim with a plan: install, character, memory points, keys, and your first evening.",
-};
+});
 
 /**
  * The single most important page on the site.

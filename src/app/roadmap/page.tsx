@@ -4,14 +4,16 @@ import Link from "next/link";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { pageMeta } from "@/lib/seo";
 import { counts } from "@/lib/mereth";
 import { roadmap, type Stage } from "@/lib/world/roadmap";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/roadmap",
   title: "Roadmap",
   description:
     "What is finished, what is being built now, what is committed to, and what is wanted but not scheduled.",
-};
+});
 
 const ACCENT: Record<Stage, string> = {
   done: "#7fc99a",

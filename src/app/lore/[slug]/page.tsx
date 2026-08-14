@@ -3,7 +3,9 @@ import Link from "next/link";
 
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { OG_IMAGE } from "@/lib/asset";
+import { canonicalFor, IS_MIRROR } from "@/lib/seo";
 import { loreDocument, loreDocuments, loreShelves } from "@/lib/world/lore";
 
 /**
@@ -32,6 +34,23 @@ export async function generateMetadata({
   if (document === undefined) return { title: "Lore" };
 
   /*
+   * These are Mereth's own published documents and their titles are the titles
+   * they were published under, so shortening one is not an option. Three of
+   * them ran past the sixty characters a result shows once the site suffix was
+   * appended, and were cut mid-phrase. Every one of them fits on its own, so
+   * the suffix is what gets dropped rather than the document's name.
+   */
+  const suffixed = `${document.title} | Mereth Roleplay`;
+  const title = suffixed.length > 60 ? { absolute: document.title } : document.title;
+
+  /*
+   * The one-line note is what a reader needs on the shelf, but at forty odd
+   * characters it is half of what a result will show. The shelf it sits on is
+   * real context rather than padding, and it differs per document.
+   */
+  const description = `${document.note} From Mereth's published lore: ${shelfOf(slug).toLowerCase()}.`;
+
+  /*
    * `openGraph.title` is set explicitly rather than left to inherit. A page
    * that sets only `title` does not populate the Open Graph title when the root
    * layout already defines an `openGraph` block, so every one of these pasted
@@ -40,12 +59,23 @@ export async function generateMetadata({
    * passes the bare title: adding one here produced it twice.
    */
   return {
-    title: document.title,
-    description: document.note,
+    title,
+    description,
+    /* The canonical these pages never had. It matters most here: Cloudflare
+       308s their old `/lore/companions.html` paths onto these, so each document
+       is reachable at more than one URL. */
+    alternates: { canonical: canonicalFor(`/lore/${slug}`) },
+    ...(IS_MIRROR ? { robots: { index: false, follow: true } } : {}),
     /* `images` has to be repeated here. Next replaces the root's `openGraph`
        block rather than merging into it, so declaring a title without this
        dropped the banner from every one of these cards. */
-    openGraph: { title: document.title, description: document.note, images: [OG_IMAGE] },
+    openGraph: {
+      title: document.title,
+      description,
+      url: canonicalFor(`/lore/${slug}`),
+      type: "article",
+      images: [OG_IMAGE],
+    },
   };
 }
 
@@ -87,6 +117,22 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
   return (
     <div className="mx-auto max-w-[52rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <ReadingScrim />
+
+      {/* These are the site's most shared pages and the ones an answer engine
+          is most likely to quote, so they are the ones that most want saying
+          what they are rather than leaving it to be inferred from prose. */}
+      <ArticleJsonLd
+        title={document.title}
+        description={`${document.note} From Mereth's published lore: ${shelfOf(slug).toLowerCase()}.`}
+        path={`/lore/${slug}`}
+      />
+      <BreadcrumbJsonLd
+        trail={[
+          { name: "Mereth Roleplay", path: "/" },
+          { name: "Lore", path: "/lore" },
+          { name: document.title, path: `/lore/${slug}` },
+        ]}
+      />
 
       <Link
         href={`/lore#${shelfIdOf(slug)}`}

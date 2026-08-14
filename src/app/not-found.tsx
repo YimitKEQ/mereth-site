@@ -8,6 +8,10 @@ import { PlateImage } from "@/components/ui/Plate";
 export const metadata: Metadata = {
   title: "Off the map",
   description: "That page is not part of the province.",
+  /* A static host serves this file for a mistyped address, and on some hosts it
+     answers 200 rather than 404. A 404 page indexed as a real page is a soft
+     404, so it says so itself rather than relying on the status code. */
+  robots: { index: false, follow: true },
 };
 
 /**

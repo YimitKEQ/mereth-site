@@ -109,6 +109,10 @@ if (invokedDirectly) {
   const run = (args, env) =>
     execFileSync(node, args, { stdio: "inherit", shell: false, env: { ...process.env, ...env } });
 
+  // Written before the build, because `public/` is copied into `out/` during it.
+  // Generated rather than hand-kept so it cannot fall behind the route registry.
+  run([path.resolve("scripts", "build-llms.mjs")], {});
+
   // Spawned through their JS entry points rather than npm: Node will not run a
   // .cmd shim without a shell on Windows, and a shell here is a quoting bug.
   run([bin("next", "dist", "bin", "next"), "build"], {

@@ -6,13 +6,15 @@ import { LatestRelease } from "@/components/codex/LatestRelease";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { pageMeta } from "@/lib/seo";
 import { counts, mereth } from "@/lib/mereth";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/changelog",
   title: "Changelog",
   description:
     "Every patch note, searchable and filterable by kind. What was added, fixed, changed and removed, with the version and date it happened.",
-};
+});
 
 /**
  * The changelog.

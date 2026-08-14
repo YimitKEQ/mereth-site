@@ -5,13 +5,15 @@ import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { pageMeta } from "@/lib/seo";
 import { mereth } from "@/lib/mereth";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/support",
   title: "Getting help",
   description:
     "Where to take a problem with Mereth, which failures you can fix yourself, and what the client's own error messages mean.",
-};
+});
 
 /**
  * Routing, not a form.

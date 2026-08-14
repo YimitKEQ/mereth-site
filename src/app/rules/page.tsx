@@ -5,16 +5,18 @@ import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
+import { pageMeta } from "@/lib/seo";
 import { inline } from "@/lib/markup";
 import { jarlPath, ruleSections } from "@/lib/world/rules";
 import { RULES_DOC_URL } from "@/lib/site";
 import { PlateFigure } from "@/components/ui/Plate";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
+  path: "/rules",
   title: "Rules",
   description:
     "Mereth's rules and regulations: character expectations, serious roleplay, initiation, robbery limits, perma-kills, and the Jarl whitelist.",
-};
+});
 
 /**
  * The rulebook as a readable index, with the codes kept.
