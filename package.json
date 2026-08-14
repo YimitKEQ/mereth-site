@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3100",
     "typecheck": "tsc --noEmit",
-    "export": "next build && node scripts/flatten-export.mjs",
+    "export": "node scripts/export.mjs",
     "deploy": "node scripts/deploy-pages.mjs",
-    "build:video": "node scripts/build-video.mjs"
+    "build:video": "node scripts/build-video.mjs",
+    "export:domain": "node scripts/export.mjs domain",
+    "export:pages": "node scripts/export.mjs pages",
+    "publish": "node scripts/publish-website.mjs"
   },
   "dependencies": {
     "next": "^16.3.0",

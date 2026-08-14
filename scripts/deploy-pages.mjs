@@ -69,6 +69,14 @@ if (!fs.existsSync(path.join(out, "index.html"))) {
   throw new Error("out/index.html is missing. The export did not produce a site.");
 }
 
+// Label what this build is for. `out/` is shared with the domain build and the
+// last one to run wins, so anything that later copies this directory somewhere
+// can tell whose build it is holding. Publishing a mirror build to the live
+// domain prefixes every asset with a sub-path that does not exist there, and
+// the site serves as unstyled text.
+fs.writeFileSync(path.join(out, ".build-target"), "pages
+");
+
 // Refuse to publish a build that still carries a dash. The export normalises
 // the data, but a page could always introduce one by hand.
 let dashes = 0;

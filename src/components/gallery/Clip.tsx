@@ -104,7 +104,15 @@ export function Clip({
   };
 
   return (
-    <figure className="relative">
+    /*
+     * Held to the width of the reading column rather than the container.
+     *
+     * At full width this sat at about 1340px, three times a gallery tile and wider
+     * than every line of text on the page, so the one moving thing was also the
+     * largest thing by a distance and read as a banner rather than as a piece of
+     * the page. The source is 1280 wide, so this also stops it being scaled up.
+     */
+    <figure className="relative max-w-3xl">
       <div
         ref={frame}
         className="plate-frame relative aspect-[16/9] w-full overflow-hidden bg-bg-stone"
