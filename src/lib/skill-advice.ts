@@ -132,4 +132,34 @@ export const PRESETS: Preset[] = [
     blurb: "Field herbalist. Gathers it, brews it, and sells the rest.",
     plan: { alchemy: 5, herbalism: 4, farming: 3, cooking: 2 },
   },
+  {
+    name: "Battlemage",
+    blurb: "Spell in one hand, sword in the other, plate over both.",
+    plan: { spellcasting: 4, destruction: 3, heavyarmour: 3, onehanded: 3, swords: 2, alteration: 2 },
+  },
+  {
+    name: "Priest",
+    blurb: "Restoration and the herb garden behind it. The hold's doctor.",
+    plan: { restoration: 4, spellcasting: 4, alchemy: 3, herbalism: 3, illusion: 2 },
+  },
+  {
+    name: "Assassin",
+    blurb: "One dagger, quiet feet, and nothing that rattles.",
+    plan: { sneaking: 5, daggers: 3, onehanded: 3, lightarmour: 2, pickpocketing: 2 },
+  },
+  {
+    name: "Jeweller",
+    blurb: "Gems, settings, and the ore to feed them.",
+    plan: { jewelcrafting: 5, smelting: 3, mining: 3, tailoring: 2, leatherworking: 2 },
+  },
+  {
+    name: "Farmer",
+    blurb: "Crops, hives and a kitchen that feeds a hall.",
+    plan: { farming: 5, cooking: 4, brewing: 3, beekeeping: 2 },
+  },
+  {
+    name: "Bard",
+    blurb: "Plays for the room, and knows the room's locks.",
+    plan: { musicianship: 5, sneaking: 3, lockpicking: 3, alchemy: 2, lightarmour: 2 },
+  },
 ];

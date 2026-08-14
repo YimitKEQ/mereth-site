@@ -255,10 +255,17 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
                 ))}
               </div>
 
+              {/*
+                Rows, not CSS columns. Columns were tried to close the dead space
+                under the short categories and made it worse: they fill greedily
+                top to bottom, so the fifth column came out nearly empty, the board
+                got narrower rather than wider, and reading order went vertical
+                against a design that is laid out in rows.
+              */}
               <div className="mt-5 flex flex-wrap items-start gap-x-9 gap-y-6">
                 {categories.map((category) => (
                   <section key={category.label}>
-                    <p className="font-display mb-2.5 border-b border-[#6f6a5e]/30 pb-1.5 text-[10px] tracking-[2.5px] text-[#9D9E9E]/70 uppercase">
+                    <p className="mb-3 text-[11px] tracking-[2px] text-[#cfc9ba]/80 uppercase">
                       {category.label}
                     </p>
                     <ul
@@ -283,26 +290,35 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
                               onBlur={() => setHovered(null)}
                               aria-pressed={assigned !== undefined}
                               aria-label={`${skill.name}${assigned === undefined ? "" : `, ${tiers[assigned - 1]?.name}`}`}
-                              className="flex flex-col items-center justify-start rounded-[6px] border-2 px-1.5 pt-3.5 pb-2 text-center transition-all duration-200 hover:brightness-125"
+                              /*
+                               * Their card is an icon with a state word under it and
+                               * the name at the foot, on a border so faint it is
+                               * almost absent until something is chosen. The first
+                               * pass put a hard border on all fifty-one and read as a
+                               * grid of boxes rather than as a board.
+                               */
+                              className="flex flex-col items-center justify-between rounded-[6px] border px-1.5 pt-3 pb-2.5 text-center transition-all duration-150 hover:brightness-[1.35]"
                               style={{
                                 width: CARD_W,
                                 height: CARD_H,
-                                borderColor: colour ?? "rgba(110,105,95,0.45)",
+                                borderWidth: assigned === undefined ? 1 : 2,
+                                borderColor: colour ?? "rgba(150,145,132,0.22)",
                                 background:
                                   assigned === undefined
-                                    ? "linear-gradient(180deg,rgba(30,30,30,0.8),rgba(13,13,13,0.8))"
-                                    : `linear-gradient(180deg, ${colour}24, rgba(13,13,13,0.9))`,
-                                color: colour ?? "rgb(157,158,158)",
-                                opacity: dimmed ? 0.3 : assigned === undefined ? 0.92 : 1,
-                                boxShadow:
-                                  colour === undefined ? undefined : `0 0 0 1px ${colour}5c`,
+                                    ? "rgba(18,19,20,0.55)"
+                                    : `linear-gradient(180deg, ${colour}1f, rgba(13,13,13,0.92))`,
+                                color: colour ?? "rgba(196,193,184,0.72)",
+                                opacity: dimmed ? 0.28 : 1,
                               }}
                             >
                               <SkillGlyph skill={key} />
-                              <span className="mt-2 text-[11px] leading-[1.2]">{skill.name}</span>
-                              <span className="font-display mt-auto text-[9px] tracking-[1.5px] uppercase">
-                                {assigned === undefined ? "" : tiers[assigned - 1]?.name}
+                              <span
+                                className="text-[9px] tracking-[1.2px] uppercase"
+                                style={{ opacity: assigned === undefined ? 0.5 : 0.95 }}
+                              >
+                                {assigned === undefined ? "Assign" : tiers[assigned - 1]?.name}
                               </span>
+                              <span className="text-[10.5px] leading-[1.15]">{skill.name}</span>
                             </button>
                           </li>
                         );

@@ -393,16 +393,27 @@ const FOR_SKILL: Record<string, GlyphName> = {
   musicianship: "lute",
 };
 
-export function SkillGlyph({ skill, size = 26 }: { skill: string; size?: number }) {
+/**
+ * Size and weight are the whole difference between this reading as an emblem and
+ * reading as a wireframe.
+ *
+ * Theirs are large solid silhouettes that fill most of the card. A thin outline at
+ * 26px next to that looks like a placeholder, which is exactly how the first pass
+ * came back. So these render large, and closed shapes carry a soft fill as well as
+ * the stroke: the fill gives them body, the stroke keeps the detail that a flat
+ * silhouette would lose at this size.
+ */
+export function SkillGlyph({ skill, size = 40 }: { skill: string; size?: number }) {
   const name = FOR_SKILL[skill];
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
+      fillOpacity={0.14}
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
