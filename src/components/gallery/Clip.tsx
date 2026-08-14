@@ -122,9 +122,21 @@ export function Clip({
      * the page. The source is 1280 wide, so this also stops it being scaled up.
      */
     <figure className={`relative max-w-3xl ${align === "center" ? "mx-auto" : ""}`}>
+      {/*
+        No `plate-frame` here, deliberately.
+
+        That class is what gives the stills their mounted look: a drop shadow and a
+        blurred backdrop, so each one reads as a plate hung on the page. On a still
+        it frames the composition. On a moving picture it draws a ring around the
+        one thing already holding the eye, and the shadow reads as an edge the
+        footage does not have. The clip sits flush instead.
+
+        The background stays. It is never seen once the poster paints, and it is what
+        stops a transparent hole if the poster is the thing that fails.
+      */}
       <div
         ref={frame}
-        className="plate-frame relative aspect-[16/9] w-full overflow-hidden bg-bg-stone"
+        className="relative aspect-[16/9] w-full overflow-hidden bg-bg-stone"
       >
         {/* Always painted, so the video only ever fades in over it. */}
         <img
