@@ -31,9 +31,20 @@ import type { Skill, SkillCategory, Tier } from "@/lib/mereth";
 
 const CARD_W = 100;
 const CARD_H = 118;
-/** Their canvas is 1720 and fits five category columns. At the width a page
-    actually has, five would scale the labels past reading, so this is four. */
-const DESIGN_W = 1400;
+/**
+ * Wide enough that five category columns genuinely fit.
+ *
+ * Their canvas is 1720, but that is the whole overlay: the board inside it is
+ * inset, and a column is three 100px cards plus two 8px gaps, so five columns and
+ * four 36px gutters need 1724 of clear space. At 1720 minus the 64 of padding,
+ * the fifth column wrapped and the board grew a whole row taller for nothing.
+ */
+const DESIGN_W = 1800;
+/** Left to the page's own gutter when the menu breaks out of its container. */
+const BLEED_PAD = 24;
+/** Room left for the sticky header and a little air, so the board can be sized
+    to the window rather than to the width alone. */
+const CHROME_H = 104;
 const COLS = 3;
 
 interface Props {
@@ -55,27 +66,59 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
   const board = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [height, setHeight] = useState<number | undefined>(undefined);
+  const [bleed, setBleed] = useState<{ width: number; marginLeft: number } | null>(null);
+  const [inset, setInset] = useState(0);
 
   useEffect(() => {
     const outer = wrap.current;
     const inner = board.current;
     if (outer === null || inner === null) return undefined;
+    const parent = outer.parentElement;
+
     /*
-     * A transform does not change layout, so the scaled board keeps its full
-     * unscaled height and leaves a hole beneath it. The wrapper is given the
-     * painted height instead. Both are observed: the width sets the scale, and
-     * the board's own height changes when it reflows into more rows.
+     * Sized to the window, not to the column, which is what theirs does and the
+     * only way the whole board is on screen at once.
+     *
+     * Two things happen here. The menu breaks out of the page container, because
+     * a 1720 canvas inside a 1344 column is scaled to 0.78 before anyone has
+     * looked at it. And the scale takes the window height into account as well as
+     * the width, so the answer is a board that fits rather than one that fits
+     * across and then runs off the bottom.
+     *
+     * The breakout is measured rather than done in `vw`: `100vw` includes the
+     * scrollbar, so a page with a vertical scrollbar gets a horizontal one too.
+     * `clientWidth` on the document element excludes it.
      */
     const measure = (): void => {
-      const next = Math.min(1, outer.clientWidth / DESIGN_W);
+      const docW = document.documentElement.clientWidth;
+      const left = parent === null ? 0 : parent.getBoundingClientRect().left;
+      const width = Math.max(320, docW - BLEED_PAD * 2);
+      setBleed({ width, marginLeft: BLEED_PAD - left });
+
+      /* A transform does not change layout, so the scaled board keeps its full
+         unscaled height and would leave a hole beneath it. The wrapper is given
+         the painted height instead. */
+      const natural = inner.offsetHeight;
+      const room = Math.max(420, window.innerHeight - CHROME_H);
+      const next = Math.min(1, width / DESIGN_W, natural === 0 ? 1 : room / natural);
       setScale(next);
-      setHeight(inner.offsetHeight * next);
+      setHeight(natural * next);
+
+      /* When the window is tall enough that height stops being the limit, the
+         board is narrower than the space it was given, so it is centred in it.
+         Without this it hugs the left edge and the whole screen looks lopsided. */
+      setInset(Math.max(0, (width - DESIGN_W * next) / 2));
     };
+
     measure();
     const observer = new ResizeObserver(measure);
-    observer.observe(outer);
     observer.observe(inner);
-    return () => observer.disconnect();
+    if (parent !== null) observer.observe(parent);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   const byKey = new Map(skills.map((s) => [s.key, s]));
@@ -98,15 +141,24 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
         instead. It is built for a narrow column and spends exactly the same eighteen points.
       </p>
 
-      <div ref={wrap} className="w-full overflow-hidden" style={{ height }}>
+      <div
+        ref={wrap}
+        className="overflow-hidden"
+        style={{ height, width: bleed?.width, marginLeft: bleed?.marginLeft }}
+      >
         <div
           ref={board}
-          style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: DESIGN_W }}
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            width: DESIGN_W,
+            marginLeft: inset,
+          }}
         >
           {/* Their frame is nine-sliced from image assets, so this is the same
               anatomy drawn: a lit outer edge, a header band, a recessed body and
               corner pieces heavy enough to read as metal rather than as a border. */}
-          <div className="relative border border-[#6f6a5e] bg-[#0d0e10] shadow-[0_0_0_1px_rgba(0,0,0,0.85),0_20px_70px_rgba(0,0,0,0.7)]">
+          <div className="relative border border-[#6f6a5e] bg-[#0d0e10] shadow-[0_0_0_1px_rgba(0,0,0,0.85)]">
             <Corner className="top-[-1px] left-[-1px]" />
             <Corner className="top-[-1px] right-[-1px] rotate-90" />
             <Corner className="right-[-1px] bottom-[-1px] rotate-180" />
@@ -150,9 +202,9 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
                         background: active
                           ? `linear-gradient(180deg, ${t.color}26, transparent)`
                           : "rgba(20,20,20,0.5)",
-                        boxShadow: active
-                          ? `0 0 0 1px ${t.color}66, 0 0 20px ${t.color}30`
-                          : undefined,
+                        /* A ring, not a glow. A blurred halo on a dark board
+                           reads as bloom rather than as selection. */
+                        boxShadow: active ? `0 0 0 1px ${t.color}66` : undefined,
                       }}
                     >
                       {t.name}
@@ -203,7 +255,7 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
                 ))}
               </div>
 
-              <div className="mt-5 flex flex-wrap items-start gap-x-9 gap-y-7">
+              <div className="mt-5 flex flex-wrap items-start gap-x-9 gap-y-6">
                 {categories.map((category) => (
                   <section key={category.label}>
                     <p className="font-display mb-2.5 border-b border-[#6f6a5e]/30 pb-1.5 text-[10px] tracking-[2.5px] text-[#9D9E9E]/70 uppercase">
@@ -243,9 +295,7 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
                                 color: colour ?? "rgb(157,158,158)",
                                 opacity: dimmed ? 0.3 : assigned === undefined ? 0.92 : 1,
                                 boxShadow:
-                                  colour === undefined
-                                    ? undefined
-                                    : `0 0 0 1px ${colour}5c, 0 0 18px ${colour}2b`,
+                                  colour === undefined ? undefined : `0 0 0 1px ${colour}5c`,
                               }}
                             >
                               <SkillGlyph skill={key} />
@@ -263,7 +313,7 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
               </div>
             </div>
 
-            <footer className="grid grid-cols-[minmax(0,1fr)_26rem] gap-9 border-t border-[#6f6a5e]/50 bg-black/40 px-8 py-5">
+            <footer className="grid grid-cols-[minmax(0,1fr)_26rem] gap-9 border-t border-[#6f6a5e]/50 bg-black/40 px-8 py-4">
               <div className="min-h-[92px]">
                 {shown === null ? (
                   <p className="text-[13px] text-[#9D9E9E]/55">
