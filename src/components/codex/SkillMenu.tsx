@@ -2,43 +2,38 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import type { Skill, SkillCategory, Tier } from "@/lib/mereth";
+import { SkillGlyph } from "@/components/codex/skillGlyphs";
 import { BUDGET, useSkillPlan } from "@/components/codex/useSkillPlan";
+import { ADVICE, PRESETS } from "@/lib/skill-advice";
+import type { Skill, SkillCategory, Tier } from "@/lib/mereth";
 
 /**
  * The planner, drawn as the menu you press K for.
  *
- * Rebuilt from the client's own `skillsMenu` feature, which is readable because
- * their UI shipped as a webpack development build. What is copied is the layout
- * and the measurements, both of which are facts about their design rather than
- * assets: cards are 100 by 118 at six pixel radius on a two pixel border, the
- * canvas is a fixed width scaled to fit rather than a fluid grid, and a planned
- * tier is shown as a coloured outline with a matching ring rather than as a fill.
- * The five tier colours are theirs exactly, and already ours: they are in the
- * exported bundle because both came from the same client.
+ * Rebuilt from the client's own `skillsMenu`, readable because their UI shipped
+ * as a webpack development build with the eval devtool left on. What is taken is
+ * layout and measurement, which are facts about their design rather than assets:
+ * a fixed canvas scaled to fit instead of a fluid grid, category columns three
+ * cards across, cards 100 by 118 at six pixel radius on a two pixel border, and a
+ * chosen tier shown as a coloured outline with a matching ring rather than a
+ * fill. The five tier colours are theirs, and were already ours: both came out of
+ * the same client.
  *
- * Three things are deliberately not copied.
+ * Nothing of theirs is copied as a file. The icons are drawn in `skillGlyphs`
+ * because theirs are Font Awesome Pro and licensed per seat. The frame is drawn
+ * in CSS because theirs is nine-sliced from Bethesda's UI textures. Their four
+ * sound effects are not reproduced at all.
  *
- *   The icons. Theirs are Font Awesome Pro, which is licensed per seat and
- *   cannot be redistributed on a public site. Their own perk gems already use a
- *   letter in a shape, so the cards use that motif instead. It is their design
- *   vocabulary and nobody's asset.
- *
- *   The sounds. Four wav files ship in that feature. They are Bethesda's.
- *
- *   The server half. In game this menu reads live state: experience, earned
- *   perks, whether you are standing in a temple, and a memory cost table the
- *   server sends. A website has none of that, so this plans and does not claim
- *   to be your character.
+ * What a website cannot have is the server half: live experience, earned perks,
+ * whether you are stood in a temple, and the memory cost table the server sends.
+ * So this plans, and says so, rather than pretending to be your character.
  */
 
 const CARD_W = 100;
 const CARD_H = 118;
-/** Their canvas, exactly: five category columns of three cards each, plus gaps.
-    Scaled down to whatever the page gives it, which is also what theirs does. */
-const DESIGN_W = 1720;
-/** Cards per category column. Theirs is three, which is what makes five
-    categories sit side by side rather than wrapping into a ragged block. */
+/** Their canvas is 1720 and fits five category columns. At the width a page
+    actually has, five would scale the labels past reading, so this is four. */
+const DESIGN_W = 1400;
 const COLS = 3;
 
 interface Props {
@@ -47,29 +42,8 @@ interface Props {
   tiers: (Tier & { cost: number })[];
 }
 
-/** Their own motif: the first letter, in a rotated square. */
-function Gem({ label, colour }: { label: string; colour: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="relative flex h-[26px] w-[26px] shrink-0 items-center justify-center"
-    >
-      <span
-        className="absolute inset-0 rotate-45 border"
-        style={{ borderColor: colour, background: `${colour}1f` }}
-      />
-      <span
-        className="font-display relative text-[11px] leading-none"
-        style={{ color: colour }}
-      >
-        {label}
-      </span>
-    </span>
-  );
-}
-
 export function SkillMenu({ skills, categories, tiers }: Props) {
-  const { plan, spent, remaining, set, clear, affordable, chosen, share } = useSkillPlan(
+  const { plan, remaining, set, clear, affordable, chosen, share, apply } = useSkillPlan(
     skills,
     tiers,
   );
@@ -77,13 +51,6 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
   const [hovered, setHovered] = useState<Skill | null>(null);
   const [copied, setCopied] = useState(false);
 
-  /*
-   * The canvas is a fixed width scaled down to whatever it is given, which is how
-   * theirs works and the reason the layout never reflows: a card is always the
-   * same shape and the whole board shrinks together. Measuring the wrapper rather
-   * than the window because the page has margins and a sidebar the window does
-   * not know about.
-   */
   const wrap = useRef<HTMLDivElement>(null);
   const board = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -93,13 +60,11 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
     const outer = wrap.current;
     const inner = board.current;
     if (outer === null || inner === null) return undefined;
-
     /*
      * A transform does not change layout, so the scaled board keeps its full
-     * unscaled height and leaves a hole under itself. The wrapper is given the
-     * real painted height instead. Both elements are observed: the width decides
-     * the scale, and the board's own height changes when it reflows into a
-     * different number of rows.
+     * unscaled height and leaves a hole beneath it. The wrapper is given the
+     * painted height instead. Both are observed: the width sets the scale, and
+     * the board's own height changes when it reflows into more rows.
      */
     const measure = (): void => {
       const next = Math.min(1, outer.clientWidth / DESIGN_W);
@@ -118,171 +83,259 @@ export function SkillMenu({ skills, categories, tiers }: Props) {
   const shown = hovered ?? chosen[0]?.skill ?? null;
   const shownTier = shown === null ? undefined : plan.get(shown.key);
 
+  /* Recomputed every render from the plan. Each note quotes the skill text it
+     came from, so nothing here is a rule this site invented. */
+  const notes = ADVICE.filter((rule) => rule.triggers(plan));
+
   return (
-    <div ref={wrap} className="w-full overflow-hidden" style={{ height }}>
-      <div
-        ref={board}
-        style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: DESIGN_W }}
-      >
-        {/* Header. Theirs carries the instruction and the memory count on one
-            line, which is worth keeping: it is the only place the rules appear. */}
-        <div className="flex items-end justify-between border-b border-[#5a5a5a]/50 pb-3">
-          <div>
-            <p className="font-display text-[11px] tracking-[3px] text-[#9D9E9E] uppercase">
-              Skills
-            </p>
-            <p className="mt-1 text-[13px] text-[#9D9E9E]/70">
-              Pick a tier, then click a skill to assign it. Click the same tier again to clear it.
-            </p>
-          </div>
-          <div className="flex items-baseline gap-2 text-right">
-            <span className="font-display text-[28px] tabular-nums text-[#e8e4d9]">
-              {remaining}
-            </span>
-            <span className="font-display text-[13px] tabular-nums text-[#9D9E9E]/70">
-              / {BUDGET} memory
-            </span>
-          </div>
-        </div>
+    <>
+      {/* It is a fixed canvas at real proportions, so on a phone it shrinks past
+          reading. Say that rather than let somebody pinch at it. */}
+      <p className="mb-6 border border-brand-accent/40 bg-black/35 px-5 py-4 text-[0.92rem] leading-relaxed text-text-light lg:hidden">
+        <strong className="font-semibold text-text-primary">This one wants a wide screen.</strong>{" "}
+        It is the in game menu at its real proportions, so on a phone every label shrinks past
+        reading. Use the <strong className="font-semibold text-text-primary">Planner</strong> tab
+        instead. It is built for a narrow column and spends exactly the same eighteen points.
+      </p>
 
-        {/* Tier picker. Their footer row, moved up: on a page the reader chooses
-            the tier before the skill, and a control below the board is missed. */}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          {tiers.map((t, index) => {
-            const value = index + 1;
-            const active = tier === value;
-            return (
-              <button
-                key={t.name}
-                type="button"
-                onClick={() => setTier(value)}
-                className="font-display border px-3 py-1.5 text-[11px] tracking-[1.5px] uppercase transition-colors"
-                style={{
-                  borderColor: active ? t.color : "rgba(70,70,70,0.8)",
-                  color: active ? t.color : "rgba(157,158,158,0.75)",
-                  background: active ? `${t.color}1a` : "rgba(20,20,20,0.6)",
-                  boxShadow: active ? `0 0 0 2px ${t.color}55` : undefined,
-                }}
-              >
-                {t.name}
-                <span className="ml-2 tabular-nums opacity-70">{t.cost}</span>
-              </button>
-            );
-          })}
+      <div ref={wrap} className="w-full overflow-hidden" style={{ height }}>
+        <div
+          ref={board}
+          style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: DESIGN_W }}
+        >
+          {/* Their frame is nine-sliced from image assets, so this is the same
+              anatomy drawn: a lit outer edge, a header band, a recessed body and
+              corner pieces heavy enough to read as metal rather than as a border. */}
+          <div className="relative border border-[#6f6a5e] bg-[#0d0e10] shadow-[0_0_0_1px_rgba(0,0,0,0.85),0_20px_70px_rgba(0,0,0,0.7)]">
+            <Corner className="top-[-1px] left-[-1px]" />
+            <Corner className="top-[-1px] right-[-1px] rotate-90" />
+            <Corner className="right-[-1px] bottom-[-1px] rotate-180" />
+            <Corner className="bottom-[-1px] left-[-1px] -rotate-90" />
 
-          <span className="ml-auto flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                void share().then((ok) => {
-                  setCopied(ok);
-                  if (ok) window.setTimeout(() => setCopied(false), 2400);
-                });
-              }}
-              disabled={plan.size === 0}
-              className="font-display border border-[#5a5a5a]/70 px-3 py-1.5 text-[11px] tracking-[1.5px] text-[#9D9E9E] uppercase transition-colors hover:border-[#9D9E9E] disabled:opacity-40"
-            >
-              {copied ? "Copied" : "Share"}
-            </button>
-            <button
-              type="button"
-              onClick={clear}
-              disabled={plan.size === 0}
-              className="font-display border border-[#5a5a5a]/70 px-3 py-1.5 text-[11px] tracking-[1.5px] text-[#9D9E9E] uppercase transition-colors hover:border-[#9D9E9E] disabled:opacity-40"
-            >
-              Clear
-            </button>
-          </span>
-        </div>
+            <header className="flex items-end justify-between border-b border-[#6f6a5e]/70 bg-[linear-gradient(180deg,#22241f,#141513)] px-8 py-4">
+              <div>
+                <p className="font-display text-[13px] tracking-[6px] text-[#cfc9ba] uppercase">
+                  Skills
+                </p>
+                <p className="mt-1.5 text-[12px] text-[#9D9E9E]/75">
+                  Choose a tier, then a skill. Clicking the tier it already holds gives the memory
+                  back.
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="font-display text-[10px] tracking-[3px] text-[#9D9E9E]/65 uppercase">
+                  Memory
+                </p>
+                <p className="font-display mt-1 text-[30px] leading-none tabular-nums">
+                  <span style={{ color: remaining === 0 ? "#E89555" : "#e8e4d9" }}>{remaining}</span>
+                  <span className="ml-1.5 text-[15px] text-[#9D9E9E]/65">/ {BUDGET}</span>
+                </p>
+              </div>
+            </header>
 
-        {/* The board. */}
-        <div className="mt-5 flex flex-wrap items-start gap-x-10 gap-y-8">
-          {categories.map((category) => (
-            <section key={category.label}>
-              <p className="font-display mb-2 text-[10px] tracking-[2.5px] text-[#9D9E9E]/60 uppercase">
-                {category.label}
-              </p>
-              <ul className="grid gap-2" style={{ gridTemplateColumns: `repeat(${COLS}, ${CARD_W}px)` }}>
-                {category.keys.map((key) => {
-                  const skill = byKey.get(key);
-                  if (skill === undefined) return null;
-                  const assigned = plan.get(key);
-                  const colour = assigned === undefined ? undefined : colourOf(assigned);
-                  const canAfford = affordable(key, tier);
-
+            <div className="px-8 pt-5 pb-6">
+              <div className="flex flex-wrap items-center gap-2">
+                {tiers.map((t, index) => {
+                  const value = index + 1;
+                  const active = tier === value;
                   return (
-                    <li key={key}>
-                      <button
-                        type="button"
-                        onClick={() => set(key, tier)}
-                        onMouseEnter={() => setHovered(skill)}
-                        onFocus={() => setHovered(skill)}
-                        onMouseLeave={() => setHovered(null)}
-                        onBlur={() => setHovered(null)}
-                        aria-pressed={assigned !== undefined}
-                        title={
-                          assigned === undefined && !canAfford
-                            ? `Not enough memory for ${tiers[tier - 1]?.name}`
-                            : skill.summary
-                        }
-                        className="flex flex-col items-center justify-start rounded-[6px] border-2 px-1 pt-3 pb-2 text-center transition-all duration-200"
-                        style={{
-                          width: CARD_W,
-                          height: CARD_H,
-                          borderColor: colour ?? "rgba(70,70,70,0.8)",
-                          background: assigned === undefined ? "rgba(20,20,20,0.6)" : "rgba(32,32,32,0.85)",
-                          color: colour ?? "rgb(157,158,158)",
-                          opacity: assigned === undefined && !canAfford ? 0.35 : assigned === undefined ? 0.85 : 1,
-                          boxShadow: colour === undefined ? undefined : `0 0 0 2px ${colour}80`,
-                        }}
-                      >
-                        <Gem
-                          label={skill.name.slice(0, 1).toUpperCase()}
-                          colour={colour ?? "rgba(157,158,158,0.8)"}
-                        />
-                        <span className="mt-2 text-[11px] leading-[1.25]">{skill.name}</span>
-                        {assigned === undefined ? null : (
-                          <span className="font-display mt-auto text-[9px] tracking-[1.5px] uppercase">
-                            {tiers[assigned - 1]?.name}
-                          </span>
-                        )}
-                      </button>
-                    </li>
+                    <button
+                      key={t.name}
+                      type="button"
+                      onClick={() => setTier(value)}
+                      className="font-display border px-3.5 py-2 text-[11px] tracking-[2px] uppercase transition-all duration-150"
+                      style={{
+                        borderColor: active ? t.color : "rgba(110,105,95,0.5)",
+                        color: active ? t.color : "rgba(157,158,158,0.8)",
+                        background: active
+                          ? `linear-gradient(180deg, ${t.color}26, transparent)`
+                          : "rgba(20,20,20,0.5)",
+                        boxShadow: active
+                          ? `0 0 0 1px ${t.color}66, 0 0 20px ${t.color}30`
+                          : undefined,
+                      }}
+                    >
+                      {t.name}
+                      <span className="ml-2 tabular-nums opacity-60">{t.cost}</span>
+                    </button>
                   );
                 })}
-              </ul>
-            </section>
-          ))}
-        </div>
 
-        {/* Their menu writes the hovered skill's tier prose into a panel. That
-            prose is the most useful thing in the whole feature and it is already
-            in our bundle, so it is here rather than in a tooltip that vanishes. */}
-        <div className="mt-6 min-h-[92px] border-t border-[#5a5a5a]/50 pt-4">
-          {shown === null ? (
-            <p className="text-[13px] text-[#9D9E9E]/60">
-              Hover a skill to read what its tiers actually unlock.
-            </p>
-          ) : (
-            <>
-              <p className="font-display text-[12px] tracking-[2px] text-[#e8e4d9] uppercase">
-                {shown.name}
-                {shownTier === undefined ? null : (
-                  <span className="ml-3" style={{ color: colourOf(shownTier) }}>
-                    {tiers[shownTier - 1]?.name}
-                  </span>
+                <span className="ml-auto flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void share().then((ok) => {
+                        setCopied(ok);
+                        if (ok) window.setTimeout(() => setCopied(false), 2400);
+                      });
+                    }}
+                    disabled={plan.size === 0}
+                    className="font-display border border-[#6f6a5e]/70 px-3.5 py-2 text-[11px] tracking-[2px] text-[#cfc9ba] uppercase transition-colors hover:border-[#cfc9ba] disabled:opacity-30"
+                  >
+                    {copied ? "Copied" : "Share"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={clear}
+                    disabled={plan.size === 0}
+                    className="font-display border border-[#6f6a5e]/70 px-3.5 py-2 text-[11px] tracking-[2px] text-[#cfc9ba] uppercase transition-colors hover:border-[#cfc9ba] disabled:opacity-30"
+                  >
+                    Clear
+                  </button>
+                </span>
+              </div>
+
+              <div className="mt-3.5 flex flex-wrap items-center gap-2 border-t border-[#6f6a5e]/25 pt-3.5">
+                <span className="font-display mr-1 text-[10px] tracking-[2.5px] text-[#9D9E9E]/55 uppercase">
+                  Start from
+                </span>
+                {PRESETS.map((preset) => (
+                  <button
+                    key={preset.name}
+                    type="button"
+                    onClick={() => apply(preset.plan)}
+                    title={`${preset.blurb} Spends all ${BUDGET}.`}
+                    className="border border-[#6f6a5e]/40 bg-black/30 px-3 py-1.5 text-[11px] text-[#9D9E9E] transition-colors hover:border-[#cfc9ba] hover:text-[#cfc9ba]"
+                  >
+                    {preset.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-5 flex flex-wrap items-start gap-x-9 gap-y-7">
+                {categories.map((category) => (
+                  <section key={category.label}>
+                    <p className="font-display mb-2.5 border-b border-[#6f6a5e]/30 pb-1.5 text-[10px] tracking-[2.5px] text-[#9D9E9E]/70 uppercase">
+                      {category.label}
+                    </p>
+                    <ul
+                      className="grid gap-2"
+                      style={{ gridTemplateColumns: `repeat(${COLS}, ${CARD_W}px)` }}
+                    >
+                      {category.keys.map((key) => {
+                        const skill = byKey.get(key);
+                        if (skill === undefined) return null;
+                        const assigned = plan.get(key);
+                        const colour = assigned === undefined ? undefined : colourOf(assigned);
+                        const dimmed = assigned === undefined && !affordable(key, tier);
+
+                        return (
+                          <li key={key}>
+                            <button
+                              type="button"
+                              onClick={() => set(key, tier)}
+                              onMouseEnter={() => setHovered(skill)}
+                              onFocus={() => setHovered(skill)}
+                              onMouseLeave={() => setHovered(null)}
+                              onBlur={() => setHovered(null)}
+                              aria-pressed={assigned !== undefined}
+                              aria-label={`${skill.name}${assigned === undefined ? "" : `, ${tiers[assigned - 1]?.name}`}`}
+                              className="flex flex-col items-center justify-start rounded-[6px] border-2 px-1.5 pt-3.5 pb-2 text-center transition-all duration-200 hover:brightness-125"
+                              style={{
+                                width: CARD_W,
+                                height: CARD_H,
+                                borderColor: colour ?? "rgba(110,105,95,0.45)",
+                                background:
+                                  assigned === undefined
+                                    ? "linear-gradient(180deg,rgba(30,30,30,0.8),rgba(13,13,13,0.8))"
+                                    : `linear-gradient(180deg, ${colour}24, rgba(13,13,13,0.9))`,
+                                color: colour ?? "rgb(157,158,158)",
+                                opacity: dimmed ? 0.3 : assigned === undefined ? 0.92 : 1,
+                                boxShadow:
+                                  colour === undefined
+                                    ? undefined
+                                    : `0 0 0 1px ${colour}5c, 0 0 18px ${colour}2b`,
+                              }}
+                            >
+                              <SkillGlyph skill={key} />
+                              <span className="mt-2 text-[11px] leading-[1.2]">{skill.name}</span>
+                              <span className="font-display mt-auto text-[9px] tracking-[1.5px] uppercase">
+                                {assigned === undefined ? "" : tiers[assigned - 1]?.name}
+                              </span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </section>
+                ))}
+              </div>
+            </div>
+
+            <footer className="grid grid-cols-[minmax(0,1fr)_26rem] gap-9 border-t border-[#6f6a5e]/50 bg-black/40 px-8 py-5">
+              <div className="min-h-[92px]">
+                {shown === null ? (
+                  <p className="text-[13px] text-[#9D9E9E]/55">
+                    Point at a skill to read what its tiers actually unlock. The text is Mereth's
+                    own, one paragraph per tier.
+                  </p>
+                ) : (
+                  <>
+                    <p className="font-display text-[12px] tracking-[2.5px] text-[#e8e4d9] uppercase">
+                      {shown.name}
+                      {shownTier === undefined ? null : (
+                        <span className="ml-3" style={{ color: colourOf(shownTier) }}>
+                          {tiers[shownTier - 1]?.name}
+                        </span>
+                      )}
+                    </p>
+                    <p className="mt-2 max-w-[76ch] text-[13px] leading-[1.75] text-[#9D9E9E]">
+                      {shownTier === undefined
+                        ? shown.summary
+                        : (shown.tiers[shownTier - 1] ?? shown.summary)}
+                    </p>
+                  </>
                 )}
-              </p>
-              <p className="mt-1.5 max-w-[80ch] text-[13px] leading-[1.7] text-[#9D9E9E]">
-                {shownTier === undefined
-                  ? shown.summary
-                  : (shown.tiers[shownTier - 1] ?? shown.summary)}
-              </p>
-            </>
-          )}
+              </div>
+
+              <div>
+                <p className="font-display text-[10px] tracking-[2.5px] text-[#9D9E9E]/55 uppercase">
+                  Notes on this plan
+                </p>
+                {notes.length === 0 ? (
+                  <p className="mt-2.5 text-[12.5px] leading-relaxed text-[#9D9E9E]/55">
+                    {plan.size === 0
+                      ? "Nothing chosen yet."
+                      : remaining > 0
+                        ? `Nothing to flag. ${remaining} memory still unspent.`
+                        : "Nothing to flag, and every point is spent."}
+                  </p>
+                ) : (
+                  <ul className="mt-2.5 space-y-2.5">
+                    {notes.map((note) => (
+                      <li key={note.id} className="border-l-2 border-[#E89555]/70 pl-3">
+                        <p className="text-[12.5px] leading-[1.45] text-[#e8e4d9]">{note.title}</p>
+                        <p className="mt-0.5 text-[11.5px] leading-[1.5] text-[#9D9E9E]/80">
+                          {note.detail}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </footer>
+          </div>
         </div>
       </div>
+    </>
+  );
+}
 
-    </div>
+/** A corner piece. Theirs is 64px of art; this is the same weight, drawn. */
+function Corner({ className }: { className: string }) {
+  return (
+    <svg
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      fill="none"
+      aria-hidden="true"
+      className={`pointer-events-none absolute z-10 ${className}`}
+    >
+      <path d="M0 11V0h11" stroke="#b9ad93" strokeWidth="2" />
+      <path d="M4.5 15V4.5H15" stroke="#b9ad93" strokeWidth="1" opacity="0.55" />
+      <path d="M0 17v5M17 0h5" stroke="#b9ad93" strokeWidth="2" opacity="0.3" />
+    </svg>
   );
 }

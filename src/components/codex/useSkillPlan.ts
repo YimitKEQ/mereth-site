@@ -77,6 +77,8 @@ export interface SkillPlan {
   affordable: (key: string, tier: number) => boolean;
   chosen: { skill: Skill; tier: number }[];
   share: () => Promise<boolean>;
+  /** Replace the plan wholesale, budgeted the same way a pasted link is. */
+  apply: (next: Record<string, number>) => void;
 }
 
 export function useSkillPlan(
@@ -154,6 +156,31 @@ export function useSkillPlan(
     window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
+  /**
+   * Replace the plan wholesale, for the presets.
+   *
+   * Budgeted the same way a pasted link is, and for the same reason: a preset is
+   * data in a file, and a file can be edited into a build the game would refuse.
+   * Entries are taken in order only while the eighteen holds, so the worst a bad
+   * preset can do is arrive short rather than arrive impossible.
+   */
+  const apply = useCallback(
+    (next: Record<string, number>) => {
+      const valid = new Set(skills.map((s) => s.key));
+      const built = new Map<string, number>();
+      let spentHere = 0;
+      for (const [key, t] of Object.entries(next)) {
+        if (!valid.has(key) || !Number.isInteger(t) || t < 1 || t > 5) continue;
+        const cost = tiers[t - 1]?.cost ?? Number.POSITIVE_INFINITY;
+        if (spentHere + cost > BUDGET) continue;
+        spentHere += cost;
+        built.set(key, t);
+      }
+      setPlan(built);
+    },
+    [skills, tiers],
+  );
+
   const affordable = useCallback(
     (key: string, tier: number): boolean => {
       const current = plan.get(key);
@@ -184,5 +211,5 @@ export function useSkillPlan(
     }
   }, [plan]);
 
-  return { plan, spent, remaining, set, clear, affordable, chosen, share };
+  return { plan, spent, remaining, set, clear, affordable, chosen, share, apply };
 }
