@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { Clip } from "@/components/gallery/Clip";
 import { Gallery } from "@/components/gallery/Lightbox";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
@@ -82,6 +83,18 @@ export default function GalleryPage() {
           </ButtonLink>
         </div>
       </header>
+
+      <OrnateDivider className="my-12" />
+
+      {/* The one moving piece, above the stills rather than in the grid with them.
+          A tile that animates inside a grid of photographs pulls the eye off every
+          other tile permanently, and the grid is the point of the page. Given its
+          own band it reads as the opening shot instead of as a distraction. */}
+      <Clip
+        slug="the-long-walk"
+        title="The long walk"
+        caption="Most of the province is between places. There is no fast travel here, so the road is somewhere you actually spend your evening, and the weather gets a say in it."
+      />
 
       <OrnateDivider className="my-12" />
 

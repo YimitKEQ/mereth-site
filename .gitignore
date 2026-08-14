@@ -28,6 +28,15 @@ src/fonts/
 
 # Their background plate is 24 MB of video. Local only, never in history.
 public/art/*.mp4
+
+# Raw captures. The screenshots in MerethPics are small enough to keep, and are
+# the source the image build reads. Video out of the game is not: one 28 second
+# clip arrives at 74 MB, and git keeps every version of it forever. The encoded
+# result is what ships, and `scripts/build-video.mjs` is the recipe for making it
+# again from a file kept outside this repository.
+MerethPics/*.mp4
+MerethPics/*.mov
+MerethPics/*.gif
 .gstack/
 
 # The source legal documents. The site renders them; the authoritative copies

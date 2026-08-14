@@ -8,7 +8,8 @@
     "start": "next start -H 0.0.0.0 -p 3100",
     "typecheck": "tsc --noEmit",
     "export": "next build && node scripts/flatten-export.mjs",
-    "deploy": "node scripts/deploy-pages.mjs"
+    "deploy": "node scripts/deploy-pages.mjs",
+    "build:video": "node scripts/build-video.mjs"
   },
   "dependencies": {
     "next": "^16.3.0",
