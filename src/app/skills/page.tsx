@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { SkillList } from "@/components/codex/SkillList";
+import { SkillMenu } from "@/components/codex/SkillMenu";
 import { SkillPlanner } from "@/components/codex/SkillPlanner";
 import { Tabs } from "@/components/codex/Tabs";
 import { PlateImage } from "@/components/ui/Plate";
@@ -47,9 +48,21 @@ export default function SkillsPage() {
       <Tabs
         tabs={[
           {
+            id: "menu",
+            label: "Skill menu",
+            hint: "The way it looks in game",
+            content: (
+              <SkillMenu
+                skills={mereth.skills}
+                categories={mereth.categories}
+                tiers={buyableTiers}
+              />
+            ),
+          },
+          {
             id: "planner",
             label: "Planner",
-            hint: "Spend the eighteen",
+            hint: "The same plan, as a list",
             content: (
               <SkillPlanner
                 skills={mereth.skills}
