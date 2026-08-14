@@ -76,6 +76,7 @@ export const realmMenu: readonly NavLink[] = [
   { label: "Lore", href: "/lore", hint: "The province, in its own documents" },
   { label: "Rules", href: "/rules", hint: "The rulebook, with its codes" },
   { label: "Roadmap", href: "/roadmap", hint: "What is built and what is next" },
+  { label: "Latest Q&A", href: "/qa", hint: "The team on where things are heading" },
   { label: "Changelog", href: "/changelog", hint: "Every patch note, searchable" },
   { label: "Gallery", href: "/gallery", hint: "Screenshots from the province" },
 ];

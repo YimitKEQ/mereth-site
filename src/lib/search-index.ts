@@ -1,4 +1,5 @@
 import { faqSections } from "@/lib/handbook/faq";
+import { qaSections } from "@/lib/handbook/qa";
 import { guide } from "@/lib/handbook/guide";
 import { progression } from "@/lib/handbook/progression";
 import { survival } from "@/lib/handbook/survival";
@@ -81,6 +82,20 @@ export function buildSearchIndex(): SearchEntry[] {
         kind: "answer",
         href: `/faq#${section.id}`,
         sub: section.title,
+      });
+    }
+  }
+
+  // The Q&A answers a different kind of question from the FAQ, so its entries say
+  // so: a search for "fishing" should not put an intention and a rule side by side
+  // looking identical.
+  for (const section of qaSections) {
+    for (const item of section.items) {
+      entries.push({
+        label: item.q,
+        kind: "answer",
+        href: `/qa#${section.id}`,
+        sub: "Latest Q&A, " + section.title,
       });
     }
   }
