@@ -27,11 +27,20 @@ export function Clip({
   title,
   caption,
   credit,
+  align = "left",
 }: {
   slug: string;
   title: string;
   caption: string;
   credit?: string;
+  /**
+   * Where the clip sits in its container.
+   *
+   * Left by default, because inside a chapter it is one block among paragraphs
+   * and has to share their left edge or the text appears to step around it.
+   * Centred is for a page that gives it a band of its own.
+   */
+  align?: "left" | "center";
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const frame = useRef<HTMLDivElement>(null);
@@ -112,7 +121,7 @@ export function Clip({
      * largest thing by a distance and read as a banner rather than as a piece of
      * the page. The source is 1280 wide, so this also stops it being scaled up.
      */
-    <figure className="relative max-w-3xl">
+    <figure className={`relative max-w-3xl ${align === "center" ? "mx-auto" : ""}`}>
       <div
         ref={frame}
         className="plate-frame relative aspect-[16/9] w-full overflow-hidden bg-bg-stone"

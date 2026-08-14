@@ -92,6 +92,7 @@ export default function GalleryPage() {
           own band it reads as the opening shot instead of as a distraction. */}
       <Clip
         slug="the-long-walk"
+        align="center"
         title="The long walk"
         caption="Most of the province is between places. There is no fast travel here, so the road is somewhere you actually spend your evening, and the weather gets a say in it."
       />
