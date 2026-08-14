@@ -274,6 +274,27 @@ const PLATES = [
     caption:
       "The paint, the scars and the build are somebody's decisions. You meet people here at speaking distance, so a character is a face long before it is a list of skills.",
   },
+  {
+    file: "The_Mothers_Embrace.png",
+    slug: "at-the-altar",
+    title: "At the altar",
+    caption:
+      "Candles, an offering and nobody else in the room. Faith here is something a character keeps, not a menu they open.",
+  },
+  {
+    file: "The_Mothers_Embrace_1.png",
+    slug: "under-the-statue",
+    title: "Under the statue",
+    caption:
+      "The cities are lived in rather than passed through. Somebody put this here, and somebody still sweeps the snow off the step.",
+  },
+  {
+    file: "Behold_1.png",
+    slug: "the-empty-throne",
+    title: "The empty throne",
+    caption:
+      "A seat under the banners of the hold, and the decision about whether to walk up to it. Every one of the nine is held by a player.",
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

@@ -415,6 +415,39 @@ export const plates: Record<string, Plate> = {
     blurDataURL:
       "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAABQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQC06C0H2jDIAAD+73ppJKQ937xni7hjqcO243kuJC22NZWD1E4RkkpUJx8F42DiX0eCjtcAAA==",
   },
+  "at-the-altar": {
+    slug: "at-the-altar",
+    title: "At the altar",
+    caption: "Candles, an offering and nobody else in the room. Faith here is something a character keeps, not a menu they open.",
+    src: asset("/img/at-the-altar.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1012,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAACQBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JQBOmUI7gBVSB+C+6iQBZtXIr5gAA/vD6MbQhi/aX3aNEnmG7jGZo1zi8J3tBUYQJ+fu/25iPwQ0gDP51oqKXYwAZTiGdWj8D8gOL6zrp2wAA",
+  },
+  "under-the-statue": {
+    slug: "under-the-statue",
+    title: "Under the statue",
+    caption: "The cities are lived in rather than passed through. Somebody put this here, and somebody still sweeps the snow off the step.",
+    src: asset("/img/under-the-statue.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1012,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZAC7ACLq/IGFEd6lPhyAAP5+MLk9k5HT0N76otv9e376U3FVmAkfUeffKZRwMHcAvKBuh/RrxpR6CTgz+XJo4PrINMRIQdFsw+1rZCZSCAOny6LssAAA",
+  },
+  "the-empty-throne": {
+    slug: "the-empty-throne",
+    title: "The empty throne",
+    caption: "A seat under the banners of the hold, and the decision about whether to walk up to it. Every one of the nine is held by a player.",
+    src: asset("/img/the-empty-throne.webp"),
+    widths: [640, 1024],
+    width: 1800,
+    height: 1012,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQC7ACFN5LjYzvhPMarz0sAA/uvjVTG2yI/YBHQS75cbRXhsueqMMTFibgEYl6a59dUSPalYQpub60AhCDCBKTcAAA==",
+  },
 };
 
 /** Throws rather than rendering a broken image, so a typo fails at build. */
