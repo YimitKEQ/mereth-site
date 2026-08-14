@@ -41,6 +41,16 @@ const CLIPS = [
         on its own, since it is what anyone with reduced motion is left with. */
     posterAt: 24,
   },
+  {
+    // Source is a gif rather than a capture, so it is already 800 wide and has
+    // been through one lossy pass. Re-encoding it larger would invent detail that
+    // is not there, and a low crf would spend bytes preserving gif dither.
+    file: "ezgif-65bd1641b93b51a7.gif",
+    slug: "the-interaction",
+    width: 800,
+    crf: 30,
+    posterAt: 0,
+  },
 ];
 
 function run(args) {

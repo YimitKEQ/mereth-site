@@ -24,7 +24,13 @@ export type Block =
   /** Release notes matching a pattern, rendered as dated citations. */
   | { kind: "cite"; pattern: RegExp; limit?: number }
   /** A rendered dataset that would be unreadable as a literal table. */
-  | { kind: "data"; name: DataBlock };
+  | { kind: "data"; name: DataBlock }
+  /**
+   * A short looping clip, for the handful of things a sentence describes badly.
+   * An interaction prompt is one of them: the reader needs to see where it
+   * appears and what it offers, not be told that it exists.
+   */
+  | { kind: "clip"; slug: string; title: string; caption: string };
 
 export type DataBlock =
   | "binds"

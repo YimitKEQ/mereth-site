@@ -81,6 +81,13 @@ export const guide: HandbookPage = {
         },
         { kind: "data", name: "binds" },
         {
+          kind: "clip",
+          slug: "the-interaction",
+          title: "What it looks like",
+          caption:
+            "Aim at somebody and the prompt appears under them, with their title above it and only the keys that apply. Nobody is called by name here until they have been introduced.",
+        },
+        {
           kind: "prose",
           paragraphs: [
             `Beyond those: \`K\` opens your skills, \`F3\` re-aims the look target when a menu loses

@@ -1,3 +1,4 @@
+import { Clip } from "@/components/gallery/Clip";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import type { Block, DataBlock } from "@/lib/handbook/blocks";
 import { inline } from "@/lib/markup";
@@ -233,6 +234,15 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
             return <Note key={i} tone={block.tone} title={block.title} body={block.body} />;
           case "quote":
             return <Quote key={i} text={block.text} />;
+          case "clip":
+            return (
+              <Clip
+                key={i}
+                slug={block.slug}
+                title={block.title}
+                caption={block.caption}
+              />
+            );
           case "cite":
             return <Citations key={i} pattern={block.pattern} limit={block.limit ?? 3} />;
           case "table":
