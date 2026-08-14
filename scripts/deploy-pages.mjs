@@ -74,8 +74,7 @@ if (!fs.existsSync(path.join(out, "index.html"))) {
 // can tell whose build it is holding. Publishing a mirror build to the live
 // domain prefixes every asset with a sub-path that does not exist there, and
 // the site serves as unstyled text.
-fs.writeFileSync(path.join(out, ".build-target"), "pages
-");
+fs.writeFileSync(path.join(out, ".build-target"), "pages" + "\n");
 
 // Refuse to publish a build that still carries a dash. The export normalises
 // the data, but a page could always introduce one by hand.
