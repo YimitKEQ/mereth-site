@@ -1,0 +1,38 @@
+# Response headers, for Cloudflare Pages.
+#
+# The site was serving only `x-content-type-options` and `referrer-policy`, both
+# of which Cloudflare adds. Everything below is missing otherwise, and three of
+# them are things a security scanner reports and a careful player checks before
+# running a launcher they downloaded from a Discord.
+#
+# This file has to end up at the root of what Pages serves, which is the
+# `website/` folder in the team repository. It lives in `public/` so the export
+# copies it there and it cannot be forgotten on a deploy.
+#
+# Not a Content-Security-Policy. Next injects inline scripts with per-build
+# nonces that a static file cannot know, so a real policy here would either
+# break the site or be `unsafe-inline`, which is a policy in name only. Worth
+# doing properly later through Pages Functions.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-DNS-Prefetch-Control: on
+
+# Content-hashed, so the filename changes whenever the bytes do. A year is safe
+# and it is the single biggest repeat-visit win available on a static host.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Same reasoning: these are built with a content hash in the name.
+/_next/image/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Read live by the browser on the front page. A stale copy here would show a
+# player count from whenever the edge last cached it.
+/servers.json
+  Cache-Control: public, max-age=60, must-revalidate
