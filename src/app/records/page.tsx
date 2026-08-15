@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CodexHeader } from "@/components/codex/CodexHeader";
+import { LiveModlistFacts, LiveModlistLists } from "@/components/codex/LiveModlist";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { pageMeta } from "@/lib/seo";
 import { counts, mereth } from "@/lib/mereth";
@@ -39,12 +40,13 @@ export default function ModlistPage() {
         lede={`Everything the launcher installs, in the order it installs it. **You do not need to
           install any of this by hand:** the launcher reads the live manifest and does the whole
           thing for you. For what changed and when, see the [changelog](/changelog).`}
-        facts={[
-          { label: "Mods", value: String(counts.mods) },
-          { label: "Plugins", value: String(counts.plugins) },
-          { label: "Files checked", value: counts.checkedFiles.toLocaleString("en-GB") },
-        ]}
-      />
+      >
+        <LiveModlistFacts
+          mods={mereth.mods}
+          plugins={mereth.plugins}
+          checkedFiles={counts.checkedFiles}
+        />
+      </CodexHeader>
 
       <LauncherDownload className="mb-9 max-w-3xl" />
 
@@ -67,67 +69,7 @@ export default function ModlistPage() {
         </p>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-2">
-        <section className="min-w-0">
-          <h2 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-            Mods the launcher installs
-          </h2>
-          <p className="mb-5 text-[0.85rem] leading-relaxed text-text-muted">
-            Every one is somebody else&apos;s work. Endorse the authors: their mods are what makes
-            the province look the way it does, and{" "}
-            <Link
-              href="/credits"
-              className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 hover:decoration-brand-glow"
-            >
-              credits
-            </Link>{" "}
-            lists them by name.
-          </p>
-          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
-            {mereth.mods.map((mod) => (
-              <li
-                key={`${mod.modId}:${mod.name}`}
-                className="break-inside-avoid py-1 text-[0.85rem] break-words text-text-light"
-              >
-                {mod.modId === null ? (
-                  mod.name
-                ) : (
-                  <a
-                    href={`https://www.nexusmods.com/skyrimspecialedition/mods/${mod.modId}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="transition-colors hover:text-brand-accent"
-                  >
-                    {mod.name}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="min-w-0">
-          <h2 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
-            Load order
-          </h2>
-          <p className="mb-5 text-[0.85rem] leading-relaxed text-text-muted">
-            The exact order the server expects, top to bottom.
-          </p>
-          <ol className="columns-1 gap-x-8 sm:columns-2 lg:columns-1 xl:columns-2">
-            {mereth.plugins.map((plugin, index) => (
-              <li
-                key={plugin}
-                className="flex break-inside-avoid gap-3 py-1 font-mono text-[0.78rem] text-text-light"
-              >
-                <span className="w-6 shrink-0 text-right tabular-nums text-text-muted">
-                  {index + 1}
-                </span>
-                <span className="min-w-0 truncate">{plugin}</span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      </div>
+      <LiveModlistLists mods={mereth.mods} plugins={mereth.plugins} />
     </div>
   );
 }
