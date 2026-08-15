@@ -41,6 +41,7 @@ const KIND_LABEL: Record<EntryKind, string> = {
   recipe: "Recipe",
   profession: "Profession",
   rule: "Rule",
+  phrase: "Say instead",
   place: "Hold",
   faction: "Faction",
 };
@@ -53,6 +54,9 @@ const KIND_WEIGHT: Record<EntryKind, number> = {
   skill: 4,
   place: 4,
   faction: 4,
+  // Somebody typing "respawn" or "level" is usually about to say it out loud,
+  // so the phrase that replaces it is the most useful row on the screen.
+  phrase: 4,
   rule: 3,
   profession: 3,
   recipe: 2,

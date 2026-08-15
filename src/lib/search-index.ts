@@ -9,6 +9,7 @@ import { mereth } from "@/lib/mereth";
 import { allNavLinks } from "@/lib/site";
 import { factions } from "@/lib/world/factions";
 import { holds } from "@/lib/world/holds";
+import { swapGroups } from "@/lib/world/language";
 import { ruleSections } from "@/lib/world/rules";
 import { loreDocuments } from "@/lib/world/lore";
 
@@ -41,6 +42,7 @@ export type EntryKind =
   | "recipe"
   | "profession"
   | "rule"
+  | "phrase"
   | "place"
   | "faction";
 
@@ -167,6 +169,22 @@ export function buildSearchIndex(): SearchEntry[] {
         href: hashHref("/crafting", "benches", { bench: bench.name, q: recipe.result }),
         sub: `Made at the ${bench.name.toLowerCase()}`,
         terms: recipe.items.map((i) => i.name).join(" "),
+      });
+    }
+  }
+
+  // The phrase somebody is about to say out of character is exactly what they
+  // would type into the palette, so the swaps are indexed on the out-of-character
+  // side. Searching "respawn", "level" or "grind" lands on the line that says
+  // what to say instead.
+  for (const group of swapGroups) {
+    for (const swap of group.swaps) {
+      entries.push({
+        label: swap.ooc,
+        kind: "phrase",
+        href: `/language#${group.id}`,
+        sub: `Say instead: ${swap.ic}`,
+        terms: `${swap.ooc} ${swap.ic} ${swap.why ?? ""}`,
       });
     }
   }
