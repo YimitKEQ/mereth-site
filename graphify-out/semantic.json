@@ -45,17 +45,6 @@
       "contributor": null
     },
     {
-      "id": "claude",
-      "label": "CLAUDE.md (project root, imports AGENTS.md)",
-      "file_type": "document",
-      "source_file": "CLAUDE.md",
-      "source_location": "1",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null
-    },
-    {
       "id": "lore_greymanes",
       "label": "Letter from Yjorn Greymane, Custodian of the Skyforge",
       "file_type": "document",
@@ -1704,19 +1693,141 @@
       "captured_at": null,
       "author": null,
       "contributor": null
+    },
+    {
+      "id": "claude",
+      "label": "CLAUDE.md (project root: imports AGENTS.md, documents the site's knowledge graph)",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "1-39",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_graph_json",
+      "label": "graphify-out/graph.json — site knowledge graph (TS symbols + imports/calls, DESIGN.md/PRODUCT.md rationale, route registry, Lore/ PDF lore)",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "5-7",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_graphify_cli",
+      "label": "graphify CLI — `query` and `explain` commands (use first: a query costs a few hundred tokens vs. tens of thousands reading files, and reading files usually misses a caller)",
+      "file_type": "code",
+      "source_file": "CLAUDE.md",
+      "source_location": "9-16",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_wiki_index",
+      "label": "graphify-out/wiki/index.md — the graph rendered as prose, one article per cluster",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "18",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_merged_graph",
+      "label": "Merged cross-project graph at D:/MerethRP — spans this site and the devkit together; query it from the parent workspace, not from here",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "20-24",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_data_dependency_bridge",
+      "label": "Data dependency bridge: scripts/export-mereth-data.mjs reads ../devkit/data/*.json, written by the devkit's wiki generators",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "21-23",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_graph_rebuild",
+      "label": "Graph rebuild commands: `build-graph.py website` (this site only) / `build-graph.py all` (both projects plus the merged graph)",
+      "file_type": "code",
+      "source_file": "CLAUDE.md",
+      "source_location": "26-31",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_post_commit_hook",
+      "label": "post-commit hook — auto-rebuilds the graph as an alternative to running build-graph.py by hand",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "26",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_screenshot_exclusion",
+      "label": "158 screenshots under MerethPics/ and public/img/ are excluded from the graph on purpose — each would cost a vision call and yield a low-value node like 'a screenshot of a tavern'",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "33-34",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_lore_pdf_retention",
+      "label": "Lore/ PDFs are kept in the graph, unlike the screenshots — their content is real in-world canon",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "34-35",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_semantic_json",
+      "label": "graphify-out/semantic.json — committed prose-concept extraction; an edited doc prints `changed: <file>` on rebuild and stays stale until re-extracted, while code stays current automatically",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "35-38",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "claude_graphify_skill",
+      "label": "/graphify skill — re-extracts a document's concepts after it changes",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "source_location": "37",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
     }
   ],
   "edges": [
-    {
-      "source": "claude",
-      "target": "agents",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "CLAUDE.md",
-      "source_location": "1",
-      "weight": 1.0
-    },
     {
       "source": "agents",
       "target": "agents_nextjs_agent_rules",
@@ -3696,6 +3807,236 @@
       "source_file": "Lore/Letters of a Shield Brother in Times of Turmoil.pdf",
       "source_location": null,
       "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "agents",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "1",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "3-7",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_json",
+      "target": "design",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "6",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_json",
+      "target": "product",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "6",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_json",
+      "target": "claude_lore_pdf_retention",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "7",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_graphify_cli",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "9-16",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graphify_cli",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "13-16",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_wiki_index",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "18",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_wiki_index",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "18",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_merged_graph",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "20-24",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_merged_graph",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "20-21",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_merged_graph",
+      "target": "claude_data_dependency_bridge",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "21-23",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_data_dependency_bridge",
+      "target": "readme_export_mereth_data_script",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "21-23",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_graph_rebuild",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "26-31",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_rebuild",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "29",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_rebuild",
+      "target": "claude_merged_graph",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "30",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_graph_rebuild",
+      "target": "claude_post_commit_hook",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "26",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_screenshot_exclusion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "33-34",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_screenshot_exclusion",
+      "target": "claude_graph_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "33",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_lore_pdf_retention",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "34-35",
+      "weight": 1.0
+    },
+    {
+      "source": "claude",
+      "target": "claude_semantic_json",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "35-38",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_semantic_json",
+      "target": "claude_graphify_skill",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "37",
+      "weight": 1.0
+    },
+    {
+      "source": "claude_semantic_json",
+      "target": "claude_graph_json",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "CLAUDE.md",
+      "source_location": "35-38",
+      "weight": 1.0
     }
   ],
   "hyperedges": [
@@ -3784,6 +4125,21 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "Lore/The Legion in Skyrim.pdf"
+    },
+    {
+      "id": "claude_knowledge_graph_system",
+      "label": "Site Knowledge Graph Documentation System",
+      "nodes": [
+        "claude_graph_json",
+        "claude_graphify_cli",
+        "claude_wiki_index",
+        "claude_semantic_json",
+        "claude_graph_rebuild"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md"
     }
   ]
 }
