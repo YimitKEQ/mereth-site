@@ -4,6 +4,7 @@ import Link from "next/link";
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { Hero } from "@/components/home/Hero";
 import { Misconceptions } from "@/components/home/Misconceptions";
+import { TikTokStrip } from "@/components/home/TikTokStrip";
 import { Trailer } from "@/components/home/Trailer";
 import { UnderConstruction } from "@/components/home/UnderConstruction";
 import { OrnateLabelDivider } from "@/components/ornament/Divider";
@@ -187,6 +188,10 @@ export default function HomePage() {
           </Link>
         </p>
       </section>
+
+      {/* Release notes say what changed. This says what it looks like. The two
+          belong next to each other, and the pictures move. */}
+      <TikTokStrip />
 
       <section className="mx-auto max-w-[84rem] px-6 pt-24 md:px-8 md:pt-28">
         <OrnateLabelDivider>Frequently asked</OrnateLabelDivider>
