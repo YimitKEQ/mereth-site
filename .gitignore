@@ -42,3 +42,10 @@ MerethPics/*.gif
 # The source legal documents. The site renders them; the authoritative copies
 # live in the launcher and Discord.
 *.docx
+
+# Knowledge graph. Rebuilt by `npm run graph` in the parent mod workspace. Only
+# semantic.json is kept: it holds the concepts extracted from the docs and the Lore
+# PDFs by an LLM, which is the one part that costs tokens to reproduce.
+graphify-out/*
+!graphify-out/semantic.json
+!graphify-out/semantic-sources.json
