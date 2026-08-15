@@ -98,7 +98,7 @@ export const swapGroups: SwapGroup[] = [
     id: "machine",
     title: "The game underneath",
     blurb:
-      "Servers, patches, mods, framerate and respawns do not exist in the Fourth Era. Most of this belongs in Discord. The rest has a perfectly good in-world version, because Skyrim already has words for being hurt, being lost, and going home.",
+      "None of the machinery exists in the Fourth Era. Most of it should never be said in a scene at all, and the rest has a perfectly good in-world version, because Skyrim already has words for being hurt, being lost, and going home.",
     swaps: [
       {
         ooc: "I died and respawned at the temple.",
@@ -124,7 +124,7 @@ export const swapGroups: SwapGroup[] = [
       },
       {
         ooc: "Is this scripted?",
-        ic: "Nothing. If you truly need to know, that is a Discord question.",
+        ic: "Nothing. Play it as though it is real, because to your character it is.",
       },
       {
         ooc: "Brb, AFK.",
@@ -234,14 +234,14 @@ export const whenSomebodyElseBreaks = {
   lead:
     "Somebody else dropping out of character does not put you out of character. Their break is theirs. If you answer it in kind, there are now two people out of the scene instead of one, and everybody else present is watching the fiction come apart.",
   steps: [
-    "Stay in character. In most cases the scene survives one stray sentence if nobody else picks it up.",
-    "If you can, absorb it in character. A confused look, a change of subject, or simply carrying on is usually enough, and it teaches by example better than a correction would.",
+    "Stay in character. Most scenes survive one stray sentence as long as nobody else picks it up.",
     "Do not correct them in the scene. A rules lecture in character is itself out-of-character talk, and it does more damage than the thing it is correcting.",
-    "If it needs saying, say it afterwards and say it kindly, in a direct message. Most people doing this are new and are trying.",
-    "If it keeps happening or it is deliberate, remove yourself from the scene quickly but methodically and open a ticket. That is what B.1 asks for, and a ticket stays out of character per B.2.",
+    "Do not take it on yourself to teach them. You are not staff, the scene is not a lesson, and trying to run one usually costs the room more than the original slip did.",
+    "If it is spoiling the scene, leave. Remove yourself quickly but methodically, which is exactly what B.1 asks for, and give your character a reason to walk that the room can believe.",
+    "Then report it. That is the route that actually fixes anything, because staff can see the same person across every scene they have been in and you can only see this one.",
   ],
   closing:
-    "Pulling somebody aside in character to teach them is generous and it works, but it is not required of you and it is not the fix for a player who is not trying. The rules exist so that nobody has to police a scene themselves.",
+    "Walking away and reporting it is the whole of it. You are not responsible for policing a scene and you are not expected to repair another player in the middle of one. The rules exist precisely so that nobody has to.",
 };
 
 /** A short self-check. Not a rule, and it does not pretend to be one. */
