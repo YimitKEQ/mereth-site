@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
+import { TikTokPlayer } from "@/components/home/TikTokPlayer";
 import { OrnateLabelDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
@@ -92,7 +93,7 @@ function Cell({ children }: { children?: ReactNode }) {
   );
 }
 
-function Card({ video }: { video: TikTokVideo }) {
+function Card({ video, onPlay }: { video: TikTokVideo; onPlay: () => void }) {
   const caption = readable(video.caption);
 
   /*
@@ -107,7 +108,25 @@ function Card({ video }: { video: TikTokVideo }) {
   const [fit, setFit] = useState<Fit>("contain");
 
   return (
-    <a href={video.url} target="_blank" rel="noopener noreferrer" className="group flex flex-col">
+    /*
+      Still a real link to the post, and still opened as one by a middle click,
+      a ctrl-click or a reader with no JavaScript. The overlay is layered on top
+      of that rather than replacing it: making the card a <button> would have
+      cost the copyable address and the open-in-new-tab that people expect from
+      a picture of a video.
+    */
+    <a
+      href={video.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (event.button !== 0) return;
+        event.preventDefault();
+        onPlay();
+      }}
+      className="group flex flex-col"
+    >
       <Cell>
         {/*
           The cover again, enlarged and blurred, filling whatever the fitted
@@ -176,7 +195,7 @@ function Card({ video }: { video: TikTokVideo }) {
         </p>
       )}
       <span className="mt-2 text-[0.78rem] text-brand-accent/70 transition-colors group-hover:text-brand-glow">
-        Watch on TikTok <span aria-hidden="true">&rarr;</span>
+        Watch it here <span aria-hidden="true">&rarr;</span>
       </span>
     </a>
   );
@@ -186,6 +205,8 @@ export function TikTokStrip() {
   const anchor = useRef<HTMLElement | null>(null);
   const [phase, setPhase] = useState<Phase>("waiting");
   const [videos, setVideos] = useState<TikTokVideo[]>([]);
+  /** Which clip the overlay is playing, or null when it is shut. */
+  const [playing, setPlaying] = useState<number | null>(null);
 
   /*
    * The request waits until the row is nearly in view.
@@ -261,10 +282,10 @@ export function TikTokStrip() {
       ) : (
         <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           {phase === "ready"
-            ? videos.map((video) => <Card key={video.id} video={video} />)
-            : Array.from({ length: VISIBLE }, (unused, index) => (
-                <Cell key={index} />
-              ))}
+            ? videos.map((video, index) => (
+                <Card key={video.id} video={video} onPlay={() => setPlaying(index)} />
+              ))
+            : Array.from({ length: VISIBLE }, (unused, index) => <Cell key={index} />)}
         </div>
       )}
 
@@ -273,6 +294,13 @@ export function TikTokStrip() {
           Follow @merethrp
         </ButtonLink>
       </p>
+
+      <TikTokPlayer
+        videos={videos}
+        index={playing}
+        onClose={() => setPlaying(null)}
+        onMove={setPlaying}
+      />
     </section>
   );
 }
