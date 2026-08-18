@@ -125,9 +125,11 @@ export const holds: Hold[] = [
           the law they were held to a month ago. What the court cannot do is speak for the hold:
           until somebody is raised to the seat, no writ, grant or parcel carries a Jarl's authority
           behind it.`,
-        `The seat will be filled the way every seat in Skyrim is filled, by moot and by application,
-          and **not by whoever reaches the throne first**. Taking a hold by force bypasses the Moot,
-          and an Usurper is retaken and executed. Watch Discord for the whitelist posting.`,
+        `The next Jarl of Falkreath will be chosen the way Skyrim has always chosen one, in play. The
+          court convenes a Moot, its thanes and court members select from among their own ranks, and
+          **the vote must be unanimous**: no shortcut, no majority rule, no tiebreaker. There is
+          nothing to apply for and nobody to apply to. Taking the hold by force instead bypasses the
+          Moot, and an Usurper is retaken and executed.`,
       ],
       proclamation: {
         title: "A Proclamation from Jarl Kellanved Ultor of Falkreath",

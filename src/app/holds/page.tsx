@@ -171,8 +171,8 @@ export default function HoldsPage() {
           <p className="mb-6 max-w-[68ch] text-[0.95rem] leading-relaxed text-text-muted">
             Every other seat in Skyrim is held. These courts simply have no write-up here yet, which
             is a gap in this page rather than a gap in the province. None of them is a throne you
-            can walk into: seizing a hold bypasses the Moot, and an Usurper is retaken and executed.
-            Watch Discord for whitelist openings.
+            can walk into: a seat changes hands at a Moot and nowhere else, and seizing one makes
+            you an Usurper, which ends with the hold retaken and your character executed.
           </p>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {awaiting.map((hold) => (

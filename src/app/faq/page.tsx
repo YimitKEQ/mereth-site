@@ -87,7 +87,7 @@ export default function FaqPage() {
         </h1>
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
           {faqCount} answers about playing on Mereth: what the skill system actually does, why your
-          sword hits like it does, how magic is taught, what a Jarl whitelist asks for, and
+          sword hits like it does, how magic is taught, how a hold chooses its next Jarl, and
           every reason the game refuses to connect. Where an answer depends on something that
           changed, the release note that changed it is shown underneath.
         </p>

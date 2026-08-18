@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
   path: "/rules",
   title: "Rules",
   description:
-    "Mereth's rules and regulations: character expectations, serious roleplay, initiation, robbery limits, perma-kills, and the Jarl whitelist.",
+    "Mereth's rules and regulations: character expectations, serious roleplay, initiation, robbery limits, perma-kills, and how a hold chooses its Jarl.",
 });
 
 /**
@@ -123,27 +123,25 @@ export default function RulesPage() {
             content: (
               <>
                 <p className="mb-6 text-[0.98rem] leading-[1.8] text-text-muted">
-              The most demanding position on the server, and a whitelist rather than a rule. The
-              application is posted in Discord.
+              The most demanding position on the server, and there is nothing to apply for. Every
+              seat is settled in play: a court convenes a Moot and chooses from among its own, and
+              the only way to be in that conversation is to already be somebody in that hold.
             </p>
 
+            {/* The point the old copy got backwards. A throne here is granted by
+                the characters who already sit in that court, so the way in is
+                roleplay, not a form. */}
             <div className="relative mb-8 border border-brand-accent/40 bg-black/35 px-6 py-5">
               <FrameCorners weight="thin" size={16} />
               <p className="font-display relative mb-3 text-[10px] tracking-[2px] text-brand-accent uppercase">
-                What the whitelist asks for
+                Where the throne comes from
               </p>
-              <ul className="relative space-y-2">
-                {jarlPath.requirements.map((item) => (
-                  <li
-                    key={item}
-                    className="relative pl-5 text-[0.95rem] leading-relaxed text-text-light before:absolute before:top-[0.7em] before:left-0 before:h-1 before:w-1 before:bg-brand-accent"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="relative mt-4 text-[0.9rem] leading-relaxed text-text-muted">
-                The role demands depth, dedication, and a voice you can actually hold a court with.
+              <p className="relative text-[0.95rem] leading-[1.8] text-text-light">
+                Your own court, and nobody else. Not staff, not a ticket, not seniority, and not
+                whoever is standing closest when the seat empties. The bar has not moved either:
+                the role still wants depth, dedication and a voice you can actually hold a court
+                with. It is simply a hold full of people who judge that now, in character, rather
+                than a form.
               </p>
             </div>
 

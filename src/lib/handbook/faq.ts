@@ -350,9 +350,12 @@ export const faqSections: FaqSection[] = [
     items: [
       {
         q: "How do I become a Jarl?",
-        a: `You must pass the whitelist posted in our Discord. It asks for a minimum of **ten pages
-          of written submission**, **no AI usage of any kind**, and **a voice interview with staff**.
-          The role demands depth, dedication, and a voice you can actually hold a court with.`,
+        a: `**In character, or not at all.** There is no application and no form: every seat is
+          held, and one changes hands only at a Moot, where the court's own thanes and members
+          choose from among their own ranks. So the route is the long one. Pledge to a hold, earn a
+          place in its court, and be somebody those people would agree on. The role still demands
+          depth, dedication and a voice you can hold a court with; it is simply judged by the hold
+          rather than by staff.`,
       },
       {
         q: "Can I become a Jarl as a non-Nord?",

@@ -196,13 +196,17 @@ export const ruleSections: RuleSection[] = [
   },
 ];
 
-/** The Jarl whitelist, which is its own process rather than a rule. */
+/**
+ * How a hold gets its Jarl, which is its own process rather than a rule.
+ *
+ * There was an out-of-character application once, and it is gone. It existed to
+ * seat the first nine courts before the province had any, and every seat it was
+ * for has been filled. A seat changes hands in play now, at a Moot, so a page
+ * that still pointed a reader at a Discord form would be sending them to a door
+ * that no longer opens and, worse, teaching them that the throne is a staff
+ * decision rather than something their character's peers grant them.
+ */
 export const jarlPath = {
-  requirements: [
-    "A minimum of ten pages of written submission.",
-    "No AI usage of any kind.",
-    "A voice interview with staff.",
-  ],
   facts: [
     {
       q: "Can I become a Jarl as a non-Nord?",
