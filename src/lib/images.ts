@@ -209,7 +209,7 @@ export const plates: Record<string, Plate> = {
   "a-jarl": {
     slug: "a-jarl",
     title: "A jarl in his own hall",
-    caption: "Every seat in Skyrim is held. Jarl is the most demanding whitelist on the server, and the seat can be lost as well as won.",
+    caption: "A jarl is a player, not a scripted NPC. It is the most demanding whitelist on the server, and the seat can be lost as well as won.",
     src: asset("/img/a-jarl.webp"),
     widths: [640, 1024],
     width: 1800,
@@ -440,7 +440,7 @@ export const plates: Record<string, Plate> = {
   "the-empty-throne": {
     slug: "the-empty-throne",
     title: "The empty throne",
-    caption: "A seat under the banners of the hold, and the decision about whether to walk up to it. Every one of the nine is held by a player.",
+    caption: "A seat under the banners of the hold, and the decision about whether to walk up to it. An empty one is filled by moot and by application, never by whoever reaches it first.",
     src: asset("/img/the-empty-throne.webp"),
     widths: [640, 1024],
     width: 1800,

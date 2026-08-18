@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { PlateFigure, PlateImage } from "@/components/ui/Plate";
+import { Proclamation } from "@/components/world/Proclamation";
 import { pageMeta } from "@/lib/seo";
 import { plate } from "@/lib/images";
 import { inline } from "@/lib/markup";
@@ -18,16 +19,18 @@ export const metadata: Metadata = pageMeta({
 /**
  * The nine holds.
  *
- * Four seats have no published jarl. They are shown as vacant rather than
- * Every seat is held. Five courts have no published name yet and say so, which
- * is a different fact from a vacant throne and the more important one: a player
- * choosing where to belong must not build a character around taking a seat that
- * is already somebody else's. An invented jarl is the fastest way to break
- * another player's roleplay, so names are only ever transcribed.
+ * Three groups, and the page exists to keep them apart. A court that is held
+ * but undescribed is not a vacant throne, and the difference is the more
+ * important fact of the two: a player choosing where to belong must not build a
+ * character around taking a seat that is already somebody else's. So the one
+ * seat that genuinely is empty gets said out loud, in its own section, with the
+ * departing jarl's own proclamation under it, and every other seat says plainly
+ * that somebody sits in it. Names are only ever transcribed, never inferred.
  */
 export default function HoldsPage() {
   const written = holds.filter((hold) => hold.jarl !== null);
-  const awaiting = holds.filter((hold) => hold.jarl === null);
+  const vacant = holds.filter((hold) => hold.vacancy !== undefined);
+  const awaiting = holds.filter((hold) => hold.jarl === null && hold.vacancy === undefined);
 
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
@@ -39,7 +42,8 @@ export default function HoldsPage() {
           so the same act can be fine in Winterhold and a crime in Markarth.`}
         facts={[
           { label: "Holds", value: String(holds.length) },
-          { label: "Seats held", value: String(holds.length) },
+          { label: "Seats held", value: String(holds.length - vacant.length) },
+          { label: "Seats vacant", value: String(vacant.length) },
           { label: "Courts written up", value: String(written.length) },
         ]}
       />
@@ -92,8 +96,72 @@ export default function HoldsPage() {
         ))}
       </div>
 
+      {/* The one seat that is actually empty. It gets a section of its own
+          rather than a line in the list below, because "vacant" and "held but
+          undescribed" are the two facts this page most needs to keep apart, and
+          the court published a document about it that is worth reproducing
+          whole. */}
+      {vacant.map((hold) => (
+        <section
+          key={hold.name}
+          id={hold.seat.toLowerCase()}
+          className="mt-16 scroll-mt-24"
+        >
+          <h2 className="font-display text-[0.95rem] tracking-heading text-brand-accent uppercase">
+            The seat of {hold.seat}
+          </h2>
+
+          <div className="mt-5 grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+            <div>
+              {/* A stamp, not a button. Brass belongs to things you can click,
+                  so a status this important has to earn its weight from the
+                  rule around it rather than from the warm colour. */}
+              <p className="font-display inline-block border border-brand-accent/40 px-2.5 py-1 text-[10px] tracking-[2.5px] text-brand-accent uppercase">
+                Vacant since {hold.vacancy?.since}
+              </p>
+              <p className="mt-3 max-w-[62ch] text-[1rem] leading-[1.8] text-text-primary">
+                {hold.vacancy?.summary}
+              </p>
+
+              <div className="mt-4 max-w-[62ch] space-y-3.5">
+                {hold.vacancy?.interim.map((paragraph, i) => (
+                  <p key={i} className="text-[0.92rem] leading-[1.8] text-text-light">
+                    {inline(paragraph)}
+                  </p>
+                ))}
+              </div>
+
+              {/* The history stays on the page. He held it for ten years, and
+                  deleting the write-up the day he leaves would make the hold
+                  read as though nobody ever sat there. */}
+              <div className="mt-7 border-l border-brand-accent/25 pl-5">
+                <p className="font-display text-[10px] tracking-[2px] text-text-muted uppercase">
+                  Last held by
+                </p>
+                <p className="mt-1.5 text-[1rem] text-text-primary">{hold.vacancy?.lastHeld}</p>
+                <div className="mt-3 space-y-3.5">
+                  {[...hold.jarlStory, ...hold.holdStory].map((paragraph, i) => (
+                    <p key={i} className="text-[0.9rem] leading-[1.8] text-text-muted">
+                      {inline(paragraph)}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <PlateFigure slug="the-empty-throne" sizes="(max-width: 1024px) 100vw, 34rem" />
+          </div>
+
+          {hold.vacancy === undefined ? null : (
+            <div className="mt-12">
+              <Proclamation document={hold.vacancy.proclamation} />
+            </div>
+          )}
+        </section>
+      ))}
+
       {awaiting.length > 0 ? (
-        <section className="mt-12">
+        <section className="mt-16">
           <h2 className="font-display mb-4 text-[0.95rem] tracking-heading text-brand-accent uppercase">
             Held, and not yet written up
           </h2>
@@ -101,9 +169,9 @@ export default function HoldsPage() {
               thrones: somebody holds each one, and building a character around
               taking a vacant seat here would be building on a mistake. */}
           <p className="mb-6 max-w-[68ch] text-[0.95rem] leading-relaxed text-text-muted">
-            Every seat in Skyrim is held. These courts simply have no write-up here yet, which is a
-            gap in this page rather than a gap in the province. None of them is a throne you can
-            walk into: seizing a hold bypasses the Moot, and an Usurper is retaken and executed.
+            Every other seat in Skyrim is held. These courts simply have no write-up here yet, which
+            is a gap in this page rather than a gap in the province. None of them is a throne you
+            can walk into: seizing a hold bypasses the Moot, and an Usurper is retaken and executed.
             Watch Discord for whitelist openings.
           </p>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

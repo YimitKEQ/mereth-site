@@ -206,7 +206,12 @@ export function buildSearchIndex(): SearchEntry[] {
       label: hold.name,
       kind: "place",
       href: "/holds",
-      sub: hold.jarl === null ? `Seat of ${hold.seat}` : `${hold.seat}, ${hold.jarl}`,
+      sub:
+        hold.vacancy !== undefined
+          ? `${hold.seat}, seat vacant`
+          : hold.jarl === null
+            ? `Seat of ${hold.seat}`
+            : `${hold.seat}, ${hold.jarl}`,
       terms: hold.seat,
     });
   }
