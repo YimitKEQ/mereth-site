@@ -12,18 +12,35 @@
  * evidence the thing exists and is maintained, not a claim about the exact
  * release it first appeared in.
  *
- * Two notes for whoever edits this next:
+ * Three notes for whoever edits this next:
  *
  * 1. This is the plan. The [changelog](/changelog) is what actually shipped,
  *    and where the two disagree the changelog wins and this list is what needs
  *    updating. Re-run that comparison whenever the roadmap is touched.
  * 2. Keep the wording plain. A roadmap that reads as marketing stops being
  *    useful to the people who check it every week.
+ * 3. Rule 1 has one exception, and it has already been exercised: the team can
+ *    move an item back out of Completed. "A medical system and a downed state"
+ *    was cited here as shipped in 0.68.15, and the team says it is not a
+ *    separate system at all, it is the Combat Survival work below and that has
+ *    not started. The only supporting release note was ever a bandage crash fix,
+ *    which is thin evidence for a whole system, so the citation was reading more
+ *    into the changelog than the changelog said. **Do not restore it from the
+ *    release notes.** They know what they built.
  */
 
 export type Stage = "done" | "building" | "planned" | "later";
 
 export interface RoadmapItem {
+  /**
+   * The team's own name for a piece of work, when it has one.
+   *
+   * Most entries are a plain description and need none. A few are named
+   * initiatives that get talked about by name in Discord ("Road to 1k"), and
+   * dropping the name to fit the house sentence style would leave a reader
+   * unable to connect the roadmap to the conversation they just read.
+   */
+  name?: string;
   text: string;
   /** Set when a release note shows the item has landed. */
   shipped?: { version: string; date: string };
@@ -74,10 +91,6 @@ export const roadmap: RoadmapStage[] = [
         shipped: { version: "0.68.24", date: "2026-08-11" },
       },
       {
-        text: "A medical system and a downed state",
-        shipped: { version: "0.68.15", date: "2026-08-10" },
-      },
-      {
         text: "A pinboard system",
         shipped: { version: "0.68.15", date: "2026-08-10" },
       },
@@ -113,39 +126,63 @@ export const roadmap: RoadmapStage[] = [
         text: "A bard system that speeds up recovery while in an inn",
         shipped: { version: "0.68.0", date: "2026-08-05" },
       },
+      {
+        name: "Holdstone system",
+        text: "Rank, permissions and profession bonuses, granted through a hold's own stone",
+        shipped: { version: "0.68.8", date: "2026-08-08" },
+      },
     ],
   },
   {
     id: "building",
     title: "In progress",
     blurb: "Being worked on now.",
-    items: plain(
-      "Durability for weapons and armour, almost complete, final touches and debugging",
-      "Global NPC sync for enemies, critters and wild animals, almost complete",
-      "Custom spells in the Creation Kit",
-      "Reworked loot tables in the Creation Kit",
-      "Nexus API integration so the launcher can use collections",
-      "Magic system syncing and damage balancing",
-    ),
+    items: [
+      ...plain(
+        "Durability for weapons and armour, almost complete, final touches and debugging",
+        "Global NPC sync for enemies, critters and wild animals, almost complete",
+        "Custom spells in the Creation Kit",
+        "Reworked loot tables in the Creation Kit",
+        "Nexus API integration so the launcher can use collections",
+        "Magic system syncing and damage balancing",
+        "Expanding holdstones to support factions and houses",
+      ),
+      {
+        name: "Supernatural system",
+        text: "Vampirism in two types, Cyrodiilic and Pure Blooded, and lycanthropy alongside it",
+      },
+    ],
   },
   {
     id: "planned",
     title: "To do",
     blurb: "Committed to, not started or not finished.",
-    items: plain(
-      "Raven and pigeon mail for in-character correspondence",
-      "A craftable key system for doors at different tiers of strength",
-      "Fort and camp claiming, where bandits do not respawn while you maintain the site with materials",
-      "A custom book system",
-    ),
+    items: [
+      ...plain(
+        "Raven and pigeon mail for in-character correspondence",
+        "A craftable key system for doors at different tiers of strength",
+        "Fort and camp claiming, where bandits do not respawn while you maintain the site with materials",
+        "A custom book system",
+      ),
+      {
+        name: "Combat Survival",
+        text: "Debuffs that follow the damage that caused them: slashing opens a bleed, blunt force breaks bones, and splints and bandages are how you mend them",
+      },
+      {
+        name: "Road to 1k",
+        text: "Stability work, optimising the server to hold its full player limit",
+      },
+    ],
   },
   {
     id: "later",
     title: "Future updates",
     blurb: "Wanted, but not scheduled.",
-    items: plain(
-      "A vampire system with two types, Cyrodiilic and Pure Blooded",
-      "A werewolf system",
-    ),
+    items: [
+      {
+        name: "World Server Cluster",
+        text: "Expanded lands, carried across more than one world server",
+      },
+    ],
   },
 ];

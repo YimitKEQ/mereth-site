@@ -70,7 +70,12 @@ export default function RoadmapPage() {
 
       <OrnateDivider className="my-12" />
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {/* `items-start`, so each column is as tall as its own contents. The
+          stages are wildly uneven (twenty three shipped against one wanted) and
+          a stretched grid turns the short column into a mostly empty rectangle,
+          which reads as a panel that failed to load rather than as a short
+          list. */}
+      <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-4">
         {roadmap.map((stage) => (
           <section key={stage.id} className="relative border border-brand-accent/25 bg-black/30 p-6">
             <FrameCorners weight="thin" size={16} />
@@ -98,6 +103,12 @@ export default function RoadmapPage() {
                     className="absolute top-[0.65em] left-0 h-1 w-1"
                     style={{ background: ACCENT[stage.id] }}
                   />
+                  {/* A named initiative leads with its name, because that is what
+                      it gets called in Discord and a reader has to be able to
+                      join the two up. Unnamed items stay a plain sentence. */}
+                  {item.name === undefined ? null : (
+                    <span className="text-text-primary">{item.name}. </span>
+                  )}
                   {item.text}
                   {/* Evidence, for anything the release notes moved here. */}
                   {item.shipped === undefined ? null : (
