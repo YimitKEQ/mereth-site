@@ -18,6 +18,13 @@
  * title or a Discord role**. None of it is power. That is the line the donate
  * page makes explicitly, and adding anything to this list that crosses it would
  * make the page a lie.
+ *
+ * Titles last re-read from Patreon on 2026-08-20, when four of the six changed.
+ * Read them from `/cw/merethroleplay/membership`, not from the campaign home
+ * page: the home page shows only the cheapest price and no tier list at all.
+ * Patreon's own wording is "Custom Title Prefix", so these sit in front of a
+ * character's name rather than replacing it, and the page says prefix for that
+ * reason.
  */
 
 export interface Tier {
@@ -28,17 +35,29 @@ export interface Tier {
   /** The tier price as Patreon defines it, in US dollars. */
   usd: number;
   slots: number;
-  /** The in-game title the tier grants. */
-  title: string;
+  /**
+   * The title prefix the tier grants.
+   *
+   * A list, because the top tier grants a choice of two rather than one title,
+   * and flattening that to a single string would either hide the choice or
+   * invent a slash that reads as part of the title itself.
+   */
+  titles: string[];
 }
 
 export const tiers: Tier[] = [
-  { name: "Hero I", rank: "Novice", usd: 5, slots: 1, title: "Wayfarer" },
-  { name: "Hero II", rank: "Apprentice", usd: 10, slots: 2, title: "Oathbound" },
-  { name: "Hero III", rank: "Adept", usd: 15, slots: 3, title: "Mereth's Chosen" },
-  { name: "Hero IV", rank: "Expert", usd: 25, slots: 4, title: "Dawn Patron" },
-  { name: "Hero V", rank: "Master", usd: 40, slots: 5, title: "Starforged" },
-  { name: "Hero VI", rank: "Legendary", usd: 60, slots: 6, title: "Mereth Eternal" },
+  { name: "Hero I", rank: "Novice", usd: 5, slots: 1, titles: ["Wayfarer"] },
+  { name: "Hero II", rank: "Apprentice", usd: 10, slots: 2, titles: ["Patron"] },
+  { name: "Hero III", rank: "Adept", usd: 15, slots: 3, titles: ["Chosen"] },
+  { name: "Hero IV", rank: "Expert", usd: 25, slots: 4, titles: ["Dawnmarked"] },
+  { name: "Hero V", rank: "Master", usd: 40, slots: 5, titles: ["Starforged"] },
+  {
+    name: "Hero VI",
+    rank: "Legendary",
+    usd: 60,
+    slots: 6,
+    titles: ["Oathbound", "Oathbreaker"],
+  },
 ];
 
 

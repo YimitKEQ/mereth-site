@@ -64,8 +64,8 @@ export default function DonatePage() {
             Patronage buys no advantage in play.
           </strong>{" "}
           Not a skill, not a memory point, not a tier, not a whitelisted role, and not a different
-          answer in a ticket. Every benefit below is a character slot, a title or a Discord role.
-          The moment any of it becomes power, the professions stop meaning anything.
+          answer in a ticket. Every benefit below is a character slot, a title prefix or a Discord
+          role. The moment any of it becomes power, the professions stop meaning anything.
         </p>
       </div>
 
@@ -123,8 +123,19 @@ export default function DonatePage() {
                 </li>
                 <li className="flex gap-2.5 text-[0.88rem] leading-relaxed text-text-light">
                   {bullet}
+                  {/* A prefix, which is Patreon's own word for it: it sits in
+                      front of the character's name rather than replacing it.
+                      The top tier grants a choice of two, so the list is joined
+                      with "or" rather than printed as a slash, which would read
+                      as part of the title. */}
                   <span>
-                    The title <span className="text-text-primary">{tier.title}</span>
+                    The title prefix{" "}
+                    {tier.titles.map((title, i) => (
+                      <span key={title}>
+                        {i === 0 ? null : " or "}
+                        <span className="text-text-primary">{title}</span>
+                      </span>
+                    ))}
                   </span>
                 </li>
                 <li className="flex gap-2.5 text-[0.88rem] leading-relaxed text-text-light">

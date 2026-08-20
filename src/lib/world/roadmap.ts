@@ -163,6 +163,7 @@ export const roadmap: RoadmapStage[] = [
         "A craftable key system for doors at different tiers of strength",
         "Fort and camp claiming, where bandits do not respawn while you maintain the site with materials",
         "A custom book system",
+        "An Oblivion style attribute and levelling system",
       ),
       {
         name: "Combat Survival",
