@@ -13,6 +13,32 @@
  *
  * Several skills share a glyph, exactly as they do upstream: an axe is an axe
  * whether it is being swung at a tree or a person.
+ *
+ * ---
+ *
+ * **Audited against the client's own mapping on 2026-08-20**, after the team
+ * asked whether the site could use the server's icons directly. It cannot: the
+ * client imports `@fortawesome/pro-solid-svg-icons`, and Pro is licensed per
+ * seat and not redistributable from a public repository. So the question that
+ * actually matters is whether these agree with the client's *choices*, and the
+ * comparison is worth writing down rather than repeating.
+ *
+ * The client's table is `devkit/data/ui-source/src/features/skillsMenu/
+ * skillIcons.ts`, dumped 2026-08-09. Forty of the fifty one agree. The eleven
+ * that differ split into two groups, and only the first is a real difference:
+ *
+ * 1. **Deliberately more specific here.** Font Awesome has no mace, no
+ *    crossbow and no distinct greatsword, so the client falls back to a gavel,
+ *    a crosshair and a second copy of the sword. It also spends one
+ *    `hand-back-fist` on unarmed, one-handed *and* block, and one
+ *    `wand-magic-sparkles` on both spellcasting and enchanting. These are drawn
+ *    apart here because the set is ours and nothing forces the collision.
+ * 2. **Same idea, different word.** `axe-battle` against battleaxe,
+ *    `person-running` against runner, `fire-burner` against furnace,
+ *    `user-secret` against mask, `bug` against bee. Not worth touching.
+ *
+ * If the client's table changes, re-run the comparison rather than assuming:
+ * matching its *choice* is the goal, matching its *files* is not allowed.
  */
 
 import type { ReactElement } from "react";
@@ -164,6 +190,23 @@ const G = {
       <path d="M12 3 14.4 12h-4.8Z" />
       <path d="M8.4 12h7.2" />
       <path d="M12 12v9" />
+    </>
+  ),
+  /* Two of the dagger, splayed about the centre. Drawn as a rotated pair rather
+     than as two hand-placed blades so the cross stays exactly symmetrical, and
+     kept slightly shorter than the single so the hilts do not run off the grid. */
+  dualBlades: (
+    <>
+      <g transform="rotate(30 12 12)">
+        <path d="M12 3.4 14 10.6h-4Z" />
+        <path d="M9 10.6h6" />
+        <path d="M12 10.6v6.8" />
+      </g>
+      <g transform="rotate(-30 12 12)">
+        <path d="M12 3.4 14 10.6h-4Z" />
+        <path d="M9 10.6h6" />
+        <path d="M12 10.6v6.8" />
+      </g>
     </>
   ),
   sword: (
@@ -386,7 +429,7 @@ const FOR_SKILL: Record<string, GlyphName> = {
   // Combat styles
   onehanded: "sword",
   twohanded: "greatsword",
-  dualwield: "dagger",
+  dualwield: "dualBlades",
   archery: "bow",
 
   // Performance
