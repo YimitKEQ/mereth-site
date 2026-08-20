@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { SkillGlyph } from "@/components/codex/skillGlyphs";
+import { SkillGlyph } from "@/components/codex/skillIcons";
 import { BUDGET, useSkillPlan } from "@/components/codex/useSkillPlan";
 import { ADVICE, PRESETS } from "@/lib/skill-advice";
 import type { Skill, SkillCategory, Tier } from "@/lib/mereth";
@@ -24,10 +24,11 @@ import type { Skill, SkillCategory, Tier } from "@/lib/mereth";
  * same five values the game paints, and a reader matching this against the menu in
  * front of them needs them to agree.
  *
- * Nothing of theirs is copied as a file. The icons are drawn in `skillGlyphs`
- * because theirs are Font Awesome Pro and licensed per seat. The frame is drawn in
- * CSS because theirs is nine-sliced from Bethesda's UI textures. Their four sound
- * effects are not reproduced at all.
+ * The icons are the client's own, the same Font Awesome Pro set the game draws,
+ * which the Pro licence permits us to embed in our own pages. See `skillIcons`
+ * for the licence terms and the two rules that keep us inside them. The frame is
+ * drawn in CSS rather than lifted, because theirs is nine-sliced from Bethesda's
+ * UI textures. Their four sound effects are not reproduced at all.
  *
  * What a website cannot have is the server half: live experience, earned perks,
  * whether you are stood in a temple, and the memory cost table the server sends.

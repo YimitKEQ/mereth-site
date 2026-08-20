@@ -9,20 +9,33 @@ launcher installs or quoted from a dated release note. Where an answer has not
 been decided, the page says so rather than inventing one.
 
 ```bash
+export FONTAWESOME_NPM_AUTH_TOKEN=...   # see below, required
 npm install
 npm run dev          # http://localhost:3100
 npm run typecheck
 npm run build
 ```
 
+**`npm install` needs a Font Awesome Pro token.** The skill planner draws the
+client's own icons so that a planner and the in-game menu agree, and those are
+Font Awesome Pro. `.npmrc` points the `@fortawesome` scope at their registry and
+reads the token from `FONTAWESOME_NPM_AUTH_TOKEN`, which is why no token appears
+in this repository and why installing without one fails on the Pro package
+rather than quietly resolving something else. Ask the team for it, keep it in
+your shell profile or a password manager, and never paste it into a file here.
+
 Port 3100, not 3000. The local SkyMP dev server holds 3000, and because dev binds
 `0.0.0.0` for review from other machines, a clash there serves confusing 404s.
 
 ## Stack
 
-Next.js 16 (App Router) with React 19, TypeScript and Tailwind v4. No UI or icon
-library: the ornament, icons and controls are all local components. The site is a
-**static export**, so there is no server at runtime and no route handlers.
+Next.js 16 (App Router) with React 19, TypeScript and Tailwind v4. No UI library:
+the ornament and controls are all local components. The one icon dependency is
+Font Awesome Pro, used only by the skill planner and only so it matches the
+client; everything else in the chrome is drawn. Icons are imported by name and
+written into the markup as plain `<svg>`, so no Font Awesome runtime ships. The
+site is a **static export**, so there is no server at runtime and no route
+handlers.
 
 ## Where things live
 
