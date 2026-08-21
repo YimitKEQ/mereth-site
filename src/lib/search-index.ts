@@ -3,6 +3,7 @@ import { qaSections } from "@/lib/handbook/qa";
 import { guide } from "@/lib/handbook/guide";
 import { progression } from "@/lib/handbook/progression";
 import { survival } from "@/lib/handbook/survival";
+import { teaching } from "@/lib/handbook/teaching";
 import { tips } from "@/lib/handbook/tips";
 import { hashHref } from "@/lib/hash";
 import { mereth } from "@/lib/mereth";
@@ -107,6 +108,7 @@ export function buildSearchIndex(): SearchEntry[] {
     [tips, "/tips"],
     [progression, "/progression"],
     [survival, "/survival"],
+    [teaching, "/teaching"],
   ] as const) {
     for (const section of page.sections) {
       entries.push({

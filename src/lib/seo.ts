@@ -48,7 +48,8 @@ export const ROUTES: readonly RouteEntry[] = [
 
   { path: "/skills", priority: 0.85, changeFrequency: "weekly", summary: "The skill system: 18 memory points across 51 skills, with a planner and the in-game menu." },
   { path: "/progression", priority: 0.8, changeFrequency: "weekly", summary: "What each tier is actually worth, and what a point buys." },
-  { path: "/magic", priority: 0.8, changeFrequency: "weekly", summary: "How magic is taught and gated: a master, a spellbook, a week per tier." },
+  { path: "/magic", priority: 0.8, changeFrequency: "weekly", summary: "How a spell is learned: a tome or a teacher, spell points, and 7 to 35 days in the grimoire." },
+  { path: "/teaching", priority: 0.75, changeFrequency: "weekly", summary: "The Teacher whitelist: the requirements, the three stages, the apprentice slots and the audits." },
   { path: "/survival", priority: 0.75, changeFrequency: "weekly", summary: "The three bars that tick down while you play, and how exhaustion works." },
   { path: "/crafting", priority: 0.75, changeFrequency: "weekly", summary: "Every recipe, bench by bench, with spawnable item ids." },
   { path: "/tips", priority: 0.7, changeFrequency: "weekly", summary: "The numbers, the cooldowns and the traps." },

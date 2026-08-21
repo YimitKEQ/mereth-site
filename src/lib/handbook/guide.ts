@@ -90,8 +90,8 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Beyond those: \`K\` opens your skills, \`F3\` re-aims the look target when a menu loses
-              it, and \`X\` doubles as cancel while a menu is up.`,
+            `Beyond those: \`K\` opens your skills, \`F8\` opens your spell grimoire, \`F3\` re-aims
+              the look target when a menu loses it, and \`X\` doubles as cancel while a menu is up.`,
           ],
         },
         { kind: "quote", text: "Look target lost" },
@@ -176,11 +176,14 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `You cannot teach yourself. Magic is gated behind another player and behind time: a
-              master of the school willing to teach you, and a spellbook for the specific spell. A
-              rank in a hold can grant you more to work with, and a master can speed your study up.`,
+            `A spell comes from a tome or from a Teacher, and either way it is gated behind time:
+              it sits in your grimoire for **7 days at Novice, up to 35 at Master** before it is
+              yours. What a Teacher adds is speed, a day off the timer per lesson, and judgement
+              about when you are ready for the next rank. Fifty spell points cap how much you can
+              hold at once, and a rank in a hold can grant you more to work with.`,
             `The full pipeline, and what each school actually offers, is on the
-              [magic page](/magic).`,
+              [magic page](/magic). Teaching is its own whitelisted role, with its own
+              [guidelines](/teaching).`,
           ],
         },
         { kind: "cite", pattern: /spell training|masters of a school|spell points|learn.*spell/i, limit: 4 },

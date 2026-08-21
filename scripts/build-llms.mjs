@@ -59,6 +59,8 @@ const TITLES = {
   "/guide": "The Guide",
   "/rules": "Rules",
   "/faq": "Questions",
+  "/language": "Roleplay language",
+  "/teaching": "Teaching magic",
   "/qa": "Latest Q&A",
   "/skills": "Skills and memory points",
   "/progression": "Progression",
@@ -103,11 +105,11 @@ Discord, which is also the login.
 
 ## Start here
 
-${pick(["/", "/start", "/guide", "/rules"]).join("\n")}
+${pick(["/", "/start", "/guide", "/rules", "/language"]).join("\n")}
 
 ## How the systems work
 
-${pick(["/skills", "/progression", "/magic", "/survival", "/crafting", "/tips"]).join("\n")}
+${pick(["/skills", "/progression", "/magic", "/teaching", "/survival", "/crafting", "/tips"]).join("\n")}
 
 ## The setting
 

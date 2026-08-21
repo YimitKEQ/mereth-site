@@ -7,42 +7,94 @@ import { Blocks } from "@/components/handbook/Blocks";
 import { PlateImage } from "@/components/ui/Plate";
 import { pageMeta } from "@/lib/seo";
 import { counts, mereth, spellsBySchool } from "@/lib/mereth";
+import { SPELL_POINTS_START, spellTierRows } from "@/lib/magic";
 import type { Block } from "@/lib/handbook/blocks";
 
 export const metadata: Metadata = pageMeta({
   path: "/magic",
   title: "Magic",
   description:
-    "How magic is learned on Mereth: a teacher, a book, and time. Plus every spell in the province, by school.",
+    "How a spell is learned on Mereth: a tome or a teacher, 50 spell points to spend, and 7 to 35 days of study. Plus every spell in the province, by school.",
 });
 
 /**
  * The pipeline first, the spellbook second.
  *
- * A spell list is the wrong thing to lead with. Magic here is gated behind
- * another player and behind time, and a reader who scrolls 351 spells without
- * knowing that leaves with exactly the wrong impression of how they get one.
+ * A spell list is the wrong thing to lead with. Magic here is gated behind time
+ * and, for anything past a tome you happen to find, behind another player. A
+ * reader who scrolls 351 spells without knowing that leaves with exactly the
+ * wrong impression of how they get one.
+ *
+ * The order is what a new mage needs in the order they need it: the two routes,
+ * what each tier costs in points and days, the first evening, then the people
+ * and the law around all of it.
  */
 const pipeline: Block[] = [
   {
     kind: "prose",
     paragraphs: [
-      `You cannot teach yourself. Two things are required for any spell: **a Master Mage or Wizard
-        willing to teach you, and a spellbook for that spell.** No master, no book, no magic. New
-        players do not start with magic, no exceptions.`,
+      `There are two ways to learn a spell, and neither of them is instant. **Read a tome**, found
+        in the world, bought from a shop or handed to you, or **be taught by a whitelisted
+        Teacher**. Either way the spell goes into your grimoire as a timer and you wait it out.`,
+      `What a Teacher adds is speed and judgement. Only a Teacher can shorten a study already
+        running, and outside the College only a Teacher decides you are ready for the next rank.`,
     ],
   },
   {
+    kind: "table",
+    head: ["Spell tier", "Spell points", "Days in the grimoire"],
+    rows: spellTierRows(),
+  },
+  {
     kind: "note",
-    tone: "key",
-    title: "The usual route to a first spell",
-    body: `A Hold's Court Wizard runs aspiring mages through a three week apprenticeship and sends
-      them off with their first spellbook. You need at least one spell already before the College of
-      Winterhold will take you, so the Court Wizard is where nearly everyone starts.`,
+    tone: "warn",
+    title: "One spell at a time",
+    body: `You can only study one spell at once. Reading a second tome while the first is still
+      running does not queue it, it fails. Finish what is in the book before you open another.`,
   },
   {
     kind: "prose",
     paragraphs: [
+      `A Teacher shortens the wait. **Each lesson takes one day off** a study already running, so a
+        Master spell is 35 days alone and rather less with somebody turning up to teach you, which
+        is what makes a teacher worth finding rather than optional.
+        [What the role demands of them](/teaching).`,
+      `**Day one, before anything else, set your skills.** Spellcasting sets your maximum magicka,
+        and a rank in a school is what lets you learn that school's spells at all, with perks that
+        cut their cost and raise their effect as it climbs. Neither is optional and neither can be
+        bought later without a memory point.`,
+      `**Then take the Mystic kit.** \`/kit\` offers it at the start: robes, a Candlelight tome and
+        the rest of the starting essentials. **You need at least one point in Alteration** to read
+        the tome it gives you, so spend that point before you spawn or the kit's spell is a book you
+        cannot open. Once you are in, \`F8\` opens your grimoire: everything you know, everything
+        you are still learning with the time left on it, and the place a finished spell can be
+        unlearned.`,
+      `**Everybody starts with 50 spell points.** They cap what your grimoire can hold rather than
+        what you can cast, and a spell costs exactly what the matching skill rank costs in memory
+        points: 1 for a Novice, 8 for a Master. Fifty points is five Master spells, or fifty Novice
+        ones, or any mix in between. Becoming a [whitelisted Teacher](/teaching) is the only route
+        anybody has published for raising that total, though holding the court mage rank in a
+        holdstone grants another 50 for as long as you hold it.`,
+    ],
+  },
+  {
+    kind: "note",
+    tone: "warn",
+    title: "Training a school is not casting the same spell in a tavern",
+    body: `Magic skills climb by casting, which makes them the easiest thing on the server to grind
+      by accident. Train where it makes sense, a yard or a training dummy rather than an inn floor.
+      Train with somebody, or make the fumbling the scene: the mage who gets a Clairvoyance wrong
+      and leads four people into a bog is playing correctly. Repetition with nobody watching and
+      nothing said is powergaming and is treated as such.`,
+  },
+  {
+    kind: "prose",
+    paragraphs: [
+      `**A Teacher is a whitelisted role**, not simply anybody who knows a spell. One holds at most
+        three apprentices and may teach them as far as Adept; past Adept means the College of
+        Winterhold, or approval from staff. Outside those three, a Teacher may teach one other
+        person a week. The requirements, the audits and the etiquette are on the
+        [teaching page](/teaching).`,
       `**The College of Winterhold** teaches three semesters of formal instruction at rising
         prices: Novice, Apprentice, Adept. Past Adept you stay on as a researcher or a professor's
         assistant rather than as an ordinary student.`,
@@ -60,23 +112,6 @@ const pipeline: Block[] = [
       ["The East Empire Company", "For purchase"],
       ["Dungeons", "Placed at random, on a bi-monthly cycle"],
     ],
-  },
-  {
-    kind: "note",
-    tone: "key",
-    title: "A week a tier, and a master can cut it",
-    body: `Training runs **a week per tier**. A master of the school can teach spells directly or
-      speed the study up by **three days per twenty four hour period**, which makes a teacher worth
-      finding without making one optional. Staves grant experience too, so a college can train with
-      them where it makes sense.`,
-  },
-  {
-    kind: "note",
-    tone: "key",
-    title: "Spell points",
-    body: `Everyone **starts with 50**. Holding the court mage rank in a holdstone grants
-      **another 50**, and the college and court roles are described as receiving more. The exact
-      figure for a college place is not something we have published a number for yet.`,
   },
   {
     kind: "note",
@@ -98,7 +133,7 @@ const pipeline: Block[] = [
         catalogue as tools first and weapons second.`,
     ],
   },
-  { kind: "cite", pattern: /spell training|masters of a school|spell points|learn.*spell/i, limit: 5 },
+  { kind: "cite", pattern: /spell training|masters of a school|spell points|grimoire|learn.*spell/i, limit: 5 },
 ];
 
 export default function MagicPage() {
@@ -108,10 +143,10 @@ export default function MagicPage() {
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
         title="Magic"
-        lede={`You cannot learn a spell from a menu. Every one needs **a teacher who already knows it
-          and a spellbook to learn it from**, which means finding a person before you find a spell.
-          Below is every spell a player can be taught, with its tier, so you can see what a Novice,
-          an Adept and a Master actually have access to.`}
+        lede={`You cannot learn a spell from a menu. It comes from **a tome you have found or a
+          Teacher who already knows it**, and either way it sits in your grimoire for days before it
+          is yours. Below is how that works, and then every spell a player can learn, with its tier,
+          so you can see what a Novice, an Adept and a Master actually have access to.`}
         facts={[
           { label: "Learnable spells", value: counts.spells.toLocaleString("en-GB") },
           { label: "Schools", value: String(schools.length) },
@@ -119,6 +154,7 @@ export default function MagicPage() {
             label: "Magic skills",
             value: String(mereth.categories.find((c) => c.label === "Magic schools")?.keys.length ?? 0),
           },
+          { label: "Starting spell points", value: String(SPELL_POINTS_START) },
         ]}
       />
 
@@ -127,7 +163,7 @@ export default function MagicPage() {
           {
             id: "pipeline",
             label: "How you learn it",
-            hint: "Teacher, book, time",
+            hint: "A tome or a teacher, and time",
             content: (
               <div className="grid gap-10 lg:grid-cols-[minmax(0,68ch)_minmax(0,1fr)] lg:gap-14">
                 {/* min-w-0: a grid item sizes to its widest unbreakable child by

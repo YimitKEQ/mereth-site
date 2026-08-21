@@ -270,19 +270,83 @@ export const faqSections: FaqSection[] = [
     id: "magic",
     title: "Magic",
     blurb:
-      "A roleplay system rather than a menu, and the one we are asked about most. It is gated behind a person and behind time on purpose.",
+      "A roleplay system rather than a menu, and the one we are asked about most. It is gated behind time, and past the tomes you find for yourself, behind a person.",
     items: [
       {
-        q: "How do I learn magic?",
-        a: `Magic must be taught by a Master of the specialisation. Two things are required for any
-          spell: **a Master Mage or Wizard willing to teach you, and a spellbook for that spell.** No
-          master, no book, no magic.`,
+        q: "How do I learn a spell?",
+        a: `Two ways, and both take time. **Read a tome**, found in the world, bought from a shop or
+          handed to you, or **be taught by a whitelisted Teacher** who takes you on as an apprentice.
+          Either way the spell enters your grimoire as a timer and you wait it out.`,
       },
       {
-        q: "How do I get my first spell?",
-        a: `Usually through a Hold's Court Wizard, who runs aspiring mages through a three week
-          apprenticeship and sends them off with their first spellbook. You need at least one spell
-          already before the College of Winterhold will take you.`,
+        q: "What do I need before any of that works?",
+        a: `A rank in the school, bought with a memory point, because that is what lets you learn
+          its spells at all. **Spellcasting** is the separate skill that sets your maximum magicka.
+          On day one take the **Mystic** kit from \`/kit\`: it comes with robes and a Candlelight
+          tome, and you need **at least one point in Alteration** to read that tome.`,
+      },
+      {
+        q: "How do I get my first spell without a teacher?",
+        a: `A tome. The Mystic starter kit ships one, and after that they are found in the world,
+          bought from shops and traded between players. A Hold's Court Wizard is still the usual
+          route to a proper apprenticeship, and you need at least one spell already before the
+          College of Winterhold will take you.`,
+      },
+      {
+        q: "How long does a spell take to learn?",
+        a: `Seven days for a Novice spell, and a week more for each tier above it: 14 for
+          Apprentice, 21 for Adept, 28 for Expert, 35 for Master. Every use of a Teacher's Teach
+          interaction on a study already running takes **one day** off. The table is on the
+          [magic page](/magic).`,
+        cite: /spell training/i,
+      },
+      {
+        q: "Can I learn two spells at once?",
+        a: `No. A mage studies **one spell at a time**, and starting a second while the first is
+          running fails rather than queueing.`,
+      },
+      {
+        q: "How many spells can I know?",
+        a: `As many as **50 spell points** will hold. A spell costs what the matching skill rank
+          costs in memory points: 1 for Novice, 2 Apprentice, 3 Adept, 5 Expert, 8 Master. The only
+          published route to more is [becoming a Teacher](/teaching), though holding the court mage
+          rank in a holdstone grants another 50 while you hold it.`,
+        cite: /spell points/i,
+      },
+      {
+        q: "Where is my grimoire?",
+        a: `\`F8\`. It lists what you know and what you are still learning, with the time left on
+          each, and a spell you have finished learning can be unlearned from there.`,
+        cite: /grimoire/i,
+      },
+      {
+        q: "Does unlearning a spell give the points back?",
+        a: `We have not published an answer to that one. The grimoire lets you unlearn a spell once
+          it is learned, but whether the points return to your pool is not something written down
+          anywhere we can point you at, so ask in a ticket rather than plan around a guess.`,
+        open: true,
+      },
+      {
+        q: "Who is allowed to teach me?",
+        a: `A **whitelisted Teacher**, and nobody else. Knowing a spell is not the same as being
+          able to pass it on: the Teach interaction only exists for players who have been through
+          the application, the interview and the mock lesson. One Teacher holds at most three
+          apprentices, can teach them as far as Adept, and may teach one other person a week.
+          [What the role demands](/teaching).`,
+      },
+      {
+        q: "Can a Teacher take me past Adept?",
+        a: `Not on their own. **Adept is the ceiling for an apprenticeship**: anything beyond it
+          means a place at the College of Winterhold, or approval from staff for advanced learning
+          outside it.`,
+      },
+      {
+        q: "How do I become a Teacher?",
+        a: `Reach Master level in a school, learn 40 spell points' worth of spells, keep a clean
+          record, then open a ticket asking for a Teacher Whitelist Application. It runs in three
+          stages: a written application, a voice interview, and a mock lesson taught in game. A
+          denial means waiting a month before trying again, or three months after any denial that
+          follows. [The whole process](/teaching).`,
       },
       {
         q: "What does the College of Winterhold teach?",
@@ -322,9 +386,17 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "Can I play a mage from the start?",
-        a: `You can have a mage background in your history, but **new players do not start with
-          magic. No exceptions.** Demonstrate it with \`/mes\` in roleplay and earn the mechanics the
-          way everyone else does.`,
+        a: `You can start on the road to one. The Mystic kit gives you robes and a Candlelight tome
+          on day one, and seven days later you know Candlelight. What you cannot do is arrive with a
+          trained mage's repertoire because your backstory says so: **the spells are earned the way
+          everyone else earns them.** Play the history with \`/mes\` and let the grimoire catch up.`,
+      },
+      {
+        q: "Can I train a magic skill by casting the same spell over and over?",
+        a: `Not without roleplay attached to it. Magic skills climb by casting, which makes them the
+          easiest thing here to grind by accident, so train somewhere it makes sense, train with
+          somebody where you can, and make the fumbling part of the scene. Standing silent in a
+          tavern casting the same spell at nothing is powergaming and is treated as such.`,
       },
       {
         q: "Is magic legal everywhere?",
@@ -332,13 +404,6 @@ export const faqSections: FaqSection[] = [
           Winterhold may not be in Markarth, Windhelm or Solitude. Check which spells are legal
           where you are, whether teaching requires a licence, and any local restriction on
           Conjuration, Destruction or Illusion. Ignorance is not a defence in any Jarl's court.`,
-      },
-      {
-        q: "How long does advancing a tier take?",
-        a: `A week per tier. A master of the school can teach you directly or cut the wait, up to
-          **three days per twenty four hour period**, so the fastest a tier goes is still measured
-          in days and still needs somebody else to turn up.`,
-        cite: /spell training/i,
       },
     ],
   },

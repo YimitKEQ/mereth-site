@@ -230,12 +230,14 @@ export const progression: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Magic does not climb on use. It is taught. Each tier of study runs roughly **a week**,
-              and a master of the school can teach you directly or shorten it.`,
-            `So "how long to Adept" has a real answer, roughly three weeks of study with a teacher,
-              while "how long to a good swordsman" does not, because that one depends on who you
-              fight and who sees it. Every spell you can be taught, with its tier, is on the
-              [magic page](/magic).`,
+            `A magic **skill** climbs on use like any other, by casting. A **spell** does not. Each
+              one is studied out of a tome or taught by a Teacher, and the study is a fixed wait:
+              **7 days for a Novice spell, 14, 21, 28, and 35 for a Master one.** A Teacher takes a
+              day off that per lesson.`,
+            `So "how long to an Adept spell" has a real answer, three weeks of study or rather less
+              with somebody teaching you, while "how long to a good swordsman" does not, because
+              that one depends on who you fight and who sees it. Every spell you can learn, with its
+              tier, is on the [magic page](/magic).`,
           ],
         },
         { kind: "cite", pattern: /spell training|masters of a school|spell points/i, limit: 3 },

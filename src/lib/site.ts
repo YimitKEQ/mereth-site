@@ -44,6 +44,10 @@ export const PATREON_URL = "https://www.patreon.com/cw/merethroleplay";
 export const TRAILER_ID = "KK28lxLJCbw";
 export const RULES_DOC_URL =
   "https://docs.google.com/document/d/1AhSN2rsXZox0ISYFghavl0t4FJueDWUZ1VcckBUzEHM/edit";
+/* The Teaching Guidelines, Revision 1. Published by the Magic Team as its own
+   document rather than as a chapter of the rulebook, so it gets its own link. */
+export const TEACHING_DOC_URL =
+  "https://docs.google.com/document/d/13nalr1rOF9BUGdiQUSZemDr-FWtZDUNxFBEpfUPKxwg/edit";
 
 export const site = {
   name: "Mereth",
@@ -61,6 +65,7 @@ export const handbookMenu: readonly NavLink[] = [
   { label: "The Guide", href: "/guide", hint: "How the server works, end to end" },
   { label: "Roleplay Language", href: "/language", hint: "How to say it in character" },
   { label: "Progression", href: "/progression", hint: "What a tier is actually worth" },
+  { label: "Teaching Magic", href: "/teaching", hint: "The Teacher whitelist, and what it demands" },
   { label: "Food, Drink and Energy", href: "/survival", hint: "The three bars, explained" },
   { label: "Tips", href: "/tips", hint: "The numbers, cooldowns and traps" },
   { label: "Questions", href: "/faq", hint: "Answers to what gets asked most" },
@@ -111,6 +116,7 @@ export const footerColumns: readonly { heading: string; links: readonly NavLink[
       { label: "The Guide", href: "/guide" },
       { label: "Roleplay Language", href: "/language" },
       { label: "Progression", href: "/progression" },
+      { label: "Teaching Magic", href: "/teaching" },
       { label: "Food, Drink and Energy", href: "/survival" },
       { label: "Tips", href: "/tips" },
       { label: "Questions", href: "/faq" },
