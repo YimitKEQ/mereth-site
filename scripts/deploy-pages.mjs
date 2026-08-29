@@ -58,6 +58,10 @@ const bin = (...parts) => path.resolve("node_modules", ...parts);
 
 console.log(`building for ${REPO} at base path "${BASE_PATH}"`);
 
+// Refresh the changelog from GitHub before the typecheck reads the bundle.
+// Fails soft: an unreachable API leaves the committed notes in place.
+run(node, [path.resolve("scripts", "sync-releases.mjs")]);
+
 run(node, [bin("typescript", "bin", "tsc"), "--noEmit"]);
 run(node, [bin("next", "dist", "bin", "next"), "build"], {
   env: { ...process.env, MERETH_STATIC: "1", MERETH_BASE_PATH: BASE_PATH },

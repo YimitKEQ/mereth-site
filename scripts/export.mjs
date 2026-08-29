@@ -109,6 +109,12 @@ if (invokedDirectly) {
   const run = (args, env) =>
     execFileSync(node, args, { stdio: "inherit", shell: false, env: { ...process.env, ...env } });
 
+  // Refresh the changelog from GitHub before anything reads the bundle. Fails
+  // soft: an unreachable API leaves the committed notes in place. Without this
+  // a deploy publishes whatever the last devkit sweep happened to catch, which
+  // is how the site sat on 0.68.25 for eighteen days.
+  run([path.resolve("scripts", "sync-releases.mjs")], {});
+
   // Written before the build, because `public/` is copied into `out/` during it.
   // Generated rather than hand-kept so it cannot fall behind the route registry.
   run([path.resolve("scripts", "build-llms.mjs")], {});
