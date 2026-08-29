@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { QaList, type ResolvedAnswer } from "@/components/handbook/QaList";
 import { Hero } from "@/components/home/Hero";
+import { LatestReleases } from "@/components/home/LatestReleases";
 import { Misconceptions } from "@/components/home/Misconceptions";
 import { TikTokStrip } from "@/components/home/TikTokStrip";
 import { Trailer } from "@/components/home/Trailer";
@@ -99,7 +100,10 @@ export default function HomePage() {
     notes: item.cite === undefined ? undefined : citations(item.cite, 2),
   }));
 
-  const latest = mereth.releases.slice(0, 3);
+  /* Only the newest few are handed down. The component asks GitHub for anything
+     published since the build, and all it needs from the bundle is the newest
+     baked version to compare against plus enough to fill the row if nothing has. */
+  const bakedLatest = mereth.releases.slice(0, 3);
 
   return (
     <>
@@ -146,47 +150,7 @@ export default function HomePage() {
           We ship almost daily. These are the release notes, dated, in the words they shipped with.
         </p>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {latest.map((release) => (
-            <article
-              key={release.version}
-              className="relative border border-brand-accent/25 bg-black/35 p-6"
-            >
-              <FrameCorners size={14} />
-              <h3 className="relative flex items-baseline gap-3">
-                <span className="font-display text-[1.05rem] tracking-heading text-brand-accent">
-                  {release.version}
-                </span>
-                {release.date !== null ? (
-                  <span className="text-[0.78rem] tabular-nums text-text-muted">{release.date}</span>
-                ) : null}
-              </h3>
-              <ul className="relative mt-4 space-y-2">
-                {release.notes.slice(0, 5).map((note, i) => (
-                  <li key={i} className="text-[0.85rem] leading-relaxed text-text-muted">
-                    {note.text}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <p className="mt-8 text-center text-[0.9rem] text-text-muted">
-          <Link
-            href="/changelog"
-            className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
-          >
-            All {counts.releases} releases since launch
-          </Link>
-          <span className="mx-3 text-text-muted/50">&middot;</span>
-          <Link
-            href="/roadmap"
-            className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
-          >
-            What is being built next
-          </Link>
-        </p>
+        <LatestReleases releases={bakedLatest} bakedCount={counts.releases} />
       </section>
 
       {/* Release notes say what changed. This says what it looks like. The two
