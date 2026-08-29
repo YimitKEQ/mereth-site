@@ -188,8 +188,14 @@ function main() {
       firstRelease,
       lastRelease,
     };
-    bundle.releasesSyncedAt = new Date().toISOString();
-
+    /*
+     * Deliberately no "synced at" stamp. This runs before every build, so a
+     * timestamp in the bundle would leave the working tree dirty after each
+     * one, differing only in a field nobody reads. That trains people to
+     * discard changes to this file without looking, which is how a real
+     * regression gets thrown away. When the notes last moved is a question for
+     * `git log`.
+     */
     fs.writeFileSync(BUNDLE, JSON.stringify(bundle));
     console.log(`sync-releases: wrote ${bundle.releases.length} releases with notes to ${BUNDLE}`);
   });
