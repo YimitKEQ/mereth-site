@@ -208,54 +208,35 @@ const mods = (manifest?.modList ?? [])
 
 const plugins = (manifest?.loadOrder ?? []).slice();
 
-// --- Changelog, most recent first --------------------------------------------
+// --- Changelog, carried over ---------------------------------------------------
 //
-// A fifth of the releases are internal `-dev` builds, and they mostly restate
-// the notes of the public patch that follows them. Listing both puts the same
-// sentence on the page twice under two version numbers, which reads like the
-// changelog is broken.
+// This script does not build the changelog and must not try to. `sync-releases.mjs`
+// owns it, reads it live from Mereth's GitHub releases, and runs immediately
+// after this on every build.
 //
-// So fold them: a `-dev` build merges into its public version and its notes are
-// deduplicated by text. Dropping them outright is not an option, because 104
-// notes only ever appeared on a dev build and never got restated.
-const publicVersion = (version) => version.replace(/-dev$/i, "");
-
-const notesFor = new Map();
-const seenText = new Map();
-for (const bullet of changelog?.bullets ?? []) {
-  if (!bullet.version || !bullet.text) continue;
-  const version = publicVersion(bullet.version);
-  if (!notesFor.has(version)) {
-    notesFor.set(version, []);
-    seenText.set(version, new Set());
+// It used to be assembled here as well, out of the devkit's `wiki-changelog.json`,
+// which comes from a sweep somebody has to remember to run. That produced two
+// copies of the same folding rules that then drifted apart, and the copy here
+// was fed by whichever sweep ran last: on 12 August it stopped running, and the
+// site served a changelog eighteen days and fifty patches behind while looking
+// perfectly healthy. Both problems have one cause, which is that the same job
+// was being done twice.
+//
+// So the previous bundle's changelog is carried forward untouched, and the sync
+// corrects it a moment later. The carry matters because the sync deliberately
+// fails soft: if GitHub is down mid-build, the site keeps the notes it had
+// rather than publishing an empty page.
+const previous = (() => {
+  const file = path.join(OUT_DIR, "mereth.json");
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {
+    return null;
   }
-  const key = bullet.text.trim().toLowerCase();
-  const seen = seenText.get(version);
-  if (seen.has(key)) continue;
-  seen.add(key);
-  const list = notesFor.get(version);
-  if (list.length < 16) list.push({ kind: bullet.kind ?? null, text: bullet.text });
-}
+})();
 
-// Collapse the release list the same way, keeping the newest date in each pair.
-const releaseDates = new Map();
-const releaseOrder = [];
-for (const r of changelog?.releases ?? []) {
-  if (!r.version) continue;
-  const version = publicVersion(r.version);
-  if (!releaseDates.has(version)) releaseOrder.push(version);
-  const known = releaseDates.get(version) ?? null;
-  const date = r.date ?? null;
-  if (known === null || (date !== null && date > known)) releaseDates.set(version, date);
-}
-const releases = releaseOrder
-  .map((version) => ({
-    version,
-    date: releaseDates.get(version) ?? null,
-    notes: notesFor.get(version) ?? [],
-  }))
-  .filter((r) => r.notes.length > 0)
-  .slice(0, 80);
+const releases = previous?.releases ?? [];
 
 // --- Alchemy -----------------------------------------------------------------
 // Deduplicated by name. Two ingredients ship twice with byte-identical
@@ -398,12 +379,15 @@ const gathering = {
 const handbook = {
   builtAt: new Date().toISOString(),
   server: {
-    version: changelog?.latest ?? wiki.server?.version ?? null,
-    // Public releases, not raw entries. The raw count includes internal `-dev`
-    // builds, which are folded above and must not be counted twice.
-    releases: releaseOrder.length,
-    firstRelease: changelog?.firstRelease ?? null,
-    lastRelease: changelog?.lastRelease ?? null,
+    // Every changelog figure is carried over rather than recomputed, for the
+    // reason above: `sync-releases.mjs` owns them and overwrites all five on the
+    // next line of the build. Falling back to the devkit sweep is what let a
+    // stale number onto the site in the first place.
+    version: previous?.server?.version ?? changelog?.latest ?? wiki.server?.version ?? null,
+    releases: previous?.server?.releases ?? 0,
+    tags: previous?.server?.tags ?? 0,
+    firstRelease: previous?.server?.firstRelease ?? changelog?.firstRelease ?? null,
+    lastRelease: previous?.server?.lastRelease ?? changelog?.lastRelease ?? null,
     checkedFiles: wiki.server?.checkedFiles ?? 0,
     loadOrderLength: (manifest?.loadOrder ?? []).length,
     recordsLoaded: wiki.totals?.recordsLoaded ?? 0,

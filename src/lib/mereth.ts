@@ -65,6 +65,13 @@ export interface System {
 export interface Release {
   version: string;
   date: string | null;
+  /** The paragraphs Mereth opens a bigger patch with, in their own words. */
+  summary: string | null;
+  /**
+   * False for the single entry holding internal builds that no patch has
+   * collected yet. See `foldReleases` in `lib/release-notes.ts`.
+   */
+  shipped: boolean;
   notes: { kind: string | null; text: string }[];
 }
 
@@ -110,7 +117,14 @@ export interface Mereth {
   builtAt: string;
   server: {
     version: string | null;
+    /** Patches players received. Internal `-dev` builds are not counted. */
     releases: number;
+    /**
+     * Raw tags upstream, dev builds included. Not published anywhere: it exists
+     * so the sync can tell "the history shrank, refuse to write" apart from
+     * "several builds were collected into one patch this week".
+     */
+    tags: number;
     firstRelease: string | null;
     lastRelease: string | null;
     checkedFiles: number;

@@ -6,6 +6,7 @@ import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { Search } from "@/components/ui/icons";
 import { fetchNewReleases } from "@/lib/live-changelog";
 import type { Release } from "@/lib/mereth";
+import { mergeLive } from "@/lib/release-notes";
 
 /**
  * The changelog, filterable.
@@ -33,6 +34,19 @@ const KIND_COLOUR: Record<string, string> = {
 };
 
 const PAGE = 12;
+
+/**
+ * Notes shown before a patch is collapsed.
+ *
+ * Patches are not evenly sized. Most carry a handful of lines; 0.70.21
+ * collected a fortnight of work and carries a hundred and nine. Left open, one
+ * entry is four screens tall and the eleven patches after it are unreachable
+ * without a scroll bar drag, which reads as the page having ended.
+ *
+ * Ten is about a screen. Nothing is hidden that the reader cannot open in one
+ * click, and searching opens every patch anyway.
+ */
+const NOTES_SHOWN = 10;
 
 const MONTHS = [
   "January",
@@ -64,6 +78,7 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
   const [kind, setKind] = useState<string | null>(null);
   const [limit, setLimit] = useState(PAGE);
   const [live, setLive] = useState<Release[]>([]);
+  const [opened, setOpened] = useState<ReadonlySet<string>>(new Set());
 
   /*
    * Anything upstream has published since this site was built, prepended.
@@ -86,7 +101,7 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
     };
   }, [baked]);
 
-  const releases = useMemo(() => (live.length > 0 ? [...live, ...baked] : baked), [live, baked]);
+  const releases = useMemo(() => mergeLive(baked, live), [live, baked]);
 
   const kinds = useMemo(() => {
     const tally = new Map<string, number>();
@@ -102,16 +117,27 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
   const filtered = useMemo(() => {
     const trimmed = query.trim().toLowerCase();
     return releases
-      .map((release) => ({
-        ...release,
-        notes: release.notes.filter(
-          (note) =>
-            (kind === null || note.kind === kind) &&
-            (trimmed === "" ||
-              note.text.toLowerCase().includes(trimmed) ||
-              release.version.toLowerCase().includes(trimmed)),
-        ),
-      }))
+      .map((release) => {
+        /* A word in the patch's own opening paragraphs is as good a hit as one
+           in a bullet, and often the better one: "Valhalla" is named in the
+           summary of 0.70.21 and in none of its hundred and nine notes. When
+           the summary is what matched, the whole patch is the answer. */
+        const inSummary =
+          trimmed !== "" && (release.summary ?? "").toLowerCase().includes(trimmed);
+        const inVersion = trimmed !== "" && release.version.toLowerCase().includes(trimmed);
+
+        return {
+          ...release,
+          notes: release.notes.filter(
+            (note) =>
+              (kind === null || note.kind === kind) &&
+              (trimmed === "" ||
+                inSummary ||
+                inVersion ||
+                note.text.toLowerCase().includes(trimmed)),
+          ),
+        };
+      })
       .filter((release) => release.notes.length > 0);
   }, [releases, query, kind]);
 
@@ -186,8 +212,9 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
 
         <p className="text-[0.8rem] tabular-nums text-text-muted">
           {searching
-            ? `${shownNotes.toLocaleString("en-GB")} notes across ${filtered.length} releases match.`
-            : `Showing ${visible.length} of ${filtered.length} releases.`}
+            ? `${shownNotes.toLocaleString("en-GB")} ${shownNotes === 1 ? "note" : "notes"} across ` +
+              `${filtered.length} ${filtered.length === 1 ? "patch" : "patches"} match.`
+            : `Showing ${visible.length} of ${filtered.length} patches.`}
         </p>
       </div>
 
@@ -202,6 +229,13 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
             {visible.map((release) => {
               const month = monthOf(release.date);
               const opensMonth = firstOfMonth.get(month) === release.version;
+              const inTesting = release.shipped === false;
+
+              /* A search wants every match on screen, so the collapse only
+                 applies to the unfiltered list. */
+              const open = searching || opened.has(release.version);
+              const notes = open ? release.notes : release.notes.slice(0, NOTES_SHOWN);
+              const hidden = release.notes.length - notes.length;
 
               return (
                 <li key={release.version}>
@@ -217,10 +251,15 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
                     </div>
                   ) : null}
 
-                  <h3 className="flex items-baseline gap-4">
+                  <h3 className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                     <span className="font-display text-[1.05rem] tracking-heading text-brand-accent">
                       {release.version}
                     </span>
+                    {inTesting ? (
+                      <span className="font-display border border-brand-accent/40 px-2 py-[0.15rem] text-[9px] tracking-[1.6px] text-brand-accent/80 uppercase">
+                        In testing
+                      </span>
+                    ) : null}
                     {release.date !== null ? (
                       <span className="text-[0.8rem] tabular-nums text-text-muted">
                         {release.date}
@@ -231,8 +270,28 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
                     </span>
                   </h3>
 
+                  {/* Mereth's own words about the patch, kept because they say what a
+                      list of bullets cannot: why the update took as long as it did,
+                      and what to go and try first. */}
+                  {release.summary != null && release.summary !== "" ? (
+                    <div className="mt-3 border-l-2 border-brand-accent/40 pl-5">
+                      {release.summary.split(/\n{2,}/).map((paragraph, i) => (
+                        <p key={i} className="mt-2 text-[0.9rem] leading-[1.75] text-text-light first:mt-0">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {inTesting ? (
+                    <p className="mt-3 text-[0.8rem] leading-relaxed text-text-muted">
+                      Written and running on the test build. It reaches the server with the next
+                      patch.
+                    </p>
+                  ) : null}
+
                   <ul className="mt-3 space-y-2 border-l border-brand-accent/20 pl-5">
-                    {release.notes.map((note, i) => (
+                    {notes.map((note, i) => (
                       <li
                         key={i}
                         className="flex gap-3 text-[0.88rem] leading-relaxed text-text-light"
@@ -249,6 +308,18 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
                       </li>
                     ))}
                   </ul>
+
+                  {hidden > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setOpened((current) => new Set(current).add(release.version))
+                      }
+                      className="mt-3 ml-5 cursor-pointer text-[0.8rem] tracking-[0.6px] text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
+                    >
+                      Show the other {hidden} {hidden === 1 ? "note" : "notes"}
+                    </button>
+                  ) : null}
                 </li>
               );
             })}

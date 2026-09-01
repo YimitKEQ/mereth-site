@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { fetchNewReleases } from "@/lib/live-changelog";
 import type { Release } from "@/lib/mereth";
+import { mergeLive } from "@/lib/release-notes";
 
 /**
  * The three newest patches on the home page, corrected live.
@@ -45,14 +46,16 @@ export function LatestReleases({
     };
   }, [baked]);
 
-  const latest = useMemo(
-    () => (live.length > 0 ? [...live, ...baked] : baked).slice(0, 3),
-    [live, baked],
-  );
+  const latest = useMemo(() => mergeLive(baked, live).slice(0, 3), [live, baked]);
 
   /* Counted the same way the changelog's fact row counts it, so the two pages
-     never disagree about how many releases there have been. */
-  const total = bakedCount + live.length;
+     never disagree about how many patches there have been. Only patches count:
+     an entry still in testing is shown, because the work is real, but nobody
+     has received it. */
+  const known = new Set(baked.map((release) => release.version));
+  const total =
+    bakedCount +
+    live.filter((release) => release.shipped !== false && !known.has(release.version)).length;
 
   return (
     <>
@@ -63,10 +66,15 @@ export function LatestReleases({
             className="relative border border-brand-accent/25 bg-black/35 p-6"
           >
             <FrameCorners size={14} />
-            <h3 className="relative flex items-baseline gap-3">
+            <h3 className="relative flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="font-display text-[1.05rem] tracking-heading text-brand-accent">
                 {release.version}
               </span>
+              {release.shipped === false ? (
+                <span className="font-display border border-brand-accent/40 px-2 py-[0.15rem] text-[9px] tracking-[1.6px] text-brand-accent/80 uppercase">
+                  In testing
+                </span>
+              ) : null}
               {release.date !== null ? (
                 <span className="text-[0.78rem] tabular-nums text-text-muted">{release.date}</span>
               ) : null}
@@ -78,6 +86,13 @@ export function LatestReleases({
                 </li>
               ))}
             </ul>
+            {/* A patch that collected a fortnight of work carries a hundred notes.
+                Five of them with no hint of the rest reads as the whole patch. */}
+            {release.notes.length > 5 ? (
+              <p className="relative mt-3 text-[0.78rem] tabular-nums text-text-muted/70">
+                and {release.notes.length - 5} more
+              </p>
+            ) : null}
           </article>
         ))}
       </div>
@@ -87,7 +102,7 @@ export function LatestReleases({
           href="/changelog"
           className="text-brand-glow underline decoration-brand-accent/40 underline-offset-4 transition-colors hover:decoration-brand-glow"
         >
-          All {total} releases since launch
+          All {total} patches since launch
         </Link>
         <span className="mx-3 text-text-muted/50">&middot;</span>
         <Link

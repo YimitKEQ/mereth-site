@@ -54,7 +54,7 @@ export default function RoadmapPage() {
           {[
             { label: "Tracked", value: String(total) },
             { label: "Shipped", value: String(done) },
-            { label: "Releases so far", value: String(counts.releases) },
+            { label: "Patches so far", value: String(counts.releases) },
           ].map((stat) => (
             <div key={stat.label}>
               <dt className="font-display text-[10px] tracking-[2px] text-text-muted uppercase">
