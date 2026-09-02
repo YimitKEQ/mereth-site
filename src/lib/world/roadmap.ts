@@ -173,6 +173,10 @@ export const roadmap: RoadmapStage[] = [
         name: "Road to 1k",
         text: "Stability work, optimising the server to hold its full player limit",
       },
+      {
+        name: "Object movement and placement",
+        text: "Moving and placing furniture and other placeable items",
+      },
     ],
   },
   {
