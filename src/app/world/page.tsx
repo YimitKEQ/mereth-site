@@ -88,8 +88,8 @@ const living: Block[] = [
     kind: "prose",
     paragraphs: [
       `**Needs are live.** Food and Drink, with thresholds the client enforces and warns you about
-        twice on the way down. A third row, Rest, sits in the client's config as a commented-out
-        example waiting on a value the server does not send, so nothing tracks it today.`,
+        twice on the way down. There is a third one, Rest, half built into the client and switched
+        off. Nothing tracks it today, so do not plan around it.`,
     ],
   },
   { kind: "data", name: "needs" },

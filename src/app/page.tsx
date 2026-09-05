@@ -13,6 +13,7 @@ import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
 import { PlateCard, PlateImage } from "@/components/ui/Plate";
 import { faqSections } from "@/lib/handbook/faq";
+import { steps } from "@/lib/handbook/start";
 import { citations, counts, mereth } from "@/lib/mereth";
 import { pageMeta } from "@/lib/seo";
 import { DISCORD_INVITE, site } from "@/lib/site";
@@ -54,14 +55,14 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     slug: "mead-hall",
-    title: "It happens at a table",
+    title: "Everything happens face to face",
     body: "Proximity voice with lip sync, a chat box, and no global out-of-character channel. To find something out, you go and ask somebody.",
     href: "/start",
   },
   {
     slug: "jarls-hall",
-    title: "Holds hold themselves",
-    body: "Nine holds, each with its own law and its own court, and a player in every chair that has one. Rank inside a hold is granted through the holdstone, and it can be taken back the same way.",
+    title: "Nine holds, run by players",
+    body: "Each one sets its own law and keeps its own court, with a player in every chair that has one. You pledge to a hold and its jarl gives you a rank at the holdstone, the carved stone that records who is who. What is granted there can be taken back there.",
     href: "/holds",
   },
   {
@@ -196,8 +197,8 @@ export default function HomePage() {
                 Bring a character who wants something
               </h2>
               <p className="mx-auto mt-4 hidden max-w-lg text-[0.95rem] leading-relaxed text-text-light text-shadow-subtle sm:block">
-                Six steps from here to standing in Skyrim with a plan. Two of them happen before you
-                launch the game.
+                {steps.length} steps from here to standing in Skyrim with a plan. Two of them
+                happen before you launch the game.
               </p>
               <div className="mt-7 flex flex-wrap justify-center gap-4">
                 <ButtonLink href="/start" variant="solid" size="md">

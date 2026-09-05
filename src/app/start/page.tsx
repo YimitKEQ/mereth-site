@@ -38,9 +38,9 @@ export default function StartPage() {
           Start Here
         </h1>
         <p className="mt-5 text-[1.05rem] leading-[1.8] text-text-muted">
-          Six steps from hearing about Mereth to standing in Skyrim with a character worth playing.
-          Two of them happen before you launch the game, and the fourth is the one that lasts:
-          eighteen memory points, spent once.
+          {steps.length} steps from hearing about Mereth to standing in Skyrim with a character
+          worth playing. Two of them happen before you launch the game, and the fourth is the one
+          that lasts: eighteen memory points, spent once.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <ButtonLink href="/skills" variant="solid" size="md">

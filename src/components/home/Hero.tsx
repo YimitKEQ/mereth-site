@@ -44,9 +44,15 @@ export function Hero() {
           {site.name}
         </h1>
 
+        {/* This line used to read "we strive to be an authentic, immersive
+            experience where player agency is key", which is the sentence every
+            roleplay server has on its front page and tells a stranger nothing.
+            What is actually unusual here is that the jarl is a person. Say
+            that. */}
         <p className="mt-6 max-w-xl text-base leading-relaxed text-text-light text-shadow-subtle md:text-lg">
-          A Skyrim roleplay server set ten years after the Great War. We strive to be an authentic,
-          immersive experience where player agency is key.
+          Skyrim, ten years after the Great War, with a player in every chair. The jarl who grants
+          your rank, the guard who arrests you, the smith who makes your sword. No global chat and
+          no quest markers, so whatever you want here, you get it from somebody.
         </p>
 
         {/* Start here sits first because it is what a stranger needs first, but

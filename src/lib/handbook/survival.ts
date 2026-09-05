@@ -69,9 +69,9 @@ export const survival: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `A fourth row, **Rest**, sits in the client's needs config as a commented-out
-              example waiting on a fatigue value from the server. It is a note to a future
-              developer rather than a mechanic, so nothing tracks it today.`,
+            `There is a fourth one, **Rest**, half built into the client and switched off, still
+              waiting on a number the server does not send yet. It is a note somebody left for
+              themselves rather than a mechanic. Nothing tracks it, so do not plan around it.`,
           ],
         },
       ],

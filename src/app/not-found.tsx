@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { OrnateDivider } from "@/components/ornament/Divider";
+import { faqCount } from "@/lib/handbook/faq";
+import { steps } from "@/lib/handbook/start";
 import { ButtonLink } from "@/components/ui/Button";
 import { PlateImage } from "@/components/ui/Plate";
 
@@ -32,8 +34,19 @@ export const metadata: Metadata = {
  */
 
 const WAYS_BACK = [
-  { href: "/start", label: "Start here", note: "Six steps from hearing about Mereth to standing in it." },
-  { href: "/faq", label: "Questions", note: "Sixty two answers, including every reason the game refuses to connect." },
+  /* Both counts are read from the pages themselves. They used to be spelled out
+     here and had drifted: this said sixty two answers while the FAQ had grown to
+     seventy one. A number nobody can see going stale is worse than no number. */
+  {
+    href: "/start",
+    label: "Start here",
+    note: `${steps.length} steps from hearing about Mereth to standing in it.`,
+  },
+  {
+    href: "/faq",
+    label: "Questions",
+    note: `${faqCount} answers, including every reason the game refuses to connect.`,
+  },
   { href: "/lore", label: "Lore", note: "The province in its own documents." },
   { href: "/holds", label: "The Nine Holds", note: "The seats, and who sits them." },
 ];

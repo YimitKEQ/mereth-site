@@ -102,9 +102,10 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "Why does everyone say magic feels different here?",
-        a: `Magic itself is not different. The aesthetic is. We are returning Nordic character to
-          the Fatherland, and Clevercraft is the ancestral tradition of Skyrim's people, so wherever
-          you find magic and Nords together, expect shamanistic or druidic atmosphere.`,
+        a: `The rules are the same, the look is not. We lean Skyrim's magic back towards its old
+          Nordic roots, called Clevercraft: the magic of shamans, totems and fires rather than
+          robed wizards in towers. A Nord mage here is far more likely to be a village wise woman
+          than a College academic, and it is worth playing that way.`,
       },
       {
         q: "Which races can I play?",
@@ -167,9 +168,10 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "What is diminishing returns?",
-        a: `Repeating the same thing pays less over time. Killing the same creature again and again,
-          earns steadily less, because experience from a target is capped with diminishing
-          returns. Rotating is worth more than grinding the most convenient thing.`,
+        a: `The tenth mudcrab is worth less than the first. Experience from a target is capped and
+          tails off as you repeat it, so farming one convenient thing gives you steadily less for
+          the same hour. Mix up what you fight, gather and craft and you earn more for the same
+          effort.`,
       },
       {
         q: "What is the purple bar?",
