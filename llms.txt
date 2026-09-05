@@ -1,0 +1,75 @@
+# Mereth Roleplay
+
+> A serious roleplay Skyrim server on SkyMP, set in 4E 185, ten years after the
+> White-Gold Concordat. Imperial rule is formally intact and Thalmor presence is
+> growing. Play is player-driven: an economy, professions, holds with seated
+> jarls, and magic that has to be taught to you by another player.
+
+This site is the server's handbook. It is written to be looked things up in, so
+each page below answers a different kind of question. Membership runs through
+Discord, which is also the login.
+
+## Start here
+
+- [Mereth Roleplay](https://merethroleplay.com/): What Mereth is, live player and Discord counts, and the download.
+- [Start Here](https://merethroleplay.com/start/): Joining from scratch: Discord login, the launcher, first character.
+- [The Guide](https://merethroleplay.com/guide/): How the server works end to end, in chapters.
+- [Rules](https://merethroleplay.com/rules/): The rulebook, with the severe rules flagged as severe.
+- [Roleplay language](https://merethroleplay.com/language/): How to speak in character: what to say instead of skills, levels, respawns and second characters, and what to do when somebody else drops out of character.
+
+## How the systems work
+
+- [Skills and memory points](https://merethroleplay.com/skills/): The skill system: 18 memory points across 51 skills, with a planner and the in-game menu.
+- [Progression](https://merethroleplay.com/progression/): What each tier is actually worth, and what a point buys.
+- [Magic](https://merethroleplay.com/magic/): How a spell is learned: a tome or a teacher, spell points, and 7 to 35 days in the grimoire.
+- [Teaching magic](https://merethroleplay.com/teaching/): The Teacher whitelist: the requirements, the three stages, the apprentice slots and the audits.
+- [Food, drink and energy](https://merethroleplay.com/survival/): The three bars that tick down while you play, and how exhaustion works.
+- [Crafting](https://merethroleplay.com/crafting/): Every recipe, bench by bench, with spawnable item ids.
+- [Tips](https://merethroleplay.com/tips/): The numbers, the cooldowns and the traps.
+
+## The setting
+
+- [The World](https://merethroleplay.com/world/): Skyrim in 4E 185, ten years after the White-Gold Concordat.
+- [The Nine Holds](https://merethroleplay.com/holds/): The nine holds and who holds each seat.
+- [Factions](https://merethroleplay.com/factions/): The Companions, the College of Winterhold and the Thieves' Guild.
+- [Lore](https://merethroleplay.com/lore/): The in-world library: eleven documents written for the setting.
+
+## Answers
+
+- [Questions](https://merethroleplay.com/faq/): Answers on skills, magic, combat, holds, and every connection failure.
+- [Latest Q&A](https://merethroleplay.com/qa/): The latest community Q&A on where the server is heading.
+
+## Reference
+
+- [Changelog](https://merethroleplay.com/changelog/): Every release note, searchable and grouped by month.
+- [Roadmap](https://merethroleplay.com/roadmap/): The four stages of the plan, and what has already shipped.
+- [Modlist](https://merethroleplay.com/records/): The full modlist and load order.
+- [Gallery](https://merethroleplay.com/gallery/): Screenshots and clips from the server.
+- [Credits](https://merethroleplay.com/credits/): The 167 mods and 117 authors the server is built on.
+
+## Community
+
+- [The Hall](https://merethroleplay.com/community/): How the Discord works, and what happens there.
+- [Discord](https://merethroleplay.com/discord/): Discord as the login, the front door and the support channel.
+- [Getting help](https://merethroleplay.com/support/): Getting help, and what to bring to a ticket.
+- [Supporting Mereth](https://merethroleplay.com/donate/): Patreon tiers and what supporting the server pays for.
+
+## The lore library
+
+- [The Companions](https://merethroleplay.com/lore/companions/): The hall at Whiterun, and the mantle nobody has claimed for forty years.
+- [The Harbinger’s Reflections on the Decline of the Guild](https://merethroleplay.com/lore/harbinger-reflections/): A Harbinger writing on how the Companions declined.
+- [Letter from Yjorn Gray-Mane, Custodian of the Skyforge](https://merethroleplay.com/lore/greymane-skyforge-letter/): The custodian of the Skyforge, on why his hammer is still.
+- [Letters of a Shield Brother in Times of Turmoil](https://merethroleplay.com/lore/shield-brother-letters/): Letters between shield brothers during the turmoil.
+- [The College of Winterhold](https://merethroleplay.com/lore/college-winterhold/): The College, its semesters, and what it asks of applicants.
+- [The Thieves' Guild](https://merethroleplay.com/lore/thieves-guild/): What the Guild is in Skyrim, told plainly.
+- [Atmoran Clevercraft](https://merethroleplay.com/lore/atmoran-clevercraft/): Clevercraft, and what Shalidor left behind.
+- [On The Learnings of Bron Laah’dan](https://merethroleplay.com/lore/bron-laahdan-treatise/): A treatise dictated by a master, on the learnings of Bron Laah'dan.
+- [The Vigilant Rule of 4E 35](https://merethroleplay.com/lore/vigilant-rule-4e35/): The rule written for the newly founded Knights Vigilant.
+- [The Imperial Legion in Skyrim, 4E 185](https://merethroleplay.com/lore/imperial-legion-4e185/): An account of Imperial order and dominance, dated to the present year.
+- [Criminal Underworld in Skyrim](https://merethroleplay.com/lore/penitus-skyrim-report/): A report on criminal enterprises, compiled for the Emperor.
+
+## Optional
+
+- [Terms](https://merethroleplay.com/terms/): Terms of use.
+- [Privacy](https://merethroleplay.com/privacy/): Privacy notice.
+- [Refunds](https://merethroleplay.com/refunds/): Refund policy for Patreon support.
