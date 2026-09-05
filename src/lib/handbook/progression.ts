@@ -199,7 +199,7 @@ export const progression: HandbookPage = {
               and pickpocketing simply do not function.`,
           ],
         },
-        { kind: "quote", text: "Assign Lockpicking in your skill plan" },
+        { kind: "quote", text: "Assign Lockpicking in your skill plan at a temple before you can pick locks." },
         {
           kind: "prose",
           paragraphs: [

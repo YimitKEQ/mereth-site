@@ -1,6 +1,8 @@
 import { Clip } from "@/components/gallery/Clip";
+import { ClientMessages } from "@/components/handbook/ClientMessages";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import type { Block, DataBlock } from "@/lib/handbook/blocks";
+import { connectionMessages, playMessages } from "@/lib/handbook/client-messages";
 import { inline } from "@/lib/markup";
 import { citations, mereth } from "@/lib/mereth";
 
@@ -194,24 +196,19 @@ function Data({ name }: { name: DataBlock }) {
         />
       );
 
-    case "troubles": {
-      // The connection failures specifically, not every string in the client.
-      const messages = mereth.messages.troubles
-        .filter((m) => /Disconnect|mod list|plugin|SKSE|load order|slot|Install|Remove|Fix/i.test(m))
-        .slice(0, 14);
-      return (
-        <ul className="my-6 space-y-2">
-          {messages.map((message) => (
-            <li
-              key={message}
-              className="border-l border-brand-accent/25 py-1 pl-4 font-mono text-[0.8rem] leading-relaxed text-text-light"
-            >
-              {message}
-            </li>
-          ))}
-        </ul>
-      );
-    }
+    /*
+     * Both of these used to filter the raw client strings with a regex and print
+     * whatever survived. That published two fragments cut mid-sentence and three
+     * ways of saying the same thing, and it told nobody what to do. The
+     * explanations are written now, in `lib/handbook/client-messages.ts`, and
+     * the support page renders the same ones, so the two pages cannot drift
+     * apart the way they had.
+     */
+    case "troubles":
+      return <ClientMessages messages={connectionMessages} />;
+
+    case "refusals":
+      return <ClientMessages messages={playMessages} />;
   }
 }
 

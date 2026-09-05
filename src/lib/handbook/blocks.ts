@@ -39,7 +39,10 @@ export type DataBlock =
   | "access"
   | "races"
   | "months"
+  /** Why the game will not let you in, explained. */
   | "troubles"
+  /** Why the game refused something you tried while playing, explained. */
+  | "refusals"
   | "slash"
   | "menus";
 

@@ -4,9 +4,10 @@ import Link from "next/link";
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { ClientMessages } from "@/components/handbook/ClientMessages";
 import { ButtonLink } from "@/components/ui/Button";
+import { connectionMessages } from "@/lib/handbook/client-messages";
 import { pageMeta } from "@/lib/seo";
-import { mereth } from "@/lib/mereth";
 
 export const metadata: Metadata = pageMeta({
   path: "/support",
@@ -68,10 +69,6 @@ const routes = [
 ];
 
 export default function SupportPage() {
-  const troubles = mereth.messages.troubles
-    .filter((message) => /Disconnect|mod list|plugin|SKSE|load order|slot/i.test(message))
-    .slice(0, 10);
-
   return (
     <div className="mx-auto max-w-[70rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <ReadingScrim />
@@ -120,21 +117,18 @@ export default function SupportPage() {
         </h2>
         <p className="mt-4 text-[0.98rem] leading-[1.85] text-text-light">
           Mereth&apos;s client distinguishes an unusual number of separate failures, which means the
-          exact wording on your screen tells you what to do. These are its own messages, verbatim:
+          exact wording on your screen tells you what to do. Find yours below.
         </p>
-        <ul className="mt-6 space-y-2">
-          {troubles.map((message) => (
-            <li
-              key={message}
-              className="border-l border-brand-accent/25 py-1 pl-4 font-mono text-[0.8rem] leading-relaxed text-text-light"
-            >
-              {message}
-            </li>
-          ))}
-        </ul>
+
+        {/* The same explanations the guide renders, from the same file. This
+            page used to print the raw strings through a slightly different
+            filter, so the two disagreed about which errors existed and neither
+            said what to do about any of them. */}
+        <ClientMessages messages={connectionMessages} />
+
         <div className="mt-9 flex flex-wrap gap-4">
-          <ButtonLink href="/faq#connect" variant="solid" size="md">
-            What each one means
+          <ButtonLink href="/guide#stuck" variant="solid" size="md">
+            The full install guide
           </ButtonLink>
           <ButtonLink href="/discord" size="md">
             Open a ticket

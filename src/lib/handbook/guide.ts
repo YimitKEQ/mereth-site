@@ -34,7 +34,7 @@ export const guide: HandbookPage = {
               regular flags must all match, and so must the SKSE DLLs by name, size and checksum.`,
           ],
         },
-        { kind: "quote", text: "Having a file in Data is not enough" },
+        { kind: "quote", text: "Having a file in Data is not enough. It must be enabled and loaded." },
         {
           kind: "note",
           tone: "key",
@@ -53,7 +53,9 @@ export const guide: HandbookPage = {
           kind: "prose",
           paragraphs: [
             `The client names the exact problem, and it separates cases that look identical from the
-              outside. Read the wording before you change anything. These are its own messages:`,
+              outside, so read the wording before you change anything. Each case below says what it
+              means and what to do, with the client's own wording underneath it to match against
+              what is on your screen.`,
           ],
         },
         { kind: "data", name: "troubles" },
@@ -94,7 +96,7 @@ export const guide: HandbookPage = {
               the look target when a menu loses it, and \`X\` doubles as cancel while a menu is up.`,
           ],
         },
-        { kind: "quote", text: "Look target lost" },
+        { kind: "quote", text: "Look target lost. Close menu, aim, press F3 again." },
         {
           kind: "prose",
           paragraphs: [`The menus you will actually meet, by their own names in the client:`],
@@ -122,9 +124,13 @@ export const guide: HandbookPage = {
             `Take a memory point back out and you lose the experience for the tier you dropped out
               of, though only if you had any in it. The client enforces the plan hard: it refuses
               to let you pick a lock or a pocket at all until the skill is assigned.`,
+            `That refusal is the single most reported "bug" on the server and it is not one. **A
+              skill you have not locked in does not work badly, it does not work.** The same is true
+              of a handful of other things the game will decline to do, so here is each of them with
+              what it actually wants from you:`,
           ],
         },
-        { kind: "quote", text: "Assign Lockpicking in your skill plan" },
+        { kind: "data", name: "refusals" },
         { kind: "data", name: "tiers" },
         {
           kind: "prose",
@@ -306,7 +312,7 @@ export const guide: HandbookPage = {
               and a failed attempt puts the target on edge, which blocks a retry until they settle.`,
           ],
         },
-        { kind: "quote", text: "pickpocket while detected" },
+        { kind: "quote", text: "You can't pickpocket while detected." },
         { kind: "cite", pattern: /pickpocket|lockpick/i, limit: 4 },
       ],
     },

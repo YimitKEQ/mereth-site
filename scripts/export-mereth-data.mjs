@@ -375,6 +375,48 @@ const gathering = {
     .map((r) => ({ where: r.where, total: r.total, nodes: (r.nodes ?? []).slice(0, 4) })),
 };
 
+// --- Client messages, filtered to the ones a player can act on ---------------
+//
+// The sweep pulls strings out of the client by scanning it, which means it also
+// pulls out things the client says to itself. Its buckets are not trustworthy:
+// "The listener must be a function" is a JavaScript runtime error and it arrives
+// filed under `rules`, next to "Assign Lockpicking in your skill plan".
+//
+// That got published. Until this was written, the guide's troubleshooting list
+// opened with `(belongs at load order #` and `(no plugin at load index`, two
+// halves of sentences the scanner had cut in the middle, rendered in monospace
+// under the words "these are its own messages". Both render sites tried to
+// defend themselves with a regex whitelist and both let those two through,
+// which is the argument for filtering here instead: once, at the edge, where
+// the untrusted data comes in, rather than at each place that displays it.
+//
+// Everything dropped is printed at the end of the run. A silent filter is how
+// you end up unable to explain why a real message stopped appearing.
+const DEV_ONLY =
+  /listener must be a function|Dynamic cast|Generator is already|loadUrl|CreateActor|auth data|serverinfo|server-info-ignore|public keys configured|signature \(no signer\)|Gamemode updates|fresh auth screen|^Gets |^Applied |^Applying |Failed to (call|read|write|get|apply)|texture set|file info for/i;
+
+/** Ends on a word that cannot end a sentence, so the scanner cut it short. */
+const CUT_SHORT = /\b(at|to|the|of|for|with|from|has|missing|remove|enable|attempt|index)$/i;
+
+const dropped = [];
+
+function playerFacing(messages) {
+  const keep = (text) => {
+    if (typeof text !== "string") return false;
+    const line = text.trim();
+    // A leading bracket is always the middle of a sentence here, never the start.
+    if (line.startsWith("(") || line.length < 12 || DEV_ONLY.test(line) || CUT_SHORT.test(line)) {
+      dropped.push(line);
+      return false;
+    }
+    return true;
+  };
+
+  return Object.fromEntries(
+    Object.entries(messages).map(([bucket, lines]) => [bucket, (lines ?? []).filter(keep)]),
+  );
+}
+
 // --- The handbook bundle -----------------------------------------------------
 const handbook = {
   builtAt: new Date().toISOString(),
@@ -404,7 +446,7 @@ const handbook = {
   accessLevels: ui.accessLevels,
   binds: facts?.interactionBinds ?? [],
   slashCommands: facts?.slashCommands ?? [],
-  messages: facts?.messages ?? { rules: [], troubles: [], other: [] },
+  messages: playerFacing(facts?.messages ?? { rules: [], troubles: [], other: [] }),
   systems,
   services,
   mods,
@@ -503,6 +545,15 @@ const write = (dir, name, value) => {
 };
 
 console.log(`src/data/mereth.json  ${write(OUT_DIR, "mereth.json", clean)} KB`);
+
+if (dropped.length > 0) {
+  console.log(`\nheld back ${dropped.length} client string(s) as not player facing:`);
+  for (const line of dropped) console.log(`  ${line}`);
+  console.log(
+    "If one of those is a real message, loosen the filter in this script rather than\n" +
+      "quoting it from a page. See src/lib/handbook/client-messages.ts.",
+  );
+}
 console.log(JSON.stringify({
   skills: skills.length,
   categories: categories.length,
