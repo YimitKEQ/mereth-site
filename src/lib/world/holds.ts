@@ -13,6 +13,14 @@
  * transcribed from what the team has published, never inferred: an invented
  * jarl is the fastest way to break another player's roleplay, and an invented
  * steward is the same mistake one rank down.
+ *
+ * A seat that fills does not erase the jarl who held it. When Falkreath was
+ * raised again the obvious edit was to overwrite Kellanved Ultor with his
+ * successor, which would have deleted ten years of court history and a
+ * proclamation the court published in full. So a succession moves the old jarl
+ * to `predecessor` and he stays on the page. The `Vacancy` shape below is kept
+ * for the same reason in reverse: no seat is empty today, and the next one will
+ * be, so the state stays modelled rather than rewritten from scratch each time.
  */
 
 export interface Hold {
@@ -26,10 +34,25 @@ export interface Hold {
   pending?: string;
   /** Set only when the seat itself is empty, which is a different fact. */
   vacancy?: Vacancy;
+  /** The jarl before this one, kept on the page rather than overwritten. */
+  predecessor?: Predecessor;
   /** The jarl, in the words already published. */
   jarlStory: string[];
   /** The hold's own situation. */
   holdStory: string[];
+}
+
+/** A jarl who has left the seat, and whose record stays published. */
+export interface Predecessor {
+  name: string;
+  /** How long they held it, short enough for a label. */
+  held: string;
+  /** How the seat changed hands, in one line. */
+  summary: string;
+  /** Their write-up, exactly as it read while they sat the seat. */
+  story: string[];
+  /** Their own words, when the court published a document on the way out. */
+  proclamation?: Proclamation;
 }
 
 /** An empty seat, and what the hold does until it is filled again. */
@@ -113,23 +136,22 @@ export const holds: Hold[] = [
   {
     name: "Falkreath Hold",
     seat: "Falkreath",
-    jarl: null,
-    vacancy: {
-      lastHeld: "Jarl Kellanved Ultor",
-      since: "Last Seed, 4E 185",
-      summary: `Kellanved Ultor laid down the seat and left Falkreath on pilgrimage. No successor
-        has been named.`,
-      interim: [
-        `The hold did not stop when its Jarl walked out of it. Falkreath's court still keeps the
-          peace, still hears what disputes it can, and still holds the roads and the timber trade to
-          the law they were held to a month ago. What the court cannot do is speak for the hold:
-          until somebody is raised to the seat, no writ, grant or parcel carries a Jarl's authority
-          behind it.`,
-        `The next Jarl of Falkreath will be chosen the way Skyrim has always chosen one, in play. The
-          court convenes a Moot, its thanes and court members select from among their own ranks, and
-          **the vote must be unanimous**: no shortcut, no majority rule, no tiebreaker. There is
-          nothing to apply for and nobody to apply to. Taking the hold by force instead bypasses the
-          Moot, and an Usurper is retaken and executed.`,
+    jarl: "Jarl Rigmyr Old-Pelt",
+    predecessor: {
+      name: "Jarl Kellanved Ultor",
+      held: "4E 175 to 4E 185",
+      summary: `Kellanved Ultor laid the seat down whole and left Falkreath on pilgrimage. The court
+        convened, and it raised his own Housecarl in his place.`,
+      story: [
+        `Of House Ultor, he ascended in 4E 175 after the sudden death of his father, Jarl Harvok.
+          Though the speed of Harvok's illness raised suspicion, Kellanved had already established
+          himself as a figure who commanded both respect and fear. Rather than seizing the seat by
+          force, he called a local moot, and Falkreath's warriors, priests and landowners confirmed
+          him as Jarl.`,
+        `Falkreath was fragile when Kellanved took the seat, still reeling from the Great War and
+          rising bandit activity along its roads. The hold needed more than a noble; it needed
+          someone who could impose order on a land of tombs and timber, where Cyrodiil's highways
+          bring as much trouble as trade. Ten years on, that order is what he leaves behind him.`,
       ],
       proclamation: {
         title: "A Proclamation from Jarl Kellanved Ultor of Falkreath",
@@ -163,17 +185,34 @@ export const holds: Hold[] = [
       },
     },
     jarlStory: [
-      `Of House Ultor, he ascended in 4E 175 after the sudden death of his father, Jarl Harvok.
-        Though the speed of Harvok's illness raised suspicion, Kellanved had already established
-        himself as a figure who commanded both respect and fear. Rather than seizing the seat by
-        force, he called a local moot, and Falkreath's warriors, priests and landowners confirmed
-        him as Jarl.`,
+      `A stern and deeply traditional Nord whose life has been defined by service, sacrifice and an
+        unwavering devotion to the people of Falkreath. Once the Housecarl of Jarl Kellanved, Rigmyr
+        served the hold with a quiet loyalty that eventually carried him to the seat itself. He is a
+        harsh man by nature, blunt in speech and uncompromising when it comes to cowardice,
+        dishonour or betrayal. Yet beneath that severity lies a man who cares fiercely for those
+        placed under his protection.`,
+      `He is a veteran of the Great War, having fought beneath the banner of the Empire, and it left
+        wounds that never truly healed. He watched close friends die in his arms, men he had eaten
+        beside, laughed with and trusted with his life. He learned young that war does not care
+        about titles or promises, and that every name on a battlefield belongs to someone waiting at
+        home.`,
+      `Those memories shaped the Jarl he would become. He has little patience for leaders who treat
+        their people as numbers or soldiers as expendable, because he remembers what it is to lose
+        someone and be unable to do anything about it. He may speak harshly, demand much and expect
+        people to carry their responsibilities, but he does so because he believes their lives are
+        worth defending.`,
+      `He follows Tsun, the Bear, and holds the Old Ways close. To him honour is not a word to be
+        spoken when convenient, it is a man's promise when keeping that promise becomes difficult.
+        Strength exists to protect the weak, not to prey upon them, and leadership exists to serve
+        the people rather than raise the ruler above them.`,
     ],
     holdStory: [
-      `Falkreath was fragile when Kellanved took the seat, still reeling from the Great War and
-        rising bandit activity along its roads. The hold needed more than a noble; it needed someone
-        who could impose order on a land of tombs and timber, where Cyrodiil's highways bring as
-        much trouble as trade. Ten years on, that order is what he leaves behind him.`,
+      `On the 23rd of Last Seed, 4E 185, after Kellanved Ultor stepped down, Rigmyr was chosen by
+        the court to become Jarl of Falkreath. His ascension marks a return to a harder, older style
+        of leadership, one built on tradition, duty and personal responsibility.`,
+      `He is a cold man, but not a heartless one. Rigmyr has buried too many friends to take the
+        lives of his people lightly. Falkreath is not merely the hold he rules. It is the people he
+        swore to protect.`,
     ],
   },
   {

@@ -22,15 +22,22 @@ export const metadata: Metadata = pageMeta({
  * Three groups, and the page exists to keep them apart. A court that is held
  * but undescribed is not a vacant throne, and the difference is the more
  * important fact of the two: a player choosing where to belong must not build a
- * character around taking a seat that is already somebody else's. So the one
- * seat that genuinely is empty gets said out loud, in its own section, with the
- * departing jarl's own proclamation under it, and every other seat says plainly
- * that somebody sits in it. Names are only ever transcribed, never inferred.
+ * character around taking a seat that is already somebody else's. So a seat that
+ * is genuinely empty gets said out loud in its own section, and every other seat
+ * says plainly that somebody sits in it. Names are only ever transcribed, never
+ * inferred.
+ *
+ * Every seat in Skyrim is held today. Falkreath was the empty one and is not any
+ * more, so the vacant branch renders nothing and is kept for the next time,
+ * which on this server is a matter of when rather than whether. Its history did
+ * not go with it: an outgoing jarl moves to a section of his own, proclamation
+ * and all, rather than being overwritten by the man who followed him.
  */
 export default function HoldsPage() {
   const written = holds.filter((hold) => hold.jarl !== null);
   const vacant = holds.filter((hold) => hold.vacancy !== undefined);
   const awaiting = holds.filter((hold) => hold.jarl === null && hold.vacancy === undefined);
+  const succeeded = holds.filter((hold) => hold.predecessor !== undefined);
 
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
@@ -84,6 +91,13 @@ export default function HoldsPage() {
               Seat of {hold.seat}
             </p>
             <p className="relative mt-4 text-[1rem] text-text-primary">{hold.jarl}</p>
+            {/* Said on the card, because a reader who knows this court under its
+                old jarl needs to find out here rather than three sections down. */}
+            {hold.predecessor === undefined ? null : (
+              <p className="relative mt-1 text-[0.82rem] text-text-muted">
+                Succeeded {hold.predecessor.name}
+              </p>
+            )}
 
             <div className="relative mt-4 space-y-3.5">
               {[...hold.jarlStory, ...hold.holdStory].map((paragraph, i) => (
@@ -155,6 +169,45 @@ export default function HoldsPage() {
           {hold.vacancy === undefined ? null : (
             <div className="mt-12">
               <Proclamation document={hold.vacancy.proclamation} />
+            </div>
+          )}
+        </section>
+      ))}
+
+      {/* The jarl before the one sitting now. Falkreath changed hands rather
+          than being invented from nothing, and the record of the man who held it
+          for ten years does not stop being true the day he leaves. The
+          proclamation especially: the court published it whole, and it is the
+          only thing on this page written in a jarl's own voice. */}
+      {succeeded.map((hold) => (
+        <section key={hold.name} id={`${hold.seat.toLowerCase()}-before`} className="mt-16 scroll-mt-24">
+          <h2 className="font-display text-[0.95rem] tracking-heading text-brand-accent uppercase">
+            {hold.seat} before {hold.jarl}
+          </h2>
+
+          <div className="mt-5 max-w-[68ch]">
+            <p className="font-display inline-block border border-brand-accent/40 px-2.5 py-1 text-[10px] tracking-[2.5px] text-brand-accent uppercase">
+              Held {hold.predecessor?.held}
+            </p>
+            <p className="mt-3 text-[1rem] text-text-primary">{hold.predecessor?.name}</p>
+            <p className="mt-3 text-[0.95rem] leading-[1.8] text-text-light">
+              {hold.predecessor?.summary}
+            </p>
+
+            <div className="mt-5 border-l border-brand-accent/25 pl-5">
+              <div className="space-y-3.5">
+                {hold.predecessor?.story.map((paragraph, i) => (
+                  <p key={i} className="text-[0.9rem] leading-[1.8] text-text-muted">
+                    {inline(paragraph)}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {hold.predecessor?.proclamation === undefined ? null : (
+            <div className="mt-12">
+              <Proclamation document={hold.predecessor.proclamation} />
             </div>
           )}
         </section>
