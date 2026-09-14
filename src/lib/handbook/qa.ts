@@ -123,6 +123,10 @@ export const qaSections: QaSection[] = [
         a: `There are already diminishing experience returns when attacking the same target
           repeatedly. This exists specifically to prevent players from standing around hitting each
           other over and over to power-level.`,
+        since: `**0.72.34 removed diminishing returns from combat experience** and cut the
+          per-target cooldown to a second, so the mechanic described here is no longer the one
+          holding that line. Grinding a friend for levels is still against the rules; it is now the
+          rules holding it rather than the maths.`,
       },
     ],
   },
@@ -150,6 +154,9 @@ export const qaSections: QaSection[] = [
           eventually to have horses functioning properly enough for ownership and useful commands.
           Once horses are working properly, we can also start exploring roles such as Stablemasters
           and other horse-related professions.`,
+        since: `Ownership landed in 0.72.34: **a tamed horse now locks everybody but its owner out
+          of riding it**, flagged in the note itself as provisional. Trust also lasts longer, about
+          four days at 100, and dragons and werewolves were moved up to legendary tier taming.`,
       },
       {
         q: "Will fishing be repaired or expanded?",

@@ -131,6 +131,26 @@ export const roadmap: RoadmapStage[] = [
         text: "Rank, permissions and profession bonuses, granted through a hold's own stone",
         shipped: { version: "0.68.8", date: "2026-08-08" },
       },
+      {
+        name: "Faction holdstones",
+        text: "The same system extended to the organisations: the Companions, the Thieves' Guild, the Vigilants, the Volkihar, the Thalmor and the College, each with a stone standing in the world",
+        shipped: { version: "0.71.0", date: "2026-09-03" },
+      },
+      {
+        name: "An Oblivion style attribute system",
+        text: "The eight attributes back as a spendable pool assigned at a temple, with health, magicka, stamina and carry derived from them and the per-level health bonus removed",
+        shipped: { version: "0.72.19", date: "2026-09-09" },
+      },
+      {
+        name: "The combat rebuild",
+        text: "Valhalla Combat, TK Dodge and Improved Camera, then poise, crowd control with diminishing returns and a target lock that holds",
+        shipped: { version: "0.70.21", date: "2026-08-28" },
+      },
+      {
+        name: "The College of Winterhold",
+        text: "Rebuilt as a working building with its own holdstone, where the Shalidor statue used to stand",
+        shipped: { version: "0.71.0", date: "2026-09-03" },
+      },
     ],
   },
   {
@@ -145,7 +165,7 @@ export const roadmap: RoadmapStage[] = [
         "Reworked loot tables in the Creation Kit",
         "Nexus API integration so the launcher can use collections",
         "Magic system syncing and damage balancing",
-        "Expanding holdstones to support factions and houses",
+        "Expanding holdstones to support houses",
       ),
       {
         name: "Supernatural system",
@@ -163,7 +183,6 @@ export const roadmap: RoadmapStage[] = [
         "A craftable key system for doors at different tiers of strength",
         "Fort and camp claiming, where bandits do not respawn while you maintain the site with materials",
         "A custom book system",
-        "An Oblivion style attribute and levelling system",
       ),
       {
         name: "Combat Survival",
@@ -176,6 +195,10 @@ export const roadmap: RoadmapStage[] = [
       {
         name: "Object movement and placement",
         text: "Moving and placing furniture and other placeable items",
+      },
+      {
+        name: "Callings",
+        text: "Unlockable classes that add abilities and passives on top of the skills you already have, announced in 0.72.28 as the last piece of the progression system",
       },
     ],
   },

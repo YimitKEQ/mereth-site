@@ -25,11 +25,13 @@
  * 1. `seen` is verbatim. Not trimmed, not tidied, not shortened to fit. The
  *    whole point is that a player can match it character for character, and the
  *    previous version failed exactly here: it quoted "Assign Lockpicking in your
- *    skill plan" while the client says "Assign Lockpicking in your skill plan at
+ *    skill plan" while the client said "Assign Lockpicking in your skill plan at
  *    a temple before you can pick locks." It cut the half that tells you where to
  *    go. `npm test` checks every string here against the shipped client strings
  *    for that reason, so a message the client rewords fails the build rather
- *    than quietly becoming a misquote.
+ *    than quietly becoming a misquote. It has already earned its keep twice:
+ *    0.72 both reworded that line into a template and deleted "This lock requires
+ *    a key." outright, and the build failed rather than the page lying.
  * 2. `body` says what to do, in the second person, in words a player who has
  *    never opened a mod manager can act on. "Reinstall through the launcher" is
  *    an instruction. "Your load order does not match" is a restatement of the
@@ -168,13 +170,26 @@ export const connectionMessages: ClientMessage[] = [
  */
 export const playMessages: ClientMessage[] = [
   {
-    title: "Your lockpick does nothing",
-    body: `Lockpicking is not on your skill plan, and the client refuses the action outright rather
-      than letting you fail at it. This reads exactly like a bug and is not one. Open your skills
-      with \`K\` and assign the skill, which you can do in the starting room or at any temple in the
-      province. Nothing you do with a pick counts for anything until it is locked in, including
-      practice.`,
-    seen: ["Assign Lockpicking in your skill plan at a temple before you can pick locks."],
+    title: "The action just refuses, and nothing happens",
+    body: `The skill is not locked into your plan, and the client refuses outright rather than
+      letting you fail at it. This reads exactly like a bug and is not one. Open your skills with
+      \`K\`, assign the skill and lock the plan in, which you can do in the starting room or at any
+      temple. Nothing you do counts for anything until it is locked in, practice included.`,
+    /*
+     * In 0.72 the per-skill lines were replaced by one message with the action's
+     * name substituted into it, so what you see now names whatever you just
+     * tried. It is not quoted here, because quoting half a sentence is the thing
+     * this file exists to stop. The ones the client still spells out in full are
+     * the ones below.
+     */
+    seen: ["Lock In your skill plan in the Skills menu (K) before using Lockpicking."],
+  },
+  {
+    title: "You cannot ride that horse",
+    body: `Horse Riding is a skill like any other: it has to be on your plan and locked in. Assign it
+      with \`K\` at a temple. Separately, since 0.72.34 **a tamed horse only answers to its owner**,
+      so a horse that refuses you may simply be somebody else's.`,
+    seen: ["Assign Horse Riding on your skill plan and Lock In to ride horses."],
   },
   {
     title: "You cannot pickpocket anybody",
@@ -185,13 +200,7 @@ export const playMessages: ClientMessage[] = [
       "Lock In your skill plan before you can pickpocket. Use the Skills menu (K).",
     ],
   },
-  {
-    title: "This lock will not open no matter your skill",
-    body: `Some locks are not a skill check at all and want the key instead. No amount of Lockpicking
-      opens one, so the way in is to find, buy or be handed the key, which on a roleplay server
-      usually means asking whoever holds it.`,
-    seen: ["This lock requires a key."],
-  },
+
   {
     title: "They noticed you",
     body: `Pickpocketing only works on somebody who has not spotted you. Being detected does not make

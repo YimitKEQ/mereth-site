@@ -105,6 +105,70 @@ export const progression: HandbookPage = {
     },
 
     {
+      id: "attributes",
+      title: "The eight attributes",
+      blocks: [
+        {
+          kind: "prose",
+          paragraphs: [
+            `Skills say what your character can do. **Attributes say what their body and mind are
+              like**, and in September they became the other half of progression: every number on
+              your character sheet that is not a skill now comes from them.`,
+            `There are eight, the Elder Scrolls set, each capped at 100. You spend points into them
+              **at a temple**, the same place you set your skill plan, and the menu simply refuses
+              anywhere else.`,
+          ],
+        },
+        { kind: "data", name: "attributes" },
+        {
+          kind: "note",
+          tone: "key",
+          title: "Health, magicka, stamina and carry are arithmetic now",
+          body: `There is no per-level health bonus any more, it was removed in 0.72.19 so that
+            levelling does not inflate the world around it. Your four pools are worked out from
+            your attributes and nothing else, by these formulas, which the menu, the server and the
+            native plugin all share.`,
+        },
+        { kind: "data", name: "pools" },
+        {
+          kind: "prose",
+          paragraphs: [
+            `Two races get magicka on top of that: **Bretons +50, High Elves +100**. Carry never
+              drops below 40 whatever you do to it.`,
+            `**Attributes also feed back into skills.** Every five points above 50 in a relevant
+              attribute is worth roughly a skill level, applied as a hidden modifier rather than as
+              a visible +1. It will not push a skill past the ceiling your plan bought, so it makes
+              you better inside your tier rather than promoting you out of it.`,
+          ],
+        },
+        {
+          kind: "note",
+          tone: "warn",
+          title: "You can rob one attribute to pay another, up to five points",
+          body: `You may push an attribute as far as **five below your racial base** and spend what
+            that frees elsewhere. It is the one way to sharpen a character past what their race
+            hands them. **Do not do it to Luck.** Below 50, Luck actively works against you: thinner
+            yields, more failures, worse finds. A dumped Luck is a tax on every gathering and
+            crafting roll you will ever make.`,
+        },
+        {
+          kind: "prose",
+          paragraphs: [
+            `**Reset is possible and it is not free.** The Reset button in the stats panel returns
+              every spent point to your pool and starts a cooldown before you may do it again, so it
+              is a change of direction rather than a per-evening respec. Reset in a temple like
+              everything else. If your points ever look wrong, a reset recalculates them from
+              scratch, which is what the 0.72.28 fix for miscounted points does.`,
+            `The same panel is where your defensive numbers live: armour, damage, and resistance to
+              magic, fire, frost, shock, poison and disease, plus your Master Level and how long you
+              have played. Press \`K\`, then the stats tab.`,
+          ],
+        },
+        { kind: "cite", pattern: /attribute|endurance|willpower|intelligence/i, limit: 4 },
+      ],
+    },
+
+    {
       id: "expect",
       title: "What to expect at each tier",
       blocks: [
@@ -203,9 +267,11 @@ export const progression: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `**Repetition pays less.** Experience from a target is capped with diminishing returns,
-              so hitting the same creature over and over earns steadily less. Rotate what you fight
-              rather than grinding the single most convenient thing.`,
+            `**Fighting pays properly again.** Combat used to tail off as you repeated a target.
+              That was removed in 0.72.34 and the per-target cooldown cut to a second, so a long
+              fight earns what it looks like it should. The change names combat only: nothing has
+              been published about gathering or crafting, so a whole evening on one ore vein is
+              untested rather than blessed.`,
             `**The purple bar is Energy, not an experience budget.** Activity spends it, sitting
               refills it and an inn refills it faster, which is the real reason to go indoors. At
               zero you are Exhausted until you rest, and nothing refills while you are hungry or
@@ -215,9 +281,12 @@ export const progression: HandbookPage = {
         {
           kind: "note",
           tone: "key",
-          title: "Well Rested is the cheapest bonus to keep",
-          body: `Five minutes at an inn on full energy, and it re-triggers every five minutes while
-            you stay. Park before you log off and before you head out.`,
+          title: "Well Rested is now the biggest single bonus in the game, and it is rationed",
+          body: `It was ten percent. Since 0.71.0 the first one is **double experience for an hour**,
+            the second 50 percent, the third 20, and then it goes on a **16 hour cooldown**. You
+            pick it up five minutes after your energy fills at an inn, and you can refresh it while
+            you are still there. So it is no longer a habit to keep topped up, it is three charges a
+            day: spend them on the session you actually mean to level in, not on the walk to it.`,
         },
         { kind: "cite", pattern: /well.?rested|exhaustion|diminishing/i, limit: 3 },
       ],
@@ -232,9 +301,9 @@ export const progression: HandbookPage = {
           paragraphs: [
             `A magic **skill** climbs on use like any other, by casting. A **spell** does not. Each
               one is studied out of a tome or taught by a Teacher, and the study is a fixed wait:
-              **7 days for a Novice spell, 14, 21, 28, and 35 for a Master one.** A Teacher takes a
-              day off that per lesson.`,
-            `So "how long to an Adept spell" has a real answer, three weeks of study or rather less
+              **5 days for a Novice spell, 10, 15, 25, and 35 for a Master one.** The whole ladder
+              below Master was shortened in 0.72.9; a Teacher takes a day off it per lesson.`,
+            `So "how long to an Adept spell" has a real answer, a fortnight of study or rather less
               with somebody teaching you, while "how long to a good swordsman" does not, because
               that one depends on who you fight and who sees it. Every spell you can learn, with its
               tier, is on the [magic page](/magic).`,

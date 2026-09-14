@@ -46,10 +46,11 @@ export const ROUTES: readonly RouteEntry[] = [
   { path: "/faq", priority: 0.85, changeFrequency: "weekly", summary: "Answers on skills, magic, combat, holds, and every connection failure." },
   { path: "/qa", priority: 0.8, changeFrequency: "weekly", summary: "The latest community Q&A on where the server is heading." },
 
-  { path: "/skills", priority: 0.85, changeFrequency: "weekly", summary: "The skill system: 18 memory points across 51 skills, with a planner and the in-game menu." },
+  { path: "/skills", priority: 0.85, changeFrequency: "weekly", summary: "The skill system: 18 memory points across every skill on the server, with a planner and the in-game menu." },
   { path: "/progression", priority: 0.8, changeFrequency: "weekly", summary: "What each tier is actually worth, and what a point buys." },
-  { path: "/magic", priority: 0.8, changeFrequency: "weekly", summary: "How a spell is learned: a tome or a teacher, spell points, and 7 to 35 days in the grimoire." },
+  { path: "/magic", priority: 0.8, changeFrequency: "weekly", summary: "How a spell is learned: a tome or a teacher, spell points, and 5 to 35 days in the grimoire." },
   { path: "/teaching", priority: 0.75, changeFrequency: "weekly", summary: "The Teacher whitelist: the requirements, the three stages, the apprentice slots and the audits." },
+  { path: "/combat", priority: 0.8, changeFrequency: "weekly", summary: "Combat after the August rebuild: timed parries, the poise bar, the double tap dodge, crowd control and stamina." },
   { path: "/survival", priority: 0.75, changeFrequency: "weekly", summary: "The three bars that tick down while you play, and how exhaustion works." },
   { path: "/crafting", priority: 0.75, changeFrequency: "weekly", summary: "Every recipe, bench by bench, with spawnable item ids." },
   { path: "/tips", priority: 0.7, changeFrequency: "weekly", summary: "The numbers, the cooldowns and the traps." },
@@ -63,7 +64,7 @@ export const ROUTES: readonly RouteEntry[] = [
   { path: "/roadmap", priority: 0.7, changeFrequency: "weekly", summary: "The four stages of the plan, and what has already shipped." },
   { path: "/records", priority: 0.6, changeFrequency: "weekly", summary: "The full modlist and load order." },
   { path: "/gallery", priority: 0.6, changeFrequency: "monthly", summary: "Screenshots and clips from the server." },
-  { path: "/credits", priority: 0.5, changeFrequency: "monthly", summary: "The 167 mods and 117 authors the server is built on." },
+  { path: "/credits", priority: 0.5, changeFrequency: "monthly", summary: "Every mod and every author the server is built on." },
 
   { path: "/community", priority: 0.7, changeFrequency: "monthly", summary: "How the Discord works, and what happens there." },
   { path: "/discord", priority: 0.7, changeFrequency: "monthly", summary: "Discord as the login, the front door and the support channel." },

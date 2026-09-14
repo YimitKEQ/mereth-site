@@ -26,6 +26,8 @@ export interface ResolvedAnswer {
   /** True when there is genuinely no decided answer yet. */
   open?: boolean;
   quote?: string;
+  /** What the server has done since this answer was given. */
+  since?: string;
   /** Citations resolved on the server, because the patterns cannot cross over. */
   notes?: { version: string; date: string | null; text: string }[];
 }
@@ -73,6 +75,17 @@ function Row({ item, startOpen }: { item: ResolvedAnswer; startOpen: boolean }) 
             </span>
           ) : null}
           <p className="text-[0.98rem] leading-[1.8] text-text-light">{inline(item.a)}</p>
+
+          {item.since !== undefined ? (
+            <div className="mt-5 border-l-2 border-[#a8503c]/55 bg-black/30 py-2.5 pr-4 pl-4">
+              <span className="font-display text-[10px] tracking-[1.4px] text-[#d08a76] uppercase">
+                Changed since
+              </span>
+              <p className="mt-1.5 text-[0.88rem] leading-[1.75] text-text-light">
+                {inline(item.since)}
+              </p>
+            </div>
+          ) : null}
 
           {item.quote !== undefined ? (
             <figure className="mt-5 border-l-2 border-brand-accent/50 bg-black/30 py-2.5 pr-4 pl-4">

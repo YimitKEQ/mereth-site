@@ -132,6 +132,26 @@ function Chips({ items }: { items: string[] }) {
   );
 }
 
+/**
+ * Turn `{ endurance: 2, strength: 1 }` into "2 x Endurance + Strength".
+ *
+ * `multiplier` and `flat` are the two non-attribute terms their formulas carry, and both
+ * belong at the end: carry is `(Strength + Endurance) x 1.25 + 10`.
+ */
+function poolFormula(terms: Record<string, number>): string {
+  const attributes = Object.entries(terms).filter(([key]) => key !== "multiplier" && key !== "flat");
+  const sum = attributes
+    .map(([key, weight]) => {
+      const name = key.replace(/^\w/, (c) => c.toUpperCase());
+      return weight === 1 ? name : `${weight} x ${name}`;
+    })
+    .join(" + ");
+  const multiplier = terms.multiplier;
+  const flat = terms.flat;
+  const scaled = multiplier === undefined ? sum : `(${sum}) x ${multiplier}`;
+  return flat === undefined ? scaled : `${scaled} + ${flat}`;
+}
+
 /** Datasets that would be unreadable written out as literals in the content file. */
 function Data({ name }: { name: DataBlock }) {
   switch (name) {
@@ -160,11 +180,52 @@ function Data({ name }: { name: DataBlock }) {
         />
       );
 
+    /*
+     * The thresholds came out of the client's own needs HUD. That HUD was deleted
+     * in 0.72 when hunger, thirst and energy moved to TrueHUD, a native plugin,
+     * and nothing published the numbers after it. An empty table would read as a
+     * rendering bug, so the absence is stated instead of drawn.
+     */
     case "needs":
+      if (mereth.needs.length === 0) {
+        return (
+          <p className="text-frost-dim">
+            The client stopped publishing these. Food and drink still warn you twice on the way
+            down, but since the needs bars moved to TrueHUD in 0.72 the percentages behind those
+            warnings are not in anything a reader can check. Treat the first warning as
+            &ldquo;soon&rdquo; and the second as &ldquo;now&rdquo;.
+          </p>
+        );
+      }
       return (
         <Table
           head={["Need", "Low at", "Critical at"]}
           rows={mereth.needs.map((need) => [need.label, String(need.lowAt), String(need.criticalAt)])}
+        />
+      );
+
+    case "attributes":
+      return (
+        <Table
+          head={["Attribute", "What it does"]}
+          rows={mereth.attributes.map((attribute) => [`**${attribute.label}**`, attribute.blurb])}
+        />
+      );
+
+    /*
+     * Rendered from the coefficients rather than written out, so the arithmetic on
+     * the page is the arithmetic in the menu. Their own source calls these "the same
+     * official floors as derivedPools.ts / AttrPools.h": the menu, the server and the
+     * native plugin agreeing on one formula.
+     */
+    case "pools":
+      return (
+        <Table
+          head={["Pool", "How it is worked out"]}
+          rows={Object.entries(mereth.pools).map(([pool, terms]) => [
+            `**${pool.replace(/^\w/, (c) => c.toUpperCase())}**`,
+            poolFormula(terms),
+          ])}
         />
       );
 

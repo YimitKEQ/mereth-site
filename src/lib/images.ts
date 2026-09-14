@@ -143,7 +143,7 @@ export const plates: Record<string, Plate> = {
   "skill-menu": {
     slug: "skill-menu",
     title: "The skill plan",
-    caption: "Press K. Eighteen memory points across 51 skills, and the tier you buy is the ceiling that skill can ever reach.",
+    caption: "Press K. Eighteen memory points, and the tier you buy is the ceiling that skill can ever reach.",
     src: asset("/img/skill-menu.webp"),
     widths: [640, 1024],
     width: 1800,

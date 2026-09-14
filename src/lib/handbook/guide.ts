@@ -92,8 +92,11 @@ export const guide: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Beyond those: \`K\` opens your skills, \`F8\` opens your spell grimoire, \`F3\` re-aims
-              the look target when a menu loses it, and \`X\` doubles as cancel while a menu is up.`,
+            `Beyond those: \`K\` opens your skills and your character stats, \`F8\` opens your spell
+              grimoire, and \`F3\` re-aims the look target when a menu loses it.`,
+            `**\`X\` is overloaded, and it is worth knowing which one you are about to get.** Idle,
+              it is surrender. In a fight with two weapons drawn, it blocks. With a note open for
+              drafting it simply types an x, so close a note with Escape.`,
           ],
         },
         { kind: "quote", text: "Look target lost. Close menu, aim, press F3 again." },
@@ -102,8 +105,23 @@ export const guide: HandbookPage = {
           paragraphs: [`The menus you will actually meet, by their own names in the client:`],
         },
         { kind: "data", name: "menus" },
-        { kind: "prose", paragraphs: [`And the slash commands:`] },
+        {
+          kind: "prose",
+          paragraphs: [
+            `And the slash commands. These are the ones the client itself defines, which are mostly
+              diagnostic:`,
+          ],
+        },
         { kind: "data", name: "slash" },
+        {
+          kind: "note",
+          tone: "key",
+          title: "Two more the server added, that the client list does not carry",
+          body: `**\`/stuck\`** returns you to the last place the server knew you were safe, which is
+            the answer to being wedged in geometry. It refuses if you are already close to a safe
+            spot. **\`/ooc\`** is the out-of-character channel, added in 0.72.34, so that the one
+            thing everybody used to type into local chat has somewhere to go.`,
+        },
       ],
     },
 
@@ -120,7 +138,7 @@ export const guide: HandbookPage = {
             `You allocate in the starting room or at any temple in the province. After that,
               experience carries you up towards the cap you bought: each tier is nineteen levels,
               and the twentieth advances you, if your cap allows. Experience only comes from skills
-              you have locked in, and repeating the same action pays less over time.`,
+              you have locked in.`,
             `Take a memory point back out and you lose the experience for the tier you dropped out
               of, though only if you had any in it. The client enforces the plan hard: it refuses
               to let you pick a lock or a pocket at all until the skill is assigned.`,
@@ -273,6 +291,10 @@ export const guide: HandbookPage = {
               person, press \`H\`, and introduce yourself. Until you do, they see "Stranger" above
               you and you see the same above them. Other titles are earned by mastering a whole
               skill category.`,
+            `**An introduction now reaches everybody standing with you**, not only the person you
+              are aimed at, which is what you would expect from saying your name out loud in a room.
+              And the anonymity holds further than the nameplate: since 0.72.30 a stranger's name is
+              hidden in the trade window and when they are being pickpocketed too.`,
           ],
         },
         { kind: "data", name: "races" },

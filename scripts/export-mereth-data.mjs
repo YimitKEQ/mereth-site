@@ -58,71 +58,38 @@ if (ui === null || wiki === null) {
 
 // --- Skills, grouped the way their own menu groups them --------------------
 //
-// `wiki-ui-data.json` flattens the 51 skills and loses the grouping, so the
-// grouping is recovered from the client source the UI dump recovered. Their
-// `content` is an array of arrays and `skillMenuCategories` slices it; both are
-// transcribed below rather than evaluated, because evaluating recovered foreign
-// source is not something this repo does.
-
-const CONTENT_SOURCE = path.join(DEVKIT, "ui-source", "src", "features", "skillsMenu", "content.ts");
-
-/** Skill names per top-level group of their `content` array, in source order. */
-function readContentGroups() {
-  const source = fs.readFileSync(CONTENT_SOURCE, "utf8");
-  const start = source.indexOf("const content = [");
-  if (start === -1) throw new Error("content array not found in the recovered skill menu source");
-
-  const groups = [];
-  let current = null;
-  let depth = 0;
-
-  for (let i = source.indexOf("[", start); i < source.length; i++) {
-    const ch = source[i];
-    if (ch === "[") {
-      depth++;
-      // Depth 2 is a category group: content[n].
-      if (depth === 2) current = [];
-    } else if (ch === "]") {
-      depth--;
-      if (depth === 1 && current !== null) {
-        groups.push(current);
-        current = null;
-      }
-      if (depth === 0) break;
-    } else if (ch === "{" && current !== null) {
-      // A skill object opens here; its `name` is the first key.
-      const name = /^\s*\{\s*\n?\s*name:\s*'([^']+)'/.exec(source.slice(i, i + 200));
-      if (name !== null) current.push(name[1]);
-    }
-  }
-  return groups;
-}
-
-const groups = readContentGroups();
-const g = (n) => groups[n] ?? [];
+// `wiki-ui-data.json` used to flatten the skills and lose the grouping, so this
+// script recovered it by transcribing their `skillMenuCategories` slices by hand.
+// That transcription broke in 0.72: the client added a ninth category
+// (Supernatural) and widened one slice, and four skills landed in "Other" behind
+// a warning. The devkit's UI extractor now resolves those slice expressions
+// against their own `content` groups and publishes the result, so the grouping a
+// reader sees is the grouping in the K menu, and neither file restates it.
 
 /*
- * Transcribed from `skillMenuCategories` in their own source. The slices are
- * theirs; reproducing them is what keeps our grouping identical to the grouping
- * a player sees in the K menu.
+ * Fail on an empty extraction rather than publishing one.
+ *
+ * The attribute blurbs are scraped out of the client's stats panel by a regex,
+ * and a regex that stops matching does not error, it returns nothing. That
+ * shipped once: eight attributes with blank labels rendered as a table header
+ * with no rows under it, which looks like a broken page rather than like stale
+ * data. Anything scraped and then rendered as a table gets checked here.
  */
-const CATEGORY_SLICES = [
-  ["Gathering", g(0).slice(0, 8)],
-  ["Crafting & trades", g(1).filter((name) => name !== "horseriding")],
-  ["Weapon Specializations", g(2).slice(0, 10)],
-  ["Armor Specializations", g(3).slice(1, 6)],
-  ["Magic schools", [g(3)[0], ...g(3).slice(6)]],
-  ["Movement & stealth", [...g(0).slice(8, 12), "horseriding"]],
-  ["Combat styles", g(4)],
-  ["Performance", g(5)],
-];
+const blankAttributes = (ui.attributes ?? []).filter((a) => !a.label || !a.blurb);
+if ((ui.attributes ?? []).length > 0 && blankAttributes.length > 0) {
+  throw new Error(
+    `${blankAttributes.length} attributes came back without a label or a description ` +
+      `(${blankAttributes.map((a) => a.key).join(", ")}). The client's stats panel has ` +
+      "probably been refactored. Fix the extraction in devkit/wiki/ui-data.ts.",
+  );
+}
 
-const skillByKey = new Map(ui.skills.map((s) => [s.key, s]));
 const categoryOf = new Map();
-for (const [label, keys] of CATEGORY_SLICES) {
-  for (const key of keys) {
-    if (key !== undefined && skillByKey.has(key)) categoryOf.set(key, label);
-  }
+for (const { label, keys } of ui.categoryMembers ?? []) {
+  for (const key of keys) categoryOf.set(key, label);
+}
+if (categoryOf.size === 0) {
+  throw new Error("no skill categories in wiki-ui-data.json. Run `npm run wiki:ui` in the repo root.");
 }
 
 const skills = ui.skills.map((skill) => ({
@@ -135,7 +102,7 @@ const skills = ui.skills.map((skill) => ({
   tiers: skill.tiers,
 }));
 
-const categories = CATEGORY_SLICES.map(([label]) => ({
+const categories = (ui.categoryMembers ?? []).map(({ label }) => ({
   label,
   keys: skills.filter((s) => s.category === label).map((s) => s.key),
 })).filter((c) => c.keys.length > 0);
@@ -440,6 +407,13 @@ const handbook = {
   tiers,
   planMaxTier: ui.planMaxTier,
   memoryPoints: 18,
+  attributes: ui.attributes ?? [],
+  attributeMax: ui.attributeMax ?? 0,
+  racialDumpMax: ui.racialDumpMax ?? 0,
+  attributesGatedAt: ui.attributesGatedAt ?? "",
+  pools: ui.pools ?? {},
+  raceMagickaBonus: ui.raceMagickaBonus ?? [],
+  minimumCarry: ui.minimumCarry ?? 0,
   needs: ui.needs.filter((n) => n.enabled !== false),
   races: ui.races,
   months: ui.months,

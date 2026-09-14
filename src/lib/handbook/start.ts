@@ -90,8 +90,9 @@ export const steps: Step[] = [
     title: "Your first evening in the province",
     summary: "Find an inn, find a hold, and find one person who wants something from you.",
     body: [
-      `Park at an inn for five minutes at full energy to pick up Well Rested, ten percent bonus
-        experience for an hour, re-triggering every five minutes while you stay.`,
+      `Park at an inn for five minutes at full energy to pick up Well Rested: double experience
+        for an hour. You get three of them a day, worth less each time, so spend the first on a
+        session you actually mean to play out.`,
       `Then find the missive board. Every hold has one, any player can pin a note to it, and jobs,
         warnings and meetings all get posted there. It is the fastest way to find somebody who
         wants something from you.`,

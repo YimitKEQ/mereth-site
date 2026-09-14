@@ -36,9 +36,30 @@ const clientStrings = new Set([
 
 const all = [...connectionMessages, ...playMessages];
 
+/**
+ * Is this line one the client actually puts on screen?
+ *
+ * Most are a whole literal and match outright. Some are built by concatenation:
+ * 0.72 replaced the per-skill refusals with `"Lock In your skill plan in the
+ * Skills menu (K) before using " + title + "."`, so the literal in the bundle is
+ * a sentence fragment and the sentence a player reads is not in there at all.
+ * Refusing to quote those would push the site back to paraphrasing the one
+ * message players report most. A line therefore also passes if a client literal
+ * is its opening, which is as much as can be checked without running their code,
+ * and it still catches text we made up whole.
+ */
+function clientPrints(line, clientStrings) {
+  if (clientStrings.has(line)) return true;
+  return [...clientStrings].some(
+    (candidate) => candidate.length > 20 && line.startsWith(candidate),
+  );
+}
+
 test("every quoted message is the client's, verbatim", () => {
   const invented = all.flatMap((message) =>
-    message.seen.filter((line) => !clientStrings.has(line)).map((line) => `${message.title}: ${line}`),
+    message.seen
+      .filter((line) => !clientPrints(line, clientStrings))
+      .map((line) => `${message.title}: ${line}`),
   );
   assert.deepEqual(invented, [], "quoted text that the client does not actually print");
 });
@@ -118,11 +139,15 @@ test("the connection errors a player actually hits are all covered", () => {
 
 test("the skill refusals behind the bug reports are all covered", () => {
   const covered = new Set(playMessages.flatMap((message) => message.seen));
+  // Updated for 0.72, which replaced the per-skill refusals with one templated
+  // message and dropped "This lock requires a key." entirely. The two that went
+  // are deliberately not listed as "should still exist": a list of strings the
+  // client no longer prints is the same stale-quote problem one layer down.
   for (const line of [
-    "Assign Lockpicking in your skill plan at a temple before you can pick locks.",
     "Assign Pickpocketing in your skill plan at a temple before you can pick pockets.",
+    "Assign Horse Riding on your skill plan and Lock In to ride horses.",
+    "Lock In your skill plan before you can pickpocket. Use the Skills menu (K).",
     "You can't pickpocket while detected.",
-    "This lock requires a key.",
   ]) {
     assert.ok(covered.has(line), `no explanation for "${line}"`);
   }

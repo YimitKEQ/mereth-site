@@ -53,8 +53,8 @@ export const survival: HandbookPage = {
         {
           kind: "prose",
           paragraphs: [
-            `Food and drink are the two the client actually enforces, and it warns you twice on the
-              way down. These are its own numbers:`,
+            `Food and drink are the two the client actually enforces. It used to publish the exact
+              percentages behind its two warnings, and it no longer does:`,
           ],
         },
         { kind: "data", name: "needs" },
@@ -67,12 +67,13 @@ export const survival: HandbookPage = {
             anything edible inside and you cannot always leave quickly.`,
         },
         {
-          kind: "prose",
-          paragraphs: [
-            `There is a fourth one, **Rest**, half built into the client and switched off, still
-              waiting on a number the server does not send yet. It is a note somebody left for
-              themselves rather than a mechanic. Nothing tracks it, so do not plan around it.`,
-          ],
+          kind: "note",
+          tone: "key",
+          title: "The bars hide themselves now",
+          body: `Since 0.72 the three bars are drawn by TrueHUD rather than by the server's own
+            overlay, and they **fade out after about fifteen seconds unless one of them is under
+            15 percent**. An empty corner of the screen means you are fine, not that the system is
+            off. If you want to check, open your inventory or take a hit and they come back.`,
         },
       ],
     },
@@ -98,11 +99,24 @@ export const survival: HandbookPage = {
             bar recovers nothing at all. Eat and drink first, then rest, or you are just sitting.`,
         },
         {
+          kind: "note",
+          tone: "key",
+          title: "Energy is spent by effort now, not by experience",
+          body: `The old model drained energy in proportion to experience earned, which punished
+            exactly the players who were doing the most. Since 0.69.2 **every activity carries an
+            effort value** and that is what it costs. Then 0.70.21 made the pool **five times
+            larger**, cut what running and jumping take, stopped repeated actions in a short burst
+            from charging twice, and increased what a fire or an inn gives back. If you last played
+            in August, energy is no longer a thing you have to manage minute to minute.`,
+        },
+        {
           kind: "prose",
           paragraphs: [
             `**An inn is faster than anywhere else**, which is the real mechanical reason to go
               indoors rather than sit in a field, and base regeneration outside was halved in
-              0.66.0 to widen that gap.`,
+              0.66.0 to widen that gap. Sitting is not the only posture that counts: **lying in a
+              bed works too, and it keeps paying while you are logged off.** Anything the server
+              reads as sitting, including the sit-shaped emotes, gives the same bonus.`,
             `Full energy is also the gate on Well Rested, so the bar is worth keeping topped up
               before a session rather than after it. A bard performing in the room stacks with
               sitting and with being at an inn, so an inn with a bard in it is worth the walk.`,
@@ -119,11 +133,22 @@ export const survival: HandbookPage = {
         {
           kind: "note",
           tone: "key",
-          title: "Well Rested",
-          body: `Ten percent bonus experience for an hour. Needs full energy and five minutes at
-            an inn, and once you have it, it re-triggers every five minutes while you stay. Cheap
-            enough to be a habit worth building: park before you log off, and park before you head
-            out.`,
+          title: "Well Rested, three charges a day",
+          body: `**Double experience for an hour**, then 50 percent for the second, 20 for the
+            third, then a **16 hour cooldown**. It arrives five minutes after your energy fills at
+            an inn, which is a window rather than an instant: you can refresh the one you are on
+            while you stay, and the moment you leave the cooldown starts. It was ten percent and
+            endlessly repeatable until 0.71.0. It is now the largest bonus in the game and it is
+            rationed, so spend the first charge on the session you actually mean to level in.`,
+        },
+        {
+          kind: "note",
+          tone: "key",
+          title: "Blessings of the Stars",
+          body: `Added on **14 September**, and it is unlike the rest: a **permanent** world event
+            buff giving bonus experience, which you can switch on and off whenever you like. It is
+            one line in a patch note so far and nothing else about it has been published, so take
+            the wording literally and no further.`,
         },
         {
           kind: "note",

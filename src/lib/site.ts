@@ -66,13 +66,14 @@ export const handbookMenu: readonly NavLink[] = [
   { label: "Roleplay Language", href: "/language", hint: "How to say it in character" },
   { label: "Progression", href: "/progression", hint: "What a tier is actually worth" },
   { label: "Teaching Magic", href: "/teaching", hint: "The Teacher whitelist, and what it demands" },
+  { label: "Combat", href: "/combat", hint: "Parries, poise, dodge and stamina" },
   { label: "Food, Drink and Energy", href: "/survival", hint: "The three bars, explained" },
   { label: "Tips", href: "/tips", hint: "The numbers, cooldowns and traps" },
   { label: "Questions", href: "/faq", hint: "Answers to what gets asked most" },
 ];
 
 export const codexMenu: readonly NavLink[] = [
-  { label: "Skills", href: "/skills", hint: "51 skills, and an 18 point planner" },
+  { label: "Skills", href: "/skills", hint: "Every skill, and an 18 point planner" },
   { label: "Magic", href: "/magic", hint: "Every spell, with its tier" },
   { label: "Crafting", href: "/crafting", hint: "Benches, recipes and alchemy" },
   { label: "The World", href: "/world", hint: "Parcels, keys, races, the calendar" },
@@ -108,41 +109,32 @@ export const primaryNav: readonly NavItem[] = [
   { label: "Community", menu: communityMenu },
 ];
 
+/**
+ * The footer, derived from the same menus the header uses.
+ *
+ * It used to be a second copy of those lists, typed out by hand, and it drifted
+ * the first time a page was added: /combat went into the header menu and the
+ * route registry and was simply absent from the footer, which is the kind of gap
+ * nobody notices until a reader cannot find a page. One list, two renderings.
+ *
+ * The Help column is not a menu anywhere else, so it stays written out, and
+ * Credits belongs in it rather than in the Community dropdown.
+ */
 export const footerColumns: readonly { heading: string; links: readonly NavLink[] }[] = [
   {
     heading: "Handbook",
-    links: [
-      { label: "Start Here", href: "/start" },
-      { label: "The Guide", href: "/guide" },
-      { label: "Roleplay Language", href: "/language" },
-      { label: "Progression", href: "/progression" },
-      { label: "Teaching Magic", href: "/teaching" },
-      { label: "Food, Drink and Energy", href: "/survival" },
-      { label: "Tips", href: "/tips" },
-      { label: "Questions", href: "/faq" },
-    ],
+    links: [{ label: "Start Here", href: "/start" }, ...handbookMenu].map(({ label, href }) => ({
+      label,
+      href,
+    })),
   },
   {
     heading: "Codex",
-    links: [
-      { label: "Skills", href: "/skills" },
-      { label: "Magic", href: "/magic" },
-      { label: "Crafting", href: "/crafting" },
-      { label: "The World", href: "/world" },
-      { label: "The Modlist", href: "/records" },
-    ],
+    links: codexMenu.map(({ label, href }) => ({ label, href })),
   },
   {
     heading: "The Realm",
-    links: [
-      { label: "The Nine Holds", href: "/holds" },
-      { label: "Factions", href: "/factions" },
-      { label: "Lore", href: "/lore" },
-      { label: "Rules", href: "/rules" },
-      { label: "Roadmap", href: "/roadmap" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Gallery", href: "/gallery" },
-    ],
+    links: realmMenu.map(({ label, href }) => ({ label, href })),
   },
   {
     heading: "Help",

@@ -32,6 +32,7 @@ export default function FaqPage() {
         a: item.a,
         open: item.open,
         quote: item.quote,
+        since: item.since,
         notes: item.cite === undefined ? undefined : citations(item.cite, 2),
       }),
     ),

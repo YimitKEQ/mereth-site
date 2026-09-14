@@ -46,6 +46,66 @@ const gathering: Block[] = [
   },
 ];
 
+/**
+ * What moved in the workshop between late August and mid September.
+ *
+ * Four patches rearranged which bench owns what, what a repair needs, and where
+ * gold comes from. None of it is visible in the recipe browser, which shows the
+ * records rather than the rules on top of them, so it is written out.
+ */
+const workshop: Block[] = [
+  {
+    kind: "note",
+    tone: "key",
+    title: "The forge only shows you what you can make",
+    body: `Since 0.71.0 the forge gates armour, weapons and jewellery by skill and separates them,
+      so a recipe you cannot use is not in the list at all. An empty-looking forge usually means the
+      skill, not a bug. Several light armours also moved off it: **if a piece is mostly leather it
+      is leatherworking now**, while mail and chitin stayed on the forge.`,
+  },
+  {
+    kind: "prose",
+    paragraphs: [
+      `**Repair stopped being a smith's monopoly.** Tailoring, leatherworking and carpentry can all
+        repair the things they make, every custom item got a repair recipe, and 0.72.9 validated
+        2,672 recipes to find the ones that had none. In 0.72.34 the **Arcane Blacksmith
+        requirement was dropped entirely**, so an enchanted item is now simply repairable.`,
+      `**Jewellery was rebuilt** into a proper tiered progression in 0.71.0, and **tailoring took
+        46 new recipes** in 0.72.30.`,
+    ],
+  },
+  {
+    kind: "note",
+    tone: "key",
+    title: "Hunting now feeds the soft trades",
+    body: `Hides drop from far more creatures than they used to, and the materials behind linen and
+      spider silk drop out in the world as well, deliberately, so that **hunting feeds tailoring and
+      leatherworking** instead of only feeding the forge. If you have been buying cloth, go hunting.`,
+  },
+  {
+    kind: "prose",
+    paragraphs: [
+      `**Writs are how a faction owns a recipe.** Faction armour, racial armour and the named meads
+        are all locked behind one: a perk that is awarded rather than bought, held by the people
+        entitled to make that thing. It is the mechanism that lets an organisation actually have a
+        product nobody else can make.`,
+      `**The Writ of Coinage is the sharpest example.** It permits minting gold coins, and gold
+        ingots were added to a great many master recipes specifically to create demand for smelted
+        coin. Between the two, gold became something the economy produces rather than something
+        that simply exists.`,
+    ],
+  },
+  {
+    kind: "note",
+    tone: "warn",
+    title: "Enchanting: tier gating gone, gems matter",
+    body: `Disenchanting is **no longer tier gated**, so you may pull an effect off anything you can
+      hold. In exchange, **enchantment magnitude now scales with the gem** you use and the charge
+      size scales with its size, so the soul gem is a real decision rather than a formality. The
+      overpowered enchanted items that could be crafted were removed in 0.70.54.`,
+  },
+];
+
 export default function CraftingPage() {
   const { professions, nodes, indoors } = mereth.gathering;
 
@@ -82,6 +142,16 @@ export default function CraftingPage() {
             label: "Benches",
             hint: "What comes off what",
             content: <RecipeBrowser benches={mereth.benches} />,
+          },
+          {
+            id: "workshop",
+            label: "The workshop",
+            hint: "Benches, repairs, writs and coin",
+            content: (
+              <div className="max-w-[72ch]">
+                <Blocks blocks={workshop} />
+              </div>
+            ),
           },
           {
             id: "alchemy",

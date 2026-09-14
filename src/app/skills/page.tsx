@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMeta({
   path: "/skills",
   title: "Skills",
   description:
-    "All 51 skills with the in-game text for every tier, and an 18 point planner that does the arithmetic before you spend anything.",
+    "Every skill on the server with the in-game text for each of its tiers, and an 18 point planner that does the arithmetic before you spend anything.",
 });
 
 export default function SkillsPage() {

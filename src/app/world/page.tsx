@@ -39,6 +39,46 @@ const holds: Block[] = [
   {
     kind: "note",
     tone: "key",
+    title: "There is no offline raiding",
+    body: `A parcelled lock **cannot be picked while everybody attached to it is offline**, and that
+      counts the whole group rather than one named holder. Somebody with a claim on the room has to
+      be in the world for the room to be openable at all. It is the rule that makes a parcel worth
+      the paperwork.`,
+  },
+  {
+    kind: "prose",
+    paragraphs: [
+      `**Holdstones are no longer only holds.** Through September the same system was extended to
+        the organisations: the Companions, the Thieves' Guild, the Vigilants of Stendarr, the
+        Volkihar, the Thalmor and the College of Winterhold all have a stone standing in the world,
+        and the College's replaced the Shalidor statue. A faction stone works the way a hold stone
+        works: you pledge to it, you hold a rank in it, the rank carries benefits, and the
+        organisation's parcels hang off it.`,
+      `Which is why the menu now says **members** rather than citizens, and why a stone carries a
+        membership mode: **open** to anyone who pledges, **invite only**, or **closed**.`,
+    ],
+  },
+  {
+    kind: "note",
+    tone: "warn",
+    title: "One stone at a time, and a day to change your mind",
+    body: `You cannot pledge to a second stone without leaving the first, and **switching carries a
+      24 hour cooldown**. Being kicked carries the same 24 hours before you may join anywhere else.
+      Where two stones you belong to would give you the same benefit, **only the higher one counts**:
+      nothing stacks.`,
+  },
+  {
+    kind: "note",
+    tone: "key",
+    title: "What a stone's buff can and cannot do",
+    body: `A rank raises a skill **up to** a level and never past it, it will not carry anybody
+      above **Expert**, and it stops at **level 60** whatever the rank. So a stone lifts somebody
+      under-tiered into being useful, and does nothing at all for somebody already good. Your own
+      attributes, race and equipment are what still push past the cap.`,
+  },
+  {
+    kind: "note",
+    tone: "key",
     title: "A bound container stops regenerating",
     body: `The single most useful storage fact on the server. An ordinary container regenerates its
       contents, which means it is not safe to keep anything in. Bind it to a parcel through the

@@ -113,6 +113,18 @@ export interface GatheringNode {
   count: number;
 }
 
+/**
+ * One of the eight attributes, with the one line the client itself shows on hover.
+ *
+ * The blurbs are Mereth's own words, lifted from the stats panel rather than written
+ * here, because they are the only published explanation of what Speed or Personality do.
+ */
+export interface Attribute {
+  key: string;
+  label: string;
+  blurb: string;
+}
+
 export interface Mereth {
   builtAt: string;
   server: {
@@ -137,6 +149,21 @@ export interface Mereth {
   tiers: Tier[];
   planMaxTier: number;
   memoryPoints: number;
+  attributes: Attribute[];
+  /** Ceiling on any single attribute. */
+  attributeMax: number;
+  /** How far below your racial base one attribute may be pushed to fund another. */
+  racialDumpMax: number;
+  /** Where the client will let you spend a point. Empty if it stops saying. */
+  attributesGatedAt: string;
+  /**
+   * How each pool is derived from attributes, as coefficients keyed by attribute,
+   * plus `multiplier` and `flat` where the formula carries them.
+   */
+  pools: Record<string, Record<string, number>>;
+  /** Flat magicka some races get on top of the formula, by form id. */
+  raceMagickaBonus: { raceId: string; magicka: number }[];
+  minimumCarry: number;
   needs: Need[];
   races: string[];
   months: string[];

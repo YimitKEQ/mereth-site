@@ -67,6 +67,9 @@ export const factions: Faction[] = [
         assistant, which is a role rather than a course.`,
       `Library access is effectively unlimited for students, which makes the College the one
         dependable source of spellbooks in the province.`,
+      `**The College itself was rebuilt in 0.71.0**, as a working building with its own holdstone
+        where the Shalidor statue used to stand. It is somewhere to go now rather than a name on a
+        map, and past Adept it is the only route the rules recognise.`,
     ],
   },
   {
@@ -129,4 +132,43 @@ export const orgLimits: string[] = [
   `Recruitment and out-of-character coordination happen in an official Mereth Discord. Lore
     factions have their own; everything else shares one with hidden categories per role.`,
   `**You may belong to one organisation at a time.** Not one per character, one full stop.`,
+];
+
+/**
+ * The organisations that now have a stone standing in the world.
+ *
+ * Kept as a plain list rather than folded into `factions` above, because those
+ * three have published lore and these do not all have it. What is published
+ * about the rest is mechanical: a stone exists, you can pledge to it, and it
+ * carries ranks and parcels the way a hold does. Writing them a personality here
+ * would be inventing setting on an official page, which is the one thing this
+ * site does not do.
+ *
+ * Wired into the system in 0.69.0, modelled and placed through 0.70.21, and
+ * finished in 0.71.0 alongside the rebuilt College of Winterhold.
+ */
+export const factionStones: { name: string; note: string }[] = [
+  { name: "The Companions", note: "Stone placed in the world in 0.70.21." },
+  { name: "The Thieves' Guild", note: "Stone placed in the world in 0.70.21." },
+  { name: "The Vigilants of Stendarr", note: "Stone placed in the world in 0.70.21." },
+  { name: "The Volkihar", note: "Given its own model, then placed, in 0.70.21." },
+  { name: "The Thalmor", note: "Given its own model, then placed, in 0.70.21." },
+  {
+    name: "The College of Winterhold",
+    note: "Its stone replaced the Shalidor statue, and the College itself was rebuilt in 0.71.0.",
+  },
+];
+
+/** How pledging to any stone works, hold or faction. Straight from the patch notes. */
+export const stoneRules: string[] = [
+  `**One stone at a time.** You cannot pledge to another until you leave the one you are in.`,
+  `**A day between stones.** Switching carries a 24 hour cooldown, and so does being kicked out of
+    one before you may join anywhere else.`,
+  `**Nothing stacks.** Where two stones would give you the same benefit, only the higher applies.`,
+  `**A rank lifts you, it does not promote you.** A stone's boost raises a skill up to a level and
+    never past it, never above Expert, and never past level 60. It helps the under-tiered and does
+    nothing for somebody already good.`,
+  `**A stone decides who may join it**: open to anyone who pledges, invite only, or closed.`,
+  `**Faction armour is a perk of the stone.** Since 0.72.34 the factions with stones can craft their
+    own armour, and the recipe is awarded rather than bought.`,
 ];

@@ -41,10 +41,11 @@ export const tips: HandbookPage = {
         {
           kind: "note",
           tone: "key",
-          title: "Vary what you do, or earn less for it",
-          body: `Experience from a target is capped with diminishing returns, so hitting the same
-            creature over and over pays steadily less. Rotate what you fight rather than grinding
-            the single most convenient thing.`,
+          title: "Combat experience stopped tailing off",
+          body: `Repeating a target used to pay steadily less. **That was removed in 0.72.34** and
+            the per-target cooldown cut to a second, so fighting pays what it looks like it should.
+            The note names combat and nothing else, so treat an evening on one ore vein as untested
+            rather than blessed.`,
         },
         {
           kind: "note",
@@ -72,10 +73,11 @@ export const tips: HandbookPage = {
         {
           kind: "note",
           tone: "key",
-          title: "Park at an inn for five minutes before you log off or head out",
-          body: `Well Rested needs full energy and five minutes at an inn, and once you have it, it
-            re-triggers every five minutes while you stay. It is the cheapest standing experience
-            bonus in the game.`,
+          title: "Spend your Well Rested charges on the session you mean to level in",
+          body: `Five minutes at an inn on full energy still earns it, but since 0.71.0 you get
+            **three a day**: double experience for an hour, then 50 percent, then 20, then a 16 hour
+            cooldown. You can refresh the one you are on while you stay at the inn. It went from a
+            habit to a resource.`,
         },
         { kind: "cite", pattern: /well.?rested/i, limit: 2 },
         {
@@ -188,11 +190,22 @@ export const tips: HandbookPage = {
         {
           kind: "note",
           tone: "warn",
-          title: "Cleared dungeons seal themselves and come back",
-          body: `Once you leave and it idles, a dungeon seals, waits on a timer, regenerates and
-            reopens fully. Nothing you leave on the floor in there survives.`,
+          title: "Cleared dungeons seal themselves and come back in an hour",
+          body: `Once you leave and it idles, a dungeon seals, and **regenerates 60 minutes later**:
+            enemies, activators, traps and levers, the lot. Nothing you leave on the floor in there
+            survives. You cannot walk into one that is sealed, and if you somehow end up inside one
+            the server puts you out.`,
         },
         { kind: "cite", pattern: /Added Dungeon system/i, limit: 2 },
+        {
+          kind: "note",
+          tone: "key",
+          title: "Take your own food and potions into a dungeon",
+          body: `Food, drink and potions were **removed from dungeon containers** in 0.72.9, so
+            there is nothing to live off in there. Dungeons also roll at their maximum level now,
+            which makes them a deliberate trip with people rather than something to wander into on
+            the way somewhere else.`,
+        },
         {
           kind: "note",
           tone: "warn",

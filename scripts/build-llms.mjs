@@ -65,6 +65,7 @@ const TITLES = {
   "/skills": "Skills and memory points",
   "/progression": "Progression",
   "/magic": "Magic",
+  "/combat": "Combat",
   "/survival": "Food, drink and energy",
   "/crafting": "Crafting",
   "/tips": "Tips",

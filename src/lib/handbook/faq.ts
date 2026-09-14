@@ -25,6 +25,15 @@ export interface Answer {
   quote?: string;
   /** A pattern matched against release notes to date the answer. */
   cite?: RegExp;
+  /**
+   * What has changed since the answer was given.
+   *
+   * The Q&A is the team's own wording on a date, so an answer the server has
+   * since overtaken is not edited: rewriting somebody's published answer to
+   * match today would quietly destroy the record of what they actually said.
+   * The correction is stated underneath instead, and the original stands.
+   */
+  since?: string;
 }
 
 export interface FaqSection {
@@ -168,16 +177,34 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "What is diminishing returns?",
-        a: `The tenth mudcrab is worth less than the first. Experience from a target is capped and
-          tails off as you repeat it, so farming one convenient thing gives you steadily less for
-          the same hour. Mix up what you fight, gather and craft and you earn more for the same
-          effort.`,
+        a: `It used to mean that the tenth mudcrab was worth less than the first. **That was removed
+          from combat experience in 0.72.34**, along with most of the per-target cooldown, which is
+          now one second. Kills pay what they pay. Note the wording: the change names combat, and
+          nothing has been published about gathering or crafting either way, so treat a long
+          session on one ore vein as untested rather than as safe.`,
       },
       {
         q: "What is the purple bar?",
         a: `Energy. Activity spends it, sitting refills it and an inn refills it faster. At zero the
           bar turns to grey stripes and the client calls you Exhausted. Nothing refills while you
           are hungry or thirsty. [Full detail here.](/survival#exhaustion)`,
+      },
+      {
+        q: "What are the attribute points I keep being given?",
+        a: `The eight Elder Scrolls attributes came back in September as a spendable pool. They are
+          what your health, magicka, stamina and carry are actually calculated from, now that the
+          per-level health bonus is gone, and every five points above 50 in a relevant attribute is
+          worth about a skill level. **You spend them at a temple**, the same place you set your
+          skill plan, and you can reset them there too at the cost of a cooldown.
+          [The formulas and what each one governs.](/progression#attributes)`,
+        cite: /attribute/i,
+      },
+      {
+        q: "Should I dump Luck to afford something else?",
+        a: `No. You may push any attribute up to five below your racial base to fund another, and
+          Luck is the one place that genuinely bites: **below 50 it works against you**, with
+          thinner yields, more failures and worse finds. It is a tax on every gathering and crafting
+          roll for the life of the character.`,
       },
       {
         q: "Can I reach Legendary?",
@@ -198,6 +225,32 @@ export const faqSections: FaqSection[] = [
     id: "combat",
     title: "Fighting",
     items: [
+      {
+        q: "Combat feels completely different from when I last played. What happened?",
+        a: `It was rebuilt. **0.70.21 on 28 August** brought in Valhalla Combat, TK Dodge and
+          Improved Camera together, and the fortnight after added poise, crowd control with
+          diminishing returns, stances, a dual wield block and a target lock that stays locked.
+          Timed blocks turn a blow, you dodge by double tapping a direction, and stamina rather than
+          health is what decides a fight. [The whole of it, explained.](/combat)`,
+        cite: /valhalla|dodge|parry/i,
+      },
+      {
+        q: "How do I dodge?",
+        a: `**Double tap a direction key**, and it has to be the same key twice. On a controller it
+          is a double tap of the stick or your bound d-pad movement. If you tried it in late August
+          and it never worked, two fixes since then made it reliable.`,
+      },
+      {
+        q: "Why do I suddenly have a body in first person?",
+        a: `Improved Camera, which shipped with the combat rebuild. You now have arms, a chest and
+          the third person animations playing on them, leaning included. Nothing is broken.`,
+      },
+      {
+        q: "What is the second bar under my health?",
+        a: `Poise. Everything that would stagger you drains it, and you are only actually staggered
+          when it reaches zero. It is what ended stun locking, and TrueHUD shows it the moment it
+          starts dropping.`,
+      },
       {
         q: "Why can I barely hurt anything with this sword?",
         a: `Almost always because that weapon's specialisation is not on your plan. **Combat skills
@@ -389,7 +442,7 @@ export const faqSections: FaqSection[] = [
       {
         q: "Can I play a mage from the start?",
         a: `You can start on the road to one. The Mystic kit gives you robes and a Candlelight tome
-          on day one, and seven days later you know Candlelight. What you cannot do is arrive with a
+          on day one, and five days later you know Candlelight. What you cannot do is arrive with a
           trained mage's repertoire because your backstory says so: **the spells are earned the way
           everyone else earns them.** Play the history with \`/mes\` and let the grimoire catch up.`,
       },

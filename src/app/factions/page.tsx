@@ -5,7 +5,7 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { pageMeta } from "@/lib/seo";
 import { inline } from "@/lib/markup";
-import { factions, orgCaps, orgLimits } from "@/lib/world/factions";
+import { factionStones, factions, orgCaps, orgLimits, stoneRules } from "@/lib/world/factions";
 import { PlateFigure } from "@/components/ui/Plate";
 
 export const metadata: Metadata = pageMeta({
@@ -119,6 +119,45 @@ export default function FactionsPage() {
           </h2>
           <ul className="space-y-3">
             {orgLimits.map((item, i) => (
+              <li
+                key={i}
+                className="relative pl-5 text-[0.95rem] leading-[1.8] text-text-light before:absolute before:top-[0.75em] before:left-0 before:h-1 before:w-1 before:bg-brand-accent"
+              >
+                {inline(item)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+        <div>
+          <h2 className="font-display mb-5 text-xl tracking-heading text-brand-accent uppercase">
+            Faction stones
+          </h2>
+          <p className="mb-6 text-[0.95rem] leading-relaxed text-text-muted">
+            An organisation is no longer only a roster in Discord. Six of them now have a holdstone
+            standing in the world, and a faction stone works the way a hold&apos;s does: you pledge
+            to it, you hold a rank in it, and the organisation&apos;s parcels hang off it.
+          </p>
+          <table className="w-full border-collapse text-left text-sm">
+            <tbody>
+              {factionStones.map((stone) => (
+                <tr key={stone.name} className="border-b border-border-subtle last:border-0">
+                  <td className="py-3 pr-6 align-top text-text-light">{stone.name}</td>
+                  <td className="py-3 text-right text-[0.82rem] text-text-muted">{stone.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h2 className="font-display mb-5 text-xl tracking-heading text-brand-accent uppercase">
+            What pledging commits you to
+          </h2>
+          <ul className="space-y-3">
+            {stoneRules.map((item, i) => (
               <li
                 key={i}
                 className="relative pl-5 text-[0.95rem] leading-[1.8] text-text-light before:absolute before:top-[0.75em] before:left-0 before:h-1 before:w-1 before:bg-brand-accent"

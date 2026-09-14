@@ -11,12 +11,18 @@ import { buyableTiers } from "@/lib/mereth";
  * costs exactly what the matching skill rank costs in memory points.
  */
 
-/** Days a spell of each tier sits in the grimoire before it is learned. */
+/**
+ * Days a spell of each tier sits in the grimoire before it is learned.
+ *
+ * Cut in 0.72.9 (7 September) from 7/14/21/28/35. The note reads "Adjusted spell
+ * learning times to 5, 10, 15, 25, 35 days per tier", so only Master is unchanged
+ * and the whole lower ladder moved. Four pages quoted the old numbers.
+ */
 export const studyDays: Record<string, number> = {
-  Novice: 7,
-  Apprentice: 14,
-  Adept: 21,
-  Expert: 28,
+  Novice: 5,
+  Apprentice: 10,
+  Adept: 15,
+  Expert: 25,
   Master: 35,
 };
 

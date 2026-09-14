@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMeta({
   path: "/magic",
   title: "Magic",
   description:
-    "How a spell is learned on Mereth: a tome or a teacher, 50 spell points to spend, and 7 to 35 days of study. Plus every spell in the province, by school.",
+    "How a spell is learned on Mereth: a tome or a teacher, 50 spell points to spend, and 5 to 35 days of study. Plus every spell in the province, by school.",
 });
 
 /**
@@ -98,6 +98,9 @@ const pipeline: Block[] = [
       `**The College of Winterhold** teaches three semesters of formal instruction at rising
         prices: Novice, Apprentice, Adept. Past Adept you stay on as a researcher or a professor's
         assistant rather than as an ordinary student.`,
+      `It is also somewhere you can now walk into. **The College was rebuilt in 0.71.0** as a
+        working building with its own holdstone, standing where the Shalidor statue used to be, so
+        joining it is a pledge at a stone rather than only an arrangement in Discord.`,
       `**Other organisations can teach** but hold no spellbook access by default. The head may be a
         Master Wizard and may take apprentices, and every book still has to be found: East Empire
         purchases, dungeon expeditions, trades.`,

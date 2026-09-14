@@ -44,7 +44,11 @@ export type DataBlock =
   /** Why the game refused something you tried while playing, explained. */
   | "refusals"
   | "slash"
-  | "menus";
+  | "menus"
+  /** The eight attributes, each with the client's own description. */
+  | "attributes"
+  /** How health, magicka, stamina and carry are computed from them. */
+  | "pools";
 
 export interface Section {
   id: string;

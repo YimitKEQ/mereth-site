@@ -1,7 +1,7 @@
 /**
  * The live launcher manifest, read in the browser and reconciled against the baked modlist.
  *
- * `/records` renders `mereth.mods` (167) and `mereth.plugins` (131), baked at build time from a
+ * `/records` renders `mereth.mods` and `mereth.plugins`, baked at build time from a
  * devkit sweep of Mereth's own manifest. The launcher's manifest moves more often than this site
  * gets rebuilt, so the baked page can already be behind the day it ships. This closes that gap in
  * the browser: fetch the manifest the launcher itself reads, and correct the counts, the load
