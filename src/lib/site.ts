@@ -84,6 +84,7 @@ export const codexMenu: readonly NavLink[] = [
 export const realmMenu: readonly NavLink[] = [
   { label: "The Nine Holds", href: "/holds", hint: "The seats, and who sits them" },
   { label: "Factions", href: "/factions", hint: "What they are in 4E 185" },
+  { label: "The Calendar", href: "/calendar", hint: "What is coming, and what is recorded" },
   { label: "Lore", href: "/lore", hint: "The province, in its own documents" },
   { label: "Rules", href: "/rules", hint: "The rulebook, with its codes" },
   { label: "Roadmap", href: "/roadmap", hint: "What is built and what is next" },

@@ -15,7 +15,7 @@
     "export:pages": "node scripts/export.mjs pages",
     "publish": "node scripts/publish-website.mjs",
     "build:llms": "node scripts/build-llms.mjs",
-    "prebuild": "node scripts/sync-releases.mjs && node scripts/build-llms.mjs",
+    "prebuild": "node scripts/sync-releases.mjs && node scripts/sync-chronicle.mjs && node scripts/build-llms.mjs",
     "sync:releases": "node scripts/sync-releases.mjs"
   },
   "dependencies": {

@@ -13,11 +13,18 @@ import { inline } from "@/lib/markup";
 export function CodexHeader({
   title,
   lede,
+  eyebrow = "The Codex",
   facts,
   children,
 }: {
   title: string;
   lede: string;
+  /**
+   * The line above the title. Defaults to the codex, which is where most of
+   * these pages live. The realm pages were all wearing it because there was no
+   * way to say otherwise, not because anybody decided they were codex pages.
+   */
+  eyebrow?: string;
   /** Small provenance line: what this page counted, and out of what. */
   facts?: { label: string; value: string }[];
   children?: ReactNode;
@@ -26,7 +33,7 @@ export function CodexHeader({
     <header>
       <ReadingScrim />
       <p className="font-display text-[11px] tracking-[3px] text-brand-accent/70 uppercase">
-        The Codex
+        {eyebrow}
       </p>
       <h1 className="font-display mt-3 text-3xl tracking-title text-text-primary text-shadow-page-heading md:text-[var(--text-page-title)]">
         {title}

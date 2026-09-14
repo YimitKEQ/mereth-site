@@ -5,7 +5,7 @@ import { CodexHeader } from "@/components/codex/CodexHeader";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { PlateFigure } from "@/components/ui/Plate";
 import { pageMeta } from "@/lib/seo";
-import { loreDocuments, loreShelves } from "@/lib/world/lore";
+import { libraryDocuments, libraryShelves } from "@/lib/world/library";
 
 export const metadata: Metadata = pageMeta({
   path: "/lore",
@@ -27,7 +27,7 @@ export const metadata: Metadata = pageMeta({
  * a wall; three shelves of three or four is a place you can find something in.
  */
 export default function LorePage() {
-  const words = loreDocuments.reduce(
+  const words = libraryDocuments.reduce(
     (sum, document) => sum + document.paragraphs.join(" ").split(/\s+/).length,
     0,
   );
@@ -40,8 +40,8 @@ export default function LorePage() {
           in. **None of it is a rule and none of it is a system:** it is the setting your character
           lives inside, and the reason a Dunmer in Windhelm meets the reception they do.`}
         facts={[
-          { label: "Documents", value: String(loreDocuments.length) },
-          { label: "Shelves", value: String(loreShelves.length) },
+          { label: "Documents", value: String(libraryDocuments.length) },
+          { label: "Shelves", value: String(libraryShelves.length) },
           { label: "Words", value: words.toLocaleString("en-GB") },
         ]}
       />
@@ -64,7 +64,7 @@ export default function LorePage() {
       </div>
 
       <div className="space-y-14">
-        {loreShelves.map((shelf) => (
+        {libraryShelves.map((shelf) => (
           <section key={shelf.id} id={shelf.id} className="scroll-mt-[140px]">
             <h2 className="font-display text-xl tracking-heading text-brand-accent uppercase">
               {shelf.title}

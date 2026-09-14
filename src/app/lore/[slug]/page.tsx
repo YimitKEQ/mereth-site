@@ -6,7 +6,7 @@ import { OrnateDivider } from "@/components/ornament/Divider";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { OG_IMAGE } from "@/lib/asset";
 import { canonicalFor, IS_MIRROR } from "@/lib/seo";
-import { loreDocument, loreDocuments, loreShelves } from "@/lib/world/lore";
+import { libraryDocument, libraryDocuments, libraryShelves } from "@/lib/world/library";
 
 /**
  * One document, whole.
@@ -21,7 +21,7 @@ import { loreDocument, loreDocuments, loreShelves } from "@/lib/world/lore";
  */
 
 export function generateStaticParams(): { slug: string }[] {
-  return loreDocuments.map((document) => ({ slug: document.slug }));
+  return libraryDocuments.map((document) => ({ slug: document.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const document = loreDocuments.find((entry) => entry.slug === slug);
+  const document = libraryDocuments.find((entry) => entry.slug === slug);
   if (document === undefined) return { title: "Lore" };
 
   /*
@@ -81,17 +81,17 @@ export async function generateMetadata({
 
 /** The shelf a document sits on, for the line above the title. */
 function shelfOf(slug: string): string {
-  return loreShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.title ?? "Lore";
+  return libraryShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.title ?? "Lore";
 }
 
 /** The same shelf's anchor, so the back link returns to where the reader was. */
 function shelfIdOf(slug: string): string {
-  return loreShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.id ?? "";
+  return libraryShelves.find((shelf) => shelf.documents.some((d) => d.slug === slug))?.id ?? "";
 }
 
 export default async function LoreDocumentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const document = loreDocument(slug);
+  const document = libraryDocument(slug);
 
   /*
    * A signature is a run of short lines with no full stop, at the end of the
@@ -111,8 +111,8 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
   const passages = signed ? body.slice(0, signatureFrom) : body;
   const signature = signed ? body.slice(signatureFrom) : [];
 
-  const order = loreDocuments.findIndex((entry) => entry.slug === slug);
-  const next = loreDocuments[order + 1] ?? loreDocuments[0];
+  const order = libraryDocuments.findIndex((entry) => entry.slug === slug);
+  const next = libraryDocuments[order + 1] ?? libraryDocuments[0];
 
   return (
     <div className="mx-auto max-w-[52rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">

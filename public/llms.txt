@@ -32,6 +32,7 @@ Discord, which is also the login.
 - [The World](https://merethroleplay.com/world/): Skyrim in 4E 185, ten years after the White-Gold Concordat.
 - [The Nine Holds](https://merethroleplay.com/holds/): The nine holds and who holds each seat.
 - [Factions](https://merethroleplay.com/factions/): The Companions, the College of Winterhold and the Thieves' Guild.
+- [The calendar and the annals](https://merethroleplay.com/calendar/): What is coming in the province, in your own time zone, and the dated history behind it.
 - [Lore](https://merethroleplay.com/lore/): The in-world library: eleven documents written for the setting.
 
 ## Answers

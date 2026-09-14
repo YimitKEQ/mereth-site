@@ -72,6 +72,7 @@ const TITLES = {
   "/world": "The World",
   "/holds": "The Nine Holds",
   "/factions": "Factions",
+  "/calendar": "The calendar and the annals",
   "/lore": "Lore",
   "/changelog": "Changelog",
   "/roadmap": "Roadmap",
@@ -114,7 +115,7 @@ ${pick(["/skills", "/progression", "/magic", "/teaching", "/survival", "/craftin
 
 ## The setting
 
-${pick(["/world", "/holds", "/factions", "/lore"]).join("\n")}
+${pick(["/world", "/holds", "/factions", "/calendar", "/lore"]).join("\n")}
 
 ## Answers
 

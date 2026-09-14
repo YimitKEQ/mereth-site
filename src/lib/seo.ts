@@ -58,6 +58,7 @@ export const ROUTES: readonly RouteEntry[] = [
   { path: "/world", priority: 0.8, changeFrequency: "weekly", summary: "Skyrim in 4E 185, ten years after the White-Gold Concordat." },
   { path: "/holds", priority: 0.8, changeFrequency: "weekly", summary: "The nine holds and who holds each seat." },
   { path: "/factions", priority: 0.75, changeFrequency: "weekly", summary: "The Companions, the College of Winterhold and the Thieves' Guild." },
+  { path: "/calendar", priority: 0.8, changeFrequency: "daily", summary: "What is coming in the province, in your own time zone, and the dated history behind it." },
   { path: "/lore", priority: 0.75, changeFrequency: "monthly", summary: "The in-world library: eleven documents written for the setting." },
 
   { path: "/changelog", priority: 0.7, changeFrequency: "daily", summary: "Every release note, searchable and grouped by month." },
