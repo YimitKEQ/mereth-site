@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Mereth Roleplay</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /*
+       * Mereth Roleplay, 22 seconds.
+       *
+       * The palette and the face are the live site's, not a video look invented
+       * for this piece: page #10161a, bone #e8e4d9, frost #9fb8c4, and brass
+       * #b89258 kept for the one warm object at the very end. DESIGN.md's rule
+       * is that warmth is reserved for the thing you can act on, so the only
+       * brass in the film is the address.
+       *
+       * Motion obeys the same document: ease-out only, nothing bounces, "this
+       * world is heavy". Every move here is a settle or a slow push.
+       */
+      @font-face {
+        font-family: "Friz Quadrata Std";
+        src: url("assets/fonts/FrizQuadrataStd-Medium.otf") format("opentype");
+        font-weight: 500;
+        font-style: normal;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Friz Quadrata Std";
+        src: url("assets/fonts/FrizQuadrataStd-Bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: block;
+      }
+
+      :root {
+        --page: #10161a;
+        --stone: #1b2429;
+        --iron: #2f3d47;
+        --frost: #9fb8c4;
+        --bone: #e8e4d9;
+        --brass: #b89258;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--page);
+      }
+
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--page);
+        font-family: "Friz Quadrata Std", Georgia, serif;
+        color: var(--bone);
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* Untimed wrappers. The videos carry their own data-start, so nothing
+         above them may carry one: lint rejects a timed ancestor and the frame
+         extractor really does pull the wrong source frames. */
+      .plate {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      /*
+       * Type sits above the video plates, and the z-index belongs on the
+       * section rather than on the text.
+       *
+       * The fade wrappers are opacity-animated, and any element at an opacity
+       * below 1 creates a stacking context, so mid-crossfade the inner
+       * `z-index: 3` stops competing with the plate and the line drops behind
+       * the footage. It only shows for the few frames of a fade, which is
+       * exactly the kind of fault that survives a review.
+       */
+      section.clip {
+        z-index: 2;
+      }
+
+      .fade {
+        position: absolute;
+        inset: 0;
+      }
+
+      .push {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      .push img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Footage is a stage, not a subject. Every plate is held down so the type
+         sits at full contrast without a box behind it. */
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(120% 85% at 50% 45%, rgba(16, 22, 26, 0.18) 0%, rgba(16, 22, 26, 0.72) 72%, rgba(16, 22, 26, 0.93) 100%),
+          linear-gradient(180deg, rgba(16, 22, 26, 0.86) 0%, rgba(16, 22, 26, 0.42) 38%, rgba(16, 22, 26, 0.5) 62%, rgba(16, 22, 26, 0.9) 100%);
+      }
+
+      /* The one plate carrying evidence rather than mood: the line over it says
+         the people are players, so the people have to be visible. */
+      .scrim-light {
+        background:
+          radial-gradient(125% 90% at 50% 45%, rgba(16, 22, 26, 0.02) 0%, rgba(16, 22, 26, 0.5) 74%, rgba(16, 22, 26, 0.82) 100%),
+          linear-gradient(180deg, rgba(16, 22, 26, 0.7) 0%, rgba(16, 22, 26, 0.2) 40%, rgba(16, 22, 26, 0.34) 64%, rgba(16, 22, 26, 0.8) 100%);
+      }
+
+      .stage {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 3;
+      }
+
+      .line {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--bone);
+        text-shadow: 0 2px 28px rgba(9, 13, 16, 0.85);
+        line-height: 1.12;
+      }
+
+      /* Every entrance is per glyph rather than per line, because tracking
+         cannot be animated: it reflows text and snaps glyph positions to whole
+         pixels, which stutters under a seek-by-frame capture. Moving each
+         character's transform gets the same closing gesture and interpolates
+         sub-pixel. */
+      .ch {
+        display: inline-block;
+      }
+
+      .word {
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      .line-lg {
+        font-size: 84px;
+        letter-spacing: 0.15em;
+        /* Tracked caps hang right. Pull the trailing space back so the optical
+           centre matches the geometric one. */
+        text-indent: 0.15em;
+        max-width: 1280px;
+      }
+
+      .line-md {
+        font-size: 66px;
+        letter-spacing: 0.17em;
+        text-indent: 0.17em;
+        max-width: 1240px;
+      }
+
+      .eyebrow {
+        font-weight: 500;
+        font-size: 19px;
+        letter-spacing: 0.44em;
+        text-indent: 0.44em;
+        text-transform: uppercase;
+        color: var(--frost);
+      }
+
+      /* The site's ornament, reduced to what reads at 1080p: a hairline rule
+         with an angular notch at each end. The full Nordic interlace is a knot
+         at this scale and turns to mush on video. */
+      .rule {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        width: 420px;
+      }
+
+      .rule i {
+        display: block;
+        height: 1px;
+        flex: 1;
+        background: linear-gradient(90deg, rgba(159, 184, 196, 0) 0%, rgba(159, 184, 196, 0.75) 50%, rgba(159, 184, 196, 0) 100%);
+      }
+
+      .rule b {
+        display: block;
+        width: 9px;
+        height: 9px;
+        border: 1px solid var(--frost);
+        transform: rotate(45deg);
+      }
+
+      /* Scene 4: the handbook, inside the site's own corner brackets. */
+      .frame {
+        position: relative;
+        width: 1180px;
+        height: 664px;
+      }
+
+      .frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid rgba(47, 61, 71, 0.9);
+      }
+
+      .corner {
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        border-color: var(--frost);
+        border-style: solid;
+        opacity: 0.85;
+      }
+
+      .corner.tl {
+        top: -9px;
+        left: -9px;
+        border-width: 2px 0 0 2px;
+      }
+
+      .corner.tr {
+        top: -9px;
+        right: -9px;
+        border-width: 2px 2px 0 0;
+      }
+
+      .corner.bl {
+        bottom: -9px;
+        left: -9px;
+        border-width: 0 0 2px 2px;
+      }
+
+      .corner.br {
+        bottom: -9px;
+        right: -9px;
+        border-width: 0 2px 2px 0;
+      }
+
+      .figures {
+        display: flex;
+        gap: 96px;
+        margin-top: 54px;
+      }
+
+      .figure {
+        text-align: center;
+      }
+
+      .figure span {
+        display: block;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.3em;
+        text-indent: 0.3em;
+        text-transform: uppercase;
+        color: var(--frost);
+      }
+
+      .figure strong {
+        display: block;
+        margin-top: 12px;
+        font-size: 52px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--bone);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* The closing plate is held down further than the rest: the wordmark is
+         frost on the site's own painting, and at the site's exact colour it
+         lands a shade under AA over that sky. Deepening the ground keeps the
+         brand value exact rather than inventing a lighter blue for video. */
+      .scrim-deep {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          115% 80% at 50% 50%,
+          rgba(16, 22, 26, 0.55) 0%,
+          rgba(16, 22, 26, 0.82) 60%,
+          rgba(16, 22, 26, 0.95) 100%
+        );
+      }
+
+      /* Scene 5: the wordmark. */
+      .wordmark {
+        text-transform: uppercase;
+        font-size: 150px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-indent: 0.1em;
+        color: var(--frost);
+        line-height: 1;
+        text-shadow: 0 4px 40px rgba(9, 13, 16, 0.9);
+      }
+
+      .address {
+        margin-top: 34px;
+        font-size: 27px;
+        font-weight: 500;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        text-transform: uppercase;
+        color: var(--brass);
+      }
+
+      .gap-sm {
+        height: 26px;
+      }
+
+      .gap-md {
+        height: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="22"
+    >
+      <!-- Scene 1 plate. The video is the clip; the wrapper is untimed. -->
+      <div class="plate" id="p-hook">
+        <video
+          id="v-hook"
+          class="clip"
+          src="assets/hook.mp4"
+          data-start="0"
+          data-duration="4.6"
+          data-track-index="0"
+          muted
+          playsinline
+        ></video>
+      </div>
+
+      <!-- Scene 5 plate: the commissioned hero painting the site runs behind
+           every page, so the film ends on the same image the site opens on. -->
+      <div class="plate" id="p-outro">
+        <video
+          id="v-outro"
+          class="clip"
+          src="assets/outro.mp4"
+          data-start="17.9"
+          data-duration="4.1"
+          data-track-index="1"
+          muted
+          playsinline
+        ></video>
+      </div>
+
+      <section id="s-hook" class="clip" data-start="0" data-duration="4.6" data-track-index="2">
+        <!-- Outside the fade wrapper on purpose: the clip window already says
+             when the grade exists, and fading it in would open the film on
+             half a second of ungraded snow. -->
+        <div class="scrim"></div>
+        <div class="fade" id="f-hook">
+          <div class="stage">
+            <p class="line line-lg" id="hook-1">No global chat.</p>
+            <div class="gap-md"></div>
+            <p class="line line-lg" id="hook-2">No quest markers.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-jarl" class="clip" data-start="4.2" data-duration="2.5" data-track-index="3">
+        <div class="fade" id="f-jarl">
+          <div class="push" id="z-jarl"><img src="assets/a-jarl.jpg" alt="" /></div>
+          <div class="scrim"></div>
+          <div class="stage">
+            <p class="line line-md" id="l-jarl">The jarl who grants your rank</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-guard" class="clip" data-start="6.5" data-duration="2.5" data-track-index="4">
+        <div class="fade" id="f-guard">
+          <div class="push" id="z-guard"><img src="assets/the-patrol.jpg" alt="" /></div>
+          <div class="scrim scrim-light"></div>
+          <div class="stage">
+            <p class="line line-md" id="l-guard">The guard who arrests you</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-smith" class="clip" data-start="8.8" data-duration="2.6" data-track-index="5">
+        <div class="fade" id="f-smith">
+          <div class="push" id="z-smith"><img src="assets/old-ways.jpg" alt="" /></div>
+          <div class="scrim scrim-light"></div>
+          <div class="stage">
+            <p class="line line-md" id="l-smith">The smith who makes your sword</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-players" class="clip" data-start="11.2" data-duration="3.4" data-track-index="6">
+        <div class="fade" id="f-players">
+          <div class="push" id="z-players"><img src="assets/under-arms.jpg" alt="" /></div>
+          <div class="scrim scrim-light"></div>
+          <div class="stage">
+            <div class="rule" id="r-top"><i></i><b></b><i></i></div>
+            <div class="gap-sm"></div>
+            <p class="line line-lg" id="l-players">All of them are players.</p>
+            <div class="gap-sm"></div>
+            <div class="rule" id="r-bot"><i></i><b></b><i></i></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-book" class="clip" data-start="14.4" data-duration="3.7" data-track-index="7">
+        <div class="fade" id="f-book">
+          <div class="stage">
+            <div class="frame" id="z-book">
+              <img src="assets/site-hero.jpg" alt="" />
+              <span class="corner tl"></span>
+              <span class="corner tr"></span>
+              <span class="corner bl"></span>
+              <span class="corner br"></span>
+            </div>
+            <div class="figures" id="g-figures">
+              <div class="figure"><span>Skills documented</span><strong>51</strong></div>
+              <div class="figure"><span>Spells indexed</span><strong>457</strong></div>
+              <div class="figure"><span>Releases tracked</span><strong>250</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-ask" class="clip" data-start="17.9" data-duration="2.2" data-track-index="8">
+        <div class="scrim"></div>
+        <div class="fade" id="f-ask">
+          <div class="stage">
+            <p class="line line-md" id="l-ask">Bring a character who wants something.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="s-mark" class="clip" data-start="19.9" data-duration="2.1" data-track-index="9">
+        <div class="scrim"></div>
+        <div class="scrim-deep"></div>
+        <div class="fade" id="f-mark">
+          <div class="stage">
+            <p class="eyebrow" id="m-eyebrow">Serious roleplay, 4E 185</p>
+            <div class="gap-sm"></div>
+            <h1 class="wordmark" id="m-word">Mereth</h1>
+            <p class="address" id="m-address">merethroleplay.com</p>
+          </div>
+        </div>
+      </section>
+
+      <audio
+        id="bed"
+        src="assets/bed.m4a"
+        data-start="0"
+        data-duration="22"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      /*
+       * Two helpers, because the whole film is the same two gestures.
+       *
+       * `settle` is the only text entrance in the piece: the line arrives
+       * spread wider than it sits and closes inward while it rises a few
+       * pixels, the outermost glyphs arriving a breath before the middle. It
+       * reads as something being set in stone rather than flying in, which is
+       * the difference between this and every other game trailer.
+       *
+       * The spread is per glyph transform, never letter-spacing. Tracking is a
+       * layout property: it reflows the line and snaps each glyph to a whole
+       * device pixel, so a slow ease-out tail visibly stutters once the render
+       * engine seeks frame by frame.
+       */
+      const splitChars = (el) => {
+        const words = el.textContent.split(" ");
+        el.textContent = "";
+        const chars = [];
+        words.forEach((word, wordIndex) => {
+          /* Each word is its own inline-block, so a line can only break at a
+             space. Splitting straight to characters lets the browser break
+             between any two of them, which is how a held line reads
+             "ALL OF THEM ARE PLAYE / RS." */
+          const holder = document.createElement("span");
+          holder.className = "word";
+          Array.from(word).forEach((character) => {
+            const span = document.createElement("span");
+            span.className = "ch";
+            span.textContent = character;
+            holder.appendChild(span);
+            chars.push(span);
+          });
+          el.appendChild(holder);
+          if (wordIndex < words.length - 1) el.appendChild(document.createTextNode(" "));
+        });
+        return chars;
+      };
+
+      const settle = (selector, at, duration = 0.95, spread = 5) => {
+        const chars = splitChars(document.querySelector(selector));
+        const middle = (chars.length - 1) / 2;
+        chars.forEach((character, index) => {
+          const offset = index - middle;
+          tl.fromTo(
+            character,
+            { opacity: 0, x: offset * spread, y: 18 },
+            { opacity: 1, x: 0, y: 0, duration, ease: "power3.out" },
+            at + Math.abs(offset) * 0.006,
+          );
+        });
+      };
+
+      /* Scene crossfades. Held apart from the clip windows on purpose: the clip
+         window decides what exists, these decide what is seen. */
+      const fadeIn = (target, at, duration = 0.5) =>
+        tl.fromTo(target, { opacity: 0 }, { opacity: 1, duration, ease: "power2.out" }, at);
+
+      const fadeOut = (target, at, duration = 0.45) =>
+        tl.to(target, { opacity: 0, duration, ease: "power2.in" }, at);
+
+      /* A slow push. 4% over two and a half seconds is under a pixel a frame:
+         felt, not seen, which is the correct amount for a still. */
+      const push = (target, at, duration, from = 1.0, to = 1.045) =>
+        tl.fromTo(target, { scale: from }, { scale: to, duration, ease: "none" }, at);
+
+      /* Scene 1: the two absences. */
+      fadeIn("#f-hook", 0, 0.7);
+      settle("#hook-1", 0.45, 0.95, 6);
+      settle("#hook-2", 1.95, 0.95, 6);
+      fadeOut("#f-hook", 4.05, 0.35);
+
+      /* Scene 2: the triad. Each line lands on its own hammer fall in the bed,
+         at 4.55, 6.85 and 9.15. */
+      fadeIn("#f-jarl", 4.2, 0.4);
+      push("#z-jarl", 4.2, 2.5);
+      settle("#l-jarl", 4.5);
+      fadeOut("#f-jarl", 6.4, 0.3);
+
+      fadeIn("#f-guard", 6.5, 0.4);
+      push("#z-guard", 6.5, 2.5);
+      settle("#l-guard", 6.8);
+      fadeOut("#f-guard", 8.7, 0.3);
+
+      fadeIn("#f-smith", 8.8, 0.4);
+      push("#z-smith", 8.8, 2.6);
+      settle("#l-smith", 9.1);
+      fadeOut("#f-smith", 11.1, 0.3);
+
+      /* Scene 3: the point, and the only place the bed is deliberately silent
+         where a fourth hit would sit. */
+      fadeIn("#f-players", 11.2, 0.6);
+      push("#z-players", 11.2, 3.4);
+      tl.fromTo("#r-top", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out" }, 11.4);
+      tl.fromTo("#r-bot", { opacity: 0, scaleX: 0.3 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out" }, 11.4);
+      settle("#l-players", 11.55, 1.05, 6);
+      fadeOut("#f-players", 14.25, 0.35);
+
+      /* Scene 4: the thing that was actually built. */
+      fadeIn("#f-book", 14.4, 0.5);
+      tl.fromTo("#z-book", { opacity: 0, scale: 0.975 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }, 14.5);
+      push("#z-book", 15.6, 2.5, 1.0, 1.03);
+      tl.fromTo("#g-figures", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 15.1);
+      fadeOut("#f-book", 17.75, 0.35);
+
+      /* Scene 5: the site's own closing line, then the wordmark on the bell. */
+      fadeIn("#f-ask", 17.9, 0.5);
+      settle("#l-ask", 18.1);
+      fadeOut("#f-ask", 19.75, 0.35);
+
+      fadeIn("#f-mark", 19.9, 0.5);
+      tl.fromTo("#m-eyebrow", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out" }, 20.05);
+      settle("#m-word", 20.25, 1.2, 16);
+      tl.fromTo("#m-address", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 20.9);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

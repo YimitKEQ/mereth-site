@@ -49,3 +49,15 @@ MerethPics/*.gif
 graphify-out/*
 !graphify-out/semantic.json
 !graphify-out/semantic-sources.json
+
+# The brag film. The composition source, the plan and the two build scripts are
+# committed; the media they produce is not. Two of the assets are graded video,
+# one is the licensed display face, and every one of them is derived from
+# something already in this repository: run brag-output/build-assets.sh and
+# brag-output/build-audio.sh to rebuild them, then hyperframes render.
+brag-output/composition/assets/
+brag-output/capture/
+brag-output/composition/snapshots/
+brag-output/composition/renders/
+brag-output/brag.mp4
+brag-output/brag.jpg
