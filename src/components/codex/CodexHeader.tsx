@@ -26,7 +26,9 @@ export function CodexHeader({
    */
   eyebrow?: string;
   /** Small provenance line: what this page counted, and out of what. */
-  facts?: { label: string; value: string }[];
+  /* A node rather than a string, so a figure can correct itself in the
+     browser the way the list under it already does. */
+  facts?: { label: string; value: ReactNode }[];
   children?: ReactNode;
 }) {
   return (

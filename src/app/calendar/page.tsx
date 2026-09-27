@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { LiveCount } from "@/components/codex/LiveCount";
 import { CalendarBoard } from "@/components/codex/CalendarBoard";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { pageMeta } from "@/lib/seo";
@@ -27,8 +28,6 @@ export const metadata: Metadata = pageMeta({
  * it.
  */
 export default function CalendarPage() {
-  const { annals, events } = chronicleRegister;
-
   return (
     <div className="mx-auto max-w-[84rem] px-6 pt-12 pb-24 md:px-8 md:pt-16">
       <CodexHeader
@@ -39,8 +38,8 @@ export default function CalendarPage() {
           several continents. And **the annals**, which is what has already happened, dated in the
           province's own calendar and carrying the source for every entry.`}
         facts={[
-          { label: "Scheduled", value: String(events.length) },
-          { label: "In the annals", value: String(annals.length) },
+          { label: "Scheduled", value: <LiveCount baked={chronicleRegister} kind="events" /> },
+          { label: "In the annals", value: <LiveCount baked={chronicleRegister} kind="annals" /> },
           { label: "The year", value: "4E 185" },
         ]}
       />
