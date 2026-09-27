@@ -18,6 +18,13 @@ export interface LoreDocument {
   /** Where a reader most likely wants to go after finishing it. */
   related?: { href: string; label: string };
   paragraphs: string[];
+  /**
+   * The rich body, when the lore office wrote it.
+   *
+   * Optional because the generated documents predate the editor and render
+   * from `paragraphs`. The page prefers this when it is here.
+   */
+  doc?: unknown;
 }
 
 export interface LoreShelf {

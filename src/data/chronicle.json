@@ -1,87 +1,148 @@
 {
-  "syncedAt": null,
-  "source": null,
+  "syncedAt": "2026-09-27T18:21:04.948Z",
+  "source": "mereth-lore-office",
   "annals": [
     {
-      "id": "crusaders-vows",
-      "title": "The Crusaders take their vows",
-      "summary": "Sworn guards of Stendarr's temple, before the order ever left its doors. Thirty years later their First Keeper would write them a rule for a world beyond it.",
-      "when": { "era": 4, "year": 5, "approximate": true, "asWritten": "thirty years before the Rule" },
-      "scope": "The Vigilants of Stendarr",
-      "source": "The Vigilant Rule of 4E 35, which opens by counting thirty years back to the vows.",
-      "link": { "href": "/lore/vigilant-rule-4e35", "label": "The Rule, in full" }
-    },
-    {
-      "id": "vigilant-rule",
-      "title": "The Vigilant Rule is written",
-      "summary": "First Keeper Maurice of Glenpoint pens a codex for the newly founded Knights Vigilant, on the argument that Stendarr's Mercy does not stop at a temple door.",
-      "when": { "era": 4, "year": 35 },
-      "scope": "The Vigilants of Stendarr",
-      "source": "The Rule itself, published on this site.",
-      "link": { "href": "/lore/vigilant-rule-4e35", "label": "The Rule, in full" }
-    },
-    {
-      "id": "blood-score",
-      "title": "The Blood-Score begins",
-      "summary": "Shield brother turned on shield sister over who should take the mantle of Harbinger, and it was decided that to claim Jorrvaskr was to prove the claim. Twenty years of infighting followed.",
-      "when": { "era": 4, "year": 125, "approximate": true, "asWritten": "some sixty years ago" },
-      "scope": "The Companions",
-      "source": "The Companions' own account, which dates it relative to today rather than by year.",
-      "link": { "href": "/lore/companions", "label": "The hall at Whiterun" }
-    },
-    {
-      "id": "great-war-ends",
-      "title": "The White-Gold Concordat",
-      "summary": "The Great War ends on terms that hold on paper and in very little else. Everything Mereth plays is downstream of this document.",
-      "when": { "era": 4, "year": 175 },
-      "scope": "The province",
-      "source": "The setting itself: Mereth plays 4E 185, ten years after the Concordat.",
-      "link": { "href": "/world", "label": "Skyrim in 4E 185" }
-    },
-    {
-      "id": "pale-plague",
-      "title": "Plague takes the proud families of the Pale",
-      "summary": "It left the hold with precious few worthy challengers, and Varinn became the natural successor to his grand uncle.",
-      "when": { "era": 4, "year": 175 },
-      "scope": "The Pale",
-      "source": "Dawnstar's court record.",
-      "link": { "href": "/holds", "label": "The Pale, and its seat" }
-    },
-    {
-      "id": "falkreath-kellanved-ascends",
-      "title": "Kellanved Ultor takes Falkreath",
-      "summary": "Of House Ultor, raised to the seat after the sudden death of his father, Jarl Harvok.",
-      "when": { "era": 4, "year": 175 },
-      "scope": "Falkreath",
-      "source": "Falkreath's court record.",
-      "link": { "href": "/holds", "label": "Falkreath, and its seat" }
-    },
-    {
-      "id": "high-king-varic-dies",
-      "title": "High King Varic Law-Giver dies at sea",
-      "summary": "His sword was found in the hands of Redguard pirates off High Rock. Skyrim has had no High King since, which is the fact behind most of the province's politics.",
-      "when": { "era": 4, "year": 184 },
-      "scope": "The province",
-      "source": "The Rift's court record.",
-      "link": { "href": "/holds", "label": "The Rift, and its seat" }
-    },
-    {
-      "id": "falkreath-kellanved-steps-down",
-      "title": "Kellanved Ultor steps down",
-      "summary": "He left the seat of Falkreath with a published proclamation rather than quietly, and the court kept his record where it stood.",
-      "when": { "era": 4, "year": 185, "month": 7 },
-      "scope": "Falkreath",
-      "source": "The proclamation, dated Last Seed 4E 185.",
-      "link": { "href": "/holds", "label": "Falkreath, and its seat" }
-    },
-    {
-      "id": "falkreath-rigmyr-raised",
+      "id": "annal-2026-09-15-l1hdsw",
       "title": "Rigmyr Old-Pelt is raised in Falkreath",
       "summary": "Chosen after Kellanved stepped down, which is how a seat changes hands here: in character, at a moot, and not by application.",
-      "when": { "era": 4, "year": 185, "month": 7, "day": 23 },
+      "when": {
+        "era": 4,
+        "year": 185,
+        "month": 7,
+        "day": 23
+      },
       "scope": "Falkreath",
       "source": "Falkreath's court record.",
-      "link": { "href": "/holds", "label": "Falkreath, and its seat" }
+      "link": {
+        "href": "/holds",
+        "label": "Falkreath, and its seat"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-4e8fjd",
+      "title": "Kellanved Ultor steps down",
+      "summary": "He left the seat of Falkreath with a published proclamation rather than quietly, and the court kept his record where it stood.",
+      "when": {
+        "era": 4,
+        "year": 185,
+        "month": 7
+      },
+      "scope": "Falkreath",
+      "source": "The proclamation, dated Last Seed 4E 185.",
+      "link": {
+        "href": "/holds",
+        "label": "Falkreath, and its seat"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-d4dazv",
+      "title": "High King Varic Law-Giver dies at sea",
+      "summary": "His sword was found in the hands of Redguard pirates off High Rock. Skyrim has had no High King since, which is the fact behind most of the province's politics.",
+      "when": {
+        "era": 4,
+        "year": 184
+      },
+      "scope": "The province",
+      "source": "The Rift's court record.",
+      "link": {
+        "href": "/holds",
+        "label": "The Rift, and its seat"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-ge5uc9",
+      "title": "Kellanved Ultor takes Falkreath",
+      "summary": "Of House Ultor, raised to the seat after the sudden death of his father, Jarl Harvok.",
+      "when": {
+        "era": 4,
+        "year": 175
+      },
+      "scope": "Falkreath",
+      "source": "Falkreath's court record.",
+      "link": {
+        "href": "/holds",
+        "label": "Falkreath, and its seat"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-pawg65",
+      "title": "Plague takes the proud families of the Pale",
+      "summary": "It left the hold with precious few worthy challengers, and Varinn became the natural successor to his grand uncle.",
+      "when": {
+        "era": 4,
+        "year": 175
+      },
+      "scope": "The Pale",
+      "source": "Dawnstar's court record.",
+      "link": {
+        "href": "/holds",
+        "label": "The Pale, and its seat"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-oecwni",
+      "title": "The White-Gold Concordat",
+      "summary": "The Great War ends on terms that hold on paper and in very little else. Everything Mereth plays is downstream of this document.",
+      "when": {
+        "era": 4,
+        "year": 175
+      },
+      "scope": "The province",
+      "source": "The setting itself: Mereth plays 4E 185, ten years after the Concordat.",
+      "link": {
+        "href": "/world",
+        "label": "Skyrim in 4E 185"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-h0y1x6",
+      "title": "The Blood-Score begins",
+      "summary": "Shield brother turned on shield sister over who should take the mantle of Harbinger, and it was decided that to claim Jorrvaskr was to prove the claim. Twenty years of infighting followed.",
+      "when": {
+        "era": 4,
+        "year": 125,
+        "approximate": true,
+        "asWritten": "some sixty years ago"
+      },
+      "scope": "The Companions",
+      "source": "The Companions' own account, which dates it relative to today rather than by year.",
+      "link": {
+        "href": "/lore/companions",
+        "label": "The hall at Whiterun"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-hhef2t",
+      "title": "The Vigilant Rule is written",
+      "summary": "First Keeper Maurice of Glenpoint pens a codex for the newly founded Knights Vigilant, on the argument that Stendarr's Mercy does not stop at a temple door.",
+      "when": {
+        "era": 4,
+        "year": 35
+      },
+      "scope": "The Vigilants of Stendarr",
+      "source": "The Rule itself, published on this site.",
+      "link": {
+        "href": "/lore/vigilant-rule-4e35",
+        "label": "The Rule, in full"
+      }
+    },
+    {
+      "id": "annal-2026-09-15-w6ohw2",
+      "title": "The Crusaders take their vows",
+      "summary": "Sworn guards of Stendarr's temple, before the order ever left its doors. Thirty years later their First Keeper would write them a rule for a world beyond it.",
+      "when": {
+        "era": 4,
+        "year": 5,
+        "approximate": true,
+        "asWritten": "thirty years before the Rule"
+      },
+      "scope": "The Vigilants of Stendarr",
+      "source": "The Vigilant Rule of 4E 35, which opens by counting thirty years back to the vows.",
+      "link": {
+        "href": "/lore/vigilant-rule-4e35",
+        "label": "The Rule, in full"
+      }
     }
   ],
   "events": [],

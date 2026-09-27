@@ -52,6 +52,7 @@ function officeDocuments(): Map<string, LoreDocument[]> {
       title: entry.title,
       note: entry.note,
       paragraphs: entry.paragraphs,
+      ...(entry.doc !== undefined ? { doc: entry.doc } : {}),
     });
     byShelf.set(shelf, documents);
   }

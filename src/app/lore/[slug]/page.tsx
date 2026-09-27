@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ReadingScrim } from "@/components/layout/ReadingScrim";
+import { RichBody } from "@/components/lore/RichBody";
 import { OrnateDivider } from "@/components/ornament/Divider";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { OG_IMAGE } from "@/lib/asset";
@@ -100,6 +101,10 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
    * the sign-off and left "Lurius Floria" sitting in the body as if it were a
    * sentence.
    */
+  /* The rich body wins when the office wrote one. The paragraph path below
+     stays for the eleven generated documents, which have no rich version and
+     are not going to grow one. */
+  const rich = document.doc;
   const body = document.paragraphs;
   const isSignatureLine = (text: string): boolean => text.length < 90 && !text.endsWith(".");
 
@@ -148,7 +153,16 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
       <OrnateDivider className="my-10" />
 
       <article className="space-y-6">
-        {passages.map((text, index) => (
+        {/*
+         * Two bodies, one page. A document written in the office carries a rich
+         * version and is drawn node by node; the eleven generated ones carry
+         * paragraphs and keep the treatment they have always had, including the
+         * signature lifted out of the end. Neither path was made to serve the
+         * other, because the compromise would have been a worse version of both.
+         */}
+        {rich !== undefined ? <RichBody doc={rich} /> : null}
+
+        {rich !== undefined ? null : passages.map((text, index) => (
           <p
             key={index}
             className={
@@ -161,7 +175,7 @@ export default async function LoreDocumentPage({ params }: { params: Promise<{ s
           </p>
         ))}
 
-        {signature.length === 0 ? null : (
+        {rich !== undefined || signature.length === 0 ? null : (
           <div className="border-t border-brand-accent/20 pt-6">
             {signature.map((line, index) => (
               <p

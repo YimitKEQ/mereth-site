@@ -116,6 +116,66 @@ const next = {
  * reason to delete history.
  */
 
+/*
+ * Bring every picture a published document points at into this repository.
+ *
+ * The console serves those images from a desk behind a tunnel. A published page
+ * that pointed at it would go dark the moment that machine was switched off,
+ * and every reader would be handing their address to a residential connection
+ * on the way. So the build copies the bytes in and rewrites the reference to a
+ * local path, and the deployed site never asks the console for anything.
+ *
+ * Content addressed, so the file either already exists with exactly these bytes
+ * or is fetched once. A picture that cannot be fetched leaves the document
+ * pointing at nothing, which the renderer drops, rather than failing the build:
+ * a missing illustration is not a reason to stop publishing the province's lore.
+ */
+const IMAGE_DIR = path.join(process.cwd(), "public", "lore");
+const IMAGE_REF = /^\/api\/public\/lore-images\/([0-9a-f]{64}\.(?:png|jpe?g|webp))$/;
+
+async function localiseImages(doc) {
+  if (doc === null || typeof doc !== "object") return doc;
+
+  const walk = async (node) => {
+    if (node === null || typeof node !== "object") return node;
+    if (Array.isArray(node)) return Promise.all(node.map(walk));
+
+    if (node.type === "image" && typeof node.attrs?.src === "string") {
+      const match = IMAGE_REF.exec(node.attrs.src);
+      if (match !== null) {
+        const name = match[1];
+        const file = path.join(IMAGE_DIR, name);
+        if (!fs.existsSync(file)) {
+          try {
+            const response = await fetch(new URL(node.attrs.src, CHRONICLE_URL), {
+              signal: AbortSignal.timeout(20000),
+            });
+            if (!response.ok) throw new Error(String(response.status));
+            fs.mkdirSync(IMAGE_DIR, { recursive: true });
+            fs.writeFileSync(file, Buffer.from(await response.arrayBuffer()));
+            console.log(`sync-chronicle: fetched lore image ${name}`);
+          } catch (error) {
+            console.log(`sync-chronicle: could not fetch ${name} (${error.name ?? "failed"}), dropping it`);
+            return { ...node, attrs: { ...node.attrs, src: "" } };
+          }
+        }
+        return { ...node, attrs: { ...node.attrs, src: `/lore/${name}` } };
+      }
+    }
+
+    const content = Array.isArray(node.content) ? await Promise.all(node.content.map(walk)) : undefined;
+    return content === undefined ? node : { ...node, content };
+  };
+
+  return walk(doc);
+}
+
+for (const entry of next.lore) {
+  if (entry !== null && typeof entry === "object" && entry.doc !== undefined) {
+    entry.doc = await localiseImages(entry.doc);
+  }
+}
+
 const before = JSON.stringify(current);
 const after = JSON.stringify(next, null, 2) + "\n";
 

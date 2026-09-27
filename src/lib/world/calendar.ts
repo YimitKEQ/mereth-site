@@ -101,6 +101,8 @@ export interface ChronicleLoreEntry {
   title: string;
   note: string;
   paragraphs: string[];
+  /** The rich body, as the lore office wrote it. Absent on older records. */
+  doc?: unknown;
   /** The shelf it belongs on, matching a shelf id on the lore page. */
   shelf: string;
   /** Who wrote it, when the author wants a byline. */
