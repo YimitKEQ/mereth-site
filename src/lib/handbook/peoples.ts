@@ -1,4 +1,5 @@
 import guide from "@/data/pocket-guide.json";
+import { plates } from "@/lib/images";
 
 import type { Block, HandbookPage, Section } from "./blocks";
 
@@ -22,7 +23,12 @@ interface People {
 const peoples: People[] = guide.peoples;
 
 function section(people: People): Section {
-  const blocks: Block[] = [{ kind: "list", items: people.points }];
+  /* A people the forum adds before anyone has picked a portrait gets no picture, not a broken one. */
+  const portrait = `people-${people.id}`;
+  const blocks: Block[] = [
+    ...(portrait in plates ? [{ kind: "plate", slug: portrait } as const] : []),
+    { kind: "list", items: people.points },
+  ];
   if (people.reading.length > 0) {
     blocks.push({
       kind: "prose",
@@ -70,7 +76,8 @@ export const peoplesPage: HandbookPage = {
           paragraphs: [
             `The Lore Team researched and compiled every section here so that lore supports
             creativity rather than restricting it. The guide grows in the
-            **#tamriel-pocket-guide** forum on [our Discord](/discord), and this page follows it.`,
+            **#tamriel-pocket-guide** forum on [our Discord](/discord), and this page follows it.
+            The portraits are Skyrim's own loading screens.`,
           ],
         },
       ],

@@ -33,10 +33,8 @@ export const metadata: Metadata = pageMeta({
  * content; a fake one has to be found and removed.
  */
 
-/** Everything except the two that are interface rather than world. */
-const WORLD_PLATES = Object.values(plates).filter(
-  (plate) => plate.slug !== "skill-menu" && plate.slug !== "holds-map",
-);
+/** Everything taken on the server: no interface shots, no borrowed art. */
+const WORLD_PLATES = Object.values(plates).filter((plate) => plate.gallery !== false);
 
 interface Awaited {
   title: string;

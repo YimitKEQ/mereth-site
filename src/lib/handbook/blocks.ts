@@ -30,7 +30,9 @@ export type Block =
    * An interaction prompt is one of them: the reader needs to see where it
    * appears and what it offers, not be told that it exists.
    */
-  | { kind: "clip"; slug: string; title: string; caption: string };
+  | { kind: "clip"; slug: string; title: string; caption: string }
+  /** A portrait from the picture manifest, floated beside the text that follows it. */
+  | { kind: "plate"; slug: string };
 
 export type DataBlock =
   | "binds"

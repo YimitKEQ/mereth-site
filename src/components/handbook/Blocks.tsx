@@ -1,6 +1,7 @@
 import { Clip } from "@/components/gallery/Clip";
 import { ClientMessages } from "@/components/handbook/ClientMessages";
 import { FrameCorners } from "@/components/ornament/OrnateFrame";
+import { PlateFigure } from "@/components/ui/Plate";
 import type { Block, DataBlock } from "@/lib/handbook/blocks";
 import { connectionMessages, playMessages } from "@/lib/handbook/client-messages";
 import { inline } from "@/lib/markup";
@@ -299,6 +300,16 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
                 slug={block.slug}
                 title={block.title}
                 caption={block.caption}
+              />
+            );
+          case "plate":
+            return (
+              <PlateFigure
+                key={i}
+                slug={block.slug}
+                aspect="aspect-[26/27]"
+                sizes="(max-width: 768px) 100vw, 320px"
+                className="mt-2 mb-8 md:float-right md:mb-4 md:ml-8 md:w-[42%]"
               />
             );
           case "cite":

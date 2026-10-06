@@ -27,6 +27,8 @@ export interface Plate {
   width: number;
   height: number;
   blurDataURL: string;
+  /** False for pictures that are not of the server: interface shots and borrowed art. */
+  gallery?: false;
 }
 
 export const plates: Record<string, Plate> = {
@@ -150,6 +152,7 @@ export const plates: Record<string, Plate> = {
     height: 956,
     blurDataURL:
       "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAwCdASoUAAsAPu1iqk2ppaQiMAgBMB2JZwDLLCKUYf63H+nYfSAAAP7sZrBShPAaOVahu9uDvtX3LggoZAke56NLo6tHfnAAAA==",
+    gallery: false,
   },
   "spellcasting": {
     slug: "spellcasting",
@@ -172,6 +175,7 @@ export const plates: Record<string, Plate> = {
     height: 768,
     blurDataURL:
       "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAwBACdASoUAA8APu1iqU2ppaOiMAgBMB2JbACdMoR3ACxx0o3A13YxmCAAye+GteW9RGbg/wPj01wzGcpfmPFgQsPsrKc6wpH72gkf20BBvi0VCvH3/ZPWu3v/Gimf85mo85Y18zJKoRfQ4AA=",
+    gallery: false,
   },
   "night-watch": {
     slug: "night-watch",
@@ -447,6 +451,66 @@ export const plates: Record<string, Plate> = {
     height: 1012,
     blurDataURL:
       "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAwBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQC7ACFN5LjYzvhPMarz0sAA/uvjVTG2yI/YBHQS75cbRXhsueqMMTFibgEYl6a59dUSPalYQpub60AhCDCBKTcAAA==",
+  },
+  "people-altmer": {
+    slug: "people-altmer",
+    title: "An Altmer",
+    caption: "Summerset's people, as Skyrim draws them. In Skyrim, many people meet an Altmer and see a Justiciar first.",
+    src: asset("/img/people-altmer.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoUABUAPu1qrVCppaQiqAqpMB2JaQAALl6xe9z7vAkecndAAP7yriUIi9i/cmqFeoAur20ChXxZiiKe3ie6Vaz2vOo8SgHZXtSYvzQ7TEvriAAA",
+    gallery: false,
+  },
+  "people-bosmer": {
+    slug: "people-bosmer",
+    title: "A Bosmer",
+    caption: "Valenwood's people, as Skyrim draws them. The bow is the easy part to play; the Green Pact is the part that makes her a Bosmer.",
+    src: asset("/img/people-bosmer.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwBACdASoUABUAPu1qrFEppaQiqAqpMB2JZwAALkKZ5uFnji4X0uNadkBNM24AAP70JSJvU+KDZHKqI4vWwh08i7627CwNCELyLPEyvZap7uWLDK/MKWOG8GvMDMAAAAA=",
+    gallery: false,
+  },
+  "people-orcs": {
+    slug: "people-orcs",
+    title: "An Orc",
+    caption: "An Orc as Skyrim draws them. Whether he answers to Malacath or Trinimac decides more about him than his blades do.",
+    src: asset("/img/people-orcs.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQBACdASoUABUAPu1oq08ppiOiMBgIATAdiWcAAC6DEgKAig8I5+iikdislyAA/vKuyqs8O8SwftrzATYFknf/WMFqJv2gQLHTvi7vZYAdBuFaWrx8oBLcL737Sp96ljQGfD9vBKAAAA==",
+    gallery: false,
+  },
+  "people-argonians": {
+    slug: "people-argonians",
+    title: "An Argonian",
+    caption: "Black Marsh's people, as Skyrim draws them. What he owes the Hist depends on the tribe that raised him.",
+    src: asset("/img/people-argonians.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACwBACdASoUABUAPu1krE4ppaSiKA1RMB2JZwDOdBEI4xULiMxb2PMExb7jWHOAAP70JPEBtUecvMekrMhU2wP/+TbciukUtkAvpHLVbmUhwp5dMRBMa6CBRsyB1qIXCfkCZxUsUTU8qMFimAA=",
+    gallery: false,
+  },
+  "people-khajiit": {
+    slug: "people-khajiit",
+    title: "A Khajiit",
+    caption: "Elsweyr's people, as Skyrim draws them. The moons at his birth decided his furstock; where he grew up decided his speech.",
+    src: asset("/img/people-khajiit.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACQBACdASoUABUAPu1qrE8ppiQiMBgIATAdiWkAAC51kh+vAyoV+4eGbdhfJUAA/vQay7o5BNZMZOLFAAQdTeh+rmQjBWnQlx/5FZXbVIfxyQV4/8K/SSbTJ6tjVFhBW19QUFY4AAA=",
+    gallery: false,
   },
 };
 

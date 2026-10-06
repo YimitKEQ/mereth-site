@@ -46,13 +46,13 @@ const PLATES = [
     file: "BjcKhYWG0ePWmNpp0fFRtg.png",
     slug: "aurora",
     title: "Under the aurora",
-    caption: "The Sea of Ghosts throws light over the north for most of the year.",
+    caption: "The aurora is over the northern holds most nights of the year. Winterhold and Dawnstar get the best of it, and the light is real, not a loading screen.",
   },
   {
     file: "TheOldWays.jpg",
     slug: "old-ways",
     title: "The old ways",
-    caption: "Clevercraft is the ancestral tradition of Skyrim's people. Where you find magic and Nords together, expect a fire and a shaman.",
+    caption: "Clevercraft is the old Nordic way of working magic, closer to a shaman at a fire than a wizard at a desk. Magic works the same here as anywhere. It just tends to look like this.",
   },
   {
     file: "20260809160841_1.jpg",
@@ -64,19 +64,19 @@ const PLATES = [
     file: "203B661.JPG",
     slug: "jarls-hall",
     title: "The jarl's hall",
-    caption: "Court is held where the hold eats. Rank here is granted, and it can be taken back.",
+    caption: "The mead hall is the hold's court. The jarl hands out rank at the same table people eat at, and can take it back at that table too.",
   },
   {
     file: "20A02C1.JPG",
     slug: "hold-guard",
     title: "The hold guard",
-    caption: "Guards are players. So is whoever they are waiting for.",
+    caption: "Every guard on this wall is a player who chose the job, took the rank from a jarl, and is standing a real watch. Nobody here is scripted to patrol.",
   },
   {
     file: "489830_20260803131209_1.png",
     slug: "longfire",
     title: "Around the fire",
-    caption: "Sat down, armed, and in no hurry. An ordinary evening.",
+    caption: "A normal evening on Mereth: people sat around a fire talking, weapons still on, nowhere to be. Most of your hours here will look like this rather than like combat.",
   },
   {
     file: "489830_20260806043919_1.png",
@@ -88,13 +88,13 @@ const PLATES = [
     file: "489830_20260727215644_1.png",
     slug: "palisade",
     title: "Beyond the palisade",
-    caption: "The province is the whole map, and the weather in it is not on your side.",
+    caption: "The whole of Skyrim is open, and the cold is a mechanic rather than scenery. Travel between holds with food, drink and somewhere to warm up in mind.",
   },
   {
     file: "image.png",
     slug: "arriving",
     title: "Arriving",
-    caption: "Carry weight is a real constraint. The answer to it is crafted, not bought.",
+    caption: "You will hit your carry weight faster than you expect. The fix is a backpack or a pouch, which a leatherworker makes, so it is somebody you go and find rather than something you buy from a menu.",
   },
   {
     file: "Mammoth_2.jpg",
@@ -106,25 +106,27 @@ const PLATES = [
     file: "skillmenu.png",
     slug: "skill-menu",
     title: "The skill plan",
-    caption: "Press K. Eighteen memory points across 51 skills, and the tier you buy is the ceiling that skill can ever reach.",
+    caption: "Press K. Eighteen memory points, and the tier you buy is the ceiling that skill can ever reach.",
+    gallery: false,
   },
   {
     file: "magic.jpg",
     slug: "spellcasting",
     title: "A spell, finally",
-    caption: "Nobody starts with this. A master willing to teach you, a spellbook, and a season of study.",
+    caption: "Nobody starts able to cast. You need a player willing to teach you and the tome for the spell, and a teacher can only take on so many pupils a week, so this is a relationship rather than a purchase.",
   },
   {
     file: "skyrim-holds-map.png",
     slug: "holds-map",
     title: "Province of Skyrim",
     caption: "Drawn 4E 182 by Nataly Dravarol, cartographer. Nine holds, nine seats, nine sets of law.",
+    gallery: false,
   },
   {
     file: "20260804054334_1.jpg",
     slug: "night-watch",
     title: "Alone on the pass",
-    caption: "Some questions do not have a published answer. You find those out in character.",
+    caption: "Some things are deliberately not written down anywhere on this site. Who holds what, who owes whom, what happened last week: you find that out by asking people in character.",
   },
   {
     file: "falkreath.png",
@@ -142,7 +144,7 @@ const PLATES = [
     file: "Painted.jpg",
     slug: "a-jarl",
     title: "A jarl in his own hall",
-    caption: "Every seat in Skyrim is held. Jarl is the most demanding whitelist on the server, and the seat can be lost as well as won.",
+    caption: "A jarl is a player, not a scripted NPC. The most demanding seat on the server, chosen by his own court at a Moot, and it can be lost as well as won.",
   },
   {
     file: "CS_2026-07-23_04-32-45_543.png",
@@ -172,7 +174,7 @@ const PLATES = [
     file: "90xdjw8.png",
     slug: "the-arch",
     title: "Old bones in the snow",
-    caption: "This site documents the systems. What waits at the bottom of a ruin is not one of them.",
+    caption: "This site explains how everything works, and stops short of what is inside the dungeons. Knowing the boss is at the bottom before you go would spoil the only part of this that is still a surprise.",
   },
   {
     file: "Woods.png",
@@ -228,14 +230,14 @@ const PLATES = [
     file: "489830_20260727160518_1.png",
     slug: "the-mammoth",
     title: "The mammoth, briefly airborne",
-    caption: "It is still Skyrim underneath. Some evenings the physics has opinions of its own.",
+    caption: "It is still Skyrim under all of this, and Skyrim's physics has always had opinions. Some evenings a mammoth ends up somewhere no mammoth should be, and honestly that is half the fun.",
   },
   {
     file: "CS_2026-08-13_11-52-45_95.png",
     slug: "the-busker",
     title: "Playing to whoever stops",
     caption:
-      "Voice carries by distance, so a song reaches the people standing close enough to hear it and nobody further. Some days that is a full market, and some days it is the rain.",
+      "Voice carries by distance, so a bard plays to whoever is standing near enough to hear. Some days that is a packed market and some days it is nobody at all, which is the job.",
     /* Uncropped, the figure is a sixth of the frame and the whole thing reads
        as somebody standing near a tree: at card width the lute disappears and
        the rain with it. Cropping in past the empty foreground keeps the stalls
@@ -293,7 +295,57 @@ const PLATES = [
     slug: "the-empty-throne",
     title: "The empty throne",
     caption:
-      "A seat under the banners of the hold, and the decision about whether to walk up to it. Every one of the nine is held by a player.",
+      "An empty jarl's seat is not first come, first served. The hold's own court votes at a Moot and the vote has to be unanimous, so taking the chair by force just makes you an Usurper the hold then removes.",
+  },
+  {
+    file: "SR-load-Altmer.jpg",
+    slug: "people-altmer",
+    title: "An Altmer",
+    caption: "Summerset's people, as Skyrim draws them. In Skyrim, many people meet an Altmer and see a Justiciar first.",
+    /* Skyrim's own loading screen. The figure stands in the left half and the
+       game's tip text sits bottom right, so the crop keeps the figure only. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Bosmer.jpg",
+    slug: "people-bosmer",
+    title: "A Bosmer",
+    caption: "Valenwood's people, as Skyrim draws them. The bow is the easy part to play; the Green Pact is the part that makes her a Bosmer.",
+    /* Skyrim's own loading screen. The figure stands in the left half and the
+       game's tip text sits bottom right, so the crop keeps the figure only. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Orsimer.jpg",
+    slug: "people-orcs",
+    title: "An Orc",
+    caption: "An Orc as Skyrim draws them. Whether he answers to Malacath or Trinimac decides more about him than his blades do.",
+    /* Skyrim's own loading screen. The figure stands in the left half and the
+       game's tip text sits bottom right, so the crop keeps the figure only. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Argonian.jpg",
+    slug: "people-argonians",
+    title: "An Argonian",
+    caption: "Black Marsh's people, as Skyrim draws them. What he owes the Hist depends on the tribe that raised him.",
+    /* Skyrim's own loading screen. The figure stands in the left half and the
+       game's tip text sits bottom right, so the crop keeps the figure only. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Khajiit.jpg",
+    slug: "people-khajiit",
+    title: "A Khajiit",
+    caption: "Elsweyr's people, as Skyrim draws them. The moons at his birth decided his furstock; where he grew up decided his speech.",
+    /* Skyrim's own loading screen. The figure stands in the left half and the
+       game's tip text sits bottom right, so the crop keeps the figure only. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
   },
 ];
 
@@ -440,6 +492,8 @@ export interface Plate {
   width: number;
   height: number;
   blurDataURL: string;
+  /** False for pictures that are not of the server: interface shots and borrowed art. */
+  gallery?: false;
 }
 
 export const plates: Record<string, Plate> = {
@@ -454,7 +508,7 @@ ${entries
     width: ${e.width},
     height: ${e.height},
     blurDataURL:
-      "${e.blurDataURL}",
+      "${e.blurDataURL}",${e.gallery === false ? "\n    gallery: false," : ""}
   },`,
   )
   .join("\n")}
