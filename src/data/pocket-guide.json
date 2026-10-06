@@ -5,6 +5,120 @@
   },
   "peoples": [
     {
+      "id": "nords",
+      "name": "Nords",
+      "points": [
+        "Nords are the native human people of Skyrim, and their culture is deeply tied to the land, their ancestors, and the traditions passed down from the ancient Nordic peoples.",
+        "Nordic culture places considerable emphasis on honour, courage, loyalty, strength, family, hospitality, and reputation. These ideals can manifest differently between individuals, but they remain important cultural themes.",
+        "Nords traditionally have a strong connection to their clan and family. A Nord's family name, clan, homeland, and reputation can carry significant weight, particularly among more traditional communities.",
+        "The Old Ways remain an important part of Nordic cultural identity, even among Nords who primarily worship the recognized Divines. Ancient Nordic traditions, heroes, spirits, burial customs, and stories have not simply disappeared.",
+        "Nordic religion has historically been distinct from the Imperial understanding of the Divines. Figures such as Kyne, Shor, Jhunal, Tsun, and Stuhn have traditionally held important places within Nordic spirituality.",
+        "Kyne in particular has historically been an important Nordic deity associated with the storm, the sky, nature, and the breath of life. Traditional Nords may understand Kyne differently from the Imperial interpretation of Kynareth.",
+        "Nords traditionally have a strong relationship with death and burial. Barrows, tombs, honoured ancestors, and the resting places of ancient heroes can carry significant cultural and spiritual importance.",
+        "A Nord should not necessarily be hostile toward magic, but traditional Nordic culture has historically been suspicious of certain forms of magic, particularly practices associated with necromancy, Daedra, curses, and the violation of the dead. This does not mean every Nord hates mages. Skyrim has produced powerful Nordic mages throughout its history, and many Nords respect magic when it is used responsibly or within accepted traditions.",
+        "Nords are not a monolithic culture. A Nord from Windhelm, Whiterun, Solitude, Markarth, Riften, or the Pale may have very different local customs and attitudes.",
+        "A Nord raised in a cosmopolitan city may have a considerably different worldview from one raised in an isolated village or traditional clan.",
+        "Talos worship should also be approached with some nuance. The Imperial ban does not erase the cultural significance of Tiber Septim/Talos among many Nords, but individual Nords can have very different opinions about the Empire, the ban, and the worship of Talos.",
+        "A Nord in 4E 185 should feel like someone belonging to a culture with thousands of years of history, rather than simply a generic medieval human with a Skyrim accent."
+      ],
+      "reading": []
+    },
+    {
+      "id": "imperials",
+      "name": "Imperials",
+      "points": [
+        "\"Imperial\" is a broad cultural identity rather than a single uniform culture. The people of Cyrodiil have considerable regional, historical, and social differences.",
+        "Imperial culture has historically been heavily influenced by the Empire, which has brought together peoples, religions, languages, and customs from across Tamriel.",
+        "Imperials are often associated with law, administration, diplomacy, commerce, military service, and political organization. These qualities are particularly relevant to characters who have grown up within Imperial institutions.",
+        "Imperial society has traditionally placed significant value on education, literacy, rhetoric, politics, and civic life, particularly within the cities and among the educated classes.",
+        "Religion among Imperials is generally associated with the Divines and the Imperial Cult, which historically incorporated different regional interpretations of the gods into a more unified religious structure.",
+        "An Imperial character does not automatically have to be a devoted supporter of the current Empire. Imperial identity and political loyalty are not necessarily the same thing.",
+        "The Empire in 4E 185 is not the same political entity it was during the height of the Septim Empire. The Great War, the White-Gold Concordat, the loss of territories, and the rise of the Aldmeri Dominion have profoundly affected Imperial society.",
+        "An Imperial veteran, soldier, bureaucrat, merchant, noble, scholar, or farmer may therefore have dramatically different opinions about the Empire and its current state.",
+        "Imperials from different parts of Cyrodiil can also possess different cultural identities. A Colovian and a Nibenese may share an Imperial identity while having substantially different traditions and outlooks.",
+        "Colovian culture traditionally carries stronger associations with military traditions, martial values, and the rugged western regions of Cyrodiil, while Nibenese culture has historically been more urban, mercantile, mystical, and influenced by the diverse cultures of the Imperial heartland.",
+        "An Imperial arriving in Skyrim may therefore have a very different relationship with the province depending on whether they are a Legion veteran, merchant, scholar, noble, refugee, traveller, or native of Cyrodiil.",
+        "Imperials living in Skyrim should also understand that the word \"Imperial\" can carry significant political weight. Many Nords will distinguish between Imperial culture, the Empire itself, and Imperial Legion occupation or authority."
+      ],
+      "reading": [
+        {
+          "label": "Imperial",
+          "url": "https://en.uesp.net/wiki/Lore:Imperial"
+        },
+        {
+          "label": "Colovian",
+          "url": "https://en.uesp.net/wiki/Lore:Colovian"
+        },
+        {
+          "label": "Nibenese",
+          "url": "https://en.uesp.net/wiki/Lore:Nibenese"
+        }
+      ]
+    },
+    {
+      "id": "bretons",
+      "name": "Bretons",
+      "points": [
+        "Breton culture is primarily rooted in High Rock, a province famous for its complex political landscape, numerous kingdoms, noble houses, and highly developed magical traditions.",
+        "Bretons have a long history of human and Elven ancestry, and their culture reflects this heritage. Their relationship with magic and scholarship is often more accepting than that of many other human cultures.",
+        "This does not mean every Breton is a mage. Magic is simply more culturally integrated into Breton society, particularly among the educated, nobility, and various scholarly traditions.",
+        "Breton society is strongly associated with knighthood, chivalry, noble houses, courtly politics, and feudal relationships. A Breton noble may have a very different worldview from a commoner, mercenary, or traveller.",
+        "High Rock is famously fragmented. A Breton should not automatically be assumed to represent all of High Rock. Their kingdom, family, social class, and local customs can heavily influence their identity.",
+        "Breton politics can be extremely complicated, with alliances, rivalries, marriages, inheritance, and competing claims to titles all playing important roles.",
+        "Bretons traditionally possess a strong interest in magic, history, philosophy, and scholarship, though again, this varies considerably between individuals and regions.",
+        "Breton religious beliefs generally revolve around the Divines, though local traditions and the influence of Elven ancestry have contributed to distinctive religious practices.",
+        "Breton culture also contains many traditions surrounding knights, honour, heroic deeds, quests, and personal reputation. A Breton warrior may therefore approach combat and honour through a very different cultural lens than a Nord.",
+        "A Breton living in Skyrim may find Nordic customs unfamiliar or even crude, while a Nord may view Breton courtly traditions as overly complicated or pretentious.",
+        "Bretons raised outside High Rock may have adopted the customs of the society in which they grew up. A Skyrim-born Breton, for example, may identify strongly with Skyrim despite having Breton ancestry.",
+        "Bretons should not simply be portrayed as \"smarter Nords\" or \"humans who use magic.\" Their culture has its own history, social structures, prejudices, traditions, and political identities."
+      ],
+      "reading": [
+        {
+          "label": "Breton",
+          "url": "https://en.uesp.net/wiki/Lore:Breton"
+        },
+        {
+          "label": "High Rock",
+          "url": "https://en.uesp.net/wiki/Lore:High_Rock"
+        }
+      ]
+    },
+    {
+      "id": "redguard",
+      "name": "Redguards",
+      "points": [
+        "Redguards originate from Hammerfell, a land with a proud and distinctive warrior culture shaped by the history of the Yokudan peoples and their arrival in Tamriel.",
+        "Redguard culture places considerable emphasis on honour, martial skill, discipline, personal strength, and reputation. However, Redguards are not simply warriors; Hammerfell also possesses rich traditions of trade, scholarship, craftsmanship, seafaring, and religion.",
+        "The history of the Yokuda and the migration of the Redguards to Tamriel remains extremely important to their cultural identity.",
+        "Redguard religious traditions are distinct from those of the Imperial Cult. Figures such as Satakal, Ruptga (Tall Papa), Tu'whacca, and other Yokudan spirits have important places within Redguard mythology and spirituality. Tu'whacca, particularly, is traditionally associated with death and the afterlife. Redguard attitudes toward death can therefore differ considerably from those of Nords or Imperials.",
+        "Redguards traditionally place significant importance on swordsmanship and martial discipline. The legendary Ansei and their Shehai traditions remain an important part of Redguard history and cultural memory.",
+        "This does not mean every Redguard should be a master swordsman. A Redguard can just as easily be a merchant, sailor, scholar, farmer, craftsman, mage, diplomat, or traveller.",
+        "Redguard society contains significant regional and cultural differences, particularly between the traditions associated with Hammerfell's Crowns and Forebears.",
+        "The Crowns generally maintain stronger ties to traditional Yokudan culture and customs, while the Forebears have historically been more willing to embrace Tamrielic influences and integration.",
+        "The distinction between these groups can influence a Redguard's religion, politics, relationship with foreigners, and attitude toward traditional customs.",
+        "The Great War and Hammerfell's resistance against the Dominion are also important recent history. The Redguards' successful resistance and the Empire's eventual withdrawal from Hammerfell have contributed heavily to Hammerfell's modern political identity.",
+        "A Redguard arriving in Skyrim in 4E 185 may therefore have strong opinions regarding the Empire, the Aldmeri Dominion, Hammerfell's independence, and the events of the Great War."
+      ],
+      "reading": [
+        {
+          "label": "Redguard",
+          "url": "https://en.uesp.net/wiki/Lore:Redguard"
+        },
+        {
+          "label": "Hammerfell",
+          "url": "https://en.uesp.net/wiki/Lore:Hammerfell"
+        },
+        {
+          "label": "Crowns",
+          "url": "https://en.uesp.net/wiki/Lore:Crowns"
+        },
+        {
+          "label": "Forebears",
+          "url": "https://en.uesp.net/wiki/Lore:Forebears"
+        }
+      ]
+    },
+    {
       "id": "altmer",
       "name": "Altmer",
       "points": [
@@ -19,7 +133,10 @@
         "When portraying an Altmer, consider whether they are a traditionalist, a Dominion loyalist, an exile, a scholar, a mage, a merchant, an apraxic outsider, or simply someone attempting to distance themselves from Altmeri society. These backgrounds can produce dramatically different characters."
       ],
       "reading": [
-        { "label": "Altmer", "url": "https://en.uesp.net/wiki/Lore:Altmer" }
+        {
+          "label": "Altmer",
+          "url": "https://en.uesp.net/wiki/Lore:Altmer"
+        }
       ]
     },
     {
@@ -36,9 +153,38 @@
         "When playing a Bosmer in Skyrim, consider whether they are a traditional Green Pact follower, a cosmopolitan Bosmer, a refugee, a hunter, a merchant, or someone who has deliberately abandoned parts of their ancestral culture."
       ],
       "reading": [
-        { "label": "Bosmer", "url": "https://en.uesp.net/wiki/Lore:Bosmer" },
-        { "label": "Green Pact", "url": "https://en.uesp.net/wiki/Lore:Green_Pact" }
+        {
+          "label": "Bosmer",
+          "url": "https://en.uesp.net/wiki/Lore:Bosmer"
+        },
+        {
+          "label": "Green Pact",
+          "url": "https://en.uesp.net/wiki/Lore:Green_Pact"
+        }
       ]
+    },
+    {
+      "id": "dunmer",
+      "name": "Dunmer",
+      "points": [
+        "Dunmer culture is deeply shaped by the history of Morrowind, the Tribunal Temple, the Great Houses, and the disasters that have struck their homeland. A Dunmer living in Skyrim in 4E 185 is likely to carry some awareness of this history, even if they personally reject parts of it.",
+        "The traditional Dunmer religion has changed considerably over the centuries. The Tribunal of Almalexia, Sotha Sil, and Vivec once stood at the centre of Dunmeri religious life, but the Tribunal's fall fundamentally changed the spiritual landscape of Morrowind.",
+        "Following the fall of the Tribunal and the devastation of the Red Year, worship of the Reclamations; Azura, Boethiah, and Mephala returned to prominence among many Dunmer. These three spirits are particularly important to modern Dunmeri religious identity.",
+        "This does not mean every Dunmer worships the Reclamations in the same manner. Dunmer religion is deeply personal and varies between individuals, families, Great Houses, and communities.",
+        "Ancestor worship is extremely important within traditional Dunmer culture. The dead are not simply forgotten; respected ancestors may be honoured, remembered, and called upon for guidance or protection.",
+        "The Dunmer have historically maintained ancestor shrines and family tombs, and disturbing the dead is therefore not simply \"grave robbing\" in the mundane sense. It can carry significant spiritual and cultural weight.",
+        "Dunmer society has traditionally been divided between the Great Houses, each with their own political interests, traditions, rivalries, and philosophies. A Dunmer's House can therefore tell you a great deal about their background and worldview.",
+        "The major Houses have not always agreed with one another. Redoran, Hlaalu, Telvanni, Dres, and Indoril each have distinct histories and cultural identities. A Dunmer should not automatically be treated as culturally identical regardless of their House or homeland.",
+        "The Redoran in particular are strongly associated with honour, duty, martial discipline, tradition, and defending Dunmer society. This can be particularly relevant to Redoran refugees and their descendants living in Skyrim.",
+        "Telvanni culture traditionally places enormous value on individual power, magical ability, independence, and personal achievement. A Telvanni-born Dunmer may therefore have a very different attitude toward authority and magic than a Redoran.",
+        "Dunmer traditionally possess a strong sense of cultural pride. This can manifest as anything from quiet attachment to Morrowind and its traditions to open disdain for the customs of other peoples.",
+        "The Red Year and the devastation of Morrowind are relatively recent events by Tamrielic standards. A Dunmer character in 4E 185 could have personally experienced its consequences, while younger Dunmer may have grown up hearing stories of the destruction from parents and grandparents.",
+        "Dunmer refugees and immigrants in Skyrim may therefore carry complicated feelings toward their new home. Some may be grateful for the safety Skyrim provides, while others may feel that they are living in a foreign land and long for Morrowind.",
+        "The Grey Quarter of Windhelm should not simply be treated as a generic \"Elf district.\" Dunmer there have their own communities, religious practices, family histories, and connections to Morrowind.",
+        "At the same time, a Dunmer raised in Skyrim for generations may be considerably more Nordic or Skyrim-influenced than a recent refugee from Morrowind. Their language, mannerisms, beliefs, and attitudes can naturally reflect the environment in which they were raised.",
+        "Finally, Dunmer should not be reduced to stereotypes of being cruel, arrogant, or hostile. Their culture contains strong traditions of family, loyalty, honour, spirituality, scholarship, survival, and remembrance alongside its darker and more severe elements."
+      ],
+      "reading": []
     },
     {
       "id": "orcs",
@@ -55,9 +201,18 @@
         "Consider whether your Orc is Stronghold-raised, Orsinium-raised, an exile, a mercenary, an integrated Orc, or someone caught between competing traditions. These backgrounds can produce very different characters."
       ],
       "reading": [
-        { "label": "Orc", "url": "https://en.uesp.net/wiki/Lore:Orc" },
-        { "label": "Code of Malacath", "url": "https://en.uesp.net/wiki/Lore:Code_of_Malacath" },
-        { "label": "Trinimac", "url": "https://en.uesp.net/wiki/Lore:Trinimac" }
+        {
+          "label": "Orc",
+          "url": "https://en.uesp.net/wiki/Lore:Orc"
+        },
+        {
+          "label": "Code of Malacath",
+          "url": "https://en.uesp.net/wiki/Lore:Code_of_Malacath"
+        },
+        {
+          "label": "Trinimac",
+          "url": "https://en.uesp.net/wiki/Lore:Trinimac"
+        }
       ]
     },
     {
@@ -73,8 +228,14 @@
         "An Argonian living in Skyrim does not necessarily have to behave like a \"generic Argonian.\" Consider where they came from, what tribe raised them, their relationship with the Hist, and how long they have lived outside Black Marsh."
       ],
       "reading": [
-        { "label": "Argonian", "url": "https://en.uesp.net/wiki/Lore:Argonian" },
-        { "label": "Hist", "url": "https://en.uesp.net/wiki/Lore:Hist" }
+        {
+          "label": "Argonian",
+          "url": "https://en.uesp.net/wiki/Lore:Argonian"
+        },
+        {
+          "label": "Hist",
+          "url": "https://en.uesp.net/wiki/Lore:Hist"
+        }
       ]
     },
     {

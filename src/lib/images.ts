@@ -512,6 +512,66 @@ export const plates: Record<string, Plate> = {
       "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACQBACdASoUABUAPu1qrE8ppiQiMBgIATAdiWkAAC51kh+vAyoV+4eGbdhfJUAA/vQay7o5BNZMZOLFAAQdTeh+rmQjBWnQlx/5FZXbVIfxyQV4/8K/SSbTJ6tjVFhBW19QUFY4AAA=",
     gallery: false,
   },
+  "people-nords": {
+    slug: "people-nords",
+    title: "A Nord",
+    caption: "Skyrim's own people, as Skyrim draws them. Kyne, the barrows and the Old Ways are older than any Imperial temple in the province.",
+    src: asset("/img/people-nords.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAABwBACdASoUABUAPuFgqU2opaQiMAwBEBwJZwAAW+s/VTCYlFb1UfN6B0yGgAD+9WdZrgKUBZVmPLrWvWqQC47rz06ZZMkfsy8Um85JlVVHSqZF714ezArdeRq7JBUIEAA=",
+    gallery: false,
+  },
+  "people-imperials": {
+    slug: "people-imperials",
+    title: "An Imperial",
+    caption: "Cyrodiil's people, as Skyrim draws them. In Skyrim the word Imperial means a culture, an Empire and a Legion, and Nords hear all three.",
+    src: asset("/img/people-imperials.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABQBACdASoUABUAPu1wr1KppiQiqAgBMB2JZwAALkMbUUuzXPmEr8cJuPRgAP70JSKgXfYhbZb9yMDWrQ4YDVZQX77OVnIBA7StbbXv36ksLZgIkGgQOXo2jClljVqp45F5zlfnS1jWDV8InE0dYad3Wom/lAAAAAA=",
+    gallery: false,
+  },
+  "people-bretons": {
+    slug: "people-bretons",
+    title: "A Breton",
+    caption: "High Rock's people, as Skyrim draws them. Her kingdom and her house say more about her than the staff does.",
+    src: asset("/img/people-bretons.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACwBACdASoUABUAPu1qrVCppaQiqAqpMB2JZwAALZi5FMjcuW1vRf8E6CHCtzaAAP7ypCDlMfTu4acJ3g+FIrKNCtIBap5t0ywPUruI8dGHkaFxLDoAwXFMmA/0hByAAAA=",
+    gallery: false,
+  },
+  "people-redguard": {
+    slug: "people-redguard",
+    title: "A Redguard",
+    caption: "Hammerfell's people, as Skyrim draws them. Crown or Forebear tells you how he feels about the Empire before he says a word.",
+    src: asset("/img/people-redguard.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAAAwBACdASoUABUAPu1mq06ppaQiKA1RMB2JZwAAIg6jzWFsRb7Ce9TjQAAA/vQy3RnL2AiJPtxf9oB1XTuFYFVYSZ6SZypf9+qwBORK5rI8iYu2RWcCM2GL8Enl6vMJOF/CLFAA",
+    gallery: false,
+  },
+  "people-dunmer": {
+    slug: "people-dunmer",
+    title: "A Dunmer",
+    caption: "Morrowind's people, as Skyrim draws them. The Red Year is living memory, and the Grey Quarter is a community, not a district.",
+    src: asset("/img/people-dunmer.webp"),
+    widths: [640, 1024],
+    width: 1040,
+    height: 1080,
+    blurDataURL:
+      "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAwAwCdASoUABUAPu1qrVCppaQiqAqpMB2JaQAAOsUCY3lAAP7wt01poHYJJ2sgMIXvenpADK707v/EJ+1zxhKga9af/AAA",
+    gallery: false,
+  },
 };
 
 /** Throws rather than rendering a broken image, so a typo fails at build. */

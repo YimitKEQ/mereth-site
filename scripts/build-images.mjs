@@ -347,6 +347,51 @@ const PLATES = [
     adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
     gallery: false,
   },
+  {
+    file: "SR-load-Nord.jpg",
+    slug: "people-nords",
+    title: "A Nord",
+    caption: "Skyrim's own people, as Skyrim draws them. Kyne, the barrows and the Old Ways are older than any Imperial temple in the province.",
+    /* Skyrim's own loading screen, cropped clear of the tip text like the others. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Imperial.jpg",
+    slug: "people-imperials",
+    title: "An Imperial",
+    caption: "Cyrodiil's people, as Skyrim draws them. In Skyrim the word Imperial means a culture, an Empire and a Legion, and Nords hear all three.",
+    /* Skyrim's own loading screen, cropped clear of the tip text like the others. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Breton.jpg",
+    slug: "people-bretons",
+    title: "A Breton",
+    caption: "High Rock's people, as Skyrim draws them. Her kingdom and her house say more about her than the staff does.",
+    /* Skyrim's own loading screen, cropped clear of the tip text like the others. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Redguard.jpg",
+    slug: "people-redguard",
+    title: "A Redguard",
+    caption: "Hammerfell's people, as Skyrim draws them. Crown or Forebear tells you how he feels about the Empire before he says a word.",
+    /* Skyrim's own loading screen, cropped clear of the tip text like the others. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
+  {
+    file: "SR-load-Dunmer.jpg",
+    slug: "people-dunmer",
+    title: "A Dunmer",
+    caption: "Morrowind's people, as Skyrim draws them. The Red Year is living memory, and the Grey Quarter is a community, not a district.",
+    /* Skyrim's own loading screen, cropped clear of the tip text like the others. */
+    adjust: { crop: { left: 0, top: 0, width: 1040, height: 1080 } },
+    gallery: false,
+  },
 ];
 
 fs.mkdirSync(OUT, { recursive: true });

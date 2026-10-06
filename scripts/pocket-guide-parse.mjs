@@ -14,7 +14,7 @@ export const PEOPLES = [
   { id: "nords", name: "Nords", aliases: ["nord", "nords"] },
   { id: "imperials", name: "Imperials", aliases: ["imperial", "imperials"] },
   { id: "bretons", name: "Bretons", aliases: ["breton", "bretons"] },
-  { id: "redguard", name: "Redguard", aliases: ["redguard", "redguards"] },
+  { id: "redguard", name: "Redguards", aliases: ["redguard", "redguards"] },
   { id: "altmer", name: "Altmer", aliases: ["altmer", "high elves", "high elf"] },
   { id: "bosmer", name: "Bosmer", aliases: ["bosmer", "wood elves", "wood elf"] },
   { id: "dunmer", name: "Dunmer", aliases: ["dunmer", "dark elves", "dark elf"] },

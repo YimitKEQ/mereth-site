@@ -45,8 +45,8 @@ function section(people: People): Section {
 export const peoplesPage: HandbookPage = {
   title: "The peoples of Tamriel",
   lede: `Culture, faith and place of origin shape how a character sees the world. This is the Lore
-    Team's guide to the peoples who are rarer in Skyrim, or newer to it: a starting point for a
-    character, not a cage around one.`,
+    Team's guide to every people of Tamriel, Nords to Khajiit: a starting point for a character,
+    not a cage around one.`,
 
   sections: [
     {
