@@ -60,6 +60,7 @@ const TITLES = {
   "/rules": "Rules",
   "/faq": "Questions",
   "/language": "Roleplay language",
+  "/peoples": "The peoples of Tamriel",
   "/teaching": "Teaching magic",
   "/qa": "Latest Q&A",
   "/skills": "Skills and memory points",
@@ -107,7 +108,7 @@ Discord, which is also the login.
 
 ## Start here
 
-${pick(["/", "/start", "/guide", "/rules", "/language"]).join("\n")}
+${pick(["/", "/start", "/guide", "/rules", "/language", "/peoples"]).join("\n")}
 
 ## How the systems work
 

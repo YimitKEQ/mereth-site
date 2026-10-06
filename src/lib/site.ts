@@ -64,6 +64,7 @@ export const site = {
 export const handbookMenu: readonly NavLink[] = [
   { label: "The Guide", href: "/guide", hint: "How the server works, end to end" },
   { label: "Roleplay Language", href: "/language", hint: "How to say it in character" },
+  { label: "Peoples of Tamriel", href: "/peoples", hint: "Culture and faith, people by people" },
   { label: "Progression", href: "/progression", hint: "What a tier is actually worth" },
   { label: "Teaching Magic", href: "/teaching", hint: "The Teacher whitelist, and what it demands" },
   { label: "Combat", href: "/combat", hint: "Parries, poise, dodge and stamina" },

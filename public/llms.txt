@@ -16,6 +16,7 @@ Discord, which is also the login.
 - [The Guide](https://merethroleplay.com/guide/): How the server works end to end, in chapters.
 - [Rules](https://merethroleplay.com/rules/): The rulebook, with the severe rules flagged as severe.
 - [Roleplay language](https://merethroleplay.com/language/): How to speak in character: what to say instead of skills, levels, respawns and second characters, and what to do when somebody else drops out of character.
+- [The peoples of Tamriel](https://merethroleplay.com/peoples/): The Lore Team's guide to playing the peoples of Tamriel in Skyrim: faith, custom and the backgrounds that shape a character.
 
 ## How the systems work
 

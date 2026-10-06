@@ -1,0 +1,96 @@
+{
+  "source": {
+    "forum": "tamriel-pocket-guide",
+    "fetchedAt": null
+  },
+  "peoples": [
+    {
+      "id": "altmer",
+      "name": "Altmer",
+      "points": [
+        "Altmeri society places enormous importance on ancestry, tradition, refinement, education, and social standing. The Altmer generally possess a very strong awareness of their ancient Aldmeri heritage.",
+        "The Altmer traditionally place themselves at the top of the social and cultural hierarchy of Mer, regarding their ancestry as being closer to the ancient Aldmeri than that of other Elven peoples.",
+        "Religion and ancestry are deeply intertwined within traditional Altmeri culture. The Aedra are often understood not merely as distant gods, but as ancestral beings from whom the Altmer descend.",
+        "Altmeri society places great value upon education and mastery, particularly in areas such as magic, philosophy, history, language, and the arts. An educated Altmer may therefore approach unfamiliar subjects with considerably more cultural confidence than a common-born Nord or other outsider.",
+        "This does not mean that every Altmer is arrogant, cruel, or a supporter of the Aldmeri Dominion. Political allegiance and cultural identity are not inherently the same thing.",
+        "Altmer who oppose the Dominion, have been exiled, come from outside its political structures, or were raised elsewhere can have very different views from a Dominion loyalist.",
+        "Likewise, an Altmer living in Skyrim should understand that many Nords will distrust them, particularly given the history of the Great War, the Thalmor, and the ongoing tensions between Skyrim and the Dominion.",
+        "An Altmer who openly rejects Dominion ideology should still have some understanding of the cultural traditions they came from. Their rejection should come from somewhere: family, personal experience, political disagreement, exile, philosophical differences, or life outside Summerset.",
+        "When portraying an Altmer, consider whether they are a traditionalist, a Dominion loyalist, an exile, a scholar, a mage, a merchant, an apraxic outsider, or simply someone attempting to distance themselves from Altmeri society. These backgrounds can produce dramatically different characters."
+      ],
+      "reading": [
+        { "label": "Altmer", "url": "https://en.uesp.net/wiki/Lore:Altmer" }
+      ]
+    },
+    {
+      "id": "bosmer",
+      "name": "Bosmer",
+      "points": [
+        "Bosmer culture is heavily shaped by the Green Pact, an ancient covenant with Y'ffre, the Storyteller. The Green Pact is not simply a dietary preference; for traditional Bosmer, it forms a fundamental part of their cultural and spiritual identity.",
+        "Traditional adherents of the Green Pact generally do not eat plants, instead relying heavily upon meat. They are also traditionally forbidden from harming or using the plants of Valenwood.",
+        "The Green Pact is closely connected to the Bosmer understanding of Y'ffre and the natural world. The Bosmer relationship with nature is therefore fundamentally different from that of many other cultures.",
+        "The famous \"Meat Mandate\" is an important part of traditional Bosmer culture. Some traditional Bosmer may consume the flesh of defeated enemies, particularly in the context of cultural or ritual practices. This should not be treated as something every Bosmer casually does.",
+        "Bosmer society is not completely uniform. City-dwelling, cosmopolitan, or diaspora Bosmer may have considerably different relationships with the Green Pact than isolated traditionalists from Valenwood.",
+        "Bosmer are also known for their connection to the Wild Hunt, an extreme transformation into predatory beasts associated with the most desperate circumstances and the defense of Valenwood. It is not simply a normal ability that every Bosmer casually uses.",
+        "A Bosmer raised outside Valenwood may have adopted customs from the culture around them, but this should be reflected in their backstory. A character who rejects or ignores the Green Pact should have a reason for doing so.",
+        "When playing a Bosmer in Skyrim, consider whether they are a traditional Green Pact follower, a cosmopolitan Bosmer, a refugee, a hunter, a merchant, or someone who has deliberately abandoned parts of their ancestral culture."
+      ],
+      "reading": [
+        { "label": "Bosmer", "url": "https://en.uesp.net/wiki/Lore:Bosmer" },
+        { "label": "Green Pact", "url": "https://en.uesp.net/wiki/Lore:Green_Pact" }
+      ]
+    },
+    {
+      "id": "orcs",
+      "name": "Orcs",
+      "points": [
+        "Traditional Orcish society contains two major religious and cultural traditions: those who follow Malacath and those who follow Trinimac.",
+        "Orcs who follow Malacath traditionally see themselves as Pariah Folk, maintaining a strong cultural identity separate from much of wider Tamrielic society.",
+        "Traditional Malacath-worshipping Orcs often live within Strongholds, which operate according to their own social structures, customs, and traditions.",
+        "Stronghold society is governed by a strict cultural code commonly associated with the Code of Malacath. This code governs many aspects of Orcish life, including honor, family, leadership, marriage, work, and social responsibility.",
+        "Orcs raised within a traditional Stronghold would therefore be expected to have a very strong understanding of these customs. They would not simply be humans with green skin.",
+        "Trinimac worshippers reject many of Malacath's traditions, believing that they contributed to the Orcs losing their way. Trinimac worshippers generally seek greater integration with wider Nirnian society.",
+        "Orsinium, particularly in its more recent history, has strong associations with Trinimac worship and a more integrated Orcish identity, though Orcish beliefs remain diverse.",
+        "An Orc living outside a Stronghold does not automatically mean they reject Orcish culture. Likewise, an Orc raised within a Stronghold should have a meaningful reason for rejecting its traditions.",
+        "Consider whether your Orc is Stronghold-raised, Orsinium-raised, an exile, a mercenary, an integrated Orc, or someone caught between competing traditions. These backgrounds can produce very different characters."
+      ],
+      "reading": [
+        { "label": "Orc", "url": "https://en.uesp.net/wiki/Lore:Orc" },
+        { "label": "Code of Malacath", "url": "https://en.uesp.net/wiki/Lore:Code_of_Malacath" },
+        { "label": "Trinimac", "url": "https://en.uesp.net/wiki/Lore:Trinimac" }
+      ]
+    },
+    {
+      "id": "argonians",
+      "name": "Argonians",
+      "points": [
+        "If born within Black Marsh, Argonians generally have a natural connection to the Hist, a race of sapient spore trees that forms a fundamental part of Argonian culture and identity. Many Argonians understand the Hist as something far beyond an ordinary tree, and their relationship with it can be deeply spiritual.",
+        "Many Argonians view Sithis as the original creator, though exactly how Sithis is understood can vary between tribes and individuals.",
+        "The Hist may communicate with Argonians in numerous ways, including through dreams, sensations, visions, instinct, and other experiences. Not every Argonian necessarily experiences this connection in the same manner.",
+        "Argonian culture is extremely diverse. Different tribes can have radically different customs, beliefs, traditions, and ways of life. An Argonian from one part of Black Marsh should not automatically be assumed to share every belief of another tribe.",
+        "Argonians raised outside of Black Marsh, particularly those who have had little or no contact with the Hist, may have a very different relationship with their ancestral culture.",
+        "Argonians raised far away from the Hist can sometimes have difficulty understanding the emotions, body language, motivations, or cultural assumptions of Argonians who maintain a strong connection to their homeland.",
+        "An Argonian living in Skyrim does not necessarily have to behave like a \"generic Argonian.\" Consider where they came from, what tribe raised them, their relationship with the Hist, and how long they have lived outside Black Marsh."
+      ],
+      "reading": [
+        { "label": "Argonian", "url": "https://en.uesp.net/wiki/Lore:Argonian" },
+        { "label": "Hist", "url": "https://en.uesp.net/wiki/Lore:Hist" }
+      ]
+    },
+    {
+      "id": "khajiit",
+      "name": "Khajiit",
+      "points": [
+        "Khajiit possess an inherent connection to the Two Moons, Masser and Secunda. Their furstock is traditionally determined by the phases and positions of the moons at the time of their birth.",
+        "The most commonly encountered furstock outside of Elsweyr is the Cathay, though Khajiiti society contains many different furstocks with their own physical characteristics.",
+        "Khajiiti culture is not simply one uniform culture. The people of Elsweyr have a long and complicated history involving different kingdoms, religious movements, and regional traditions.",
+        "Khajiit traditionally possess their own linguistic patterns and expressions. However, a Khajiit raised outside Elsweyr would naturally be influenced by the language and speech patterns of the society that raised them. A Khajiit does not have to speak with an exaggerated accent simply because they are Khajiit.",
+        "The Khajiiti pantheon encompasses a wide variety of Aedric and Daedric spirits, often understood through uniquely Khajiiti interpretations. Their understanding of these spirits can differ considerably from the way other cultures understand the same beings.",
+        "Various spirits have risen and fallen in prominence throughout Khajiiti history as their culture and circumstances changed.",
+        "Following the Riddle'Thar Epiphany and the subsequent religious and political changes within Elsweyr, many older traditions and beliefs were suppressed or pushed aside. Those who rejected the new religious order could face persecution.",
+        "A Khajiit in Skyrim may therefore have very different religious beliefs depending upon where in Elsweyr they came from, when they left, what their family believed, and whether they followed traditional or more modern Khajiiti teachings."
+      ],
+      "reading": []
+    }
+  ]
+}

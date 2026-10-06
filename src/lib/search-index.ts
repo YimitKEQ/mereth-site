@@ -1,6 +1,7 @@
 import { faqSections } from "@/lib/handbook/faq";
 import { qaSections } from "@/lib/handbook/qa";
 import { guide } from "@/lib/handbook/guide";
+import { peoplesPage } from "@/lib/handbook/peoples";
 import { progression } from "@/lib/handbook/progression";
 import { survival } from "@/lib/handbook/survival";
 import { teaching } from "@/lib/handbook/teaching";
@@ -109,6 +110,7 @@ export function buildSearchIndex(): SearchEntry[] {
     [progression, "/progression"],
     [survival, "/survival"],
     [teaching, "/teaching"],
+    [peoplesPage, "/peoples"],
   ] as const) {
     for (const section of page.sections) {
       entries.push({

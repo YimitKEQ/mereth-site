@@ -43,6 +43,7 @@ export const ROUTES: readonly RouteEntry[] = [
   { path: "/guide", priority: 0.9, changeFrequency: "weekly", summary: "How the server works end to end, in chapters." },
   { path: "/rules", priority: 0.9, changeFrequency: "weekly", summary: "The rulebook, with the severe rules flagged as severe." },
   { path: "/language", priority: 0.85, changeFrequency: "weekly", summary: "How to speak in character: what to say instead of skills, levels, respawns and second characters, and what to do when somebody else drops out of character." },
+  { path: "/peoples", priority: 0.8, changeFrequency: "weekly", summary: "The Lore Team's guide to playing the peoples of Tamriel in Skyrim: faith, custom and the backgrounds that shape a character." },
   { path: "/faq", priority: 0.85, changeFrequency: "weekly", summary: "Answers on skills, magic, combat, holds, and every connection failure." },
   { path: "/qa", priority: 0.8, changeFrequency: "weekly", summary: "The latest community Q&A on where the server is heading." },
 
