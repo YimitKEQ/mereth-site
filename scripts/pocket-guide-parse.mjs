@@ -48,8 +48,8 @@ function cleanPoint(line) {
     .replace(/^\s*(?:[-*•]|\d+\.)\s+/, "")
     .replace(/__([^_]+)__/g, "$1")
     .replace(/(?<![*])\*(?![*\s])([^*]+?)\*(?![*])/g, "$1")
-    .replace(/\s+[–—]\s+/g, ": ")
-    .replace(/[–—]/g, ", ")
+    .replace(/\s+[\u2013\u2014]\s+/g, ": ")
+    .replace(/[\u2013\u2014]/g, ", ")
     .trim();
 }
 

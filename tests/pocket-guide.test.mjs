@@ -33,7 +33,7 @@ test("headings split a shared thread and the preamble is dropped", () => {
 });
 
 test("dashes are rewritten, mentions skipped", () => {
-  const [altmer] = parseThread("Altmer", ["It comes from somewhere — family.\n@Citizen"]);
+  const [altmer] = parseThread("Altmer", ["It comes from somewhere \u2014 family.\n@Citizen"]);
   assert.deepEqual(altmer.points, ["It comes from somewhere: family."]);
 });
 
