@@ -174,9 +174,9 @@ export default function FactionsPage() {
           The Dark Brotherhood
         </h2>
         <p className="text-[0.98rem] leading-[1.85] text-text-light">
-          Whitelisted, and deliberately not listed above as something to join. A Brotherhood
-          contract is the only sanctioned way for one player to permanently kill another
-          player&apos;s character without their consent, which makes it a rules topic rather than a
+          Whitelisted, and deliberately not listed above as something to join. Outside duels,
+          sentences and the supernatural rules, a Brotherhood contract is the only sanctioned way to
+          permanently kill another player&apos;s character without their consent, which makes it a rules topic rather than a
           recruitment pitch. Every contract needs staff approval, in-character justification with
           clips, and it can be refused.{" "}
           <Link

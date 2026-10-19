@@ -164,8 +164,8 @@ export default function DonatePage() {
           <p className="text-[0.95rem] leading-[1.8] text-text-light">
             Room for another character, not another life. Each one is still capped at eighteen
             memory points, still starts as a Stranger, and still has to be taught magic by somebody
-            who already knows it. Rule PD.3 stands either way: you may never will items, gold or
-            property from one of your characters to another.
+            who already knows it. Rule PD.3 stands either way: a will can leave one of your own
+            characters at most 500 septims and three items, and never a home or a business.
           </p>
         </div>
         <div>

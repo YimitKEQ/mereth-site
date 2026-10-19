@@ -188,12 +188,12 @@ export const survival: HandbookPage = {
             `**Priests are the doctors.** Temple priests hold Master Restoration, are authorised to
               teach disciples, and are who you look for when someone is hurt. A faction like the
               Vigilants of Stendarr fills the same role on the road.`,
-            `**A player healer outranks an NPC one.** If a player healer is available you must seek
-              them out rather than use a local NPC healer, and while they are treating you, you are
-              in their custody until they discharge you. That can be enforced by guards.`,
-            `**What you remember depends on who treated you.** Brought to an NPC healer, your
-              character only vaguely recalls what led to the injury. Brought to a player healer, you
-              remember everything. Seeing Sovngarde costs you the previous thirty minutes.`,
+            `**Look for a player healer.** Seek one out whenever one is available, and while they are
+              treating you, you are in their custody until they discharge you. That can be enforced
+              by guards. Downed is a serious injury: play the pain and weakness until it is treated,
+              because a full health bar does not erase it.`,
+            `**What you remember.** Brought to a player healer, you remember everything. Seeing
+              Sovngarde costs you the previous thirty minutes.`,
           ],
         },
         {

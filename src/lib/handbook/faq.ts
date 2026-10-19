@@ -555,17 +555,19 @@ export const faqSections: FaqSection[] = [
       },
       {
         q: "Can somebody rob me of everything?",
-        a: `No. Robbery is bounded by rules, not by opportunity: one equipped weapon, three inventory
-          items and carried gold, never the same person twice in 24 hours, and a one hour cooldown
-          between jobs. Storage theft is capped at three items and 500 gold and may never empty a
-          container. [The robbery rules in full.](/rules#robbery)`,
+        a: `No. Robbery is bounded by rules, not by opportunity: one equipped weapon, three other items
+          and 100 septims, and something of yours always stays with you. Never the same person twice
+          in 24 hours, and a one hour cooldown between jobs. Storage theft is capped at three items
+          and 500 septims and may never empty a container. [The robbery rules in full.](/rules#robbery)`,
       },
       {
         q: "Can another player kill my character permanently?",
-        a: `Only in two ways, and both are consented to or approved. **A duel**, which both parties
-          agree to knowing the loser perma-kills. Or **a Dark Brotherhood contract**, which needs
-          staff approval, in-character justification and clips, and can be refused.
-          [How contracts work.](/rules#brotherhood)`,
+        a: `Not on a whim. **A duel** both parties agree to, knowing the loser perma-kills. **A Dark
+          Brotherhood contract**, which needs staff approval, in-character justification and clips,
+          and can be refused. **A sentence** for serious crimes, under the perma-kill rules. And
+          risks you take on yourself: hunting or exposing supernaturals and cultists, failing to
+          fear them, or joining a rebellion against the Thalmor or the Legion.
+          [The rules in full.](/rules#death)`,
       },
     ],
   },

@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
   path: "/rules",
   title: "Rules",
   description:
-    "Mereth's rules and regulations: character expectations, serious roleplay, initiation, robbery limits, perma-kills, and how a hold chooses its Jarl.",
+    "Mereth's rules and regulations: character expectations, metagaming and powergaming, magic, initiation, robbery limits, supernatural hunts, perma-kills, and how a hold chooses its Jarl.",
 });
 
 /**

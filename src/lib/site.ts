@@ -43,7 +43,7 @@ export const DISCORD_INVITE = "https://discord.com/invite/mereth";
 export const PATREON_URL = "https://www.patreon.com/cw/merethroleplay";
 export const TRAILER_ID = "KK28lxLJCbw";
 export const RULES_DOC_URL =
-  "https://docs.google.com/document/d/1AhSN2rsXZox0ISYFghavl0t4FJueDWUZ1VcckBUzEHM/edit";
+  "https://docs.google.com/document/d/1J32PoIAvIE7bXEuXSK4IGBqLKjero6ra/edit?usp=sharing";
 /* The Teaching Guidelines, Revision 1. Published by the Magic Team as its own
    document rather than as a chapter of the rulebook, so it gets its own link. */
 export const TEACHING_DOC_URL =
