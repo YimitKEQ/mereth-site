@@ -101,7 +101,12 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
     };
   }, [baked]);
 
-  const releases = useMemo(() => mergeLive(baked, live), [live, baked]);
+  /* A build still in testing is testers-only, so the public changelog starts at
+     the newest patch players actually received. */
+  const releases = useMemo(
+    () => mergeLive(baked, live).filter((release) => release.shipped !== false),
+    [live, baked],
+  );
 
   const kinds = useMemo(() => {
     const tally = new Map<string, number>();
@@ -229,7 +234,6 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
             {visible.map((release) => {
               const month = monthOf(release.date);
               const opensMonth = firstOfMonth.get(month) === release.version;
-              const inTesting = release.shipped === false;
 
               /* A search wants every match on screen, so the collapse only
                  applies to the unfiltered list. */
@@ -255,11 +259,6 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
                     <span className="font-display text-[1.05rem] tracking-heading text-brand-accent">
                       {release.version}
                     </span>
-                    {inTesting ? (
-                      <span className="font-display border border-brand-accent/40 px-2 py-[0.15rem] text-[9px] tracking-[1.6px] text-brand-accent/80 uppercase">
-                        In testing
-                      </span>
-                    ) : null}
                     {release.date !== null ? (
                       <span className="text-[0.8rem] tabular-nums text-text-muted">
                         {release.date}
@@ -281,13 +280,6 @@ export function ChangelogBrowser({ releases: baked }: { releases: Release[] }) {
                         </p>
                       ))}
                     </div>
-                  ) : null}
-
-                  {inTesting ? (
-                    <p className="mt-3 text-[0.8rem] leading-relaxed text-text-muted">
-                      Written and running on the test build. It reaches the server with the next
-                      patch.
-                    </p>
                   ) : null}
 
                   <ul className="mt-3 space-y-2 border-l border-brand-accent/20 pl-5">

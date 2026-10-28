@@ -104,7 +104,7 @@ export default function HomePage() {
   /* Only the newest few are handed down. The component asks GitHub for anything
      published since the build, and all it needs from the bundle is the newest
      baked version to compare against plus enough to fill the row if nothing has. */
-  const bakedLatest = mereth.releases.slice(0, 3);
+  const bakedLatest = mereth.releases.filter((release) => release.shipped !== false).slice(0, 3);
 
   return (
     <>

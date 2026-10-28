@@ -13,7 +13,7 @@ import { LAUNCHER_DOWNLOAD, LAUNCHER_SIZE_MB } from "@/lib/site";
  * button would quietly break the process the team wrote down, so the links are
  * part of the component rather than something a page has to remember to add.
  *
- * The size is stated because it is 86 MB and a stalled progress bar with no
+ * The size is stated because it is 87 MB and a stalled progress bar with no
  * expected total reads as a broken download.
  */
 export function LauncherDownload({ className = "" }: { className?: string }) {

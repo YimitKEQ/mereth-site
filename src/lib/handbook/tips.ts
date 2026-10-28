@@ -74,7 +74,8 @@ export const tips: HandbookPage = {
           kind: "note",
           tone: "key",
           title: "Spend your Well Rested charges on the session you mean to level in",
-          body: `Five minutes at an inn on full energy still earns it, but since 0.71.0 you get
+          body: `Since 0.75.22 you take it from the Rest option at an inn's fire pit, once a notice
+            tells you that you feel well rested. Since 0.71.0 you get
             **three a day**: double experience for an hour, then 50 percent, then 20, then a 16 hour
             cooldown. You can refresh the one you are on while you stay at the inn. It went from a
             habit to a resource.`,

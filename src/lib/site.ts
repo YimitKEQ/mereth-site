@@ -33,11 +33,11 @@ export interface NavItem {
 /*
  * The launcher, straight from Mereth's own storage. Taken from the official
  * site's own download handler rather than guessed, and the size is what the
- * server reports so a reader knows what an 86 MB download is meant to look
+ * server reports so a reader knows what an 87 MB download is meant to look
  * like before it starts.
  */
 export const LAUNCHER_DOWNLOAD = "https://storage.bstarrp.com/launcher/BStarRP_SkyMP_Launcher.exe";
-export const LAUNCHER_SIZE_MB = 86;
+export const LAUNCHER_SIZE_MB = 87; // 90,863,471 bytes on 27 Oct 2026, shown by Windows as 86.7 MB
 
 export const DISCORD_INVITE = "https://discord.com/invite/mereth";
 export const PATREON_URL = "https://www.patreon.com/cw/merethroleplay";

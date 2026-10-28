@@ -154,6 +154,14 @@ export const faqSections: FaqSection[] = [
         a: `In the starting room, or at any temple in the province.`,
       },
       {
+        q: "What is a calling?",
+        a: `A light class on top of your skills. At any temple, open the stats and skills menu,
+          pick one of the callings your skills qualify you for and attune to it. It adds powers to
+          your spell list, each with its own rest time, and you can only hold one at a time. It
+          adds to your build; it does not define your character. More on the
+          [progression page](/progression#attributes).`,
+      },
+      {
         q: "Can I earn more memory points?",
         a: `Yes. At the end of every month you may submit clips of your character **learning a skill
           in roleplay** through a ticket, and earn a point to allocate. Points come from playing the
@@ -527,8 +535,19 @@ export const faqSections: FaqSection[] = [
         q: "Where can I store things safely?",
         a: `In a container bound to a parcel. Ordinary containers regenerate their contents, so
           anything left in one may not survive. Binding it through the holdstone stops that, and
-          that is what makes a chest actually yours.`,
+          that is what makes a chest actually yours. **For now, do not keep anything in barrels or
+          sacks**: they are wiping at random and staff will not compensate the loss
+          ([temporary rules](/rules#temporary-rules)).`,
         cite: /attached to a parcel/i,
+      },
+      {
+        q: "How do I tame a horse or an animal?",
+        a: `By feeding it. Every animal has a favourite food and finding it is up to you. Feeding
+          calms the animal for a moment so it does not run, and feeding is what tames it; a pat only
+          helps after a meal. A higher Animal Taming level makes the calm likelier and longer, and
+          tougher animals sit in higher taming tiers. A tamed horse follows you and only its owner
+          can ride it, and trust fades if you neglect the animal for days.`,
+        cite: /tam(e|ing)/i,
       },
       {
         q: "Do I have to live in the hold my parcel is in?",

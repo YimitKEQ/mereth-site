@@ -151,26 +151,65 @@ export const roadmap: RoadmapStage[] = [
         text: "Rebuilt as a working building with its own holdstone, where the Shalidor statue used to stand",
         shipped: { version: "0.71.0", date: "2026-09-03" },
       },
+      {
+        text: "Horse taming and riding",
+        shipped: { version: "0.72.34", date: "2026-09-13" },
+      },
+      {
+        name: "Callings",
+        text: "One calling at a time, attuned at any temple, adding powers on top of your skills. Mauler, Hewer, Reaver and Arbalest followed in 0.75.40",
+        shipped: { version: "0.74.11", date: "2026-09-22" },
+      },
+      {
+        text: "Well Rested taken at the inn fire pit, through its Rest option",
+        shipped: { version: "0.75.22", date: "2026-09-26" },
+      },
+      {
+        text: "Fishing",
+        shipped: { version: "0.75.40", date: "2026-10-03" },
+      },
+      {
+        name: "Supernatural system",
+        text: "Vampirism and lycanthropy, with experience earned from using their powers",
+        shipped: { version: "0.76.34", date: "2026-10-06" },
+      },
+      {
+        text: "Temples in the smaller towns, where you respawn nearby and can change your skill plan",
+        shipped: { version: "0.76.34", date: "2026-10-06" },
+      },
+      {
+        text: "Durability for weapons and armour, shown in its own column and in trade",
+        shipped: { version: "0.76.45", date: "2026-10-10" },
+      },
+      {
+        text: "Notice boards for every lore faction",
+        shipped: { version: "0.76.45", date: "2026-10-10" },
+      },
     ],
   },
   {
     id: "building",
     title: "In progress",
-    blurb: "Being worked on now.",
+    blurb: "Being worked on now. Most of the first group is already on the test server.",
     items: [
       ...plain(
-        "Durability for weapons and armour, almost complete, final touches and debugging",
-        "Global NPC sync for enemies, critters and wild animals, almost complete",
+        "Skyrim Immersive Creatures: new enemies, hides and animals to tame",
+        "Slashing, blunt and piercing resistance on armour",
+        "New bosses with boss banners, Mzulft among them",
+        "Hold and faction banners",
+        "Wooden practice weapons",
+        "A typing bubble over people while they type",
+        "New calling abilities",
+        "Dunmer writ armours and tiered Bosmer armour",
+        "Recipe, writ and cooking fixes",
+        "Changes to Solitude and Morthal",
+        "Global NPC sync for enemies, critters and wild animals",
         "Custom spells in the Creation Kit",
         "Reworked loot tables in the Creation Kit",
         "Nexus API integration so the launcher can use collections",
         "Magic system syncing and damage balancing",
         "Expanding holdstones to support houses",
       ),
-      {
-        name: "Supernatural system",
-        text: "Vampirism in two types, Cyrodiilic and Pure Blooded, and lycanthropy alongside it",
-      },
     ],
   },
   {
@@ -195,10 +234,6 @@ export const roadmap: RoadmapStage[] = [
       {
         name: "Object movement and placement",
         text: "Moving and placing furniture and other placeable items",
-      },
-      {
-        name: "Callings",
-        text: "Unlockable classes that add abilities and passives on top of the skills you already have, announced in 0.72.28 as the last piece of the progression system",
       },
     ],
   },

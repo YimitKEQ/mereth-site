@@ -135,9 +135,10 @@ export const survival: HandbookPage = {
           tone: "key",
           title: "Well Rested, three charges a day",
           body: `**Double experience for an hour**, then 50 percent for the second, 20 for the
-            third, then a **16 hour cooldown**. It arrives five minutes after your energy fills at
-            an inn, which is a window rather than an instant: you can refresh the one you are on
-            while you stay, and the moment you leave the cooldown starts. It was ten percent and
+            third, then a **16 hour cooldown**. Once your energy fills at an inn you get a notice that
+            you feel well rested, and since 0.75.22 you take the buff from the **Rest option at the
+            fire pit**. You can refresh the one you are on while you stay, and the moment you leave
+            the cooldown starts. It was ten percent and
             endlessly repeatable until 0.71.0. It is now the largest bonus in the game and it is
             rationed, so spend the first charge on the session you actually mean to level in.`,
         },

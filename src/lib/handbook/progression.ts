@@ -164,6 +164,18 @@ export const progression: HandbookPage = {
               have played. Press \`K\`, then the stats tab.`,
           ],
         },
+        {
+          kind: "note",
+          tone: "key",
+          title: "Callings: one at a time, attuned at a temple",
+          body: `Since 0.74.11 you can attune to a **calling** at any temple, from the stats and skills
+            menu, which lists the ones your skills qualify you for. It is flavour on top of your
+            build rather than a class that defines you: a set of powers on your spell list, each
+            greying out when used and returning after the rest time its description shows. You
+            hold one calling at a time. Mauler (warhammers), Hewer (one-handed axes), Reaver
+            (battleaxes and polearms) and Arbalest (crossbows) joined the list in 0.75.40.`,
+        },
+        { kind: "cite", pattern: /calling/i, limit: 3 },
         { kind: "cite", pattern: /attribute|endurance|willpower|intelligence/i, limit: 4 },
       ],
     },
@@ -284,8 +296,8 @@ export const progression: HandbookPage = {
           title: "Well Rested is now the biggest single bonus in the game, and it is rationed",
           body: `It was ten percent. Since 0.71.0 the first one is **double experience for an hour**,
             the second 50 percent, the third 20, and then it goes on a **16 hour cooldown**. You
-            pick it up five minutes after your energy fills at an inn, and you can refresh it while
-            you are still there. So it is no longer a habit to keep topped up, it is three charges a
+            take it from the Rest option at an inn's fire pit once your energy is full and the well
+            rested notice appears, and you can refresh it while you are still there. So it is no longer a habit to keep topped up, it is three charges a
             day: spend them on the session you actually mean to level in, not on the walk to it.`,
         },
         { kind: "cite", pattern: /well.?rested|exhaustion|diminishing/i, limit: 3 },

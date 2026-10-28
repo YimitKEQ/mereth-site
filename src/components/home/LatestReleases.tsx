@@ -46,12 +46,15 @@ export function LatestReleases({
     };
   }, [baked]);
 
-  const latest = useMemo(() => mergeLive(baked, live).slice(0, 3), [live, baked]);
+  const latest = useMemo(
+    () => mergeLive(baked, live).filter((release) => release.shipped !== false).slice(0, 3),
+    [live, baked],
+  );
 
   /* Counted the same way the changelog's fact row counts it, so the two pages
      never disagree about how many patches there have been. Only patches count:
-     an entry still in testing is shown, because the work is real, but nobody
-     has received it. */
+     an entry still in testing is testers-only, so it is neither shown nor
+     counted. */
   const known = new Set(baked.map((release) => release.version));
   const total =
     bakedCount +
@@ -70,11 +73,6 @@ export function LatestReleases({
               <span className="font-display text-[1.05rem] tracking-heading text-brand-accent">
                 {release.version}
               </span>
-              {release.shipped === false ? (
-                <span className="font-display border border-brand-accent/40 px-2 py-[0.15rem] text-[9px] tracking-[1.6px] text-brand-accent/80 uppercase">
-                  In testing
-                </span>
-              ) : null}
               {release.date !== null ? (
                 <span className="text-[0.78rem] tabular-nums text-text-muted">{release.date}</span>
               ) : null}

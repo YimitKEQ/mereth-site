@@ -27,6 +27,28 @@ export interface RuleSection {
   rules: Rule[];
 }
 
+/** When this file was last checked line by line against the rulebook document. */
+export const RULEBOOK_SYNCED = "18 October 2026";
+
+export interface TemporaryRule {
+  text: string;
+  /** When staff posted it in #temporary-rules, if it was dated. */
+  since?: string;
+}
+
+/**
+ * Standing orders from #temporary-rules. They are not in the rulebook document,
+ * they are in force anyway, and staff retire them when the thing they cover is
+ * fixed. Remove an entry the day it is lifted.
+ */
+export const temporaryRules: TemporaryRule[] = [
+  { text: "Castle Volkihar is a perma-kill zone.", since: "2 Sep" },
+  { text: "/kill has been removed.", since: "18 Sep" },
+  { text: "No more than one earring per ear. Stacking enchantments with extra earrings is powergaming.", since: "16 Oct" },
+  { text: "Do not store items in barrels or sacks for now. They wipe at random and staff will not compensate the loss.", since: "26 Oct" },
+  { text: "Found an item above Expert tier (Glass, Ebony, Daedric, Dragonbone)? Open a dev ticket for it." },
+];
+
 export const ruleSections: RuleSection[] = [
   {
     id: "summary",
@@ -300,9 +322,10 @@ export const ruleSections: RuleSection[] = [
     id: "brotherhood",
     title: "The Dark Brotherhood",
     blurb:
-      "A whitelisted faction with its own rules. Outside duels, perma-kill sentences and the supernatural and cultist rules, a contract is the only sanctioned way to perma-kill another player's character without their consent.",
+      "Assassins, under rules of their own, and the one sanctioned way to perma-kill a character without the player's consent.",
     rules: [
-      { code: "DB.2", text: "A contract must be submitted by ticket to the Head Government and approved before any attempt. It requires valid in-character justification with clips; an out-of-character grudge is never valid. The target must have committed significant offences or have a compelling narrative reason: betrayal, witnessed crimes, broken oaths." },
+      { code: "DB.1", text: "The Dark Brotherhood is a whitelisted faction that operates under special rules due to its nature as assassins." },
+      { code: "DB.2", text: "Outside the cases covered by the Perma Deaths, Dueling and Supernatural and Cultist rules, a contract is the only sanctioned way to perma-kill another player without mutual consent. A contract must be submitted by ticket to the Head Government and approved before any attempt. It requires valid in-character justification with clips; an out-of-character grudge is never valid. The target must have committed significant offences or have a compelling narrative reason: betrayal, witnessed crimes, broken oaths." },
       { code: "DB.3", text: "The requester performs the Black Sacrament and submits a ticket with the reasoning and a picture of the sacrament. Staff review whether it is valid and narratively compelling. The target is never told out of character that a contract exists." },
       { code: "DB.4", text: "The assassin must initiate proper roleplay before any attempt. A silent execution is permitted only against a target caught completely unaware and alone. If the target escapes or wins, the contract has failed and the assassin perma-kills if caught and killed. A failed contract cannot be retried for 14 days." },
       { code: "DB.5", text: "No more than two approved contracts server-wide at once. No player may be targeted more than once in 30 days. Contracts on Jarls, guards or essential figures need explicit Head Government approval and a significant lore reason, and members may not target their own faction or staff characters without approval." },

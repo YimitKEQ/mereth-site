@@ -7,7 +7,7 @@ import { FrameCorners } from "@/components/ornament/OrnateFrame";
 import { ButtonLink } from "@/components/ui/Button";
 import { pageMeta } from "@/lib/seo";
 import { inline } from "@/lib/markup";
-import { jarlPath, ruleSections } from "@/lib/world/rules";
+import { jarlPath, RULEBOOK_SYNCED, ruleSections, temporaryRules } from "@/lib/world/rules";
 import { RULES_DOC_URL } from "@/lib/site";
 import { PlateFigure } from "@/components/ui/Plate";
 
@@ -63,9 +63,43 @@ export default function RulesPage() {
           </strong>{" "}
           This page is a readable index of it and is kept in step, but where the two ever differ the
           rulebook wins. Staff may change any rule at any time.{" "}
-          <span className="text-[#d08a76]">{severe} rules on this page end a character or an account.</span>
+          <span className="text-[#d08a76]">{severe} rules on this page end a character or an account.</span>{" "}
+          <span className="text-text-muted">Last checked against the rulebook on {RULEBOOK_SYNCED}.</span>
         </p>
       </div>
+
+      {/* Temporary rules live in a Discord channel, not the document, so they
+          sit above the chapters where nobody can read past them. */}
+      <section
+        aria-labelledby="temporary-rules"
+        className="relative mt-6 max-w-3xl border border-[#a8503c]/50 bg-black/35 px-6 py-5"
+      >
+        <FrameCorners weight="thin" size={16} />
+        <h2
+          id="temporary-rules"
+          className="font-display relative mb-3 text-[10px] tracking-[2px] text-[#d08a76] uppercase"
+        >
+          Current temporary rules
+        </h2>
+        <ul className="relative space-y-2">
+          {temporaryRules.map((rule) => (
+            <li
+              key={rule.text}
+              className="grid grid-cols-[3.75rem_minmax(0,1fr)] gap-3 text-[0.93rem] leading-[1.7] text-text-light"
+            >
+              <span className="font-mono text-[0.75rem] tabular-nums text-text-muted">
+                {rule.since ?? ""}
+              </span>
+              <span>{rule.text}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="relative mt-4 text-[0.88rem] leading-relaxed text-text-muted">
+          Posted in #temporary-rules on Discord, which is where they are lifted too. Staff also
+          stressed MG.5 again on 27 October: Mereth groups and factions use Mereth&apos;s own
+          channels, and unofficial outside Discords are prohibited.
+        </p>
+      </section>
 
       <OrnateDivider className="my-12" />
 

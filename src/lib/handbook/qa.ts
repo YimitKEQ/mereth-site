@@ -94,6 +94,8 @@ export const qaSections: QaSection[] = [
           and higher-tier materials will also have better durability since they are made from
           stronger materials. When we eventually reach Tier 5, materials such as Ebony will still
           remain rare. Unlocking the tier does not mean rare materials suddenly become common.`,
+        since: `Durability is live: since 0.76.45 every item's condition shows in a Durability
+          column, yellow when damaged and red when broken.`,
       },
       {
         q: "Will more robes, mage clothing, equipment and spell mods be added?",
@@ -164,6 +166,9 @@ export const qaSections: QaSection[] = [
           based on what Skyrim mods currently allow us to do without much heavier custom
           development, but the immediate goal is at minimum to get the base-game fishing system
           functioning reliably. After that, we can see how much further it can be expanded.`,
+        since: `Fishing works. **0.75.40 made catches persist and award experience once**, pond
+          fish now go into your bag, and 0.76.45 reworked every fishing list so it no longer hands
+          out ebony or legendary items.`,
       },
     ],
   },

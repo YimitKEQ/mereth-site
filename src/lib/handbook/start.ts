@@ -76,6 +76,19 @@ export const steps: Step[] = [
     link: { label: "Plan it on the planner", href: "/skills" },
   },
   {
+    title: "Attune to a calling",
+    summary: "One calling at a time, chosen at any temple. It adds powers on top of the skills you planned.",
+    body: [
+      `A calling is a light class: it gives your build extra powers and flavour without deciding
+        who your character is. Open the stats and skills menu at a temple to see the callings your
+        skills qualify you for, and attune to one.`,
+      `Calling powers sit on your spell list. Each one greys out when used and comes back after its
+        rest time, which the power's description shows. You can only hold one calling, so swapping
+        means giving up the one you have.`,
+    ],
+    link: { label: "How callings fit your build", href: "/progression#attributes" },
+  },
+  {
     title: "Learn the interaction keys",
     summary: "Aim at a person and press a key. Trading, introducing yourself and restraining someone all work this way.",
     body: [
@@ -90,9 +103,10 @@ export const steps: Step[] = [
     title: "Your first evening in the province",
     summary: "Find an inn, find a hold, and find one person who wants something from you.",
     body: [
-      `Park at an inn for five minutes at full energy to pick up Well Rested: double experience
-        for an hour. You get three of them a day, worth less each time, so spend the first on a
-        session you actually mean to play out.`,
+      `Rest up at an inn. Once your energy is full you get a notice that you feel well rested, and
+        a Rest option appears at the fire pit: use it to take Well Rested, double experience for an
+        hour. You get three a day, worth less each time, so spend the first on a session you
+        actually mean to play out.`,
       `Then find the missive board. Every hold has one, any player can pin a note to it, and jobs,
         warnings and meetings all get posted there. It is the fastest way to find somebody who
         wants something from you.`,

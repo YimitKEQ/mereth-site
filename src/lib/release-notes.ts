@@ -148,6 +148,9 @@ export function summaryFrom(body: string): string | null {
   for (const rawLine of lines.slice(start + 1)) {
     const line = rawLine.trim();
     if (/^#{1,6}\s/.test(line) || line.startsWith("-")) break;
+    /* Git commit trailers leak in from the tag message; 0.76.34 carried a
+       "Co-authored-by: Cursor" line as its whole summary. */
+    if (/^(co-authored-by|signed-off-by):/i.test(line)) continue;
     if (line === "") {
       if (paragraphs.length > 0) paragraphs.push("");
       continue;

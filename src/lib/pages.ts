@@ -70,7 +70,8 @@ export const simplePages: Record<string, SimplePageContent> = {
         heading: "First things to do once you are in",
         bullets: [
           "Read the rules. Mereth is 18+ and the standard is serious roleplay.",
-          "Set your Discord name to your character's name. That is rule CRE.3.",
+          "Set your Discord name to your character's name followed by your launcher ID number, for example Hjalti Stone-Fist [ID:112]. The name is rule CRE.3, and staff have asked for the ID in #announcements.",
+          "Keep group and faction roleplay on Mereth's own channels. Unofficial outside Discords for Mereth groups are prohibited under MG.5; official faction Discords under O.6 are fine.",
           "Download the launcher. It installs the whole mod list for you; do not assemble it by hand.",
           "Open a ticket for anything that needs staff, and bring clips with context rather than fifteen seconds of a fight.",
         ],
