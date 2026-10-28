@@ -201,18 +201,22 @@ export const faqSections: FaqSection[] = [
         q: "What are the attribute points I keep being given?",
         a: `The eight Elder Scrolls attributes came back in September as a spendable pool. They are
           what your health, magicka, stamina and carry are actually calculated from, now that the
-          per-level health bonus is gone, and every five points above 50 in a relevant attribute is
-          worth about a skill level. **You spend them at a temple**, the same place you set your
+          per-level health bonus is gone, and every five points above 50 in a skill's governing
+          attribute is worth a skill level (and every five below 50 costs one). You get 12 at
+          creation and 3 more per Master Level. **You spend them at a temple**, the same place you set your
           skill plan, and you can reset them there too at the cost of a cooldown.
-          [The formulas and what each one governs.](/progression#attributes)`,
+          [Plan them first on the attribute planner.](/skills#attributes)`,
         cite: /attribute/i,
       },
       {
         q: "Should I dump Luck to afford something else?",
-        a: `No. You may push any attribute up to five below your racial base to fund another, and
-          Luck is the one place that genuinely bites: **below 50 it works against you**, with
-          thinner yields, more failures and worse finds. It is a tax on every gathering and crafting
-          roll for the life of the character.`,
+        a: `Probably not. Every race starts Luck at 50 and you may take it down to 45, which buys
+          five points elsewhere. **Below 50 Luck works against you** on every gathering and
+          crafting roll for the life of the character: at 45 failures are 3 percent more likely,
+          a 2 percent chance of losing one from a yield, a smaller chance of an extra item and 4
+          percent less loot. Luck touches no skill and no pool, so it is the one attribute where
+          the cost is all in your harvests. The [attribute planner](/skills#attributes) shows the
+          numbers at any value.`,
       },
       {
         q: "Can I reach Legendary?",

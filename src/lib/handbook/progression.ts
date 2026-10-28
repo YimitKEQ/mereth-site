@@ -135,10 +135,16 @@ export const progression: HandbookPage = {
           paragraphs: [
             `Two races get magicka on top of that: **Bretons +50, High Elves +100**. Carry never
               drops below 40 whatever you do to it.`,
-            `**Attributes also feed back into skills.** Every five points above 50 in a relevant
-              attribute is worth roughly a skill level, applied as a hidden modifier rather than as
-              a visible +1. It will not push a skill past the ceiling your plan bought, so it makes
-              you better inside your tier rather than promoting you out of it.`,
+            `**Attributes also feed back into skills.** Every skill has one governing attribute,
+              and every five points above 50 in it is worth a skill level, applied as a hidden
+              modifier: 70 Strength is +4 to every Strength skill, 100 is +10. **It works both
+              ways**: below 50 you lose a level per five points, so 30 is -4. The server adds it on
+              top of your trained level, so it **can carry a skill past the tier your memory points
+              bought**, up to 99. A skill you have not trained at all gets nothing.`,
+            `You start with **12 points to spend, and gain 3 more per Master Level**. Your race sets
+              where every attribute starts, and the bases differ between male and female bodies.
+              The [attribute planner](/skills#attributes) has every race's numbers and shows what
+              your build does to each skill in your plan before you commit at a temple.`,
           ],
         },
         {
@@ -155,8 +161,9 @@ export const progression: HandbookPage = {
           kind: "prose",
           paragraphs: [
             `**Reset is possible and it is not free.** The Reset button in the stats panel returns
-              every spent point to your pool and starts a cooldown before you may do it again, so it
-              is a change of direction rather than a per-evening respec. Reset in a temple like
+              every attribute to its racial base and refunds the whole bank, and the cooldown grows
+              with every reset in a rolling 30 days: 24 hours, then 3 days, then 7, then 30. It is a
+              change of direction rather than a per-evening respec. Reset in a temple like
               everything else. If your points ever look wrong, a reset recalculates them from
               scratch, which is what the 0.72.28 fix for miscounted points does.`,
             `The same panel is where your defensive numbers live: armour, damage, and resistance to

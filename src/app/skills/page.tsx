@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AttributePlanner } from "@/components/codex/AttributePlanner";
 import { CodexHeader } from "@/components/codex/CodexHeader";
 import { SkillList } from "@/components/codex/SkillList";
 import { SkillMenu } from "@/components/codex/SkillMenu";
@@ -14,7 +15,7 @@ export const metadata: Metadata = pageMeta({
   path: "/skills",
   title: "Skills",
   description:
-    "Every skill on the server with the in-game text for each of its tiers, and an 18 point planner that does the arithmetic before you spend anything.",
+    "Every skill on the server with the in-game text for each of its tiers, an 18 point planner, and an attribute planner with every race's base values and what each attribute does to your skills.",
 });
 
 export default function SkillsPage() {
@@ -25,7 +26,8 @@ export default function SkillsPage() {
         lede={`Tiers are **caps you buy once**, not levels you grind. Eighteen memory points, spent in
           the starting room or at any temple, decide the highest tier each skill can ever reach.
           Plan it here first: taking a point back in game burns the experience you earned in the
-          tier you drop out of.`}
+          tier you drop out of. Then set your **attributes**, because they add or take away skill
+          levels on top of the tier you bought.`}
         facts={[
           { label: "Skills", value: String(counts.skills) },
           { label: "Categories", value: String(counts.categories) },
@@ -69,6 +71,18 @@ export default function SkillsPage() {
               <SkillPlanner
                 skills={mereth.skills}
                 categories={mereth.categories}
+                tiers={buyableTiers}
+              />
+            ),
+          },
+          {
+            id: "attributes",
+            label: "Attributes",
+            hint: "Race, points and what they do to your skills",
+            content: (
+              <AttributePlanner
+                skills={mereth.skills}
+                attributes={mereth.attributes}
                 tiers={buyableTiers}
               />
             ),
